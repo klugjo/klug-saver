@@ -32,7 +32,8 @@ export default class Add extends React.Component {
         <Button
           style={styles.saveButton}
           title="Save"
-          icon={{name: 'save'}}
+          icon={{ name: 'save' }}
+          onPress={this.onSave}
         />
       </View>
     );
@@ -40,6 +41,11 @@ export default class Add extends React.Component {
 
   onAmountChange = (amount) => this.setState({ amount });
   onDescriptionChange = (description) => this.setState({ description });
+
+  onSave = () => {
+    const { amount, description } = this.state;
+    this.props.addExpense({ amount, description });
+  }
 }
 
 const styles = StyleSheet.create({
@@ -47,6 +53,6 @@ const styles = StyleSheet.create({
     flex: 1
   },
   saveButton: {
-    marginTop: 30 
+    marginTop: 30
   }
 });

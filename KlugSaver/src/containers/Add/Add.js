@@ -2,7 +2,13 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { FormLabel, FormInput, Button } from 'react-native-elements'
 
+import { PAGES } from '../../constants';
+
 export default class Add extends React.Component {
+  static navigationOptions = {
+    title: PAGES.ADD
+  };
+
   constructor(props) {
     super(props);
 
@@ -44,8 +50,15 @@ export default class Add extends React.Component {
 
   onSave = () => {
     const { amount, description } = this.state;
+
+    if (!amount) {
+      return;
+    }
+
     this.props.addExpense({ amount, description });
-  }
+
+    this.setState({amount: '', description: ''});
+  };
 }
 
 const styles = StyleSheet.create({

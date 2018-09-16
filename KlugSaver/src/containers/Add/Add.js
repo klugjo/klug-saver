@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Keyboard } from 'react-native';
 import { FormLabel, FormInput, Button } from 'react-native-elements'
 
 import { PAGES } from '../../constants';
@@ -58,6 +58,8 @@ export default class Add extends React.Component {
     this.props.addExpense({ amount, description });
 
     this.setState({amount: '', description: ''});
+
+    Keyboard.dismiss();
   };
 }
 

@@ -13,7 +13,7 @@ export default class List extends React.Component {
     return (
       <FlatList
         styles={styles.container}
-        data={expenses.map((e, i) => ({...e, key: i}))}
+        data={expenses.map((e, i) => ({...e, key: i + ''}))}
         renderItem={this.renderItem}
       />
     );
@@ -21,7 +21,7 @@ export default class List extends React.Component {
 
   renderItem = ({ item }) => (
     <View style={styles.item}>
-      <Text>{item.amount}</Text>
+      <Text style={styles.amount}>{`${item.amount}`}</Text>
       <Text>{item.description}</Text>
     </View>
   );
@@ -32,8 +32,14 @@ const styles = StyleSheet.create({
     flex: 1
   },
   item: {
+    flex: 1,
+    flexDirection: 'row',
     padding: 16,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc'
+  },
+  amount: {
+    fontWeight: 'bold',
+    width: 90
   }
 });

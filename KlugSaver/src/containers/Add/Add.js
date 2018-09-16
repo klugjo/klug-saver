@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Keyboard } from 'react-native';
 import { FormLabel, FormInput, Button } from 'react-native-elements'
 
+import VirtualKeyboard from './VirtualKeyboard';
 import { PAGES } from '../../constants';
 
 export default class Add extends React.Component {
@@ -41,76 +42,11 @@ export default class Add extends React.Component {
             onPress={this.onSave}
           />
         </View>
-        <View style={styles.keyboardRoot}>
-          <View style={styles.keyboardLine}>
-            <Button
-              style={styles.keyboardButton}
-              title="1"
-              onPress={this.addChar('1')}
-            />
-            <Button
-              style={styles.keyboardButton}
-              title="2"
-              onPress={this.addChar('2')}
-            />
-            <Button
-              style={styles.keyboardButton}
-              title="3"
-              onPress={this.addChar('3')}
-            />
-          </View>
-          <View style={styles.keyboardLine}>
-            <Button
-              style={styles.keyboardButton}
-              title="4"
-              onPress={this.addChar('4')}
-            />
-            <Button
-              style={styles.keyboardButton}
-              title="5"
-              onPress={this.addChar('5')}
-            />
-            <Button
-              style={styles.keyboardButton}
-              title="6"
-              onPress={this.addChar('6')}
-            />
-          </View>
-          <View style={styles.keyboardLine}>
-            <Button
-              style={styles.keyboardButton}
-              title="7"
-              onPress={this.addChar('7')}
-            />
-            <Button
-              style={styles.keyboardButton}
-              title="8"
-              onPress={this.addChar('8')}
-            />
-            <Button
-              style={styles.keyboardButton}
-              title="9"
-              onPress={this.addChar('9')}
-            />
-          </View>
-          <View style={styles.keyboardLine}>
-            <Button
-              style={styles.keyboardButton}
-              title="."
-              onPress={this.addDecimal}
-            />
-            <Button
-              style={styles.keyboardButton}
-              title="0"
-              onPress={this.addChar('0')}
-            />
-            <Button
-              style={styles.keyboardButton}
-              title="<"
-              onPress={this.deleteChar}
-            />
-          </View>
-        </View>
+        <VirtualKeyboard
+          addChar={this.addChar}
+          deleteChar={this.deleteChar}
+          addDecimal={this.addDecimal}
+        />
       </View>
     );
   }
@@ -127,7 +63,7 @@ export default class Add extends React.Component {
     const amount = this.state.amount.replace('.', '') + '.';
     this.setState({ amount });
   };
-  onAmountChange = (amount) => this.setState({ amount });
+  
   onDescriptionChange = (description) => this.setState({ description });
 
   onSave = () => {
@@ -151,22 +87,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   saveButton: {
-    marginTop: 30
-  },
-  keyboardRoot: {
-    flexDirection: 'column',
-    flex: 0.5,
-    justifyContent: 'center',
-    backgroundColor: '#7AC36A'
-  },
-  keyboardLine: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#F3D1B0'
-  },
-  keyboardButton: {
-    width: 100,
-    height: 80
+    marginTop: 30,
+    backgroundColor: `#003249`
   }
 });

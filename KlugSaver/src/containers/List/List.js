@@ -21,11 +21,9 @@ export default class List extends React.Component {
 
   renderItem = ({ item }) => (
     <View style={styles.item}>
-      <Text style={styles.textStyle}>
-        <Text style={styles.amount}>{`${item.amount}`}</Text>
-        <Text style={styles.description}>{item.description}</Text>
-        <Text style={styles.date}>{this.formatDate(item.date)}</Text>
-      </Text>
+      <Text style={styles.amount}>{`${item.amount}`}</Text>
+      <Text style={styles.description}>{item.description}</Text>
+      <Text style={styles.date}>{this.formatDate(item.date)}</Text>
     </View>
   );
 
@@ -50,17 +48,17 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#003249'
   },
-  textStyle: {
-    color: '#003249'
-  },
   amount: {
     fontWeight: 'bold',
-    width: 90
+    width: 90,
+    color: '#003249'
   },
   description: {
-    flexGrow: 1
+    flexGrow: 1,
+    color: '#003249'
   },
   date: {
-    width: 50
+    width: 50,
+    color: '#003249'
   }
 });

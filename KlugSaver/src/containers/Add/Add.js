@@ -24,19 +24,21 @@ export default class Add extends React.Component {
     return (
       <View style={styles.container}>
         <View>
-          <FormLabel>Amount</FormLabel>
+          <FormLabel labelStyle={styles.label}>Amount</FormLabel>
           <FormInput
+            inputStyle={styles.input}
             editable={false}
             value={amount}
           />
-          <FormLabel>Description</FormLabel>
+          <FormLabel labelStyle={styles.label}>Description</FormLabel>
           <FormInput
+            inputStyle={styles.input}
             editable={true}
             value={description}
             onChangeText={this.onDescriptionChange}
           />
           <Button
-            style={styles.saveButton}
+            buttonStyle={styles.saveButton}
             title="Save"
             icon={{ name: 'save' }}
             onPress={this.onSave}
@@ -63,7 +65,7 @@ export default class Add extends React.Component {
     const amount = this.state.amount.replace('.', '') + '.';
     this.setState({ amount });
   };
-  
+
   onDescriptionChange = (description) => this.setState({ description });
 
   onSave = () => {
@@ -86,8 +88,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between'
   },
+  label: {
+    color: '#003249'
+  },
+  input: {
+    color: '#003249'
+  },
   saveButton: {
     marginTop: 30,
-    backgroundColor: `#003249`
+    backgroundColor: '#003249'
   }
 });

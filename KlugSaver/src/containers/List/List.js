@@ -22,9 +22,18 @@ export default class List extends React.Component {
   renderItem = ({ item }) => (
     <View style={styles.item}>
       <Text style={styles.amount}>{`${item.amount}`}</Text>
-      <Text>{item.description}</Text>
+      <Text style={styles.description}>{item.description}</Text>
+      <Text style={styles.date}>{this.formatDate(item.date)}</Text>
     </View>
   );
+
+  formatDate = (date) => {
+    if (!date) return '';
+
+    const d = new Date(date);
+
+    return `${d.getDate()}-${d.getMonth()}`
+  };
 }
 
 const styles = StyleSheet.create({
@@ -41,5 +50,11 @@ const styles = StyleSheet.create({
   amount: {
     fontWeight: 'bold',
     width: 90
+  },
+  description: {
+    flexGrow: 1
+  },
+  date: {
+    width: 50
   }
 });

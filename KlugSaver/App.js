@@ -1,15 +1,13 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { createBottomTabNavigator } from 'react-navigation';
+import { PersistGate } from 'redux-persist/integration/react';
 
-import reducer from './src/reducer';
+import { store, persistor } from './src/configureStore';
 import Add from './src/containers/Add';
 import List from './src/containers/List';
 import { PAGES } from './src/constants';
-
-const store = createStore(reducer);
 
 const Tabs = createBottomTabNavigator({
   [PAGES.ADD]: {
@@ -24,9 +22,11 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={styles.container}>
-          <Tabs />
-        </View>
+        <PersistGate loading={null} persistor={persistor}>
+          <View style={styles.container}>
+            <Tabs />
+          </View>
+        </PersistGate>
       </Provider>
     );
   }

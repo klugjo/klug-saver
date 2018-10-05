@@ -1,6 +1,6 @@
-version: "2"
+version: '2'
 services:
-  boilerplate-api:
-    command: yarn start
-  environment:
-    - NODE_ENV=production
+  klugsaver-service:
+    command: node ./src/index.js
+    environment:
+      NODE_ENV: "production"

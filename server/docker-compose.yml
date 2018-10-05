@@ -1,9 +1,9 @@
 version: "2"
 services:
-  boilerplate-api:
+  klugsaver-service:
     build: .
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/express-rest-es2017-boilerplate
+      - MONGO_URI=mongodb://mongodb:27017/klugsaver
     volumes:
       - .:/app
     ports:

@@ -7,8 +7,11 @@ ENV NODE_ENV $NODE_ENV
 
 RUN mkdir /app
 WORKDIR /app
-ADD package.json yarn.lock /app/
-RUN yarn --pure-lockfile
+ADD package.json /app
+RUN pwd
+RUN npm i
 ADD . /app
+RUN pwd
+RUN ls -a
 
-CMD ["yarn", "docker:start"]
+CMD ["npm", "run", "docker:start"]

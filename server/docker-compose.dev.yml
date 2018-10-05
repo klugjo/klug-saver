@@ -1,6 +1,6 @@
 version: "2"
 services:
-  boilerplate-api:
+  klugsaver-service:
     command: yarn dev -- -L
-  environment:
-    - NODE_ENV=development
+    environment:
+      - NODE_ENV=development

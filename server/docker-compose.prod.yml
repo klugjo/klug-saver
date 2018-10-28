@@ -1,6 +1,0 @@
-version: '2'
-services:
-  klugsaver-service:
-    command: node ./src/index.js
-    environment:
-      NODE_ENV: "production"

@@ -75,7 +75,7 @@ export default class Add extends React.Component {
       return;
     }
 
-    this.props.addExpense({ amount, description, date: new Date() });
+    this.props.addExpense({ amount, description });
 
     this.setState({ amount: '', description: '' });
 

@@ -8,7 +8,7 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 module.exports.create = (event, context, callback) => {
   const timestamp = new Date().getTime();
   const data = JSON.parse(event.body);
-  const amount = parseInt(data.amount);
+  const amount = parseFloat(data.amount);
   if (isNaN(amount)) {
     console.error('Cannot parse the amount');
     callback(null, {

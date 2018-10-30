@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, FlatList, Text } from 'react-native';
+import { View, StyleSheet, FlatList, Text, Button } from 'react-native';
 
 import { PAGES } from '../../constants';
 
@@ -11,11 +11,19 @@ export default class List extends React.Component {
   render() {
     const { expenses } = this.props;
     return (
-      <FlatList
-        styles={styles.container}
-        data={expenses.map((e, i) => ({ ...e, key: i + '' }))}
-        renderItem={this.renderItem}
-      />
+      <View>
+        <Button
+          buttonStyle={styles.refreshButton}
+          title="Refresh"
+          icon={{ name: 'refresh' }}
+          onPress={this.onRefresh}
+        />
+        {expenses && expenses.length && expenses.map && <FlatList
+          styles={styles.container}
+          data={expenses.map((e, i) => ({ ...e, key: i + '' }))}
+          renderItem={this.renderItem}
+        />}
+      </View>
     );
   }
 
@@ -23,7 +31,7 @@ export default class List extends React.Component {
     <View style={styles.item}>
       <Text style={styles.amount}>{`${item.amount}`}</Text>
       <Text style={styles.description}>{item.description}</Text>
-      <Text style={styles.date}>{this.formatDate(item.date)}</Text>
+      <Text style={styles.date}>{this.formatDate(item.createdAt)}</Text>
     </View>
   );
 
@@ -34,6 +42,10 @@ export default class List extends React.Component {
 
     return `${d.getDate()}-${d.getMonth()}`;
   };
+
+  onRefresh = () => {
+    this.props.getExpenses();
+  }
 }
 
 const styles = StyleSheet.create({
@@ -60,5 +72,8 @@ const styles = StyleSheet.create({
   date: {
     width: 50,
     color: '#003249'
+  },
+  refreshButton: {
+    backgroundColor: '#003249'
   }
 });

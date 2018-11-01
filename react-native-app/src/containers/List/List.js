@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, FlatList, Text, Button } from 'react-native';
+import Swipeout from 'react-native-swipeout';
 
 import { PAGES } from '../../constants';
 
@@ -11,7 +12,7 @@ export default class List extends React.Component {
   render() {
     const { expenses } = this.props;
     return (
-      <View>
+      <View style={styles.root}>
         <Button
           buttonStyle={styles.refreshButton}
           title="Refresh"
@@ -27,13 +28,31 @@ export default class List extends React.Component {
     );
   }
 
-  renderItem = ({ item }) => (
-    <View style={styles.item}>
-      <Text style={styles.amount}>{`${item.amount}`}</Text>
-      <Text style={styles.description}>{item.description}</Text>
-      <Text style={styles.date}>{this.formatDate(item.createdAt)}</Text>
-    </View>
-  );
+  renderItem = ({ item }) => {
+    const {id} = item;
+    const swipeOutButtons = [
+      {
+        text: 'Delete',
+        backgroundColor: '#E90F09',
+        color: '#FFFFFF',
+        onPress: this.onDelete(id)
+      }
+    ];
+
+    return (
+      <Swipeout
+        right={swipeOutButtons}
+        backgroundColor="#F1F5F5"
+        autoClose={true}
+      >
+        <View style={styles.item}>
+          <Text style={styles.amount}>{`${item.amount}`}</Text>
+          <Text style={styles.description}>{item.description}</Text>
+          <Text style={styles.date}>{this.formatDate(item.createdAt)}</Text>
+        </View>
+      </Swipeout>
+    );
+  };
 
   formatDate = (date) => {
     if (!date) return '';
@@ -46,12 +65,19 @@ export default class List extends React.Component {
   onRefresh = () => {
     this.props.getExpenses();
   }
+
+  onDelete = (id) => () => {
+    this.props.removeExpense(id);
+  }
 }
 
 const styles = StyleSheet.create({
+  root: {
+    paddingBottom: 40
+  },
   container: {
     flex: 1,
-    backgroundColor: '#D1EAEB'
+    backgroundColor: '#D1EAEB',
   },
   item: {
     flex: 1,

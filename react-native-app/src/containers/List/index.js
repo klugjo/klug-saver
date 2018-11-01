@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import List from './List';
-import { getExpenseList } from '../../actions';
+import { getExpenseList, deleteExpense } from '../../actions';
 
 const mapStateToProps = state => {
   return {
@@ -11,7 +11,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getExpenses: () => dispatch(getExpenseList())
+  getExpenses: () => dispatch(getExpenseList()),
+  removeExpense: (id) => dispatch(deleteExpense(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

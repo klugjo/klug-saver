@@ -1,4 +1,4 @@
-import { postExpense, getExpenses } from './api';
+import { postExpense, getExpenses, removeExpense } from './api';
 
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 
@@ -22,6 +22,21 @@ export const getExpenseList = () => {
         type: GET_EXPENSE_LIST,
         payload: response.data
       })
-    })
+    });
   }
-} 
+}
+
+export const deleteExpense = (id) => {
+  return dispatch => {
+    removeExpense(id).then(
+      () => {
+        getExpenses().then(response => {
+          dispatch({
+            type: GET_EXPENSE_LIST,
+            payload: response.data
+          })
+        });
+      }
+    );
+  };
+}

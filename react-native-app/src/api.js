@@ -10,3 +10,8 @@ export const getExpenses = () => axios({
   method: 'get',
   url: 'https://zue5intaae.execute-api.ap-southeast-1.amazonaws.com/prod/expense'
 });
+
+export const removeExpense = (id) => axios({
+  method: 'delete',
+  url: `https://zue5intaae.execute-api.ap-southeast-1.amazonaws.com/prod/expense/${id}`
+});

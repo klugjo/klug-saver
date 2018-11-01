@@ -3,11 +3,20 @@ import { View, StyleSheet, FlatList, Text, Button } from 'react-native';
 import Swipeout from 'react-native-swipeout';
 
 import { PAGES } from '../../constants';
+import { DeleteModal } from './DeleteModal';
 
 export default class List extends React.Component {
   static navigationOptions = {
     title: PAGES.LIST
   };
+
+  state = {
+    itemToDelete: null,
+  };
+
+  setItemToDelete = (item) => {
+    this.setState({ itemToDelete: item });
+  }
 
   render() {
     const { expenses } = this.props;
@@ -24,18 +33,23 @@ export default class List extends React.Component {
           data={expenses.map((e, i) => ({ ...e, key: i + '' }))}
           renderItem={this.renderItem}
         />}
+        <DeleteModal
+          item={this.state.itemToDelete}
+          onCancel={this.closeDeletePopup}
+          onOK={this.onDelete}
+        />
       </View>
     );
   }
 
   renderItem = ({ item }) => {
-    const {id} = item;
+    const { id } = item;
     const swipeOutButtons = [
       {
         text: 'Delete',
         backgroundColor: '#E90F09',
         color: '#FFFFFF',
-        onPress: this.onDelete(id)
+        onPress: this.onOpenDeletePopup(item)
       }
     ];
 
@@ -66,8 +80,17 @@ export default class List extends React.Component {
     this.props.getExpenses();
   }
 
-  onDelete = (id) => () => {
-    this.props.removeExpense(id);
+  onOpenDeletePopup = (item) => () => {
+    this.setItemToDelete(item);
+  }
+
+  onDelete = () => {
+    this.props.removeExpense(this.state.itemToDelete.id);
+    this.closeDeletePopup();
+  }
+
+  closeDeletePopup = () => {
+    this.setItemToDelete(null);
   }
 }
 

@@ -1,9 +1,11 @@
 import React from 'react';
+import numeral from 'numeral';
 import { View, StyleSheet, Keyboard } from 'react-native';
-import { FormLabel, FormInput, Button } from 'react-native-elements'
+import { FormInput, Button } from 'react-native-elements'
 
 import VirtualKeyboard from './VirtualKeyboard';
 import { PAGES } from '../../constants';
+import Categories from '../Categories';
 
 export default class Add extends React.Component {
   static navigationOptions = {
@@ -23,20 +25,24 @@ export default class Add extends React.Component {
     const { amount, description } = this.state;
     return (
       <View style={styles.container}>
-        <View>
-          <FormLabel labelStyle={styles.label}>Amount</FormLabel>
+        <View style={{flex: 0.25}}>
+          <Categories />
+        </View>
+        <View style={{flex: 0.3, flexDirection: 'column', justifyContent: 'center'}}>
           <FormInput
             inputStyle={styles.input}
             editable={false}
-            value={amount}
+            value={numeral(amount || 0).format('0,0.00')}
           />
-          <FormLabel labelStyle={styles.label}>Description</FormLabel>
-          <FormInput
-            inputStyle={styles.input}
-            editable={true}
-            value={description}
-            onChangeText={this.onDescriptionChange}
+        </View>
+        <View style={{flex: 0.35}}>
+          <VirtualKeyboard
+            addChar={this.addChar}
+            deleteChar={this.deleteChar}
+            addDecimal={this.addDecimal}
           />
+        </View>
+        <View style={{flex: 0.1}}>
           <Button
             buttonStyle={styles.saveButton}
             title="Save"
@@ -44,11 +50,6 @@ export default class Add extends React.Component {
             onPress={this.onSave}
           />
         </View>
-        <VirtualKeyboard
-          addChar={this.addChar}
-          deleteChar={this.deleteChar}
-          addDecimal={this.addDecimal}
-        />
       </View>
     );
   }
@@ -86,16 +87,18 @@ export default class Add extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     justifyContent: 'space-between'
   },
   label: {
     color: '#003249'
   },
   input: {
-    color: '#003249'
+    color: '#003249',
+    fontSize: 60
   },
   saveButton: {
-    marginTop: 30,
+    marginTop: 10,
     backgroundColor: '#003249'
   }
 });

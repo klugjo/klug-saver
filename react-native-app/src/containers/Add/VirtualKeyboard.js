@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button } from 'react-native-elements'
+import { Button } from 'react-native-elements';
 
 const VirtualKeyboard = ({
   addChar,
@@ -94,7 +94,7 @@ const VirtualKeyboard = ({
 const styles = StyleSheet.create({
   keyboardRoot: {
     flexDirection: 'column',
-    flex: 0.6
+    flex: 1
   },
   keyboardLine: {
     flex: 1,

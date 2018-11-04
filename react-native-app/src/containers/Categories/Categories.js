@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import { Button } from 'react-native-elements';
+import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
 
 const categories = {
   col1: [
@@ -15,16 +14,18 @@ const categories = {
     { title: 'Health' },
     { title: 'Misc' }
   ]
-}
+};
 
 export default class MainCategoriesPicker extends React.Component {
 
   renderButton = (cat) => {
+    const { onPickCategory, selectedCategory } = this.props;
+
     return (
-      <View
+      <TouchableHighlight
+        onPress={() => onPickCategory(cat.title)}
         key={cat.title}
         style={{
-          backgroundColor: '#003249',
           height: 50,
           flex: 0.23,
           justifyContent: 'center',
@@ -32,16 +33,19 @@ export default class MainCategoriesPicker extends React.Component {
           flexDirection: 'row'
         }}
       >
-        <Text style={{color: '#D1EAEB'}}>{cat.title}</Text>
-      </View>
-      // <Button
-      //   key={cat.title}
-      //   color="#D1EAEB"
-      //   buttonStyle={styles.categoriesButton}
-      //   containerViewStyle={{flex: 1, margin: 0}}
-      //   title={cat.title}
-      //   onPress={() => console.log(cat.title)}
-      // />
+        <View
+          style={{
+            backgroundColor: selectedCategory === cat.title ? 'orange' : '#003249',
+            flex: 1,
+            height: 50,
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row'
+          }}
+        >
+          <Text style={{ color: '#D1EAEB' }}>{cat.title}</Text>
+        </View>
+      </TouchableHighlight>
     );
   }
 

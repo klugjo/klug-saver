@@ -26,7 +26,10 @@ export default class Add extends React.Component {
     return (
       <View style={styles.container}>
         <View style={{flex: 0.25}}>
-          <Categories />
+          <Categories
+            onPickCategory={this.onDescriptionChange}
+            selectedCategory={description}
+          />
         </View>
         <View style={{flex: 0.3, flexDirection: 'column', justifyContent: 'center'}}>
           <FormInput
@@ -67,7 +70,10 @@ export default class Add extends React.Component {
     this.setState({ amount });
   };
 
-  onDescriptionChange = (description) => this.setState({ description });
+  onDescriptionChange = (description) => {
+    console.log(description);
+    this.setState({ description });
+  }
 
   onSave = () => {
     const { amount, description } = this.state;

@@ -1,20 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
 
-const categories = {
-  col1: [
-    { title: 'Dining' },
-    { title: 'Transport' },
-    { title: 'Shopping' },
-    { title: 'Fun' }
-  ],
-  col2: [
-    { title: 'Travel' },
-    { title: 'Bills' },
-    { title: 'Health' },
-    { title: 'Misc' }
-  ]
-};
+import { categories } from './constants';
+import { SubCategoryModal } from './SubCategoryModal';
 
 export default class MainCategoriesPicker extends React.Component {
 
@@ -23,7 +11,7 @@ export default class MainCategoriesPicker extends React.Component {
 
     return (
       <TouchableHighlight
-        onPress={() => onPickCategory(cat.title)}
+        onPress={() => onPickCategory(cat)}
         key={cat.title}
         style={{
           height: 50,
@@ -35,7 +23,7 @@ export default class MainCategoriesPicker extends React.Component {
       >
         <View
           style={{
-            backgroundColor: selectedCategory === cat.title ? 'orange' : '#003249',
+            backgroundColor: selectedCategory && selectedCategory.title === cat.title ? 'orange' : '#003249',
             flex: 1,
             height: 50,
             justifyContent: 'center',
@@ -50,6 +38,8 @@ export default class MainCategoriesPicker extends React.Component {
   }
 
   render() {
+    const { selectedSubCategory, selectedCategory, onPickSubCategory } = this.props;
+
     return (
       <View style={styles.categoriesRoot}>
         <View style={styles.categoriesLine}>
@@ -58,6 +48,11 @@ export default class MainCategoriesPicker extends React.Component {
         <View style={styles.categoriesLine}>
           {categories.col2.map(this.renderButton)}
         </View>
+        <SubCategoryModal
+          items={selectedCategory && selectedCategory.subCategories}
+          open={selectedCategory && !selectedSubCategory}
+          onPickSubCategory={onPickSubCategory}
+        />
       </View>
     )
   }
@@ -79,4 +74,3 @@ const styles = StyleSheet.create({
     backgroundColor: `#003249`
   }
 });
-

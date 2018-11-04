@@ -1,6 +1,6 @@
 import React from 'react';
 import numeral from 'numeral';
-import { View, StyleSheet, Keyboard } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { FormInput, Button } from 'react-native-elements'
 
 import VirtualKeyboard from './VirtualKeyboard';
@@ -17,18 +17,22 @@ export default class Add extends React.Component {
 
     this.state = {
       amount: '',
-      description: ''
+      selectedCategory: '',
+      selectedSubCategory: ''
     };
   }
 
   render() {
-    const { amount, description } = this.state;
+    const { amount, selectedCategory, selectedSubCategory } = this.state;
+
     return (
       <View style={styles.container}>
         <View style={{flex: 0.25}}>
           <Categories
-            onPickCategory={this.onDescriptionChange}
-            selectedCategory={description}
+            onPickCategory={this.onSelectedCategoryChange}
+            onPickSubCategory={this.onSelectedSubCategoryChange}
+            selectedCategory={selectedCategory}
+            selectedSubCategory={selectedSubCategory}
           />
         </View>
         <View style={{flex: 0.3, flexDirection: 'column', justifyContent: 'center'}}>
@@ -70,23 +74,26 @@ export default class Add extends React.Component {
     this.setState({ amount });
   };
 
-  onDescriptionChange = (description) => {
-    console.log(description);
-    this.setState({ description });
+  onSelectedCategoryChange = (selectedCategory) => {
+    this.setState({ selectedCategory });
+  }
+
+  onSelectedSubCategoryChange = (selectedSubCategory) => {
+    this.setState({ selectedSubCategory });
   }
 
   onSave = () => {
-    const { amount, description } = this.state;
+    const { amount, selectedCategory, selectedSubCategory } = this.state;
 
     if (!amount) {
       return;
     }
 
-    this.props.addExpense({ amount, description });
+    console.log(selectedCategory.title);
 
-    this.setState({ amount: '', description: '' });
+    this.props.addExpense({ amount, description: `${selectedCategory.title} - ${selectedSubCategory}` });
 
-    Keyboard.dismiss();
+    this.setState({ amount: '', selectedCategory: null, selectedSubCategory: '' });
   };
 }
 

@@ -74,8 +74,9 @@ export default class Add extends React.Component {
     this.setState({ amount });
   };
 
-  onSelectedCategoryChange = (selectedCategory) => {
-    this.setState({ selectedCategory });
+  onSelectedCategoryChange = (newCategory) => {
+    const selectedCategory = newCategory === this.state.selectedCategory ? null : newCategory;
+    this.setState({ selectedCategory, selectedSubCategory: '' });
   }
 
   onSelectedSubCategoryChange = (selectedSubCategory) => {

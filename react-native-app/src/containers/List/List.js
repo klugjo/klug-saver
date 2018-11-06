@@ -43,7 +43,6 @@ export default class List extends React.Component {
   }
 
   renderItem = ({ item }) => {
-    const { id } = item;
     const swipeOutButtons = [
       {
         text: 'Delete',

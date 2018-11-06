@@ -42,6 +42,7 @@ export const categories = {
       subCategories: [
         'Transport',
         'Food',
+        'Accommodation',
         'Activities',
         'Shopping',
         'Other'
@@ -69,8 +70,11 @@ export const categories = {
       title: 'Misc',
       subCategories: [
         'Gifts',
-        'Dog'
+        'Dog',
+        'Misc'
       ]
     }
   ]
 };
+
+export const categoryList = [...categories.col1, ...categories.col2];

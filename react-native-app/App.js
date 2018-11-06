@@ -6,9 +6,10 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Icon } from 'react-native-elements'
 
 import { store, persistor } from './src/configureStore';
+import { PAGES } from './src/constants';
 import Add from './src/containers/Add';
 import List from './src/containers/List';
-import { PAGES } from './src/constants';
+import Summary from './src/containers/Summary';
 
 const Tabs = createBottomTabNavigator({
   [PAGES.ADD]: {
@@ -16,6 +17,9 @@ const Tabs = createBottomTabNavigator({
   },
   [PAGES.LIST]: {
     screen: List
+  },
+  [PAGES.SUMMARY]: {
+    screen: Summary
   }
 },{
   navigationOptions: ({ navigation }) => ({
@@ -26,6 +30,8 @@ const Tabs = createBottomTabNavigator({
         iconName = 'add-circle-outline';
       } else if (routeName === PAGES.LIST) {
         iconName = 'list';
+      } else if (routeName === PAGES.SUMMARY) {
+        iconName = 'assessment';
       }
       return <Icon name={iconName} size={25} color={tintColor} />;
     },

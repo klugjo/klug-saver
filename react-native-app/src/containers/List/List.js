@@ -1,7 +1,9 @@
 import React from 'react';
+import numeral from 'numeral';
 import { View, StyleSheet, FlatList, Text, Button } from 'react-native';
 import Swipeout from 'react-native-swipeout';
 
+import { toddMMM } from '../../util';
 import { PAGES } from '../../constants';
 import { DeleteModal } from './DeleteModal';
 
@@ -59,20 +61,12 @@ export default class List extends React.Component {
         autoClose={true}
       >
         <View style={styles.item}>
-          <Text style={styles.amount}>{`${item.amount}`}</Text>
+          <Text style={styles.date}>{toddMMM(item.createdAt)}</Text>
           <Text style={styles.description}>{item.description}</Text>
-          <Text style={styles.date}>{this.formatDate(item.createdAt)}</Text>
+          <Text style={styles.amount}>{numeral(item.amount || 0).format('0,0.00')}</Text>
         </View>
       </Swipeout>
     );
-  };
-
-  formatDate = (date) => {
-    if (!date) return '';
-
-    const d = new Date(date);
-
-    return `${d.getDate()}-${d.getMonth()}`;
   };
 
   onRefresh = () => {
@@ -110,15 +104,16 @@ const styles = StyleSheet.create({
   },
   amount: {
     fontWeight: 'bold',
-    width: 90,
-    color: '#003249'
+    width: 60,
+    color: '#003249',
+    textAlign: 'right'
   },
   description: {
     flexGrow: 1,
     color: '#003249'
   },
   date: {
-    width: 50,
+    width: 90,
     color: '#003249'
   },
   refreshButton: {

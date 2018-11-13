@@ -2,6 +2,15 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
 
+const renderButton = (digit, onPress) => (
+  <Button
+    color="#D1EAEB"
+    buttonStyle={styles.keyboardButton}
+    title={digit}
+    onPress={onPress}
+  />
+);
+
 const VirtualKeyboard = ({
   addChar,
   deleteChar,
@@ -9,84 +18,24 @@ const VirtualKeyboard = ({
 }) => (
     <View style={styles.keyboardRoot}>
       <View style={styles.keyboardLine}>
-        <Button
-          color="#D1EAEB"
-          buttonStyle={styles.keyboardButton}
-          title="1"
-          onPress={addChar('1')}
-        />
-        <Button
-          color="#D1EAEB"
-          buttonStyle={styles.keyboardButton}
-          title="2"
-          onPress={addChar('2')}
-        />
-        <Button
-          color="#D1EAEB"
-          buttonStyle={styles.keyboardButton}
-          title="3"
-          onPress={addChar('3')}
-        />
+        {renderButton('1', addChar('1'))}
+        {renderButton('2', addChar('2'))}
+        {renderButton('3', addChar('3'))}
       </View>
       <View style={styles.keyboardLine}>
-        <Button
-          color="#D1EAEB"
-          buttonStyle={styles.keyboardButton}
-          title="4"
-          onPress={addChar('4')}
-        />
-        <Button
-          color="#D1EAEB"
-          buttonStyle={styles.keyboardButton}
-          title="5"
-          onPress={addChar('5')}
-        />
-        <Button
-          color="#D1EAEB"
-          buttonStyle={styles.keyboardButton}
-          title="6"
-          onPress={addChar('6')}
-        />
+        {renderButton('4', addChar('4'))}
+        {renderButton('5', addChar('5'))}
+        {renderButton('6', addChar('6'))}
       </View>
       <View style={styles.keyboardLine}>
-        <Button
-          color="#D1EAEB"
-          buttonStyle={styles.keyboardButton}
-          title="7"
-          onPress={addChar('7')}
-        />
-        <Button
-          color="#D1EAEB"
-          buttonStyle={styles.keyboardButton}
-          title="8"
-          onPress={addChar('8')}
-        />
-        <Button
-          color="#D1EAEB"
-          buttonStyle={styles.keyboardButton}
-          title="9"
-          onPress={addChar('9')}
-        />
+        {renderButton('7', addChar('7'))}
+        {renderButton('8', addChar('8'))}
+        {renderButton('9', addChar('9'))}
       </View>
       <View style={styles.keyboardLine}>
-        <Button
-          color="#D1EAEB"
-          buttonStyle={styles.keyboardButton}
-          title="."
-          onPress={addDecimal}
-        />
-        <Button
-          color="#D1EAEB"
-          buttonStyle={styles.keyboardButton}
-          title="0"
-          onPress={addChar('0')}
-        />
-        <Button
-          color="#D1EAEB"
-          buttonStyle={styles.keyboardButton}
-          title="<"
-          onPress={deleteChar}
-        />
+        {renderButton('.', addDecimal)}
+        {renderButton('0', addChar('0'))}
+        {renderButton('<', deleteChar)}
       </View>
     </View>
   );

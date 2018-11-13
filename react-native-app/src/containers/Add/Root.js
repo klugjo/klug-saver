@@ -27,7 +27,7 @@ export default class Add extends React.Component {
 
     return (
       <View style={styles.container}>
-        <View style={{flex: 0.25}}>
+        <View style={styles.categories}>
           <Categories
             onPickCategory={this.onSelectedCategoryChange}
             onPickSubCategory={this.onSelectedSubCategoryChange}
@@ -35,21 +35,21 @@ export default class Add extends React.Component {
             selectedSubCategory={selectedSubCategory}
           />
         </View>
-        <View style={{flex: 0.3, flexDirection: 'column', justifyContent: 'center'}}>
+        <View style={styles.amountInput}>
           <FormInput
             inputStyle={styles.input}
             editable={false}
             value={numeral(amount || 0).format('0,0.00')}
           />
         </View>
-        <View style={{flex: 0.35}}>
+        <View style={styles.keyboard}>
           <VirtualKeyboard
             addChar={this.addChar}
             deleteChar={this.deleteChar}
             addDecimal={this.addDecimal}
           />
         </View>
-        <View style={{flex: 0.1}}>
+        <View style={styles.saveButton}>
           <Button
             buttonStyle={styles.saveButton}
             title="Save"
@@ -65,10 +65,12 @@ export default class Add extends React.Component {
     const amount = this.state.amount + character;
     this.setState({ amount });
   };
+
   deleteChar = () => {
     const amount = this.state.amount.slice(0, -1);
     this.setState({ amount });
   };
+
   addDecimal = () => {
     const amount = this.state.amount.replace('.', '') + '.';
     this.setState({ amount });
@@ -77,32 +79,50 @@ export default class Add extends React.Component {
   onSelectedCategoryChange = (newCategory) => {
     const selectedCategory = newCategory === this.state.selectedCategory ? null : newCategory;
     this.setState({ selectedCategory, selectedSubCategory: '' });
-  }
+  };
 
   onSelectedSubCategoryChange = (selectedSubCategory) => {
     this.setState({ selectedSubCategory });
-  }
+  };
 
   onSave = () => {
     const { amount, selectedCategory, selectedSubCategory } = this.state;
 
     if (!amount) {
+      alert('Enter an amount');
       return;
     }
 
-    console.log(selectedCategory.title);
+    if (!selectedCategory || !selectedCategory.title || !selectedSubCategory) {
+      alert('Enter a category before saving');
+      return;
+    }
 
     this.props.addExpense({ amount, description: `${selectedCategory.title} - ${selectedSubCategory}` });
 
     this.setState({ amount: '', selectedCategory: null, selectedSubCategory: '' });
   };
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between'
+  },
+  categories: {
+    flex: 0.25
+  },
+  amountInput: {
+    flex: 0.3,
+    flexDirection: 'column',
+    justifyContent: 'center'
+  },
+  keyboard: {
+    flex: 0.35
+  },
+  saveButton: {
+    flex: 0.1
   },
   label: {
     color: '#003249'

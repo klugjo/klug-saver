@@ -7,13 +7,13 @@ import { Icon } from 'react-native-elements'
 
 import { store, persistor } from './src/configureStore';
 import { PAGES } from './src/constants';
-import Add from './src/containers/Add';
+import Root from './src/containers/Add';
 import List from './src/containers/List';
 import Summary from './src/containers/Summary';
 
 const Tabs = createBottomTabNavigator({
   [PAGES.ADD]: {
-    screen: Add
+    screen: Root
   },
   [PAGES.LIST]: {
     screen: List

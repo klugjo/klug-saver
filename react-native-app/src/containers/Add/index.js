@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Add from './Add';
+import Root from './Root';
 import { addExpense } from '../../actions';
 
 const mapStateToProps = state => {
@@ -14,4 +14,4 @@ const mapDispatchToProps = (dispatch) => ({
   addExpense: (payload) => dispatch(addExpense(payload))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Add);
+export default connect(mapStateToProps, mapDispatchToProps)(Root);

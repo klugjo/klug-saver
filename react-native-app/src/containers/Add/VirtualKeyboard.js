@@ -4,10 +4,11 @@ import { Button } from 'react-native-elements';
 
 const renderButton = (digit, onPress) => (
   <Button
-    color="#D1EAEB"
+    color="#000"
     buttonStyle={styles.keyboardButton}
     title={digit}
     onPress={onPress}
+    fontFamily="lato-thin"
   />
 );
 
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
   },
   keyboardButton: {
     width: 100,
-    backgroundColor: `#003249`,
+    backgroundColor: `#F1F5F5`
   }
 });
 

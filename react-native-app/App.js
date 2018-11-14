@@ -1,4 +1,5 @@
 import React from 'react';
+import { Font } from 'expo';
 import { StyleSheet, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { createBottomTabNavigator } from 'react-navigation';
@@ -21,29 +22,45 @@ const Tabs = createBottomTabNavigator({
   [PAGES.SUMMARY]: {
     screen: Summary
   }
-},{
-  navigationOptions: ({ navigation }) => ({
-    tabBarIcon: ({ tintColor }) => {
-      const { routeName } = navigation.state;
-      let iconName;
-      if (routeName === PAGES.ADD) {
-        iconName = 'add-circle-outline';
-      } else if (routeName === PAGES.LIST) {
-        iconName = 'list';
-      } else if (routeName === PAGES.SUMMARY) {
-        iconName = 'assessment';
-      }
-      return <Icon name={iconName} size={25} color={tintColor} />;
+}, {
+    navigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ tintColor }) => {
+        const { routeName } = navigation.state;
+        let iconName;
+        if (routeName === PAGES.ADD) {
+          iconName = 'add-circle-outline';
+        } else if (routeName === PAGES.LIST) {
+          iconName = 'list';
+        } else if (routeName === PAGES.SUMMARY) {
+          iconName = 'assessment';
+        }
+        return <Icon name={iconName} size={25} color={tintColor} />;
+      },
+    }),
+    tabBarOptions: {
+      activeTintColor: 'tomato',
+      inactiveTintColor: 'gray',
     },
-  }),
-  tabBarOptions: {
-    activeTintColor: 'tomato',
-    inactiveTintColor: 'gray',
-  },
-});
+  });
 
 export default class App extends React.Component {
+  state = {
+    fontsLoaded: false,
+  };
+
+  async componentDidMount() {
+    await Font.loadAsync({
+      'lato-thin': require('./assets/fonts/Lato-Light.ttf')
+    });
+
+    this.setState({ fontsLoaded: true });
+  }
+
   render() {
+    if (!this.state.fontsLoaded) {
+      return null;
+    }
+
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>

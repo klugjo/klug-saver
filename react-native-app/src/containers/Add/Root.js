@@ -1,6 +1,6 @@
 import React from 'react';
 import numeral from 'numeral';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { FormInput, Button } from 'react-native-elements'
 
 import VirtualKeyboard from './VirtualKeyboard';
@@ -35,12 +35,17 @@ export default class Add extends React.Component {
             selectedSubCategory={selectedSubCategory}
           />
         </View>
-        <View style={styles.amountInput}>
-          <FormInput
-            inputStyle={styles.input}
-            editable={false}
-            value={numeral(amount || 0).format('0,0.00')}
-          />
+        <View style={styles.amountRoot}>
+          <View style={styles.amountContainer}>
+            <Text style={styles.currency}>SGD</Text>
+            <View style={styles.amountInput}>
+              <FormInput
+                inputStyle={styles.input}
+                editable={false}
+                value={numeral(amount || 0).format('0,0.00')}
+              />
+            </View>
+          </View>
         </View>
         <View style={styles.keyboard}>
           <VirtualKeyboard
@@ -114,8 +119,23 @@ const styles = StyleSheet.create({
   categories: {
     flex: 0.25
   },
-  amountInput: {
+  amountRoot: {
     flex: 0.3,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  amountContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    padding: 10
+  },
+  currency: {
+    fontFamily: 'lato-thin',
+    fontSize: 20,
+    marginTop: 10,
+    color: '#999'
+  },
+  amountInput: {
     flexDirection: 'column',
     justifyContent: 'center'
   },

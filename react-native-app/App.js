@@ -1,6 +1,6 @@
 import React from 'react';
 import { Font } from 'expo';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import { createBottomTabNavigator } from 'react-navigation';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -39,7 +39,7 @@ const Tabs = createBottomTabNavigator({
     }),
     tabBarOptions: {
       activeTintColor: 'tomato',
-      inactiveTintColor: 'gray',
+      inactiveTintColor: 'gray'
     },
   });
 
@@ -66,6 +66,9 @@ export default class App extends React.Component {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <View style={styles.container}>
+            <StatusBar
+              hidden={true}
+            />
             <Tabs />
           </View>
         </PersistGate>
@@ -77,7 +80,6 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F1F5F5',
-    marginTop: 50
+    backgroundColor: '#F1F5F5'
   }
 });

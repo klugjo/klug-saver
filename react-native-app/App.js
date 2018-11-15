@@ -50,7 +50,8 @@ export default class App extends React.Component {
 
   async componentDidMount() {
     await Font.loadAsync({
-      'lato-thin': require('./assets/fonts/Lato-Light.ttf')
+      'lato-thin': require('./assets/fonts/Lato-Light.ttf'),
+      'lato-regular': require('./assets/fonts/Lato-Regular.ttf')
     });
 
     this.setState({ fontsLoaded: true });

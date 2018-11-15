@@ -8,6 +8,7 @@ export default class MainCategoriesPicker extends React.Component {
 
   renderButton = (cat) => {
     const { onPickCategory, selectedCategory } = this.props;
+    const isSelected = selectedCategory && selectedCategory.title === cat.title;
 
     return (
       <TouchableHighlight
@@ -23,15 +24,18 @@ export default class MainCategoriesPicker extends React.Component {
       >
         <View
           style={{
-            backgroundColor: selectedCategory && selectedCategory.title === cat.title ? 'orange' : '#003249',
+            backgroundColor: isSelected ? '#FFF' : cat.color,
             flex: 1,
             height: 50,
             justifyContent: 'center',
             alignItems: 'center',
-            flexDirection: 'row'
+            flexDirection: 'row',
+            borderRadius: 10,
+            borderColor: '#000',
+            borderWidth: isSelected ? 1 : 0
           }}
         >
-          <Text style={{ color: '#D1EAEB' }}>{cat.title}</Text>
+          <Text style={{ color: isSelected ? '#000' : '#FFF', fontFamily: 'lato-regular' }}>{cat.title}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -69,8 +73,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center'
-  },
-  categoriesButton: {
-    backgroundColor: `#003249`
   }
 });

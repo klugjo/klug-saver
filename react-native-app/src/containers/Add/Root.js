@@ -52,9 +52,10 @@ export default class Add extends React.Component {
         <View style={styles.saveButton}>
           <Button
             buttonStyle={styles.saveButton}
-            title="Save"
-            icon={{ name: 'save' }}
+            title="SAVE"
             onPress={this.onSave}
+            fontFamily="lato-thin"
+            color="#000"
           />
         </View>
       </View>
@@ -132,7 +133,6 @@ const styles = StyleSheet.create({
     fontSize: 60
   },
   saveButton: {
-    marginTop: 10,
-    backgroundColor: '#003249'
+    backgroundColor: '#F1F5F5'
   }
 });

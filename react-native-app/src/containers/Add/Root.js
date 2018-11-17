@@ -104,7 +104,11 @@ export default class Add extends React.Component {
       return;
     }
 
-    this.props.addExpense({ amount, description: `${selectedCategory.title} - ${selectedSubCategory}` });
+    this.props.addExpense({
+      amount,
+      category: selectedCategory.title,
+      subCategory: selectedSubCategory
+    });
 
     this.setState({ amount: '', selectedCategory: null, selectedSubCategory: '' });
   };

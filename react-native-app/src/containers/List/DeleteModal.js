@@ -18,7 +18,7 @@ export const DeleteModal = ({ item, onCancel, onOK }) => {
           <Text style={styles.messageText}>{`
 Are you sure you want to delete that item ?
 
-${item.description} - ${item.amount}
+${item.category} - ${item.subCategory} - ${item.amount}
           `}</Text>
         </View>
 

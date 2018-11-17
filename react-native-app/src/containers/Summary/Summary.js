@@ -16,7 +16,7 @@ export default class Summary extends React.Component {
       ({
         title,
         sum: expensesInCurrentMonth
-            .filter(e => e.description.startsWith(title))
+            .filter(e => e.category.startsWith(title))
             .reduce((acc, curr) => acc + curr.amount, 0)
       })
     );

@@ -62,7 +62,7 @@ export default class List extends React.Component {
       >
         <View style={styles.item}>
           <Text style={styles.date}>{toddMMM(item.createdAt)}</Text>
-          <Text style={styles.description}>{item.description}</Text>
+          <Text style={styles.description}>{item.category} {item.subCategory}</Text>
           <Text style={styles.amount}>{numeral(item.amount || 0).format('0,0.00')}</Text>
         </View>
       </Swipeout>

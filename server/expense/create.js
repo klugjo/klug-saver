@@ -24,7 +24,8 @@ module.exports.create = (event, context, callback) => {
     Item: {
       id: uuid.v1(),
       amount: amount,
-      description: data.description || 'None',
+      category: data.category,
+      subCategory: data.subCategory,
       createdAt: timestamp,
       updatedAt: timestamp,
     },

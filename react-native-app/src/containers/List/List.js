@@ -6,6 +6,7 @@ import Swipeout from 'react-native-swipeout';
 import { toddMMM } from '../../util';
 import { PAGES } from '../../constants';
 import { DeleteModal } from './DeleteModal';
+import { categoryMap } from '../Categories/constants';
 
 export default class List extends React.Component {
   static navigationOptions = {
@@ -54,6 +55,8 @@ export default class List extends React.Component {
       }
     ];
 
+    const bgColor = categoryMap[item.category] ? categoryMap[item.category].color : 'transparent';
+
     return (
       <Swipeout
         right={swipeOutButtons}
@@ -61,6 +64,7 @@ export default class List extends React.Component {
         autoClose={true}
       >
         <View style={styles.item}>
+          <View style={[styles.rowColor, { backgroundColor: bgColor }]} />
           <Text style={styles.date}>{toddMMM(item.createdAt)}</Text>
           <Text style={styles.description}>{item.category} {item.subCategory}</Text>
           <Text style={styles.amount}>{numeral(item.amount || 0).format('0,0.00')}</Text>
@@ -98,23 +102,29 @@ const styles = StyleSheet.create({
   item: {
     flex: 1,
     flexDirection: 'row',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#003249'
+    paddingVertical: 8,
+    paddingRight: 16
+  },
+  rowColor: {
+    width: 8,
+    marginRight: 10
   },
   amount: {
     fontWeight: 'bold',
     width: 60,
     color: '#003249',
-    textAlign: 'right'
+    textAlign: 'right',
+    fontFamily: 'lato-regular'
   },
   description: {
     flexGrow: 1,
-    color: '#003249'
+    color: '#003249',
+    fontFamily: 'lato-thin'
   },
   date: {
     width: 90,
-    color: '#003249'
+    color: '#003249',
+    fontFamily: 'lato-thin'
   },
   refreshButton: {
     backgroundColor: '#003249'

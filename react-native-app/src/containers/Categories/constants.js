@@ -10,7 +10,7 @@ export const categories = {
         'Snack',
         'Tea'
       ],
-      color: '#F8B195' 
+      color: '#F8B195'
     },
     {
       title: 'Transport',
@@ -86,3 +86,7 @@ export const categories = {
 };
 
 export const categoryList = [...categories.col1, ...categories.col2];
+
+export const categoryMap = categoryList.reduce((acc, cat) => ({
+  ...acc, [cat.title]: cat
+}), {});

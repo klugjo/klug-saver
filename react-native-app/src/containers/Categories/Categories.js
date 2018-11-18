@@ -14,13 +14,7 @@ export default class MainCategoriesPicker extends React.Component {
       <TouchableHighlight
         onPress={() => onPickCategory(cat)}
         key={cat.title}
-        style={{
-          height: 50,
-          flex: 0.23,
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'row'
-        }}
+        style={styles.button}
       >
         <View
           style={{
@@ -73,5 +67,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center'
+  },
+  button: {
+    height: 50,
+    flex: 0.23,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row'
   }
 });

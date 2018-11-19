@@ -3,12 +3,24 @@
 const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-dependencies
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
-const params = {
-  TableName: process.env.DYNAMODB_TABLE_EXPENSE,
+
+const getDefaultFromDate = () => {
+  const currentDate = new Date();
+
+  return new Date(currentDate.getFullYear(), currentDate.getMonth()).getTime();
 };
 
 module.exports.list = (event, context, callback) => {
-  // fetch all expenses from the database
+  const from = (event.queryStringParameters || {}).from || getDefaultFromDate();
+  
+  const params = {
+    TableName: process.env.DYNAMODB_TABLE_EXPENSE,
+    FilterExpression: 'createdAt >= :from',
+    ExpressionAttributeValues: {
+      ':from': parseInt(from)
+    }
+  };
+
   dynamoDb.scan(params, (error, result) => {
     // handle potential errors
     if (error) {

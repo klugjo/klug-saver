@@ -28,6 +28,13 @@ functions:
           path: expense
           method: post
           cors: true
+  batchCreate:
+    handler: expense/batchCreate.batchCreate
+    events:
+      - http:
+          path: batch-create
+          method: post
+          cors: true
 
   list:
     handler: expense/list.list
@@ -36,6 +43,9 @@ functions:
           path: expense
           method: get
           cors: true
+          parameters:
+            querystrings:
+              from: false
 
   # update:
   #   handler: expense/update.update

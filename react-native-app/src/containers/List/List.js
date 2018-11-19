@@ -23,6 +23,7 @@ export default class List extends React.Component {
 
   render() {
     const { expenses } = this.props;
+
     return (
       <View style={styles.root}>
         <Button

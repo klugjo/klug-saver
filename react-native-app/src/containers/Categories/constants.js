@@ -10,7 +10,8 @@ export const categories = {
         'Snack',
         'Tea'
       ],
-      color: '#F8B195'
+      color: '#F8B195',
+      icon: 'food'
     },
     {
       title: 'Transport',
@@ -18,7 +19,8 @@ export const categories = {
         'Taxi',
         'Public Transport'
       ],
-      color: '#F67280'
+      color: '#F67280',
+      icon: 'taxi'
     },
     {
       title: 'Shopping',
@@ -28,7 +30,8 @@ export const categories = {
         'Clothes',
         'Art'
       ],
-      color: '#C06C84'
+      color: '#C06C84',
+      icon: 'cart'
     },
     {
       title: 'Fun',
@@ -37,8 +40,9 @@ export const categories = {
         'Activities',
         'Cigs'
       ],
-      color: '#6C5B7B'
-    }
+      color: '#6C5B7B',
+      icon: 'beer'
+    },
   ],
   col2: [
     {
@@ -51,7 +55,8 @@ export const categories = {
         'Shopping',
         'Other'
       ],
-      color: '#355C7D'
+      color: '#355C7D',
+      icon: 'airplane'
     },
     {
       title: 'Bills',
@@ -61,7 +66,8 @@ export const categories = {
         'Cleaning',
         'Internet Subscriptions'
       ],
-      color: '#99B898'
+      color: '#99B898',
+      icon: 'file'
     },
     {
       title: 'Health',
@@ -71,7 +77,8 @@ export const categories = {
         'Sport',
         'Supplements'
       ],
-      color: '#45ADA8'
+      color: '#45ADA8',
+      icon: 'heart'
     },
     {
       title: 'Misc',
@@ -80,7 +87,8 @@ export const categories = {
         'Dog',
         'Misc'
       ],
-      color: '#A7226E'
+      color: '#A7226E',
+      icon: 'asterisk'
     }
   ]
 };

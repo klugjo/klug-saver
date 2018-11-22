@@ -14,7 +14,7 @@ export default class List extends React.Component {
   };
 
   state = {
-    itemToDelete: null,
+    itemToDelete: null
   };
 
   setItemToDelete = (item) => {
@@ -46,7 +46,8 @@ export default class List extends React.Component {
     );
   }
 
-  renderItem = ({ item }) => {
+  renderItem = ({ item, index }) => {
+    const { expenses } = this.props;
     const swipeOutButtons = [
       {
         text: 'Delete',
@@ -57,6 +58,9 @@ export default class List extends React.Component {
     ];
 
     const bgColor = categoryMap[item.category] ? categoryMap[item.category].color : 'transparent';
+    const date = index > 0 && toddMMM(item.createdAt) === toddMMM(expenses[index - 1].createdAt) ?
+      '' :
+      toddMMM(item.createdAt);
 
     return (
       <Swipeout
@@ -66,7 +70,7 @@ export default class List extends React.Component {
       >
         <View style={styles.item}>
           <View style={[styles.rowColor, { backgroundColor: bgColor }]} />
-          <Text style={styles.date}>{toddMMM(item.createdAt)}</Text>
+          <Text style={styles.date}>{date}</Text>
           <Text style={styles.description}>{item.category} {item.subCategory}</Text>
           <Text style={styles.amount}>{numeral(item.amount || 0).format('0,0.00')}</Text>
         </View>

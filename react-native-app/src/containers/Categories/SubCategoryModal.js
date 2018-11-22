@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, Text, Modal, StyleSheet, TouchableHighlight } from 'react-native';
 
-export const SubCategoryModal = ({ items, onPickSubCategory, open }) => {
+export const SubCategoryModal = ({ category, onPickSubCategory, open }) => {
+  const items = (category || {}).subCategories;
+  
   if (!items || !items.length || !open) {
     return null;
   }
@@ -19,19 +21,24 @@ export const SubCategoryModal = ({ items, onPickSubCategory, open }) => {
               key={index}
               onPress={() => onPickSubCategory(item)}
               style={{
-                height: 60
+                height: 90,
+                width: '50%'
               }}
             >
-              <Text
-                style={{
-                  backgroundColor: '#003249',
-                  height: 50,
-                  paddingTop: 15,
-                  color: 'white',
-                  paddingLeft: 30
-                }}
-              >{item}
-              </Text>
+            <View
+              style={{
+                backgroundColor: category.color,
+                flex: 1,
+                height: 90,
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'row',
+                margin: 15,
+                borderRadius: 10
+              }}
+            >
+              <Text style={{ color: '#FFF', fontFamily: 'lato-regular' }}>{item}</Text>
+            </View>
             </TouchableHighlight>
           ))
         }
@@ -43,9 +50,11 @@ export const SubCategoryModal = ({ items, onPickSubCategory, open }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'stretch',
-    paddingTop: 60
+    paddingTop: 60,
+    flexWrap: 'wrap',
+    backgroundColor: '#F1F5F5'
   }
 });

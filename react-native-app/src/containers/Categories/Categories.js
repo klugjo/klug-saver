@@ -47,7 +47,7 @@ export default class MainCategoriesPicker extends React.Component {
           {categories.col2.map(this.renderButton)}
         </View>
         <SubCategoryModal
-          items={selectedCategory && selectedCategory.subCategories}
+          category={selectedCategory}
           open={selectedCategory && !selectedSubCategory}
           onPickSubCategory={onPickSubCategory}
         />

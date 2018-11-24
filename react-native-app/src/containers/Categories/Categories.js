@@ -7,32 +7,26 @@ import { SubCategoryModal } from './SubCategoryModal';
 export default class MainCategoriesPicker extends React.Component {
 
   renderButton = (cat) => {
-    const { onPickCategory, selectedCategory } = this.props;
+    const { selectedCategory } = this.props;
     const isSelected = selectedCategory && selectedCategory.title === cat.title;
 
     return (
       <TouchableHighlight
-        onPress={() => onPickCategory(cat)}
+        onPress={this.pickCategory(cat)}
         key={cat.title}
-        style={styles.button}
+        style={styles.buttonContainer}
       >
-        <View
-          style={{
-            backgroundColor: isSelected ? '#FFF' : cat.color,
-            flex: 1,
-            height: 50,
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'row',
-            borderRadius: 10,
-            borderColor: '#000',
-            borderWidth: isSelected ? 1 : 0
-          }}
-        >
+        <View style={getButtonStyle(isSelected, cat.color)}>
           <Text style={{ color: isSelected ? '#000' : '#FFF', fontFamily: 'lato-regular' }}>{cat.title}</Text>
         </View>
       </TouchableHighlight>
     );
+  }
+
+  pickCategory = (cat) => () => {
+    const { onPickCategory } = this.props;
+
+    onPickCategory(cat);
   }
 
   render() {
@@ -50,6 +44,7 @@ export default class MainCategoriesPicker extends React.Component {
           category={selectedCategory}
           open={selectedCategory && !selectedSubCategory}
           onPickSubCategory={onPickSubCategory}
+          onClose={this.pickCategory(null)}
         />
       </View>
     )
@@ -68,11 +63,23 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center'
   },
-  button: {
+  buttonContainer: {
     height: 50,
     flex: 0.23,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row'
   }
+});
+
+const getButtonStyle = (isSelected, bgColor) => ({
+  flex: 1,
+  height: 50,
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'row',
+  borderRadius: 10,
+  borderColor: '#000',
+  backgroundColor: isSelected ? '#FFF' : bgColor,
+  borderWidth: isSelected ? 1 : 0
 });

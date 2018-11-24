@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, Text, Modal, StyleSheet, TouchableHighlight } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export const SubCategoryModal = ({ category, onPickSubCategory, open }) => {
+export const SubCategoryModal = ({ category, onPickSubCategory, open, onClose }) => {
   const items = (category || {}).subCategories;
-  
+
   if (!items || !items.length || !open) {
     return null;
   }
@@ -15,30 +16,25 @@ export const SubCategoryModal = ({ category, onPickSubCategory, open }) => {
       visible={!!items && open}
     >
       <View style={styles.container}>
+        <View style={styles.backButtonContainer}>
+          <TouchableHighlight onPress={onClose}>
+            <MaterialCommunityIcons
+              name="keyboard-backspace"
+              size={36}
+              color="#666"
+            />
+          </TouchableHighlight>
+        </View>
         {
           items.map((item, index) => (
             <TouchableHighlight
               key={index}
               onPress={() => onPickSubCategory(item)}
-              style={{
-                height: 90,
-                width: '50%'
-              }}
+              style={styles.buttonContainer}
             >
-            <View
-              style={{
-                backgroundColor: category.color,
-                flex: 1,
-                height: 90,
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexDirection: 'row',
-                margin: 15,
-                borderRadius: 10
-              }}
-            >
-              <Text style={{ color: '#FFF', fontFamily: 'lato-regular' }}>{item}</Text>
-            </View>
+              <View style={getButtonStyle(category.color)}>
+                <Text style={styles.buttonText}>{item}</Text>
+              </View>
             </TouchableHighlight>
           ))
         }
@@ -53,8 +49,32 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'stretch',
-    paddingTop: 60,
+    paddingTop: 30,
     flexWrap: 'wrap',
     backgroundColor: '#F1F5F5'
+  },
+  backButtonContainer: {
+    width: '90%',
+    paddingBottom: 15,
+    marginHorizontal: 15
+  },
+  buttonContainer: {
+    height: 90,
+    width: '50%'
+  },
+  buttonText: {
+    color: '#FFF',
+    fontFamily: 'lato-regular'
   }
+});
+
+const getButtonStyle = (bgColor) => ({
+  flex: 1,
+  height: 90,
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'row',
+  margin: 15,
+  borderRadius: 10,
+  backgroundColor: bgColor
 });

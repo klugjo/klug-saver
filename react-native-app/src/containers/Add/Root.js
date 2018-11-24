@@ -61,6 +61,7 @@ export default class Add extends React.Component {
             onPress={this.onSave}
             fontFamily="lato-thin"
             color="#000"
+            underlayColor="#666"
           />
         </View>
       </View>

@@ -17,7 +17,7 @@ export const SubCategoryModal = ({ category, onPickSubCategory, open, onClose })
     >
       <View style={styles.container}>
         <View style={styles.backButtonContainer}>
-          <TouchableHighlight onPress={onClose}>
+          <TouchableHighlight onPress={onClose} underlayColor="#666">
             <MaterialCommunityIcons
               name="keyboard-backspace"
               size={36}
@@ -31,6 +31,7 @@ export const SubCategoryModal = ({ category, onPickSubCategory, open, onClose })
               key={index}
               onPress={() => onPickSubCategory(item)}
               style={styles.buttonContainer}
+              underlayColor="#DDD"
             >
               <View style={getButtonStyle(category.color)}>
                 <Text style={styles.buttonText}>{item}</Text>

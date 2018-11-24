@@ -15,6 +15,7 @@ export default class MainCategoriesPicker extends React.Component {
         onPress={this.pickCategory(cat)}
         key={cat.title}
         style={styles.buttonContainer}
+        underlayColor="#DDD"
       >
         <View style={getButtonStyle(isSelected, cat.color)}>
           <Text style={{ color: isSelected ? '#000' : '#FFF', fontFamily: 'lato-regular' }}>{cat.title}</Text>

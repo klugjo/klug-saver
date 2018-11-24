@@ -9,6 +9,7 @@ const renderButton = (digit, onPress) => (
     title={digit}
     onPress={onPress}
     fontFamily="lato-thin"
+    underlayColor="#666"
   />
 );
 

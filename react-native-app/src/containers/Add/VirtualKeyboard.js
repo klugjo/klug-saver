@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   keyboardLine: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-around'
   },
   keyboardButton: {
     width: 100,

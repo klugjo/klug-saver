@@ -1,5 +1,5 @@
 export const PAGES = {
-  ADD: 'New Expense',
-  LIST: 'List',
-  SUMMARY: 'Summary'
+  ADD: 'Add',
+  LIST: 'History',
+  SUMMARY: 'Stats'
 };

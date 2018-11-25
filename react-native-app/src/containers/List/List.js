@@ -1,18 +1,12 @@
 import React from 'react';
 import numeral from 'numeral';
-import { View, StyleSheet, FlatList, Text, Button } from 'react-native';
-import Swipeout from 'react-native-swipeout';
+import { View, StyleSheet, FlatList, Text, Button, TouchableHighlight } from 'react-native';
 
 import { toddMMM } from '../../util';
-import { PAGES } from '../../constants';
 import { DeleteModal } from './DeleteModal';
 import { categoryMap } from '../Categories/constants';
 
 export default class List extends React.Component {
-  static navigationOptions = {
-    title: PAGES.LIST
-  };
-
   state = {
     itemToDelete: null
   };
@@ -48,14 +42,7 @@ export default class List extends React.Component {
 
   renderItem = ({ item, index }) => {
     const { expenses } = this.props;
-    const swipeOutButtons = [
-      {
-        text: 'Delete',
-        backgroundColor: '#E90F09',
-        color: '#FFFFFF',
-        onPress: this.onOpenDeletePopup(item)
-      }
-    ];
+
 
     const bgColor = categoryMap[item.category] ? categoryMap[item.category].color : 'transparent';
     const date = index > 0 && toddMMM(item.createdAt) === toddMMM(expenses[index - 1].createdAt) ?
@@ -63,10 +50,9 @@ export default class List extends React.Component {
       toddMMM(item.createdAt);
 
     return (
-      <Swipeout
-        right={swipeOutButtons}
-        backgroundColor="#F1F5F5"
-        autoClose={true}
+      <TouchableHighlight
+        onPress={this.onOpenDeletePopup(item)}
+        underlayColor="#CCC"
       >
         <View style={styles.item}>
           <View style={[styles.rowColor, { backgroundColor: bgColor }]} />
@@ -74,7 +60,7 @@ export default class List extends React.Component {
           <Text style={styles.description}>{item.category} {item.subCategory}</Text>
           <Text style={styles.amount}>{numeral(item.amount || 0).format('0,0.00')}</Text>
         </View>
-      </Swipeout>
+      </TouchableHighlight>
     );
   };
 

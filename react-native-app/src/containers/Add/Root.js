@@ -40,7 +40,10 @@ export default class Add extends React.Component {
             <Text style={styles.currency}>SGD</Text>
             <View style={styles.amountInput}>
               <FormInput
-                inputStyle={styles.input}
+                inputStyle={{
+                  color: '#003249',
+                  fontSize: this.getFontSize()
+                }}
                 editable={false}
                 value={numeral(amount || 0).format('0,0.00')}
               />
@@ -113,6 +116,19 @@ export default class Add extends React.Component {
 
     this.setState({ amount: '', selectedCategory: null, selectedSubCategory: '' });
   };
+
+
+  getFontSize = () => {
+    const { amount } = this.state;
+
+    if (amount < 100000) {
+      return 60;
+    } else if (amount < 10000000) {
+      return 40;
+    } else {
+      return 25;
+    }
+  };
 };
 
 const styles = StyleSheet.create({
@@ -142,7 +158,8 @@ const styles = StyleSheet.create({
   },
   amountInput: {
     flexDirection: 'column',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    flex: 1
   },
   keyboard: {
     flex: 0.35
@@ -152,10 +169,6 @@ const styles = StyleSheet.create({
   },
   label: {
     color: '#003249'
-  },
-  input: {
-    color: '#003249',
-    fontSize: 60
   },
   saveButton: {
     backgroundColor: '#F1F5F5'

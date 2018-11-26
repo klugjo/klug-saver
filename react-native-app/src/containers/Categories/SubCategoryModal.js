@@ -17,13 +17,14 @@ export const SubCategoryModal = ({ category, onPickSubCategory, open, onClose })
     >
       <View style={styles.container}>
         <View style={styles.backButtonContainer}>
-          <TouchableHighlight onPress={onClose} underlayColor="#666">
+          <TouchableHighlight onPress={onClose} underlayColor="#666" style={{}}>
             <MaterialCommunityIcons
-              name="keyboard-backspace"
-              size={36}
-              color="#666"
+              name="window-close"
+              size={24}
+              color="#888"
             />
           </TouchableHighlight>
+          <Text style={{marginLeft: 30, fontSize: 18, color: '#888', marginBottom: 2}}>{category.title}</Text>
         </View>
         {
           items.map((item, index) => (
@@ -57,7 +58,13 @@ const styles = StyleSheet.create({
   backButtonContainer: {
     width: '90%',
     paddingBottom: 15,
-    marginHorizontal: 15
+    marginHorizontal: 15,
+    marginBottom: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    borderBottomColor: '#CCC',
+    borderBottomWidth: 1
   },
   buttonContainer: {
     height: 90,

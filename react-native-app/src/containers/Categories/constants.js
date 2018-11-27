@@ -38,7 +38,8 @@ export const categories = {
       subCategories: [
         'Party',
         'Activities',
-        'Cigs'
+        'Cigs',
+        'Video Games'
       ],
       color: '#6C5B7B',
       icon: 'beer'
@@ -64,7 +65,8 @@ export const categories = {
         'Internet',
         'Phone',
         'Cleaning',
-        'Internet Subscriptions'
+        'Internet Subscriptions',
+        'Insurance'
       ],
       color: '#99B898',
       icon: 'file'
@@ -75,7 +77,8 @@ export const categories = {
         'Clinic',
         'Spa',
         'Sport',
-        'Supplements'
+        'Supplements',
+        'Books'
       ],
       color: '#45ADA8',
       icon: 'heart'

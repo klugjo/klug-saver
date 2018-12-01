@@ -12,9 +12,10 @@ export default class Summary extends React.Component {
     const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getTime();
     const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getTime();
     const expensesInCurrentMonth = expenses.filter(e => firstDay <= e.createdAt && e.createdAt < lastDay);
-    const categoriesWithSum = categoryList.map(({ title }) =>
+    const categoriesWithSum = categoryList.map(({ title, color }) =>
       ({
         title,
+        color,
         sum: expensesInCurrentMonth
             .filter(e => e.category.startsWith(title))
             .reduce((acc, curr) => acc + curr.amount, 0)
@@ -43,7 +44,7 @@ export default class Summary extends React.Component {
           key={index}
           style={{
             flex: 1 / data.length,
-            backgroundColor: cat.title === 'Total' ? 'tomato' : '#003249',
+            backgroundColor: cat.title === 'Total' ? 'white' : cat.color,
             marginTop: index === 0 ? 0 : 3,
             marginBottom: index === data.length - 1 ? 0 : 3,
             flexDirection: 'row',
@@ -55,14 +56,14 @@ export default class Summary extends React.Component {
         >
           <Text
             style={{
-              color: 'white'
+              color: cat.title === 'Total' ? 'black' : 'white',
             }}
           >
             {cat.title}
           </Text>
           <Text
             style={{
-              color: 'white',
+              color: cat.title === 'Total' ? 'black' : 'white',
               fontWeight: cat.title === 'Total' ? 'bold' : 'normal'
             }}
           >

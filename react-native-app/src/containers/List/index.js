@@ -11,7 +11,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getExpenses: () => dispatch(getExpenseList()),
+  getExpenses: (payload) => dispatch(getExpenseList(payload)),
   removeExpense: (id) => dispatch(deleteExpense(id))
 });
 

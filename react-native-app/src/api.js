@@ -6,9 +6,12 @@ export const postExpense = (data) => axios({
   data
 });
 
-export const getExpenses = () => axios({
+export const getExpenses = ({ from }) => axios({
   method: 'get',
-  url: 'https://9so0o0nevi.execute-api.ap-southeast-1.amazonaws.com/prod/expense'
+  url: `https://9so0o0nevi.execute-api.ap-southeast-1.amazonaws.com/prod/expense`,
+  params: {
+    from
+  }
 });
 
 export const removeExpense = (id) => axios({

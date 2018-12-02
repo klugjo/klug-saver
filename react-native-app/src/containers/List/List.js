@@ -65,7 +65,11 @@ export default class List extends React.Component {
   };
 
   onRefresh = () => {
-    this.props.getExpenses();
+    const dateOffset = (24 * 60 * 60 * 1000) * 30; // 30 days
+    const from = new Date();
+    from.setTime(from.getTime() - dateOffset);
+
+    this.props.getExpenses({ from });
   }
 
   onOpenDeletePopup = (item) => () => {

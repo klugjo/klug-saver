@@ -66,7 +66,8 @@ export const categories = {
         'Phone',
         'Cleaning',
         'Internet Subscriptions',
-        'Insurance'
+        'Insurance',
+        'Servers'
       ],
       color: '#99B898',
       icon: 'file'

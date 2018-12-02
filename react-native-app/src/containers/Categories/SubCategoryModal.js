@@ -84,5 +84,6 @@ const getButtonStyle = (bgColor) => ({
   flexDirection: 'row',
   margin: 15,
   borderRadius: 10,
+  padding: 10,
   backgroundColor: bgColor
 });

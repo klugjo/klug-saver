@@ -121,7 +121,7 @@ export default class Add extends React.Component {
   getFontSize = () => {
     const { amount } = this.state;
 
-    if (amount < 100000) {
+    if (amount < 10000) {
       return 60;
     } else if (amount < 10000000) {
       return 40;

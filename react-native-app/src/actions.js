@@ -18,7 +18,6 @@ export const GET_EXPENSE_LIST = 'GET_EXPENSE_LIST';
 export const getExpenseList = ({from}) => {
   return dispatch => {
     getExpenses({from}).then(response => {
-      console.log(response.data)
       dispatch({
         type: GET_EXPENSE_LIST,
         payload: response.data

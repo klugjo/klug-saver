@@ -15,9 +15,9 @@ export const addExpense = (payload) => {
 
 export const GET_EXPENSE_LIST = 'GET_EXPENSE_LIST';
 
-export const getExpenseList = ({from}) => {
+export const getExpenseList = ({ from }) => {
   return dispatch => {
-    getExpenses({from}).then(response => {
+    getExpenses({ from }).then(response => {
       dispatch({
         type: GET_EXPENSE_LIST,
         payload: response.data
@@ -26,11 +26,11 @@ export const getExpenseList = ({from}) => {
   }
 }
 
-export const deleteExpense = (id) => {
+export const deleteExpense = (id, from) => {
   return dispatch => {
     removeExpense(id).then(
       () => {
-        getExpenses().then(response => {
+        getExpenses({ from }).then(response => {
           dispatch({
             type: GET_EXPENSE_LIST,
             payload: response.data

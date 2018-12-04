@@ -15,23 +15,32 @@ export const DeleteModal = ({ item, onCancel, onOK }) => {
       onRequestClose={onCancel}>
       <View style={styles.container}>
         <View style={styles.labelContainer}>
-          <Text style={styles.messageText}>{`
-Are you sure you want to delete that item ?
-
-${item.category} - ${item.subCategory} - ${item.amount}
-          `}</Text>
+          <Text style={styles.messageText}>
+            {item.category} - {item.subCategory}
+          </Text>
+        </View>
+        <View style={styles.labelContainer}>
+          <Text style={styles.messageText}>
+            SGD {item.amount}
+          </Text>
         </View>
 
         <View style={styles.buttons}>
           <Button
+            title="Delete"
+            fontFamily="lato-thin"
+            color="#000"
+            underlayColor="#666"
             buttonStyle={styles.button}
-            title="OK"
             onPress={onOK}
           />
           <Button
             buttonStyle={styles.button}
             title="Cancel"
             onPress={onCancel}
+            fontFamily="lato-thin"
+            color="#000"
+            underlayColor="#666"
           />
         </View>
       </View>
@@ -44,7 +53,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'stretch'
+    alignItems: 'stretch',
+    backgroundColor: '#F1F5F5'
   },
   labelContainer: {
     flexDirection: 'row',
@@ -53,7 +63,8 @@ const styles = StyleSheet.create({
   messageText: {
     fontSize: 20,
     textAlign: 'center',
-    marginTop: 30
+    marginTop: 30,
+    fontFamily: 'lato-thin'
   },
   buttons: {
     marginTop: 70,
@@ -61,6 +72,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   button: {
-    backgroundColor: '#003249'
+    backgroundColor: '#F1F5F5'  
   }
 });

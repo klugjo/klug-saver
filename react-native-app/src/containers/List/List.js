@@ -99,12 +99,17 @@ export default class List extends React.Component {
     </View>;
   }
 
-  onRefresh = () => {
+  getRefreshDate = () => {
     const dateOffset = (24 * 60 * 60 * 1000) * 30; // 30 days
     const from = new Date();
+    
     from.setTime(from.getTime() - dateOffset);
 
-    this.props.getExpenses({ from });
+    return from;
+  }
+
+  onRefresh = () => {
+    this.props.getExpenses({ from: this.getRefreshDate() });
   }
 
   onOpenDeletePopup = (item) => () => {
@@ -112,7 +117,7 @@ export default class List extends React.Component {
   }
 
   onDelete = () => {
-    this.props.removeExpense(this.state.itemToDelete.id);
+    this.props.removeExpense(this.state.itemToDelete.id, this.getRefreshDate());
     this.closeDeletePopup();
   }
 

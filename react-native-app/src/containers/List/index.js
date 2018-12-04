@@ -12,7 +12,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => ({
   getExpenses: (payload) => dispatch(getExpenseList(payload)),
-  removeExpense: (id) => dispatch(deleteExpense(id))
+  removeExpense: (id, from) => dispatch(deleteExpense(id, from))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

@@ -54,6 +54,7 @@ export const categories = {
         'Accommodation',
         'Activities',
         'Shopping',
+        'Cash',
         'Other'
       ],
       color: '#355C7D',

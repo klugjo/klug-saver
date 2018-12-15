@@ -22,6 +22,10 @@ export default class Add extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.props.putDropboxArchive();
+  }
+
   render() {
     const { amount, selectedCategory, selectedSubCategory } = this.state;
 

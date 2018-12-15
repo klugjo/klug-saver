@@ -23,7 +23,7 @@ export default class Add extends React.Component {
   }
 
   componentDidMount() {
-    this.props.putDropboxArchive();
+    this.props.saveDropboxArchive();
   }
 
   render() {

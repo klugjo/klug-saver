@@ -1,5 +1,6 @@
 import { postExpense, getExpenses, removeExpense, putArchiveContents } from './api';
 import { ARCHIVE_FILE_PATH } from "./constants";
+import { getArchiveFromState } from './util';
 
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 
@@ -51,17 +52,31 @@ export const saveDropboxToken = (token) => {
   };
 };
 
-export const PUT_DROPBOX_ARCHIVE = 'PUT_DROPBOX_ARCHIVE';
+export const SAVE_DROPBOX_ARCHIVE = 'SAVE_DROPBOX_ARCHIVE';
 
-export const putDropboxArchive = () => {
+export const saveDropboxArchive = () => {
+  return (dispatch, getState) => {
+    const state = getState();
+    const { dropboxToken } = state;
+
+    putArchiveContents(ARCHIVE_FILE_PATH, JSON.stringify(getArchiveFromState(state)), dropboxToken).then(() => {
+      dispatch({
+        type: SAVE_DROPBOX_ARCHIVE
+      });
+    });
+  };
+};
+
+export const GET_DROPBOX_ARCHIVE = 'GET_DROPBOX_ARCHIVE';
+
+export const getDropboxArchive = () => {
   return (dispatch, getState) => {
     const { dropboxToken } = getState();
 
-    putArchiveContents(ARCHIVE_FILE_PATH, `bla bla ${new Date()}`, dropboxToken).then(() => {
-      console.log('Archive uploaded');
+    getArchiveContents(ARCHIVE_FILE_PATH, dropboxToken).then(() => {
       dispatch({
-        type: PUT_DROPBOX_ARCHIVE
-      })
-    })
+        type: GET_DROPBOX_ARCHIVE
+      });
+    });
   };
 };

@@ -3,4 +3,5 @@ export const PAGES = {
   LIST: 'History',
   SUMMARY: 'Stats'
 };
-export const ARCHIVE_FILE_PATH = '/test.json';
+
+export const ARCHIVE_FILE_PATH = '/archive.json';

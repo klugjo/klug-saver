@@ -3,7 +3,13 @@ export const toddMMM = (date) => {
 
   if (!date) return '';
 
-    const d = new Date(date);
+  const d = new Date(date);
 
-    return `${d.getDate()} ${months[d.getMonth()]}`;
+  return `${d.getDate()} ${months[d.getMonth()]}`;
+};
+
+export const getArchiveFromState = ({ expenses }) => {
+  return {
+    expenses
+  };
 };

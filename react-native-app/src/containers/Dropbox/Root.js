@@ -1,4 +1,5 @@
 import React from 'react';
+import { Dropbox } from 'dropbox';
 import { StyleSheet, WebView } from 'react-native';
 
 const APP_CLIENT_ID = '4hksbxm1vxsyncq';
@@ -10,7 +11,7 @@ class Root extends React.Component {
   }
 
   generateAuthorisationURL = () => {
-    const client = new Dropbox({ clientId: APP_CLIENT_ID });
+    const client = new Dropbox({ clientId: APP_CLIENT_ID, fetch });
     return client.getAuthenticationUrl(CALLBACK_URL);
   }
 
@@ -21,7 +22,8 @@ class Root extends React.Component {
     for (let i = 0; i < blockNum; i += 1) {
       const [key, value] = blocks[i].split("=");
       if (key === "access_token") {
-        this.props.onDropboxTokenReceived(value);
+        this.props.saveDropboxToken(value);
+        console.log(`Savng Token: ${value}`);
         break;
       }
     }

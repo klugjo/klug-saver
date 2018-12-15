@@ -42,3 +42,12 @@ export const deleteExpense = (id, from) => {
     );
   };
 }
+
+export const SAVE_DROPBOX_TOKEN = 'SAVE_DROPBOX_TOKEN';
+
+export const saveDropboxToken = (token) => {
+  return {
+    type: SAVE_DROPBOX_TOKEN,
+    payload: token
+  };
+};

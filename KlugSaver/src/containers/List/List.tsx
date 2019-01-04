@@ -46,20 +46,27 @@ export default class List extends React.Component<IListProps, IListState> {
     return result
   }
 
-  render() {
+  renderList = () => {
     const expenses = this.getExpensesWithTotals();
+    if (expenses && expenses.length && expenses.map) {
+      return <FlatList
+        style={styles.container}
+        data={expenses.map((e, i) => ({ ...e, key: i + '' }))}
+        renderItem={this.renderItem}
+      />;
+    }
 
+    return null;
+  }
+
+  render() {
     return (
       <View style={styles.root}>
         <Button
           title="Refresh"
           onPress={this.onRefresh}
         />
-        {expenses && expenses.length && expenses.map && <FlatList
-          style={styles.container}
-          data={expenses.map((e, i) => ({ ...e, key: i + '' }))}
-          renderItem={this.renderItem}
-        />}
+        {this.renderList()}
         <DeleteModal
           item={this.state.itemToDelete}
           onCancel={this.closeDeletePopup}
@@ -69,13 +76,13 @@ export default class List extends React.Component<IListProps, IListState> {
     );
   }
 
-  renderItem = ({ item, index } : any) => {
+  renderItem = ({ item, index }: any) => {
     return item.type === ENTRY ?
       this.renderExpense({ item, index }) :
       this.renderTotal(item);
   };
 
-  renderExpense = ({ item, index } : any) => {
+  renderExpense = ({ item, index }: any) => {
     const expenses = this.getExpensesWithTotals();
 
     const bgColor = categoryMap[item.category] ? categoryMap[item.category].color : 'transparent';
@@ -110,7 +117,7 @@ export default class List extends React.Component<IListProps, IListState> {
   getRefreshDate = () => {
     const dateOffset = (24 * 60 * 60 * 1000) * 30; // 30 days
     const from = new Date();
-    
+
     from.setTime(from.getTime() - dateOffset);
 
     return from;
@@ -125,7 +132,7 @@ export default class List extends React.Component<IListProps, IListState> {
   }
 
   onDelete = () => {
-    this.props.removeExpense(this.state.itemToDelete.id, this.getRefreshDate());
+    this.props.removeExpense((this.state.itemToDelete as any).id, this.getRefreshDate());
     this.closeDeletePopup();
   }
 
@@ -164,17 +171,17 @@ const styles = StyleSheet.create({
     width: 60,
     color: '#003249',
     textAlign: 'right',
-    fontFamily: 'lato-regular'
+    fontFamily: 'Cochin'
   },
   description: {
     flexGrow: 1,
     color: '#003249',
-    fontFamily: 'lato-thin'
+    fontFamily: 'Cochin'
   },
   date: {
     width: 90,
     color: '#003249',
-    fontFamily: 'lato-thin'
+    fontFamily: 'Cochin'
   },
   refreshButton: {
     backgroundColor: '#003249'

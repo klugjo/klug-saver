@@ -18,6 +18,7 @@ export const addExpense = (payload: any) => {
 export const GET_EXPENSE_LIST = 'GET_EXPENSE_LIST';
 
 export const getExpenseList = ({ from } : any) => {
+  console.log('getExpenseList');
   return (dispatch: any) => {
     getExpenses({ from }).then((response: any) => {
       dispatch({
@@ -67,16 +68,16 @@ export const saveDropboxArchive = () => {
   };
 };
 
-export const GET_DROPBOX_ARCHIVE = 'GET_DROPBOX_ARCHIVE';
+// export const GET_DROPBOX_ARCHIVE = 'GET_DROPBOX_ARCHIVE';
 
-export const getDropboxArchive = () => {
-  return (dispatch: any, getState: () => any) => {
-    const { dropboxToken } = getState();
+// export const getDropboxArchive = () => {
+//   return (dispatch: any, getState: () => any) => {
+//     const { dropboxToken } = getState();
 
-    getArchiveContents(ARCHIVE_FILE_PATH, dropboxToken).then(() => {
-      dispatch({
-        type: GET_DROPBOX_ARCHIVE
-      });
-    });
-  };
-};
+//     getArchiveContents(ARCHIVE_FILE_PATH, dropboxToken).then(() => {
+//       dispatch({
+//         type: GET_DROPBOX_ARCHIVE
+//       });
+//     });
+//   };
+// };

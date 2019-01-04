@@ -15,4 +15,4 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   removeExpense: (id: string, from: string) => dispatch(deleteExpense(id, from))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+export default connect(mapStateToProps, mapDispatchToProps)(List) as any;

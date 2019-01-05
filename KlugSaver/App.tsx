@@ -5,6 +5,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import Swiper from './src/containers/Swiper';
 import { store, persistor } from './src/configureStore';
+import { getTheme } from './src/theme/utils';
 
 export default class App extends Component<{}, {}> {
   render() {
@@ -27,6 +28,6 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 15,
     flex: 1,
-    backgroundColor: '#F1F5F5'
+    backgroundColor: getTheme().backgroundMain
   }
 });

@@ -1,3 +1,5 @@
+import { ICategory } from "../../typings";
+
 export const categories = {
   col1: [
     {
@@ -98,8 +100,8 @@ export const categories = {
   ]
 };
 
-export const categoryList = [...categories.col1, ...categories.col2];
+export const categoryList: Array<ICategory> = [...categories.col1, ...categories.col2];
 
-export const categoryMap = categoryList.reduce((acc: any, cat: any) => ({
+export const categoryMap: { [key: string]: ICategory } = categoryList.reduce((acc: any, cat: any) => ({
   ...acc, [cat.title]: cat
 }), {});

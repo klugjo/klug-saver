@@ -43,20 +43,16 @@ export default class List extends React.Component<IListProps, IListState> {
       total = total + exp.amount;
     });
 
-    return result
+    return result;
   }
 
   renderList = () => {
     const expenses = this.getExpensesWithTotals();
-    if (expenses && expenses.length && expenses.map) {
-      return <FlatList
-        style={styles.container}
-        data={expenses.map((e, i) => ({ ...e, key: i + '' }))}
-        renderItem={this.renderItem}
-      />;
-    }
 
-    return null;
+    return <FlatList
+      data={expenses.map((e: any, index: number) => ({...e, key: index}))}
+      renderItem={({ item }) => <Text>{item.category} {item.subCategory}</Text>}
+    />;
   }
 
   render() {

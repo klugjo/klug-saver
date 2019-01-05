@@ -1,10 +1,11 @@
 import React from 'react';
 import numeral from 'numeral';
-import { View, StyleSheet, FlatList, Text, Button, TouchableHighlight } from 'react-native';
+import { View, StyleSheet, Text, Button, SectionList } from 'react-native';
 
 import { IExpense } from '../../typings';
 import { getCategoryColor, getTheme } from '../../theme/utils';
-import { textStyleBase, textStyleThin } from '../../theme/styles';
+import { textStyleBase, textStyleThin, textStyleHeader } from '../../theme/styles';
+import { toddMMM } from '../../util';
 
 interface IListProps {
   expenses: IExpense[];
@@ -29,12 +30,37 @@ export default class List extends React.Component<IListProps, IListState> {
   }
 
   private renderList = () => {
-    const { expenses } = this.props;
+    const sections = this.getExpenseSections();
 
-    return <FlatList
-      data={expenses.map((e: IExpense, index: number) => ({ ...e, key: `${index}` }))}
+    return <SectionList
+      sections={sections}
+      renderSectionHeader={this.renderHeader}
       renderItem={this.renderExpense}
+      keyExtractor={(item, index) => item + index}
     />;
+  }
+
+  private getExpenseSections = () => {
+    const { expenses } = this.props;
+    const results: { [key: string]: IExpense[] } = {};
+
+    expenses.forEach((e: IExpense) => {
+      results[toddMMM(e.createdAt)] = [...results[toddMMM(e.createdAt)] || [], e];
+    });
+
+    console.log(results);
+    return Object.keys(results).map((title: string) => ({
+      title,
+      data: results[title]
+    }));
+  }
+
+  private renderHeader = ({ section }: any) => {
+    return <View style={styles.headerRow}>
+      <Text style={styles.headerRowText}>
+        {section.title}
+      </Text>
+    </View>;
   }
 
   private renderExpense = ({ item }: { item: IExpense }) => {
@@ -68,23 +94,25 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: getTheme().backgroundMain,
   },
+  headerRow: {
+    flex: 1,
+    backgroundColor: getTheme().backgroundMain,
+    paddingBottom: 3
+  },
+  headerRowText: {
+    ...textStyleHeader,
+    marginLeft: 23,
+    marginTop: 10
+  },
   expenseRow: {
     flex: 1,
     flexDirection: 'row',
     paddingVertical: 8,
-    paddingRight: 16,
-    fontFamily: 'Helvetica'
-  },
-  totalItem: {
-    flex: 1,
-    flexDirection: 'row',
-    paddingVertical: 8,
-    paddingRight: 16,
-    backgroundColor: '#E1E3E3'
+    paddingRight: 16
   },
   rowColor: {
     width: 8,
-    marginRight: 10
+    marginRight: 15
   },
   amount: {
     ...textStyleBase,
@@ -99,11 +127,6 @@ const styles = StyleSheet.create({
     ...textStyleThin,
     color: getTheme().textSecondary,
     flexGrow: 1,
-  },
-  date: {
-    width: 90,
-    color: '#003249',
-    fontFamily: 'Cochin'
   },
   refreshButton: {
     backgroundColor: '#003249'

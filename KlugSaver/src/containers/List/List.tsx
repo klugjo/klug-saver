@@ -4,8 +4,8 @@ import { View, StyleSheet, Text, Button, SectionList } from 'react-native';
 
 import { IExpense } from '../../typings';
 import { getCategoryColor, getTheme } from '../../theme/utils';
-import { textStyleBase, textStyleThin, textStyleHeader } from '../../theme/styles';
-import { toddMMM } from '../../util';
+import { textStyleBase, textStyleThin, textStyleHeader, viewBadgeStyle } from '../../theme/styles';
+import { toddMMM, sum, formatAmount } from '../../util';
 
 interface IListProps {
   expenses: IExpense[];
@@ -19,7 +19,7 @@ interface IListState {
 export default class List extends React.Component<IListProps, IListState> {
   public render() {
     return (
-      <View style={styles.root}>
+      <View style={styles.rootView}>
         <Button
           title="Refresh"
           onPress={this.onRefresh}
@@ -56,19 +56,22 @@ export default class List extends React.Component<IListProps, IListState> {
   }
 
   private renderHeader = ({ section }: any) => {
-    return <View style={styles.headerRow}>
+    return <View style={styles.headerRowView}>
       <Text style={styles.headerRowText}>
         {section.title}
+      </Text>
+      <Text style={styles.headerAmountText}>
+        {formatAmount(sum(section.data, (d: IExpense) => d.amount))}
       </Text>
     </View>;
   }
 
   private renderExpense = ({ item }: { item: IExpense }) => {
-    return <View style={styles.expenseRow}>
-      <View style={[styles.rowColor, { backgroundColor: getCategoryColor(item.category) }]} />
-      <Text style={styles.description}>{item.category}</Text>
-      <Text style={styles.subDescription}>{item.subCategory}</Text>
-      <Text style={styles.amount}>{numeral(item.amount || 0).format('0,0.00')}</Text>
+    return <View style={styles.expenseRowView}>
+      <View style={[styles.rowColorView, { backgroundColor: getCategoryColor(item.category) }]} />
+      <Text style={styles.descriptionText}>{item.category}</Text>
+      <Text style={styles.subDescriptionText}>{item.subCategory}</Text>
+      <Text style={styles.amountText}>{formatAmount(item.amount)}</Text>
     </View>
   };
 
@@ -87,46 +90,54 @@ export default class List extends React.Component<IListProps, IListState> {
 }
 
 const styles = StyleSheet.create({
-  root: {
+  rootView: {
     paddingBottom: 40
   },
-  container: {
+  containerView: {
     flex: 1,
     backgroundColor: getTheme().backgroundMain,
   },
-  headerRow: {
+  headerRowView: {
     flex: 1,
+    flexDirection: 'row',
     backgroundColor: getTheme().backgroundMain,
-    paddingBottom: 3
+    paddingBottom: 3,
+    paddingRight: 16,
+    paddingTop: 10
   },
   headerRowText: {
     ...textStyleHeader,
-    marginLeft: 23,
-    marginTop: 10
+    marginLeft: 23
   },
-  expenseRow: {
+  headerAmountText: {
+    ...textStyleHeader,
+    color: getTheme().textSecondary,
+    flexGrow: 1,
+    textAlign: 'right'
+  },
+  expenseRowView: {
     flex: 1,
     flexDirection: 'row',
     paddingVertical: 8,
     paddingRight: 16
   },
-  rowColor: {
+  rowColorView: {
     width: 8,
     marginRight: 15
   },
-  amount: {
+  amountText: {
     ...textStyleBase,
     width: 60,
     textAlign: 'right'
   },
-  description: {
+  descriptionText: {
     ...textStyleThin,
-    width: 100,
+    width: 100
   },
-  subDescription: {
+  subDescriptionText: {
     ...textStyleThin,
     color: getTheme().textSecondary,
-    flexGrow: 1,
+    flexGrow: 1
   },
   refreshButton: {
     backgroundColor: '#003249'

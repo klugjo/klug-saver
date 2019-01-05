@@ -1,6 +1,7 @@
 import { string } from "prop-types";
 
 export interface IThemeConstants {
+  accentMain: string;
   backgroundMain: string;
   textMain: string;
   textSecondary: string;

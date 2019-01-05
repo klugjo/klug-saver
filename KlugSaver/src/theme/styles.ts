@@ -15,3 +15,11 @@ export const textStyleHeader = {
   color: getTheme().textMain,
   fontSize: 20
 };
+
+export const viewBadgeStyle = {
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'row',
+  borderRadius: 10,
+  borderWidth: 0
+};

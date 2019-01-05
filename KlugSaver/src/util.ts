@@ -1,15 +1,26 @@
 import numeral from 'numeral';
+import moment from 'moment';
+
+const DD_MMM_FORMAT = 'DD MMM';
 
 export const toddMMM = (date: number) => {
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  return moment(date).format(DD_MMM_FORMAT);
+};
 
-  if (!date) return '';
+const today = moment();
+const dateLabelsMap = {
+  [today.format(DD_MMM_FORMAT)]: 'Today',
+  [today.subtract(1, 'days').format(DD_MMM_FORMAT)]: 'Yesterday',
+  [today.subtract(1, 'days').format(DD_MMM_FORMAT)]: today.format('dddd'),
+  [today.subtract(1, 'days').format(DD_MMM_FORMAT)]: today.format('dddd'),
+  [today.subtract(1, 'days').format(DD_MMM_FORMAT)]: today.format('dddd'),
+  [today.subtract(1, 'days').format(DD_MMM_FORMAT)]: today.format('dddd')
+};
 
-  const d = new Date(date);
+export const toddMMMForHumans = (date: number) => {
+  const result = moment(date).format(DD_MMM_FORMAT);
 
-  const text = `${d.getDate()} ${months[d.getMonth()]}`;
-  
-  return text.length === 5 ? `0${text}` : text;
+  return dateLabelsMap[result] || result;
 };
 
 export const getArchiveFromState = ({ expenses }: any) => {

@@ -5,7 +5,7 @@ import { View, StyleSheet, Text, Button, SectionList } from 'react-native';
 import { IExpense } from '../../typings';
 import { getCategoryColor, getTheme } from '../../theme/utils';
 import { textStyleBase, textStyleThin, textStyleHeader, viewBadgeStyle } from '../../theme/styles';
-import { toddMMM, sum, formatAmount } from '../../util';
+import { toddMMM, sum, formatAmount, toddMMMForHumans } from '../../util';
 
 interface IListProps {
   expenses: IExpense[];
@@ -45,10 +45,10 @@ export default class List extends React.Component<IListProps, IListState> {
     const results: { [key: string]: IExpense[] } = {};
 
     expenses.forEach((e: IExpense) => {
-      results[toddMMM(e.createdAt)] = [...results[toddMMM(e.createdAt)] || [], e];
+      const formattedDate = toddMMMForHumans(e.createdAt);
+      results[formattedDate] = [...results[formattedDate] || [], e];
     });
 
-    console.log(results);
     return Object.keys(results).map((title: string) => ({
       title,
       data: results[title]

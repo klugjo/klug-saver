@@ -29,6 +29,7 @@
     "@types/enzyme": "^3.1.15",
     "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/jest": "^23.3.11",
+    "@types/lodash": "^4.14.119",
     "@types/react-test-renderer": "^16.0.3",
     "@types/sinon": "^7.0.3",
     "babel-jest": "23.6.0",
@@ -37,6 +38,7 @@
     "enzyme-to-json": "^3.3.5",
     "jest": "23.6.0",
     "jest-fetch-mock": "^2.1.0",
+    "lodash": "^4.17.11",
     "metro-react-native-babel-preset": "0.51.1",
     "react-dom": "^16.7.0",
     "react-test-renderer": "^16.6.3",
@@ -54,7 +56,7 @@
         "tsConfig": "tsconfig.jest.json"
       }
     },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "testRegex": "/__tests__/.*.spec.(jsx?|tsx?)$",
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -68,7 +70,8 @@
     ],
     "setupFiles": [
       "./jestSetup.js"
-    ]
+    ],
+    "setupTestFrameworkScriptFile": "./__tests__/jestSetupFramework.js"
   },
   "rnpm": {
     "assets": [

@@ -23,3 +23,9 @@ declare module "redux-persist/integration/react" {
    */
   export class PersistGate extends React.PureComponent<PersistGateProps, PersistorGateState> { }
 }
+
+declare namespace jest {
+  interface Matchers<R> {
+    toHaveStyle(name: string, value: string): CustomMatcherResult;
+  }
+}

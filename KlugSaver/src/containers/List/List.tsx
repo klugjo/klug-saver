@@ -1,11 +1,10 @@
 import React from 'react';
-import numeral from 'numeral';
 import { View, StyleSheet, Text, Button, SectionList } from 'react-native';
 
 import { IExpense } from '../../typings';
 import { getCategoryColor, getTheme } from '../../theme/utils';
-import { textStyleBase, textStyleThin, textStyleHeader, viewBadgeStyle } from '../../theme/styles';
-import { toddMMM, sum, formatAmount, toddMMMForHumans } from '../../util';
+import { textStyleBase, textStyleThin, textStyleHeader } from '../../theme/styles';
+import { sum, formatAmount, toddMMMForHumans } from '../../util';
 
 interface IListProps {
   expenses: IExpense[];

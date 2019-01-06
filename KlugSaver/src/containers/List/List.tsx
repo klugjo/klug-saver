@@ -6,7 +6,7 @@ import { getCategoryColor, getTheme } from '../../theme/utils';
 import { textStyleBase, textStyleThin, textStyleHeader } from '../../theme/styles';
 import { sum, formatAmount, toddMMMForHumans } from '../../util';
 
-interface IListProps {
+export interface IListProps {
   expenses: IExpense[];
   getExpenses: (args?: any) => any;
 }

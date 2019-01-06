@@ -4,33 +4,13 @@ import { View, Button } from 'react-native';
 import { shallow, ShallowWrapper } from 'enzyme';
 
 import List, { IListProps } from '../../../src/containers/List/List';
+import { expense12FoodLunchJan01, expense20TransportTaxiJan01, expense30TransportTaxiJan02 } from '../../mocks/expenses';
 
 const props: IListProps = {
   expenses: [
-    {
-      category: "Transport",
-      createdAt: 1546421635530,
-      amount: 13,
-      subCategory: "Taxi",
-      id: "8617a2a0-0e71-11e9-a82a-15a4b00fb869",
-      updatedAt: 1546421635530
-    },
-    {
-      category: "Travel",
-      createdAt: 1546687564553,
-      amount: 55,
-      subCategory: "Transport",
-      id: "b0244f90-10dc-11e9-bf40-bb00174c44c0",
-      updatedAt: 1546687564553
-    },
-    {
-      category: "Transport",
-      createdAt: 1546569977977,
-      amount: 16,
-      subCategory: "Taxi",
-      id: "e914b690-0fca-11e9-af25-792e42360637",
-      updatedAt: 1546569977977
-    }
+    expense12FoodLunchJan01,
+    expense20TransportTaxiJan01,
+    expense30TransportTaxiJan02
   ],
   getExpenses: jest.fn()
 };

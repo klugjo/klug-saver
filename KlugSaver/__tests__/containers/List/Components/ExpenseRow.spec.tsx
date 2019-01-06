@@ -5,16 +5,10 @@ import { View, Text } from 'react-native';
 import { shallow, ShallowWrapper } from 'enzyme';
 
 import ExpenseRow, { IExpenseRowProps } from '../../../../src/containers/List/Components/ExpenseRow';
+import { expense20TransportTaxiJan01 } from '../../../mocks/expenses';
 
 const props: IExpenseRowProps = {
-  item: {
-    category: "Transport",
-    createdAt: 1546421635530,
-    amount: 1350,
-    subCategory: "Taxi",
-    id: "fake-id",
-    updatedAt: 1546421635530
-  }
+  item: expense20TransportTaxiJan01
 };
 
 describe('ExpenseRow', () => {

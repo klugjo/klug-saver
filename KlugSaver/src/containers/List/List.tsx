@@ -1,21 +1,18 @@
 import React from 'react';
-import { View, StyleSheet, Text, Button, SectionList } from 'react-native';
+import { View, StyleSheet, Button, SectionList } from 'react-native';
 
 import { IExpense } from '../../typings';
-import { getCategoryColor, getTheme } from '../../theme/utils';
-import { textStyleBase, textStyleThin, textStyleHeader } from '../../theme/styles';
-import { sum, formatAmount, toddMMMForHumans } from '../../util';
+import { getTheme } from '../../theme/utils';
+import { toddMMMForHumans } from '../../util';
+import SectionHeader from './Components/SectionHeader';
+import ExpenseRow from './Components/ExpenseRow';
 
 export interface IListProps {
   expenses: IExpense[];
   getExpenses: (args?: any) => any;
 }
 
-interface IListState {
-  itemToDelete: any;
-}
-
-export default class List extends React.Component<IListProps, IListState> {
+export default class List extends React.Component<IListProps, {}> {
   public render() {
     return (
       <View style={styles.rootView}>
@@ -54,25 +51,9 @@ export default class List extends React.Component<IListProps, IListState> {
     }));
   }
 
-  private renderHeader = ({ section }: any) => {
-    return <View style={styles.headerRowView}>
-      <Text style={styles.headerRowText}>
-        {section.title}
-      </Text>
-      <Text style={styles.headerAmountText}>
-        {formatAmount(sum(section.data, (d: IExpense) => d.amount))}
-      </Text>
-    </View>;
-  }
+  private renderHeader = (props: any) => <SectionHeader {...props} />;
 
-  private renderExpense = ({ item }: { item: IExpense }) => {
-    return <View style={styles.expenseRowView}>
-      <View style={[styles.rowColorView, { backgroundColor: getCategoryColor(item.category) }]} />
-      <Text style={styles.descriptionText}>{item.category}</Text>
-      <Text style={styles.subDescriptionText}>{item.subCategory}</Text>
-      <Text style={styles.amountText}>{formatAmount(item.amount)}</Text>
-    </View>
-  };
+  private renderExpense = (props: { item: IExpense }) => <ExpenseRow {...props} />
 
   getRefreshDate = () => {
     const dateOffset = (24 * 60 * 60 * 1000) * 30; // 30 days
@@ -95,48 +76,6 @@ const styles = StyleSheet.create({
   containerView: {
     flex: 1,
     backgroundColor: getTheme().backgroundMain,
-  },
-  headerRowView: {
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: getTheme().backgroundMain,
-    paddingBottom: 3,
-    paddingRight: 16,
-    paddingTop: 10
-  },
-  headerRowText: {
-    ...textStyleHeader,
-    marginLeft: 23
-  },
-  headerAmountText: {
-    ...textStyleHeader,
-    color: getTheme().textSecondary,
-    flexGrow: 1,
-    textAlign: 'right'
-  },
-  expenseRowView: {
-    flex: 1,
-    flexDirection: 'row',
-    paddingVertical: 8,
-    paddingRight: 16
-  },
-  rowColorView: {
-    width: 8,
-    marginRight: 15
-  },
-  amountText: {
-    ...textStyleBase,
-    width: 60,
-    textAlign: 'right'
-  },
-  descriptionText: {
-    ...textStyleThin,
-    width: 100
-  },
-  subDescriptionText: {
-    ...textStyleThin,
-    color: getTheme().textSecondary,
-    flexGrow: 1
   },
   refreshButton: {
     backgroundColor: '#003249'

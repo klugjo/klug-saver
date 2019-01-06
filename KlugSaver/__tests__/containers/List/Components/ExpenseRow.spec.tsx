@@ -31,6 +31,6 @@ describe('ExpenseRow', () => {
   });
 
   it('renders the formatted amount', () => {
-    expect(wrapper.find(Text).at(2).prop('children')).toBe('1,350.00');
+    expect(wrapper.find(Text).at(2).prop('children')).toBe('20.00');
   });
 });

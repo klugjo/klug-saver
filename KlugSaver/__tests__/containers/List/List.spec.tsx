@@ -1,16 +1,20 @@
 import 'react-native';
 import React from 'react';
-import { View, Button } from 'react-native';
+import { View, Button, SectionList } from 'react-native';
 import { shallow, ShallowWrapper } from 'enzyme';
 
 import List, { IListProps } from '../../../src/containers/List/List';
-import { expense12FoodLunchJan01, expense20TransportTaxiJan01, expense30TransportTaxiJan02 } from '../../mocks/expenses';
+import * as mockExpenses from '../../mocks/expenses';
 
 const props: IListProps = {
   expenses: [
-    expense12FoodLunchJan01,
-    expense20TransportTaxiJan01,
-    expense30TransportTaxiJan02
+    mockExpenses.expense12FoodLunchJan01,
+    mockExpenses.expense20TransportTaxiJan01,
+    mockExpenses.expense12TravelCashJan01,
+    mockExpenses.expense15FoodBreakfastJan02,
+    mockExpenses.expense30TransportTaxiJan02,
+    mockExpenses.expense12FoodLunchJan03,
+    mockExpenses.expense20TransportTaxiJan03
   ],
   getExpenses: jest.fn()
 };
@@ -30,5 +34,32 @@ describe('List Containers', () => {
     wrapper.find(Button).simulate('press');
 
     expect(props.getExpenses).toHaveBeenCalled();
+  });
+
+  it('should group the expenses by days', () => {
+    expect(wrapper.find(SectionList).props().sections).toEqual([
+      {
+        title: '01 Jan',
+        data: [
+          mockExpenses.expense12FoodLunchJan01,
+          mockExpenses.expense20TransportTaxiJan01,
+          mockExpenses.expense12TravelCashJan01
+        ]
+      },
+      {
+        title: '02 Jan',
+        data: [
+          mockExpenses.expense15FoodBreakfastJan02,
+          mockExpenses.expense30TransportTaxiJan02
+        ]
+      },
+      {
+        title: '03 Jan',
+        data: [
+          mockExpenses.expense12FoodLunchJan03,
+          mockExpenses.expense20TransportTaxiJan03
+        ]
+      }
+    ]);
   });
 });

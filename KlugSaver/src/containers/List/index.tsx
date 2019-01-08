@@ -1,18 +1,25 @@
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
 
 import List from './List';
-import { getExpenseList, deleteExpense } from '../../actions';
+import { getExpenseList } from '../../actions';
+import { IMainState, IExpense } from '../../typings';
 
-const mapStateToProps = (state: any) => {
+interface IStateProps {
+  expenses: IExpense[];
+}
+
+interface IDispatchProps {
+  getExpenses: (payload?: any) => any
+}
+
+const mapStateToProps = (state: IMainState): IStateProps => {
   return {
     expenses: state.expenses
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  getExpenses: (payload: any) => dispatch(getExpenseList(payload)),
-  removeExpense: (id: string, from: string) => dispatch(deleteExpense(id, from))
+const mapDispatchToProps = (dispatch: any): IDispatchProps => ({
+  getExpenses: (payload?: any) => dispatch(getExpenseList(payload))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(List) as any;
+export default connect<IStateProps, IDispatchProps, {}, IMainState>(mapStateToProps, mapDispatchToProps)(List);

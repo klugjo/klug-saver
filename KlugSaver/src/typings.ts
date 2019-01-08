@@ -24,7 +24,7 @@ export interface IExpense {
 }
 
 export interface IMainState {
-  expenses?: Array<IExpense>;
+  expenses: Array<IExpense>;
   dropboxToken?: string;
 }
 

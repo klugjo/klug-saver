@@ -16,7 +16,7 @@ const getExpenseList = (action: IAction, state: IMainState) => {
 export default function reducer(state: IMainState = DEFAULT_STATE, action: IAction): IMainState {
   switch (action.type) {
     case ADD_EXPENSE:
-      return { ...state, expenses: [action.payload, ...state.expenses || []] };
+      return { ...state, expenses: [action.payload, ...state.expenses] };
     case GET_EXPENSE_LIST:
       return getExpenseList(action, state);
     case SAVE_DROPBOX_TOKEN:

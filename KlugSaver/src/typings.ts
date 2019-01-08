@@ -1,5 +1,3 @@
-import { string } from "prop-types";
-
 export interface IThemeConstants {
   accentMain: string;
   backgroundMain: string;
@@ -23,4 +21,14 @@ export interface IExpense {
   id: string;
   subCategory: string;
   updatedAt: number;
+}
+
+export interface IMainState {
+  expenses?: Array<IExpense>;
+  dropboxToken?: string;
+}
+
+export interface IAction {
+  type: string;
+  payload?: any;
 }

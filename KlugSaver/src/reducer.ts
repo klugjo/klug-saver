@@ -1,21 +1,22 @@
 import { ADD_EXPENSE, GET_EXPENSE_LIST, SAVE_DROPBOX_TOKEN } from './actions';
+import { IMainState, IExpense, IAction } from './typings';
 
-const DEFAULT_STATE = {
+const DEFAULT_STATE: IMainState = {
   expenses: []
 };
 
-const getExpenseList = (action: any, state: any) => {
-  const expenses = [...action.payload];
+const getExpenseList = (action: IAction, state: IMainState) => {
+  const expenses = [...action.payload] as Array<IExpense>;
 
   expenses.sort((a, b) => b.createdAt - a.createdAt);
 
   return { ...state, expenses };
 };
 
-export default function reducer(state = DEFAULT_STATE, action: any) {
+export default function reducer(state: IMainState = DEFAULT_STATE, action: IAction): IMainState {
   switch (action.type) {
     case ADD_EXPENSE:
-      return { ...state, expenses: [action.payload, ...state.expenses] };
+      return { ...state, expenses: [action.payload, ...state.expenses || []] };
     case GET_EXPENSE_LIST:
       return getExpenseList(action, state);
     case SAVE_DROPBOX_TOKEN:

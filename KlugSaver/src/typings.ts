@@ -26,6 +26,7 @@ export interface IExpense {
 export interface IMainState {
   expenses: Array<IExpense>;
   dropboxToken?: string;
+  openModal?: string;
 }
 
 export interface IAction {

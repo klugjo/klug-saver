@@ -1,5 +1,5 @@
 import { postExpense, getExpenses, removeExpense, putArchiveContents } from './api';
-import { ARCHIVE_FILE_PATH } from './constants';
+import { ARCHIVE_FILE_PATH, MODALS } from './constants';
 import { getArchiveFromState } from './util';
 
 export const ADD_EXPENSE = 'ADD_EXPENSE';
@@ -28,6 +28,13 @@ export const getExpenseList = ({ from } : any) => {
     });
   }
 }
+
+export const OPEN_MODAL = 'OPEN_MODAL';
+
+export const deleteModal = {
+  type: OPEN_MODAL,
+  payload: MODALS.DELETE
+};
 
 export const deleteExpense = (id: string, from: any) => {
   return (dispatch: any) => {

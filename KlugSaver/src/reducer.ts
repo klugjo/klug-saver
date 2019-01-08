@@ -1,4 +1,4 @@
-import { ADD_EXPENSE, GET_EXPENSE_LIST, SAVE_DROPBOX_TOKEN } from './actions';
+import { ADD_EXPENSE, GET_EXPENSE_LIST, SAVE_DROPBOX_TOKEN, OPEN_MODAL } from './actions';
 import { IMainState, IExpense, IAction } from './typings';
 
 const DEFAULT_STATE: IMainState = {
@@ -19,6 +19,8 @@ export default function reducer(state: IMainState = DEFAULT_STATE, action: IActi
       return { ...state, expenses: [action.payload, ...state.expenses] };
     case GET_EXPENSE_LIST:
       return getExpenseList(action, state);
+    case OPEN_MODAL:
+      return { ...state, openModal: action.payload };
     case SAVE_DROPBOX_TOKEN:
       return { ...state, dropboxToken: action.payload };
     default:

@@ -5,3 +5,7 @@ export const PAGES = {
 };
 
 export const ARCHIVE_FILE_PATH = '/archive.json';
+
+export const MODALS = {
+  DELETE: 'DELETE_MODAL'
+};

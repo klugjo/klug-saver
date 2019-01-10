@@ -27,6 +27,7 @@ export interface IMainState {
   expenses: Array<IExpense>;
   dropboxToken?: string;
   openModal?: string;
+  expenseToDelete?: IExpense;
 }
 
 export interface IAction {

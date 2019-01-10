@@ -1,8 +1,11 @@
-import { ADD_EXPENSE, GET_EXPENSE_LIST, SAVE_DROPBOX_TOKEN, OPEN_MODAL } from './actions';
+import { ADD_EXPENSE, GET_EXPENSE_LIST, SAVE_DROPBOX_TOKEN, OPEN_DELETE_MODAL, CLOSE_DELETE_MODAL } from './actions';
 import { IMainState, IExpense, IAction } from './typings';
+import { MODALS } from './constants';
 
 const DEFAULT_STATE: IMainState = {
-  expenses: []
+  expenses: [],
+  openModal: '',
+  expenseToDelete: undefined
 };
 
 const getExpenseList = (action: IAction, state: IMainState) => {
@@ -19,8 +22,10 @@ export default function reducer(state: IMainState = DEFAULT_STATE, action: IActi
       return { ...state, expenses: [action.payload, ...state.expenses] };
     case GET_EXPENSE_LIST:
       return getExpenseList(action, state);
-    case OPEN_MODAL:
-      return { ...state, openModal: action.payload };
+    case OPEN_DELETE_MODAL:
+      return { ...state, openModal: MODALS.DELETE, expenseToDelete: action.payload };
+    case CLOSE_DELETE_MODAL:
+      return {...state, openModal: '', expenseToDelete: undefined};
     case SAVE_DROPBOX_TOKEN:
       return { ...state, dropboxToken: action.payload };
     default:

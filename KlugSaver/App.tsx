@@ -6,6 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import Swiper from './src/containers/Swiper';
 import { store, persistor } from './src/configureStore';
 import { getTheme } from './src/theme/utils';
+import DeleteModal from './src/containers/DeleteModal';
 
 export default class App extends Component<{}, {}> {
   render() {
@@ -17,6 +18,7 @@ export default class App extends Component<{}, {}> {
               hidden={true}
             />
             <Swiper />
+            <DeleteModal />
           </View>
         </PersistGate>
       </Provider>

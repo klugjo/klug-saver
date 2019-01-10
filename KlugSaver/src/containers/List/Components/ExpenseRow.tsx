@@ -1,21 +1,27 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import { IExpense } from '../../../typings';
 import { formatAmount } from '../../../util';
 import { getTheme, getCategoryColor } from '../../../theme/utils';
 import { textStyleBase, textStyleThin } from '../../../theme/styles';
 
 export interface IExpenseRowProps {
-  item: IExpense
+  item: IExpense;
+  openDeleteModal: (expense: IExpense) => any;
 }
 
-const ExpenseRow = ({ item }: IExpenseRowProps) => (
-  <View style={styles.expenseRowView}>
-    <View style={[styles.rowColorView, { backgroundColor: getCategoryColor(item.category) }]} />
-    <Text style={styles.descriptionText}>{item.category}</Text>
-    <Text style={styles.subDescriptionText}>{item.subCategory}</Text>
-    <Text style={styles.amountText}>{formatAmount(item.amount)}</Text>
-  </View>
+const ExpenseRow = ({ item, openDeleteModal }: IExpenseRowProps) => (
+  <TouchableHighlight
+    onPress={() => openDeleteModal(item)}
+    underlayColor="#CCC"
+  >
+    <View style={styles.expenseRowView}>
+      <View style={[styles.rowColorView, { backgroundColor: getCategoryColor(item.category) }]} />
+      <Text style={styles.descriptionText}>{item.category}</Text>
+      <Text style={styles.subDescriptionText}>{item.subCategory}</Text>
+      <Text style={styles.amountText}>{formatAmount(item.amount)}</Text>
+    </View>
+  </TouchableHighlight>
 );
 
 export default ExpenseRow;

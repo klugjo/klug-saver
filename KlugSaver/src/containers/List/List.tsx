@@ -10,6 +10,7 @@ import ExpenseRow from './Components/ExpenseRow';
 export interface IListProps {
   expenses: IExpense[];
   getExpenses: (from: Date) => any;
+  openDeleteModal: (expense: IExpense) => any;
 }
 
 export default class List extends React.Component<IListProps, {}> {
@@ -53,7 +54,10 @@ export default class List extends React.Component<IListProps, {}> {
 
   private renderHeader = (props: any) => <SectionHeader {...props} />;
 
-  private renderExpense = (props: { item: IExpense }) => <ExpenseRow {...props} />
+  private renderExpense = (props: { item: IExpense }) => <ExpenseRow {...{
+    ...props,
+    openDeleteModal: this.props.openDeleteModal
+  }} />
 
   onRefresh = () => {
     this.props.getExpenses(getRefreshDate());

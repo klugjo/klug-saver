@@ -87,8 +87,7 @@ const styles = StyleSheet.create({
   messageText: {
     fontSize: 20,
     textAlign: 'center',
-    marginTop: 30,
-    fontFamily: 'lato-thin'
+    marginTop: 30
   },
   buttons: {
     marginTop: 70,

@@ -9,7 +9,7 @@ interface IStateProps {
 }
 
 interface IDispatchProps {
-  getExpenses: (payload?: any) => void;
+  getExpenses: (from: Date) => void;
   openDeleteModal: (expense: IExpense) => void;
 }
 
@@ -20,7 +20,7 @@ const mapStateToProps = (state: IMainState): IStateProps => {
 };
 
 const mapDispatchToProps = (dispatch: any): IDispatchProps => ({
-  getExpenses: (payload?: any) => dispatch(getExpenseList(payload)),
+  getExpenses: (from: Date) => dispatch(getExpenseList(from)),
   openDeleteModal: (expense: IExpense) => dispatch(openDeleteModal(expense))
 });
 

@@ -37,3 +37,12 @@ export const sum = (arr: any[], selector: (obj: any) => number): number => {
 };
 
 export const formatAmount = (amount: any) => numeral(amount || 0).format('0,0.00');
+
+export const getRefreshDate = () => {
+  const dateOffset = (24 * 60 * 60 * 1000) * 30; // 30 days
+  const from = new Date();
+
+  from.setTime(from.getTime() - dateOffset);
+
+  return from;
+};

@@ -11,8 +11,8 @@ interface IStateProps {
 }
 
 interface IDispatchProps {
-  onCancel?: () => void;
-  onDelete?: (id: string, from: string) => void;
+  onClose?: () => void;
+  onDelete?: (id: string, from: Date) => void;
 }
 
 const mapStateToProps = (state: IMainState): IStateProps => {
@@ -23,8 +23,8 @@ const mapStateToProps = (state: IMainState): IStateProps => {
 };
 
 const mapDispatchToProps = (dispatch: any): IDispatchProps => ({
-  onCancel: () => dispatch(closeDeleteModal),
-  onDelete: (id: string, from: string) => dispatch(deleteExpense(id, from))
+  onClose: () => dispatch(closeDeleteModal),
+  onDelete: (id: string, from: Date) => dispatch(deleteExpense(id, from))
 });
 
 export default connect<IStateProps, IDispatchProps, {}, IMainState>(mapStateToProps, mapDispatchToProps)(DeleteModal);

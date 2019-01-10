@@ -18,7 +18,7 @@ export const addExpense = (payload: any) => {
 
 export const GET_EXPENSE_LIST = 'GET_EXPENSE_LIST';
 
-export const getExpenseList = ({ from } : any) => {
+export const getExpenseList = (from?: Date) => {
   console.log('getExpenseList');
   return (dispatch: any) => {
     getExpenses({ from }).then((response: any) => {
@@ -43,7 +43,7 @@ export const openDeleteModal = (expense: IExpense) => ({
   payload: expense
 });
 
-export const deleteExpense = (id: string, from: string) => {
+export const deleteExpense = (id: string, from: Date) => {
   return (dispatch: any) => {
     removeExpense(id).then(
       () => {

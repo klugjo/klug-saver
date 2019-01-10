@@ -3,13 +3,13 @@ import { View, StyleSheet, Button, SectionList } from 'react-native';
 
 import { IExpense } from '../../typings';
 import { getTheme } from '../../theme/utils';
-import { toddMMMForHumans } from '../../util';
+import { toddMMMForHumans, getRefreshDate } from '../../util';
 import SectionHeader from './Components/SectionHeader';
 import ExpenseRow from './Components/ExpenseRow';
 
 export interface IListProps {
   expenses: IExpense[];
-  getExpenses: (args?: any) => any;
+  getExpenses: (from: Date) => any;
 }
 
 export default class List extends React.Component<IListProps, {}> {
@@ -55,17 +55,8 @@ export default class List extends React.Component<IListProps, {}> {
 
   private renderExpense = (props: { item: IExpense }) => <ExpenseRow {...props} />
 
-  getRefreshDate = () => {
-    const dateOffset = (24 * 60 * 60 * 1000) * 30; // 30 days
-    const from = new Date();
-
-    from.setTime(from.getTime() - dateOffset);
-
-    return from;
-  }
-
   onRefresh = () => {
-    this.props.getExpenses({ from: this.getRefreshDate() });
+    this.props.getExpenses(getRefreshDate());
   }
 }
 

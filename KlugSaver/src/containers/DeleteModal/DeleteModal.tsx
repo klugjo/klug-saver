@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, Text, Modal, StyleSheet, Button } from 'react-native';
 import { IExpense } from '../../typings';
+import { getRefreshDate } from '../../util';
 
 interface IDeleteModalProps {
   open: boolean;
   expense?: IExpense;
-  onCancel?: () => void;
-  onDelete?: (id: string, from: string) => void;
+  onClose?: () => void;
+  onDelete?: (id: string, from: Date) => void;
 }
 
 class DeleteModal extends React.Component<IDeleteModalProps, {}> {
@@ -22,7 +23,7 @@ class DeleteModal extends React.Component<IDeleteModalProps, {}> {
         animationType="slide"
         transparent={false}
         visible={open && !!expense}
-        onRequestClose={this.onCancel}
+        onRequestClose={this.onClose}
       >
         <View style={styles.container}>
           <View style={styles.labelContainer}>
@@ -43,7 +44,7 @@ class DeleteModal extends React.Component<IDeleteModalProps, {}> {
             />
             <Button
               title="Cancel"
-              onPress={this.onCancel}
+              onPress={this.onClose}
             />
           </View>
         </View>
@@ -52,18 +53,19 @@ class DeleteModal extends React.Component<IDeleteModalProps, {}> {
   }
 
   private onDelete = () => {
-    const { onDelete } = this.props;
+    const { onDelete, expense, onClose } = this.props;
 
-    if (onDelete && typeof onDelete === 'function') {
-      onDelete('', '');
+    if (expense && onDelete && onClose) {
+      onDelete(expense.id, getRefreshDate());
+      onClose();
     }
   }
 
-  private onCancel = () => {
-    const { onCancel } = this.props;
+  private onClose = () => {
+    const { onClose: onClose } = this.props;
 
-    if (onCancel && typeof onCancel === 'function') {
-      onCancel();
+    if (onClose && typeof onClose === 'function') {
+      onClose();
     }
   }
 }

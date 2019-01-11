@@ -118,12 +118,12 @@ export default class Add extends React.Component<IAddProps, IAddState> {
       updatedAt: new Date().getTime()
     });
 
-    this.setState({ amount: '', selectedCategory: null, selectedSubCategory: '' });
+    this.setState({ amount: '', selectedCategory: undefined, selectedSubCategory: '' });
   };
 
 
   getFontSize = () => {
-    const { amount } = this.state;
+    const amount = numeral(this.state.amount).value();
 
     if (!amount || amount < 10000) {
       return 60;

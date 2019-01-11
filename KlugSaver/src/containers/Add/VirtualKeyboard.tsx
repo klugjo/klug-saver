@@ -1,15 +1,17 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Button } from 'react-native-elements';
+import { View, StyleSheet, Button } from 'react-native';
 
-const renderButton = (digit, onPress) => (
+export interface IVirtualKeyboardProps {
+  addChar: (char: string) => () => void;
+  deleteChar: () => void;
+  addDecimal: () => void;
+}
+
+const renderButton = (digit: string, onPress: () => void) => (
   <Button
     color="#000"
-    buttonStyle={styles.keyboardButton}
     title={digit}
     onPress={onPress}
-    fontFamily="lato-thin"
-    underlayColor="#666"
   />
 );
 
@@ -17,7 +19,7 @@ const VirtualKeyboard = ({
   addChar,
   deleteChar,
   addDecimal
-}) => (
+}: IVirtualKeyboardProps) => (
     <View style={styles.keyboardRoot}>
       <View style={styles.keyboardLine}>
         {renderButton('1', addChar('1'))}

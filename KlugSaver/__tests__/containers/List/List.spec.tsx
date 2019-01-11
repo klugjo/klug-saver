@@ -16,7 +16,8 @@ const props: IListProps = {
     mockExpenses.expense12FoodLunchJan03,
     mockExpenses.expense20TransportTaxiJan03
   ],
-  getExpenses: jest.fn()
+  getExpenses: jest.fn(),
+  openDeleteModal: jest.fn()
 };
 
 describe('List Containers', () => {

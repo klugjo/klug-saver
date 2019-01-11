@@ -26,7 +26,7 @@ export default class MainCategoriesPicker extends React.Component<IMainCategorie
         underlayColor="#DDD"
       >
         <View style={[styles.buttonStyle, { backgroundColor: isSelected ? '#FFF' : cat.color, borderWidth: isSelected ? 1 : 0 }]}>
-          <Text style={{ color: isSelected ? '#000' : '#FFF', fontFamily: 'lato-regular' }}>{cat.title}</Text>
+          <Text style={{ color: isSelected ? '#000' : '#FFF' }}>{cat.title}</Text>
         </View>
       </TouchableHighlight>
     );

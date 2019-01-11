@@ -26,11 +26,7 @@ export const SubCategoryModal = ({ category, onPickSubCategory, open, onClose }:
       <View style={styles.container}>
         <View style={styles.backButtonContainer}>
           <TouchableHighlight onPress={onClose} underlayColor="#666" style={{}}>
-            {/* <MaterialCommunityIcons
-              name="window-close"
-              size={24}
-              color="#888"
-            /> */}
+            <Text>X</Text>
           </TouchableHighlight>
           <Text style={{ marginLeft: 30, fontSize: 18, color: '#888', marginBottom: 2 }}>{category!.title}</Text>
         </View>
@@ -79,8 +75,7 @@ const styles = StyleSheet.create({
     width: '50%'
   },
   buttonText: {
-    color: '#FFF',
-    fontFamily: 'lato-regular'
+    color: '#FFF'
   },
   buttonStyle: {
     flex: 1,

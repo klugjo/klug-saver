@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, Text, Button } from 'react-native';
+import numeral from 'numeral';
 
 import VirtualKeyboard from './VirtualKeyboard';
-import { PAGES } from '../../constants';
 import Categories from '../Categories/Categories';
 import { formatAmount } from '../../util';
 import { IExpense, ICategory } from '../../typings';
@@ -158,7 +158,6 @@ const styles = StyleSheet.create({
 
   },
   currency: {
-    fontFamily: 'lato-thin',
     fontSize: 20,
     marginTop: 10,
     color: '#999'

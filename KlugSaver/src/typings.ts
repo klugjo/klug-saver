@@ -34,3 +34,10 @@ export interface IAction {
   type: string;
   payload?: any;
 }
+
+export interface ICategory {
+  title: string,
+  subCategories: string[],
+  color: string,
+  icon: string
+}

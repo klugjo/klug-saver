@@ -3,9 +3,9 @@ import { View, StyleSheet, Text, Button } from 'react-native';
 
 import VirtualKeyboard from './VirtualKeyboard';
 import { PAGES } from '../../constants';
-import Categories from './Categories';
+import Categories from '../Categories/Categories';
 import { formatAmount } from '../../util';
-import { IExpense } from '../../typings';
+import { IExpense, ICategory } from '../../typings';
 
 export interface IAddProps {
   addExpense: (expense: IExpense) => void;
@@ -13,7 +13,7 @@ export interface IAddProps {
 
 interface IAddState {
   amount: string;
-  selectedCategory?: { title: string };
+  selectedCategory?: ICategory;
   selectedSubCategory: string;
 }
 
@@ -87,7 +87,7 @@ export default class Add extends React.Component<IAddProps, IAddState> {
     this.setState({ amount });
   };
 
-  onSelectedCategoryChange = (newCategory: { title: string }) => {
+  onSelectedCategoryChange = (newCategory?: ICategory) => {
     const selectedCategory = newCategory === this.state.selectedCategory ? undefined : newCategory;
     this.setState({ selectedCategory, selectedSubCategory: '' });
   };

@@ -13,7 +13,7 @@ export interface IExpenseRowProps {
 const ExpenseRow = ({ item, openDeleteModal }: IExpenseRowProps) => (
   <TouchableHighlight
     onPress={() => openDeleteModal(item)}
-    underlayColor="#CCC"
+    underlayColor={getTheme().underlayColor}
   >
     <View style={styles.expenseRowView}>
       <View style={[styles.rowColorView, { backgroundColor: getCategoryColor(item.category) }]} />

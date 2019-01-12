@@ -79,8 +79,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'stretch',
-    backgroundColor: '#F1F5F5'
+    alignItems: 'stretch'
   },
   labelContainer: {
     flexDirection: 'row',
@@ -97,6 +96,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   button: {
-    backgroundColor: '#F1F5F5'
   }
 });

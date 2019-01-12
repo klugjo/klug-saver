@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
 
-import { categories } from './constants';
+import { categories } from '../../Categories/constants';
 import { SubCategoryModal } from './SubCategoryModal';
-import { ICategory } from '../../typings';
+import { ICategory } from '../../../typings';
 
 export interface IMainCategoriesPicker {
   selectedCategory?: ICategory;

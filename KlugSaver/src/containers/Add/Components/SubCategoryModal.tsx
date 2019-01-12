@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, Modal, StyleSheet, TouchableHighlight } from 'react-native';
-import { ICategory } from '../../typings';
-// import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { ICategory } from '../../../typings';
 
 export interface ISubCategoryModal {
   category?: ICategory;

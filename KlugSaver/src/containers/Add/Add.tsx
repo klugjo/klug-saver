@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, Text, Button } from 'react-native';
+import { View, StyleSheet, Button } from 'react-native';
 import numeral from 'numeral';
 
 import VirtualKeyboard from './VirtualKeyboard';
-import Categories from '../Categories/Categories';
-import { formatAmount } from '../../util';
+import Categories from './Components/Categories';
+import AmountDisplay from './Components/AmountDisplay';
+import { getTheme } from '../../theme/utils';
 import { IExpense, ICategory } from '../../typings';
 
 export interface IAddProps {
@@ -41,18 +42,8 @@ export default class Add extends React.Component<IAddProps, IAddState> {
             selectedSubCategory={selectedSubCategory}
           />
         </View>
-        <View style={styles.amountRoot}>
-          <View style={styles.amountContainer}>
-            <Text style={styles.currency}>SGD</Text>
-            <View style={styles.amountInput}>
-              <Text style={{
-                color: '#003249',
-                fontSize: this.getFontSize()
-              }}>
-                {formatAmount(amount || 0)}
-              </Text>
-            </View>
-          </View>
+        <View style={styles.amount}>
+          <AmountDisplay amount={amount} />
         </View>
         <View style={styles.keyboard}>
           <VirtualKeyboard
@@ -120,19 +111,6 @@ export default class Add extends React.Component<IAddProps, IAddState> {
 
     this.setState({ amount: '', selectedCategory: undefined, selectedSubCategory: '' });
   };
-
-
-  getFontSize = () => {
-    const amount = numeral(this.state.amount).value();
-
-    if (!amount || amount < 10000) {
-      return 60;
-    } else if (amount < 10000000) {
-      return 40;
-    } else {
-      return 25;
-    }
-  };
 };
 
 const styles = StyleSheet.create({
@@ -144,37 +122,17 @@ const styles = StyleSheet.create({
   categories: {
     flex: 0.25
   },
-  amountRoot: {
+  amount: {
     flex: 0.3,
     flexDirection: 'row',
     alignItems: 'center'
-  },
-  amountContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    padding: 10
-  },
-  amountText: {
-
-  },
-  currency: {
-    fontSize: 20,
-    marginTop: 10,
-    color: '#999'
-  },
-  amountInput: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    flex: 1
   },
   keyboard: {
     flex: 0.35
   },
   saveButton: {
     flex: 0.1,
-    backgroundColor: '#FFF'
-  },
-  label: {
-    color: '#003249'
-  },
+    backgroundColor: getTheme().backgroundMain,
+    fontFamily: getTheme().fontThin
+  }
 });

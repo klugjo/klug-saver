@@ -1,4 +1,5 @@
 import React from 'react';
+import numeral from 'numeral';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { formatAmount } from '../../../util';

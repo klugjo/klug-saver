@@ -2,14 +2,12 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
 
 import { categories } from '../../Categories/constants';
-import { SubCategoryModal } from './SubCategoryModal';
 import { ICategory } from '../../../typings';
+import { getTheme } from '../../../theme/utils';
 
 export interface IMainCategoriesPicker {
   selectedCategory?: ICategory;
-  selectedSubCategory: string;
   onPickCategory: (category?: ICategory) => void;
-  onPickSubCategory: (subCategory: string) => void;
 }
 
 export default class MainCategoriesPicker extends React.Component<IMainCategoriesPicker, {}> {
@@ -25,22 +23,21 @@ export default class MainCategoriesPicker extends React.Component<IMainCategorie
         style={styles.buttonContainer}
         underlayColor="#DDD"
       >
-        <View style={[styles.buttonStyle, { backgroundColor: isSelected ? '#FFF' : cat.color, borderWidth: isSelected ? 1 : 0 }]}>
-          <Text style={{ color: isSelected ? '#000' : '#FFF' }}>{cat.title}</Text>
+        <View style={[styles.buttonStyle, {
+          backgroundColor: isSelected ? getTheme().backgroundMain : cat.color,
+          borderWidth: isSelected ? 1 : 0 }
+        ]}>
+          <Text style={{ color: isSelected ? getTheme().textMain : getTheme().backgroundMain }}>{cat.title}</Text>
         </View>
       </TouchableHighlight>
     );
   }
 
   pickCategory = (cat?: ICategory) => () => {
-    const { onPickCategory } = this.props;
-
-    onPickCategory(cat);
+    this.props.onPickCategory(cat);
   }
 
   render() {
-    const { selectedSubCategory, selectedCategory, onPickSubCategory } = this.props;
-
     return (
       <View style={styles.categoriesRoot}>
         <View style={styles.categoriesLine}>
@@ -49,12 +46,6 @@ export default class MainCategoriesPicker extends React.Component<IMainCategorie
         <View style={styles.categoriesLine}>
           {categories.col2.map(this.renderButton)}
         </View>
-        <SubCategoryModal
-          category={selectedCategory}
-          open={!!selectedCategory && !selectedSubCategory}
-          onPickSubCategory={onPickSubCategory}
-          onClose={this.pickCategory}
-        />
       </View>
     )
   }
@@ -89,4 +80,3 @@ const styles = StyleSheet.create({
     borderColor: '#000'
   }
 });
-

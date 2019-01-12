@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, Text, Modal, StyleSheet, TouchableHighlight } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import { ICategory } from '../../../typings';
+import { getTheme } from '../../../theme/utils';
 
 export interface ISubCategoryModal {
   category?: ICategory;
@@ -20,12 +23,12 @@ export const SubCategoryModal = ({ category, onPickSubCategory, open, onClose }:
     <Modal
       animationType="slide"
       transparent={false}
-      visible={!!items && open}
+      visible={open}
     >
       <View style={styles.container}>
         <View style={styles.backButtonContainer}>
-          <TouchableHighlight onPress={onClose} underlayColor="#666" style={{}}>
-            <Text>X</Text>
+          <TouchableHighlight onPress={onClose}>
+            <Icon name="close" size={30} color={getTheme().textSecondary} />
           </TouchableHighlight>
           <Text style={{ marginLeft: 30, fontSize: 18, color: '#888', marginBottom: 2 }}>{category!.title}</Text>
         </View>

@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
 import numeral from 'numeral';
 
-import VirtualKeyboard from './VirtualKeyboard';
+import VirtualKeyboard from './Components/VirtualKeyboard';
 import Categories from './Components/Categories';
 import AmountDisplay from './Components/AmountDisplay';
+import { SubCategoryModal } from './Components/SubCategoryModal';
 import { getTheme } from '../../theme/utils';
 import { IExpense, ICategory } from '../../typings';
 
@@ -37,9 +38,7 @@ export default class Add extends React.Component<IAddProps, IAddState> {
         <View style={styles.categories}>
           <Categories
             onPickCategory={this.onSelectedCategoryChange}
-            onPickSubCategory={this.onSelectedSubCategoryChange}
             selectedCategory={selectedCategory}
-            selectedSubCategory={selectedSubCategory}
           />
         </View>
         <View style={styles.amount}>
@@ -52,13 +51,15 @@ export default class Add extends React.Component<IAddProps, IAddState> {
             addDecimal={this.addDecimal}
           />
         </View>
-        <View style={styles.saveButton}>
-          <Button
-            title="SAVE"
-            onPress={this.onSave}
-            color="#000"
-          />
-        </View>
+        <TouchableHighlight onPress={this.onSave} style={styles.saveButton} underlayColor={getTheme().textSecondary}>
+          <Text style={styles.saveButtonText}>SAVE</Text>
+        </TouchableHighlight>
+        <SubCategoryModal
+          category={selectedCategory}
+          open={!!selectedCategory && !selectedSubCategory}
+          onPickSubCategory={this.onSelectedSubCategoryChange}
+          onClose={this.onSubCategoryModalClose}
+        />
       </View>
     );
   }
@@ -86,6 +87,10 @@ export default class Add extends React.Component<IAddProps, IAddState> {
   onSelectedSubCategoryChange = (selectedSubCategory: string) => {
     this.setState({ selectedSubCategory });
   };
+
+  onSubCategoryModalClose = () => {
+    this.setState({ selectedCategory: undefined, selectedSubCategory: '' });
+  }
 
   onSave = () => {
     const { amount, selectedCategory, selectedSubCategory } = this.state;
@@ -132,7 +137,12 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     flex: 0.1,
-    backgroundColor: getTheme().backgroundMain,
-    fontFamily: getTheme().fontThin
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  saveButtonText: {
+    fontFamily: getTheme().fontThin,
+    fontSize: 20
   }
 });

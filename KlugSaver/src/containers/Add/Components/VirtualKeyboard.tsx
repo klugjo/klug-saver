@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
+import { getTheme } from '../../../theme/utils';
 
 export interface IVirtualKeyboardProps {
   addChar: (char: string) => () => void;
@@ -8,11 +9,9 @@ export interface IVirtualKeyboardProps {
 }
 
 const renderButton = (digit: string, onPress: () => void) => (
-  <Button
-    color="#000"
-    title={digit}
-    onPress={onPress}
-  />
+  <TouchableHighlight onPress={onPress} style={styles.keyboardKey} underlayColor={getTheme().textSecondary}>
+    <Text style={styles.keyboardKeyText}>{digit}</Text>
+  </TouchableHighlight>
 );
 
 const VirtualKeyboard = ({
@@ -52,11 +51,17 @@ const styles = StyleSheet.create({
   keyboardLine: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
   },
-  keyboardButton: {
-    width: 100,
-    backgroundColor: `#F1F5F5`
+  keyboardKey: {
+    flexGrow: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  keyboardKeyText: {
+    fontFamily: getTheme().fontThin,
+    fontSize: 18
   }
 });
 

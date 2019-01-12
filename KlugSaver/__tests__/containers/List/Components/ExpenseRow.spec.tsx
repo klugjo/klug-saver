@@ -8,7 +8,8 @@ import ExpenseRow, { IExpenseRowProps } from '../../../../src/containers/List/Co
 import { expense20TransportTaxiJan01 } from '../../../mocks/expenses';
 
 const props: IExpenseRowProps = {
-  item: expense20TransportTaxiJan01
+  item: expense20TransportTaxiJan01,
+  openDeleteModal: jest.fn()
 };
 
 describe('ExpenseRow', () => {
@@ -32,5 +33,11 @@ describe('ExpenseRow', () => {
 
   it('renders the formatted amount', () => {
     expect(wrapper.find(Text).at(2).prop('children')).toBe('20.00');
+  });
+
+  it('should open the modal on press', () => {
+    wrapper.simulate('press');
+
+    expect(props.openDeleteModal).toHaveBeenCalled();
   });
 });

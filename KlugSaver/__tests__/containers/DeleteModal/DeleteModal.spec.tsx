@@ -1,11 +1,12 @@
 import 'react-native';
 import React from 'react';
 import _ from 'lodash';
-import { View, Text, Button } from 'react-native';
+import { Text } from 'react-native';
 import { shallow, ShallowWrapper } from 'enzyme';
 
 import DeleteModal, { IDeleteModalProps } from '../../../src/containers/DeleteModal/DeleteModal';
 import { expense12FoodLunchJan01 } from '../../mocks/expenses';
+import { KSButton } from '../../../src/components';
 
 const props: IDeleteModalProps = {
   open: true,
@@ -30,14 +31,14 @@ describe('DeleteModal', () => {
   });
 
   it('pressing on delete calls the delete and close functions', () => {
-    wrapper.find(Button).at(0).simulate('press');
+    wrapper.find(KSButton).at(0).simulate('press');
 
     expect(props.onDelete).toHaveBeenCalled();
     expect(props.onClose).toHaveBeenCalled();
   });
 
   it('pressing on close calls the close function', () => {
-    wrapper.find(Button).at(1).simulate('press');
+    wrapper.find(KSButton).at(1).simulate('press');
 
     expect(props.onClose).toHaveBeenCalled();
   });

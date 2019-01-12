@@ -28,9 +28,9 @@ export const SubCategoryModal = ({ category, onPickSubCategory, open, onClose }:
       <View style={styles.container}>
         <View style={styles.backButtonContainer}>
           <TouchableHighlight onPress={onClose}>
-            <Icon name="close" size={30} color={getTheme().textSecondary} />
+            <Icon name="close" size={30} color={getTheme().underlayColor} />
           </TouchableHighlight>
-          <Text style={{ marginLeft: 30, fontSize: 18, color: '#888', marginBottom: 2 }}>{category!.title}</Text>
+          <Text style={styles.titleText}>{category!.title}</Text>
         </View>
         {
           items.map((item, index) => (
@@ -38,7 +38,7 @@ export const SubCategoryModal = ({ category, onPickSubCategory, open, onClose }:
               key={index}
               onPress={() => onPickSubCategory(item)}
               style={styles.buttonContainer}
-              underlayColor="#DDD"
+              underlayColor={getTheme().backgroundMainColor}
             >
               <View style={[styles.buttonStyle, { backgroundColor: category!.color }]}>
                 <Text style={styles.buttonText}>{item}</Text>
@@ -58,8 +58,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'stretch',
     paddingTop: 30,
-    flexWrap: 'wrap',
-    backgroundColor: '#F1F5F5'
+    flexWrap: 'wrap'
   },
   backButtonContainer: {
     width: '90%',
@@ -72,12 +71,18 @@ const styles = StyleSheet.create({
     borderBottomColor: '#CCC',
     borderBottomWidth: 1
   },
+  titleText: {
+    marginLeft: 30,
+    fontSize: 18,
+    color: getTheme().textSecondaryColor,
+    marginBottom: 2 
+  },
   buttonContainer: {
     height: 90,
     width: '50%'
   },
   buttonText: {
-    color: '#FFF'
+    color: getTheme().backgroundMainColor
   },
   buttonStyle: {
     flex: 1,

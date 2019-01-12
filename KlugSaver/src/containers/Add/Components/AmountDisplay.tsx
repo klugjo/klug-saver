@@ -41,13 +41,13 @@ const styles = StyleSheet.create({
     padding: 10
   },
   amountText: {
-    color: getTheme().textMain
+    color: getTheme().textMainColor
   },
   currency: {
     fontSize: 20,
     marginTop: 10,
     marginRight: 15,
-    color: getTheme().textSecondary
+    color: getTheme().textSecondaryColor
   },
   amountInput: {
     flexDirection: 'column',

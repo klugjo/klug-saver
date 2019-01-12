@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   headerRowView: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: getTheme().backgroundMain,
+    backgroundColor: getTheme().backgroundMainColor,
     paddingBottom: 3,
     paddingRight: 16,
     paddingTop: 10
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   headerAmountText: {
     ...textStyleHeader,
-    color: getTheme().textSecondary,
+    color: getTheme().textSecondaryColor,
     flexGrow: 1,
     textAlign: 'right'
   }

@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 15,
     flex: 1,
-    backgroundColor: getTheme().backgroundMain
+    backgroundColor: getTheme().backgroundMainColor
   }
 });

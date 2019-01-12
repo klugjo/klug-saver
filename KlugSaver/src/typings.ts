@@ -1,10 +1,11 @@
 export interface IThemeConstants {
-  accentMain: string;
-  backgroundMain: string;
-  textMain: string;
-  textSecondary: string;
+  accentMainColor: string;
+  backgroundMainColor: string;
+  textMainColor: string;
+  textSecondaryColor: string;
   fontMain: string;
   fontThin: string;
+  underlayColor: string;
 }
 
 export interface ICategory {

@@ -2,17 +2,17 @@ import { getTheme } from "./utils";
 
 export const textStyleBase = {
   fontFamily: getTheme().fontMain,
-  color: getTheme().textMain
+  color: getTheme().textMainColor
 };
 
 export const textStyleThin = {
   fontFamily: getTheme().fontThin,
-  color: getTheme().textMain
+  color: getTheme().textMainColor
 };
 
 export const textStyleHeader = {
   fontFamily: getTheme().fontMain,
-  color: getTheme().textMain,
+  color: getTheme().textMainColor,
   fontSize: 20
 };
 

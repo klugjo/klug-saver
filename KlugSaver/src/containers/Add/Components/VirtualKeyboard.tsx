@@ -9,7 +9,7 @@ export interface IVirtualKeyboardProps {
 }
 
 const renderButton = (digit: string, onPress: () => void) => (
-  <TouchableHighlight onPress={onPress} style={styles.keyboardKey} underlayColor={getTheme().textSecondary}>
+  <TouchableHighlight onPress={onPress} style={styles.keyboardKey} underlayColor={getTheme().underlayColor}>
     <Text style={styles.keyboardKeyText}>{digit}</Text>
   </TouchableHighlight>
 );
@@ -57,7 +57,9 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRadius: 15,
+    marginHorizontal: 10
   },
   keyboardKeyText: {
     fontFamily: getTheme().fontThin,

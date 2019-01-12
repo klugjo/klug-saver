@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   },
   containerView: {
     flex: 1,
-    backgroundColor: getTheme().backgroundMain,
+    backgroundColor: getTheme().backgroundMainColor,
   },
   refreshButton: {
     backgroundColor: '#003249'

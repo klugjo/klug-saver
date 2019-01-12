@@ -21,13 +21,13 @@ export default class MainCategoriesPicker extends React.Component<IMainCategorie
         onPress={this.pickCategory(cat)}
         key={cat.title}
         style={styles.buttonContainer}
-        underlayColor="#DDD"
+        underlayColor={getTheme().backgroundMainColor}
       >
         <View style={[styles.buttonStyle, {
-          backgroundColor: isSelected ? getTheme().backgroundMain : cat.color,
+          backgroundColor: isSelected ? getTheme().backgroundMainColor : cat.color,
           borderWidth: isSelected ? 1 : 0 }
         ]}>
-          <Text style={{ color: isSelected ? getTheme().textMain : getTheme().backgroundMain }}>{cat.title}</Text>
+          <Text style={{ color: isSelected ? getTheme().textMainColor : getTheme().backgroundMainColor }}>{cat.title}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -77,6 +77,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     borderRadius: 10,
-    borderColor: '#000'
+    borderColor: getTheme().textSecondaryColor
   }
 });

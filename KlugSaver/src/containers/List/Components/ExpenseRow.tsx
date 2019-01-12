@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   subDescriptionText: {
     ...textStyleThin,
-    color: getTheme().textSecondary,
+    color: getTheme().textSecondaryColor,
     flexGrow: 1
   }
 });

@@ -51,7 +51,7 @@ export default class Add extends React.Component<IAddProps, IAddState> {
             addDecimal={this.addDecimal}
           />
         </View>
-        <TouchableHighlight onPress={this.onSave} style={styles.saveButton} underlayColor={getTheme().textSecondary}>
+        <TouchableHighlight onPress={this.onSave} style={styles.saveButton} underlayColor={getTheme().underlayColor}>
           <Text style={styles.saveButtonText}>SAVE</Text>
         </TouchableHighlight>
         <SubCategoryModal
@@ -139,7 +139,10 @@ const styles = StyleSheet.create({
     flex: 0.1,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRadius: 15,
+    marginHorizontal: 30,
+    marginBottom: 10
   },
   saveButtonText: {
     fontFamily: getTheme().fontThin,

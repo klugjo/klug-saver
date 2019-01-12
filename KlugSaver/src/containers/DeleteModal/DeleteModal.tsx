@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Modal, StyleSheet, Button } from 'react-native';
 import { IExpense } from '../../typings';
 import { getRefreshDate } from '../../util';
+import { KSButton } from '../../components';
 
 export interface IDeleteModalProps {
   open: boolean;
@@ -38,15 +39,13 @@ class DeleteModal extends React.Component<IDeleteModalProps, {}> {
           </View>
 
           <View style={styles.buttons}>
-            <Button
-              title="Delete"
+            <KSButton
+              text="Delete"
               onPress={this.onDelete}
-              color="black"
             />
-            <Button
-              title="Cancel"
+            <KSButton
+              text="Cancel"
               onPress={this.onClose}
-              color="black"
             />
           </View>
         </View>

@@ -8,6 +8,7 @@ import AmountDisplay from './Components/AmountDisplay';
 import { SubCategoryModal } from './Components/SubCategoryModal';
 import { getTheme } from '../../theme/utils';
 import { IExpense, ICategory } from '../../typings';
+import { KSButton } from '../../components';
 
 export interface IAddProps {
   addExpense: (expense: IExpense) => void;
@@ -51,9 +52,12 @@ export default class Add extends React.Component<IAddProps, IAddState> {
             addDecimal={this.addDecimal}
           />
         </View>
-        <TouchableHighlight onPress={this.onSave} style={styles.saveButton} underlayColor={getTheme().underlayColor}>
-          <Text style={styles.saveButtonText}>SAVE</Text>
-        </TouchableHighlight>
+        <KSButton
+          onPress={this.onSave}
+          text="SAVE"
+          containerStyle={styles.saveButton}
+          textStyle={styles.saveButtonText}
+        />
         <SubCategoryModal
           category={selectedCategory}
           open={!!selectedCategory && !selectedSubCategory}
@@ -137,15 +141,10 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     flex: 0.1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 15,
     marginHorizontal: 30,
     marginBottom: 10
   },
   saveButtonText: {
-    fontFamily: getTheme().fontThin,
     fontSize: 20
   }
 });

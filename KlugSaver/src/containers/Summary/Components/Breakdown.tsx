@@ -72,6 +72,7 @@ export default Breakdown;
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+    marginVertical: 20,
     flexDirection: 'row',
     justifyContent: 'center'
   },

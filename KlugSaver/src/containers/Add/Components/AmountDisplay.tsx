@@ -21,14 +21,24 @@ const getFontSize = (amountText?: string) => {
   }
 };
 
+const getCurrencyMarginTop = (amountText?: string) => {
+  const amount = numeral(amountText).value();
+
+  if (!amount || amount < 10000) {
+    return 10;
+  } else if (amount < 10000000) {
+    return 5;
+  } else {
+    return 0;
+  }
+};
+
 const AmountDisplay = ({ amount }: IAmountDisplayProps) => {
   return <View style={styles.amountContainer}>
-    <Text style={styles.currency}>SGD</Text>
-    <View style={styles.amountInput}>
-      <Text style={[styles.amountText, { fontSize: getFontSize(amount) }]}>
-        {formatAmount(amount || 0)}
-      </Text>
-    </View>
+    <Text style={[styles.currency, {marginTop: getCurrencyMarginTop(amount)}]}>SGD</Text>
+    <Text style={[styles.amountText, { fontSize: getFontSize(amount) }]}>
+      {formatAmount(amount || 0)}
+    </Text>
   </View>;
 }
 
@@ -38,20 +48,15 @@ const styles = StyleSheet.create({
   amountContainer: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    padding: 10
+    padding: 10,
+    height: 78
   },
   amountText: {
     color: getTheme().textMainColor
   },
   currency: {
     fontSize: 20,
-    marginTop: 10,
     marginRight: 15,
     color: getTheme().textSecondaryColor
-  },
-  amountInput: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    flex: 1
   }
 });

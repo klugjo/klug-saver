@@ -133,8 +133,7 @@ const styles = StyleSheet.create({
   },
   amount: {
     flex: 0.3,
-    flexDirection: 'row',
-    alignItems: 'center'
+    justifyContent: 'center'
   },
   keyboard: {
     flex: 0.35

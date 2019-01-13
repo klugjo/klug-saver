@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
+
 import { PeriodFilterType } from '../Root';
 import { getTheme } from '../../../theme/utils';
+import { unitOfTime } from 'moment';
 
 export interface IPeriodPickerProps {
-  currentFilterType: PeriodFilterType;
+  currentFilterType: unitOfTime.StartOf;
   onCurrentFilterChange: (filter: PeriodFilterType) => void;
 };
 
@@ -19,18 +21,30 @@ const getFilterStyles = (selected: boolean) => [
 
 export const PeriodPicker = ({ currentFilterType, onCurrentFilterChange }: IPeriodPickerProps) => {
   return <View style={styles.root}>
-    <View style={getFilterStyles(currentFilterType === 'year')}>
+    <TouchableHighlight
+      style={getFilterStyles(currentFilterType === 'year')}
+      onPress={() => onCurrentFilterChange('year')}
+    >
       <Text>Year</Text>
-    </View>
-    <View style={getFilterStyles(currentFilterType === 'month')}>
+    </TouchableHighlight>
+    <TouchableHighlight
+      style={getFilterStyles(currentFilterType === 'month')}
+      onPress={() => onCurrentFilterChange('month')}
+    >
       <Text>Month</Text>
-    </View>
-    <View style={getFilterStyles(currentFilterType === 'week')}>
+    </TouchableHighlight>
+    <TouchableHighlight
+      style={getFilterStyles(currentFilterType === 'week')}
+      onPress={() => onCurrentFilterChange('week')}
+    >
       <Text>Week</Text>
-    </View>
-    <View style={getFilterStyles(currentFilterType === 'day')}>
+    </TouchableHighlight>
+    <TouchableHighlight
+      style={getFilterStyles(currentFilterType === 'day')}
+      onPress={() => onCurrentFilterChange('day')}
+    >
       <Text>Day</Text>
-    </View>
+    </TouchableHighlight>
   </View>;
 };
 

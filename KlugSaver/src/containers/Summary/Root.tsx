@@ -6,7 +6,7 @@ import Breakdown from './Components/Breakdown';
 import { GrandTotal } from './Components/GrandTotal';
 import { PeriodPicker } from './Components/PeriodPicker';
 import moment from 'moment'
-import { toddMMM } from '../../util';
+import { toddMMM, toddMMMForHumans } from '../../util';
 
 export type PeriodFilterType = 'year' | 'month' | 'week' | 'day';
 
@@ -37,17 +37,17 @@ export default class Root extends React.Component<IRootProps, IRootState> {
         currentFilterType={periodFilterType}
         onCurrentFilterChange={this.onCurrentFilterChange}
       />
-      <GrandTotal expenses={expenses} />
+      <GrandTotal expenses={expenses} label={this.getPeriodLabel()} />
       <Breakdown expenses={expenses} />
     </View>
   }
 
   private onCurrentFilterChange = (periodFilterType: PeriodFilterType) => {
-    this.setState({periodFilterType});
+    this.setState({ periodFilterType });
   }
 
   private getFilteredExpenses = (): IExpense[] => {
-    const {expenses} = this.props;
+    const { expenses } = this.props;
     const { periodFilterType, offset } = this.state;
     const startDate = moment().add(offset, periodFilterType).startOf(periodFilterType);
     const endDate = moment().add(offset, periodFilterType).endOf(periodFilterType);
@@ -56,6 +56,25 @@ export default class Root extends React.Component<IRootProps, IRootState> {
     console.log(toddMMM(endDate.valueOf()));
 
     return expenses.filter(e => e.createdAt >= startDate.valueOf() && e.createdAt < endDate.valueOf());
+  }
+
+  private getPeriodLabel = () => {
+    const { periodFilterType, offset } = this.state;
+    const date = moment().add(offset, periodFilterType);
+
+    if (periodFilterType === 'day') {
+      return toddMMMForHumans(date.valueOf());
+    } else if (periodFilterType === 'week') {
+      const startDate = moment().add(offset, periodFilterType).startOf(periodFilterType);
+      const endDate = moment().add(offset, periodFilterType).endOf(periodFilterType);
+      return `${toddMMM(startDate.valueOf())} - ${toddMMM(endDate.valueOf())}`;
+    } else if (periodFilterType === 'month') {
+      return date.format('MMMM YYYY');
+    } else if (periodFilterType === 'year') {
+      return date.format('YYYY');
+    }
+
+    return 'Something went wrong ?!?';
   }
 }
 

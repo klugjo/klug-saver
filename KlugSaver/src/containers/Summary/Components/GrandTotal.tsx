@@ -7,19 +7,18 @@ import { getTheme } from '../../../theme/utils';
 
 export interface IGrandTotalProps {
   expenses: IExpense[];
+  label: string;
 };
 
-export const GrandTotal = ({ expenses }: IGrandTotalProps) => {
+export const GrandTotal = ({ expenses, label }: IGrandTotalProps) => {
   const total = sum(expenses, (t: IExpense) => t.amount);
-  const startDate = Math.min(...expenses.map(t => t.createdAt));
-  const endDate = Math.max(...expenses.map(t => t.createdAt));
 
   return <View style={styles.root}>
     <Text style={styles.amountText}>
       {formatAmount(total)}
     </Text>
     <Text style={styles.datesText}>
-      {`${toddMMM(startDate)} - ${toddMMM(endDate)}`}
+      {label}
     </Text>
   </View>;
 };

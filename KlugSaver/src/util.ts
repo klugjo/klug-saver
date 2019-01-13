@@ -19,7 +19,7 @@ const dateLabelsMap = {
 };
 
 export const toddMMMForHumans = (date: number) => {
-  const result = moment(date).format(DD_MMM_FORMAT);
+  const result = moment(date).format(DD_MMM_YYYY_FORMAT);
 
   return dateLabelsMap[result] || result;
 };

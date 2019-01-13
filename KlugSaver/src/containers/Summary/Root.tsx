@@ -1,12 +1,14 @@
 import React from 'React';
 import { View, StyleSheet } from 'react-native';
 
-import { IExpense } from '../../typings';
+import { IExpense, ICategory } from '../../typings';
 import Breakdown from './Components/Breakdown';
 import { GrandTotal } from './Components/GrandTotal';
 import { PeriodPicker } from './Components/PeriodPicker';
 import moment from 'moment'
 import { toddMMM, toddMMMForHumans } from '../../util';
+import { CategoryFilterHeader } from './Components/CategoryFilterHeader';
+import { categoryList } from '../Categories/constants';
 
 export type PeriodFilterType = 'year' | 'month' | 'week' | 'day';
 
@@ -17,6 +19,7 @@ interface IRootProps {
 interface IRootState {
   periodFilterType: PeriodFilterType;
   offset: number;
+  filter?: ICategory;
 }
 
 export default class Root extends React.Component<IRootProps, IRootState> {
@@ -24,13 +27,14 @@ export default class Root extends React.Component<IRootProps, IRootState> {
     super(props);
     this.state = {
       periodFilterType: 'month',
-      offset: 0
+      offset: 0,
+      filter: categoryList[0]
     };
   }
 
   public render() {
     const expenses = this.getFilteredExpenses();
-    const { periodFilterType, offset } = this.state;
+    const { periodFilterType, offset, filter } = this.state;
 
     return <View style={styles.breakdownContainer}>
       <PeriodPicker
@@ -45,12 +49,17 @@ export default class Root extends React.Component<IRootProps, IRootState> {
         onBefore={this.onOffsetChange(-1)}
         onNext={this.onOffsetChange(1)}
       />
-      <Breakdown expenses={expenses} />
+      <CategoryFilterHeader filter={filter} onReset={this.onResetFilter} />
+      <Breakdown expenses={expenses} filter={filter} />
     </View>
   }
 
+  private onResetFilter = () => {
+    this.setState({ filter: undefined });
+  }
+
   private onOffsetChange = (amount: number) => () => {
-    this.setState({offset: this.state.offset + amount});
+    this.setState({ offset: this.state.offset + amount });
   }
 
   private onCurrentFilterChange = (periodFilterType: PeriodFilterType) => {
@@ -59,14 +68,18 @@ export default class Root extends React.Component<IRootProps, IRootState> {
 
   private getFilteredExpenses = (): IExpense[] => {
     const { expenses } = this.props;
-    const { periodFilterType, offset } = this.state;
+    const { periodFilterType, offset, filter } = this.state;
     const startDate = moment().add(offset, periodFilterType).startOf(periodFilterType);
     const endDate = moment().add(offset, periodFilterType).endOf(periodFilterType);
 
     console.log(toddMMM(startDate.valueOf()));
     console.log(toddMMM(endDate.valueOf()));
 
-    return expenses.filter(e => e.createdAt >= startDate.valueOf() && e.createdAt < endDate.valueOf());
+    return expenses.filter(e =>
+      e.createdAt >= startDate.valueOf() &&
+      e.createdAt < endDate.valueOf() &&
+      (!filter || e.category === filter.title)
+    );
   }
 
   private getPeriodLabel = () => {

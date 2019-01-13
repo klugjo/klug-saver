@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { formatAmount, sum } from '../../../util';
 import { getTheme } from '../../../theme/utils';
-import { IExpense } from '../../../typings';
+import { IExpense, ICategory } from '../../../typings';
 import { categoryList } from '../../Categories/constants';
 
 export interface IBreakdownTotal {
@@ -15,6 +15,7 @@ export interface IBreakdownTotal {
 
 interface IBreakdownProps {
   expenses: IExpense[];
+  filter?: ICategory;
 }
 
 const getTotals = (expenses: IExpense[]): IBreakdownTotal[] => {
@@ -22,6 +23,16 @@ const getTotals = (expenses: IExpense[]): IBreakdownTotal[] => {
     ...c, 
     total: sum(expenses.filter((e: IExpense) => e.category === c.title), (e: IExpense) => e.amount)})
   ).sort((a, b) => b.total - a.total);
+}
+
+const getTotalsForCategory = (expenses: IExpense[], category: ICategory): IBreakdownTotal[] => {
+  const filteredExpenses = expenses.filter(e => e.category === category.title);
+
+  return category.subCategories.map(subCategory => ({
+    title: subCategory,
+    total: sum(filteredExpenses.filter((e: IExpense) => e.subCategory === subCategory), (e: IExpense) => e.amount),
+    color: category.color
+  })).sort((a, b) => b.total - a.total);
 }
 
 const renderLabels = (t: IBreakdownTotal, index: number) => (
@@ -44,8 +55,8 @@ const renderTotals = (t: IBreakdownTotal, index: number) => (
   </View>
 );
 
-const Breakdown = ({ expenses }: IBreakdownProps) => {
-  const totals = getTotals(expenses);
+const Breakdown = ({ expenses, filter }: IBreakdownProps) => {
+  const totals = !!filter ? getTotalsForCategory(expenses, filter) : getTotals(expenses);
   const max = Math.max(...totals.map(t => t.total));
 
   if (!expenses || !expenses.length) {

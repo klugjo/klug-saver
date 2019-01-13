@@ -1,9 +1,12 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import { formatAmount, sum } from '../../../util';
 import { getTheme } from '../../../theme/utils';
 import { IExpense } from '../../../typings';
 import { categoryList } from '../../Categories/constants';
+
 
 export interface IBreakdownTotal {
   title: string;
@@ -45,6 +48,12 @@ const renderTotals = (t: IBreakdownTotal, index: number) => (
 const Breakdown = ({ expenses }: IBreakdownProps) => {
   const totals = getTotals(expenses);
   const max = Math.max(...totals.map(t => t.total));
+
+  if (!expenses || !expenses.length) {
+    return <View style={styles.root}>
+      <Icon name="not-interested" size={30} color={getTheme().underlayColor} />
+    </View>;
+  }
 
   return <View style={styles.root}>
     <View>

@@ -8,7 +8,6 @@ import { PeriodPicker } from './Components/PeriodPicker';
 import moment from 'moment'
 import { toddMMM, toddMMMForHumans } from '../../util';
 import { CategoryFilterHeader } from './Components/CategoryFilterHeader';
-import { categoryList } from '../Categories/constants';
 
 export type PeriodFilterType = 'year' | 'month' | 'week' | 'day';
 
@@ -28,7 +27,7 @@ export default class Root extends React.Component<IRootProps, IRootState> {
     this.state = {
       periodFilterType: 'month',
       offset: 0,
-      filter: categoryList[0]
+      filter: undefined
     };
   }
 
@@ -50,9 +49,17 @@ export default class Root extends React.Component<IRootProps, IRootState> {
         onNext={this.onOffsetChange(1)}
       />
       <CategoryFilterHeader filter={filter} onReset={this.onResetFilter} />
-      <Breakdown expenses={expenses} filter={filter} />
+      <Breakdown
+        expenses={expenses}
+        filter={filter}
+        onFilterChange={this.onFilterChange}
+      />
     </View>
   }
+
+  private onFilterChange = (filter: ICategory) => {
+    this.setState({ filter });
+  };
 
   private onResetFilter = () => {
     this.setState({ filter: undefined });

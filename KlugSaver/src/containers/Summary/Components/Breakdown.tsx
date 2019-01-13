@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { formatAmount, sum } from '../../../util';
 import { getTheme } from '../../../theme/utils';
 import { IExpense, ICategory } from '../../../typings';
-import { categoryList } from '../../Categories/constants';
+import { categoryList, categoryMap } from '../../Categories/constants';
 
 export interface IBreakdownTotal {
   title: string;
@@ -16,6 +16,7 @@ export interface IBreakdownTotal {
 interface IBreakdownProps {
   expenses: IExpense[];
   filter?: ICategory;
+  onFilterChange: (category: ICategory) => void;
 }
 
 const getTotals = (expenses: IExpense[]): IBreakdownTotal[] => {
@@ -35,27 +36,42 @@ const getTotalsForCategory = (expenses: IExpense[], category: ICategory): IBreak
   })).sort((a, b) => b.total - a.total);
 }
 
-const renderLabels = (t: IBreakdownTotal, index: number) => (
-  <View style={styles.row} key={index}>
+const renderLabels = (onFilterChange: (category: ICategory) => void) => (t: IBreakdownTotal, index: number) => (
+  <TouchableHighlight
+    style={styles.row}
+    key={index}
+    onPress={() => onFilterChange(categoryMap[t.title])}
+    underlayColor={getTheme().backgroundMainColor}
+  >
     <Text style={styles.labelText}>{t.title}</Text>
-  </View>
+  </TouchableHighlight>
 );
 
-const renderBars = (max: number) => (t: IBreakdownTotal, index: number) => (
-  <View style={styles.row} key={index}>
+const renderBars = (max: number, onFilterChange: (category: ICategory) => void) => (t: IBreakdownTotal, index: number) => (
+  <TouchableHighlight
+    style={styles.row}
+    key={index}
+    onPress={() => onFilterChange(categoryMap[t.title])}
+    underlayColor={getTheme().backgroundMainColor}
+  >
     <View style={styles.barBackground}>
       <View style={[styles.bar, { backgroundColor: t.color, flexGrow: t.total / max }]}></View>
     </View>
-  </View>
+  </TouchableHighlight>
 );
 
-const renderTotals = (t: IBreakdownTotal, index: number) => (
-  <View style={styles.row} key={index}>
+const renderTotals = (onFilterChange: (category: ICategory) => void) => (t: IBreakdownTotal, index: number) => (
+  <TouchableHighlight
+    style={styles.row}
+    key={index}
+    onPress={() => onFilterChange(categoryMap[t.title])}
+    underlayColor={getTheme().backgroundMainColor}
+  >
     <Text style={styles.totalText}>{formatAmount(t.total)}</Text>
-  </View>
+  </TouchableHighlight>
 );
 
-const Breakdown = ({ expenses, filter }: IBreakdownProps) => {
+const Breakdown = ({ expenses, filter, onFilterChange }: IBreakdownProps) => {
   const totals = !!filter ? getTotalsForCategory(expenses, filter) : getTotals(expenses);
   const max = Math.max(...totals.map(t => t.total));
 
@@ -67,13 +83,13 @@ const Breakdown = ({ expenses, filter }: IBreakdownProps) => {
 
   return <View style={styles.root}>
     <View>
-      {totals.map(renderLabels)}
+      {totals.map(renderLabels(onFilterChange))}
     </View>
     <View style={styles.barContainer}>
-      {totals.map(renderBars(max))}
+      {totals.map(renderBars(max, onFilterChange))}
     </View>
     <View>
-      {totals.map(renderTotals)}
+      {totals.map(renderTotals(onFilterChange))}
     </View>
   </View>;
 };

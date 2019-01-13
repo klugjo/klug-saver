@@ -30,20 +30,31 @@ export default class Root extends React.Component<IRootProps, IRootState> {
 
   public render() {
     const expenses = this.getFilteredExpenses();
-    const { periodFilterType } = this.state;
+    const { periodFilterType, offset } = this.state;
 
     return <View style={styles.breakdownContainer}>
       <PeriodPicker
         currentFilterType={periodFilterType}
         onCurrentFilterChange={this.onCurrentFilterChange}
       />
-      <GrandTotal expenses={expenses} label={this.getPeriodLabel()} />
+      <GrandTotal
+        expenses={expenses}
+        label={this.getPeriodLabel()}
+        isBeforeHidden={offset < -365}
+        isNextHidden={offset >= 0}
+        onBefore={this.onOffsetChange(-1)}
+        onNext={this.onOffsetChange(1)}
+      />
       <Breakdown expenses={expenses} />
     </View>
   }
 
+  private onOffsetChange = (amount: number) => () => {
+    this.setState({offset: this.state.offset + amount});
+  }
+
   private onCurrentFilterChange = (periodFilterType: PeriodFilterType) => {
-    this.setState({ periodFilterType });
+    this.setState({ periodFilterType, offset: 0 });
   }
 
   private getFilteredExpenses = (): IExpense[] => {

@@ -7,7 +7,6 @@ import { getTheme } from '../../../theme/utils';
 import { IExpense } from '../../../typings';
 import { categoryList } from '../../Categories/constants';
 
-
 export interface IBreakdownTotal {
   title: string;
   total: number;

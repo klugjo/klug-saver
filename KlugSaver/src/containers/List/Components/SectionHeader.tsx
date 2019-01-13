@@ -14,9 +14,9 @@ export interface ISectionHeaderProps {
 
 const SectionHeader = ({ section }: ISectionHeaderProps) => (
   <View style={styles.headerRowView}>
-    <Text style={styles.headerRowText}>
-      {section.title}
-    </Text>
+      <Text style={styles.headerRowText}>
+        {section.title}
+      </Text>
     <Text style={styles.headerAmountText}>
       {formatAmount(sum(section.data, (d: IExpense) => d.amount))}
     </Text>

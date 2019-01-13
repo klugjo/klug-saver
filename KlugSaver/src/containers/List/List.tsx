@@ -68,10 +68,6 @@ const styles = StyleSheet.create({
   rootView: {
     paddingBottom: 40
   },
-  containerView: {
-    flex: 1,
-    backgroundColor: getTheme().backgroundMainColor,
-  },
   refreshButton: {
     backgroundColor: '#003249'
   }

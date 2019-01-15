@@ -2,10 +2,11 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { formatAmount, sum } from '../../../util';
+import { formatAmount } from '../../../util';
 import { getTheme } from '../../../theme/utils';
 import { IExpense, ICategory } from '../../../typings';
-import { categoryList, categoryMap } from '../../Categories/constants';
+import { categoryMap } from '../../Categories/constants';
+import { getTotalsForCategory, getTotals } from '../helpers';
 
 export interface IBreakdownTotal {
   title: string;
@@ -17,23 +18,6 @@ interface IBreakdownProps {
   expenses: IExpense[];
   filter?: ICategory;
   onFilterChange: (category: ICategory) => void;
-}
-
-const getTotals = (expenses: IExpense[]): IBreakdownTotal[] => {
-  return categoryList.map(c => ({
-    ...c, 
-    total: sum(expenses.filter((e: IExpense) => e.category === c.title), (e: IExpense) => e.amount)})
-  ).sort((a, b) => b.total - a.total);
-}
-
-const getTotalsForCategory = (expenses: IExpense[], category: ICategory): IBreakdownTotal[] => {
-  const filteredExpenses = expenses.filter(e => e.category === category.title);
-
-  return category.subCategories.map(subCategory => ({
-    title: subCategory,
-    total: sum(filteredExpenses.filter((e: IExpense) => e.subCategory === subCategory), (e: IExpense) => e.amount),
-    color: category.color
-  })).sort((a, b) => b.total - a.total);
 }
 
 const renderLabels = (onFilterChange: (category: ICategory) => void) => (t: IBreakdownTotal, index: number) => (

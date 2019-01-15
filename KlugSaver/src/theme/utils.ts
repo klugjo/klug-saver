@@ -1,4 +1,4 @@
-import { categoryMap } from '../containers/Categories/constants';
+import { categoryMap } from '../constants/categories';
 import lightTheme from './light';
 import darkTheme from './dark';
 

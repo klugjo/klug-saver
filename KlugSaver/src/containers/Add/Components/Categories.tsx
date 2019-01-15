@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
 
-import { categories } from '../../Categories/constants';
+import { categories } from '../../../constants/categories';
 import { ICategory } from '../../../typings';
 import { getTheme } from '../../../theme/utils';
 

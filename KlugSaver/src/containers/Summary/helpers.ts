@@ -4,7 +4,7 @@ import { toddMMMForHumans, toddMMM, sum } from '../../util';
 import { PeriodFilterType } from './Root';
 import { IExpense, ICategory } from '../../typings';
 import { IBreakdownTotal } from './Components/Breakdown';
-import { categoryList } from '../Categories/constants';
+import { categoryList } from '../../constants/categories';
 
 export const getPeriodLabel = (periodFilterType: PeriodFilterType, offset: number) => {
   const date = moment().add(offset, periodFilterType);

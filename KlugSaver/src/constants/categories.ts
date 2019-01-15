@@ -1,4 +1,5 @@
-import { ICategory } from "../../typings";
+import { ICategory } from '../typings';
+
 
 export const categories = {
   col1: [

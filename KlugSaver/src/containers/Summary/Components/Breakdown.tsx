@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { formatAmount } from '../../../util';
 import { getTheme } from '../../../theme/utils';
 import { IExpense, ICategory } from '../../../typings';
-import { categoryMap } from '../../Categories/constants';
+import { categoryMap } from '../../../constants/categories';
 import { getTotalsForCategory, getTotals } from '../helpers';
 
 export interface IBreakdownTotal {

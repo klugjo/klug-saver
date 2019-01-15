@@ -1,6 +1,6 @@
 import { ADD_EXPENSE, GET_EXPENSE_LIST, SAVE_DROPBOX_TOKEN, OPEN_DELETE_MODAL, CLOSE_DELETE_MODAL } from './actions';
 import { IMainState, IExpense, IAction } from './typings';
-import { MODALS } from './constants';
+import { MODALS } from './constants/common';
 
 const DEFAULT_STATE: IMainState = {
   expenses: [],

@@ -42,3 +42,13 @@ export interface ICategory {
   color: string,
   icon: string
 }
+
+export interface ICurrency {
+  symbol: string;
+  name: string;
+  symbolNative: string;
+  decimalDigits: number;
+  rounding: number;
+  code: string;
+  namePlural: string;
+}

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import DeleteModal from './DeleteModal';
 import { IMainState, IExpense } from '../../typings';
-import { MODALS } from '../../constants';
+import { MODALS } from '../../constants/common';
 import { closeDeleteModal, deleteExpense } from '../../actions';
 
 interface IStateProps {

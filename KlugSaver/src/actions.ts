@@ -1,5 +1,5 @@
 import { postExpense, getExpenses, removeExpense, putArchiveContents } from './api';
-import { ARCHIVE_FILE_PATH, MODALS } from './constants';
+import { ARCHIVE_FILE_PATH, MODALS } from './constants/common';
 import { getArchiveFromState } from './util';
 import { IExpense } from './typings';
 

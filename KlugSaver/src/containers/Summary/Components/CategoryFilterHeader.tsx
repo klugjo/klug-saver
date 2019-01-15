@@ -14,21 +14,31 @@ export const CategoryFilterHeader = ({ filter, onReset }: ICategoryFilterHeaderP
     return null;
   }
 
-  return <View style={[styles.root, { backgroundColor: filter.color }]}>
+  return <View style={styles.root}>
     <TouchableHighlight onPress={onReset}>
-      <Icon name="close" size={20} color={getTheme().backgroundMainColor} />
+      <View style={[styles.tag, { backgroundColor: filter.color }]}>
+        <View>
+          <Icon name="close" size={20} color={getTheme().backgroundMainColor} />
+        </View>
+        <Text style={styles.text}>{filter.title}</Text>
+      </View>
     </TouchableHighlight>
-    <Text style={styles.text}>{filter.title}</Text>
   </View>;
 };
 
 const styles = StyleSheet.create({
   root: {
+    justifyContent: 'center',
+    alignItems: 'flex-start'
+  },
+  tag: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 15,
     paddingHorizontal: 15,
-    paddingVertical: 6
+    paddingVertical: 6,
+    marginLeft: 15,
+    borderRadius: 10
   },
   text: {
     fontSize: 17,

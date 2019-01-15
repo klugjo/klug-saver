@@ -1,4 +1,4 @@
-import moment = require('moment');
+import moment from 'moment';
 
 import { toddMMMForHumans, toddMMM, sum } from '../../util';
 import { PeriodFilterType } from './Root';

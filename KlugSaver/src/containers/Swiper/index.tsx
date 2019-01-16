@@ -14,13 +14,13 @@ export default class Root extends React.Component {
     showsPagination={false}
   >
     <View style={styles.screen}>
-      <Summary />
-    </View>
-    <View style={styles.screen}>
       <Add />
     </View>
     <View style={styles.screen}>
       <List />
+    </View>
+    <View style={styles.screen}>
+      <Summary />
     </View>
   </Swiper>;
   }

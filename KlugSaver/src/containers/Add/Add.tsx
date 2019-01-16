@@ -1,14 +1,15 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import numeral from 'numeral';
 
 import VirtualKeyboard from './Components/VirtualKeyboard';
 import Categories from './Components/Categories';
 import AmountDisplay from './Components/AmountDisplay';
 import { SubCategoryModal } from './Components/SubCategoryModal';
-import { getTheme } from '../../theme/utils';
 import { IExpense, ICategory } from '../../typings';
 import { KSButton } from '../../components';
+import Metadata from './Components/Metadata';
+import { CURRENCIES } from '../../constants/currencies';
 
 export interface IAddProps {
   addExpense: (expense: IExpense) => void;
@@ -42,7 +43,14 @@ export default class Add extends React.Component<IAddProps, IAddState> {
             selectedCategory={selectedCategory}
           />
         </View>
-        <View style={styles.amount}>
+        <View style={styles.metadata}>
+          <Metadata
+            currency={CURRENCIES.AUD}
+            isCustomCurrency={true}
+            isCredit={false}
+            hasComment={true}
+            hasCustomDate={false}
+          />
           <AmountDisplay amount={amount} />
         </View>
         <View style={styles.keyboard}>
@@ -131,9 +139,10 @@ const styles = StyleSheet.create({
   categories: {
     flex: 0.25
   },
-  amount: {
-    flex: 0.3,
-    justifyContent: 'center'
+  metadata: {
+    flex: 0.25,
+    flexDirection: 'column',
+    justifyContent: 'space-around'
   },
   keyboard: {
     flex: 0.35

@@ -2,8 +2,8 @@ import React from 'react';
 import { View, Text, Modal, StyleSheet, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { ICategory } from '../../../typings';
-import { getTheme } from '../../../theme/utils';
+import { ICategory } from '../../../../typings';
+import { getTheme } from '../../../../theme/utils';
 
 export interface ISubCategoryModal {
   category?: ICategory;

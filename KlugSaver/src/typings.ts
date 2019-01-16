@@ -22,6 +22,10 @@ export interface IExpense {
   id: string;
   subCategory: string;
   updatedAt: number;
+  customCurrency?: ICurrency;
+  customDate?: number;
+  comments?: string;
+  isCredit?: boolean;
 }
 
 export interface IMainState {

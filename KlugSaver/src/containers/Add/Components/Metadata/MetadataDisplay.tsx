@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, TouchableHighlight, Text } from 'react-native';
-import { ICurrency } from '../../../typings';
+import { ICurrency } from '../../../../typings';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { getTheme } from '../../../theme/utils';
+import { getTheme } from '../../../../theme/utils';
 
 export interface IMetatdataProps {
   currency: ICurrency;
@@ -10,10 +10,18 @@ export interface IMetatdataProps {
   isCredit: boolean;
   hasComment: boolean;
   hasCustomDate: boolean;
+  openMetadataModal: () => void;
 };
 
-const Metadata = ({ currency, isCustomCurrency, isCredit, hasComment, hasCustomDate }: IMetatdataProps) => {
-  return <TouchableHighlight>
+const MetadataDisplay = ({
+  currency,
+  isCustomCurrency,
+  isCredit,
+  hasComment,
+  hasCustomDate,
+  openMetadataModal
+}: IMetatdataProps) => {
+  return <TouchableHighlight onPress={openMetadataModal}>
     <View style={styles.root}>
       <View style={styles.badge}>
         <Text style={[styles.currency, { color: isCustomCurrency ? getTheme().accentMainColor : getTheme().underlayColor }]}>
@@ -64,4 +72,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Metadata;
+export default MetadataDisplay;

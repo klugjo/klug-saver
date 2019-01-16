@@ -1254,3 +1254,7 @@ export const CURRENCIES: { [key: string]: ICurrency } = {
     namePlural: 'Zambian kwachas'
   }
 };
+
+export const CURRENCIES_ARRAY: ICurrency[] = Object.keys(CURRENCIES).map(key => ({
+  ...CURRENCIES[key]
+}));

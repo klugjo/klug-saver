@@ -3,13 +3,14 @@ import { View, StyleSheet } from 'react-native';
 import numeral from 'numeral';
 
 import VirtualKeyboard from './Components/VirtualKeyboard';
-import Categories from './Components/Categories';
+import Categories from './Components/Categories/Categories';
 import AmountDisplay from './Components/AmountDisplay';
-import { SubCategoryModal } from './Components/SubCategoryModal';
-import { IExpense, ICategory } from '../../typings';
+import { SubCategoryModal } from './Components/Categories/SubCategoryModal';
+import { IExpense, ICategory, ICurrency } from '../../typings';
 import { KSButton } from '../../components';
-import Metadata from './Components/Metadata';
+import MetadataDisplay from './Components/Metadata/MetadataDisplay';
 import { CURRENCIES } from '../../constants/currencies';
+import MetadataModal from './Components/Metadata/MetadataModal';
 
 export interface IAddProps {
   addExpense: (expense: IExpense) => void;
@@ -19,6 +20,8 @@ interface IAddState {
   amount: string;
   selectedCategory?: ICategory;
   selectedSubCategory: string;
+  customCurrency?: ICurrency;
+  metadataModalOpen: boolean;
 }
 
 export default class Add extends React.Component<IAddProps, IAddState> {
@@ -28,12 +31,18 @@ export default class Add extends React.Component<IAddProps, IAddState> {
     this.state = {
       amount: '',
       selectedCategory: undefined,
-      selectedSubCategory: ''
+      selectedSubCategory: '',
+      metadataModalOpen: false
     };
   }
 
   render() {
-    const { amount, selectedCategory, selectedSubCategory } = this.state;
+    const {
+      amount,
+      selectedCategory,
+      selectedSubCategory,
+      metadataModalOpen
+    } = this.state;
 
     return (
       <View style={styles.container}>
@@ -44,12 +53,13 @@ export default class Add extends React.Component<IAddProps, IAddState> {
           />
         </View>
         <View style={styles.metadata}>
-          <Metadata
+          <MetadataDisplay
             currency={CURRENCIES.AUD}
             isCustomCurrency={true}
             isCredit={false}
             hasComment={true}
             hasCustomDate={false}
+            openMetadataModal={this.onMetadataModalOpen}
           />
           <AmountDisplay amount={amount} />
         </View>
@@ -72,8 +82,26 @@ export default class Add extends React.Component<IAddProps, IAddState> {
           onPickSubCategory={this.onSelectedSubCategoryChange}
           onClose={this.onSubCategoryModalClose}
         />
+        <MetadataModal
+          open={metadataModalOpen}
+          onClose={this.onMetadataModalClose}
+          onSave={this.onMetadataModalSave}
+          defaultCurrencyCode={'SGD'}
+        />
       </View>
     );
+  }
+
+  private onMetadataModalOpen = () => {
+    this.setState({ metadataModalOpen: true });
+  }
+
+  private onMetadataModalClose = () => {
+    this.setState({ metadataModalOpen: false });
+  }
+
+  private onMetadataModalSave = () => {
+    this.setState({ metadataModalOpen: false });
   }
 
   addChar = (character: string) => () => {

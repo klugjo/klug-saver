@@ -1,0 +1,5 @@
+language: node_js
+install:
+  - cd KlugSaver
+  - npm ci
+script: npm run test

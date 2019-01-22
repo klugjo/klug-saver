@@ -1,11 +1,13 @@
-import { ADD_EXPENSE, GET_EXPENSE_LIST, SAVE_DROPBOX_TOKEN, OPEN_DELETE_MODAL, CLOSE_DELETE_MODAL } from './actions';
+import { ADD_EXPENSE, GET_EXPENSE_LIST, SAVE_DROPBOX_TOKEN, OPEN_DELETE_MODAL, CLOSE_DELETE_MODAL, OPEN_CURRENCY_MODAL, CLOSE_CURRENCY_MODAL } from './actions';
 import { IMainState, IExpense, IAction } from './typings';
 import { MODALS } from './constants/common';
+import { CURRENCIES } from './constants/currencies';
 
 const DEFAULT_STATE: IMainState = {
   expenses: [],
   openModal: '',
-  expenseToDelete: undefined
+  expenseToDelete: undefined,
+  baseCurrency: CURRENCIES.SGD
 };
 
 const getExpenseList = (action: IAction, state: IMainState) => {
@@ -25,9 +27,13 @@ export default function reducer(state: IMainState = DEFAULT_STATE, action: IActi
     case OPEN_DELETE_MODAL:
       return { ...state, openModal: MODALS.DELETE, expenseToDelete: action.payload };
     case CLOSE_DELETE_MODAL:
-      return {...state, openModal: '', expenseToDelete: undefined};
+      return { ...state, openModal: '', expenseToDelete: undefined };
     case SAVE_DROPBOX_TOKEN:
       return { ...state, dropboxToken: action.payload };
+    case OPEN_CURRENCY_MODAL:
+      return { ...state, openModal: MODALS.CURRENCY };
+    case CLOSE_CURRENCY_MODAL:
+      return { ...state, openModal: '', customCurrency: action.payload };
     default:
       return state;
   }

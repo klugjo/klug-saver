@@ -33,6 +33,8 @@ export interface IMainState {
   dropboxToken?: string;
   openModal?: string;
   expenseToDelete?: IExpense;
+  baseCurrency: ICurrency;
+  customCurrency?: ICurrency;
 }
 
 export interface IAction {

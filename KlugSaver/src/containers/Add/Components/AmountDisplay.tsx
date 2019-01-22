@@ -4,9 +4,11 @@ import { View, Text, StyleSheet } from 'react-native';
 
 import { formatAmount } from '../../../util';
 import { getTheme } from '../../../theme/utils';
+import { ICurrency } from '../../../typings';
 
 export interface IAmountDisplayProps {
   amount?: string;
+  currency: ICurrency;
 }
 
 const getFontSize = (amountText?: string) => {
@@ -33,9 +35,9 @@ const getCurrencyMarginTop = (amountText?: string) => {
   }
 };
 
-const AmountDisplay = ({ amount }: IAmountDisplayProps) => {
+const AmountDisplay = ({ amount, currency }: IAmountDisplayProps) => {
   return <View style={styles.amountContainer}>
-    <Text style={[styles.currency, {marginTop: getCurrencyMarginTop(amount)}]}>SGD</Text>
+    <Text style={[styles.currency, {marginTop: getCurrencyMarginTop(amount)}]}>{currency.code}</Text>
     <Text style={[styles.amountText, { fontSize: getFontSize(amount) }]}>
       {formatAmount(amount || 0)}
     </Text>

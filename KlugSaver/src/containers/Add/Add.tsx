@@ -14,6 +14,9 @@ import MetadataModal from './Components/Metadata/MetadataModal';
 
 export interface IAddProps {
   addExpense: (expense: IExpense) => void;
+  openCurrencyModal: () => void;
+  baseCurrency: ICurrency;
+  customCurrency?: ICurrency;
 }
 
 interface IAddState {
@@ -44,6 +47,11 @@ export default class Add extends React.Component<IAddProps, IAddState> {
       metadataModalOpen
     } = this.state;
 
+    const {
+      baseCurrency,
+      customCurrency
+    } = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.categories}>
@@ -59,9 +67,9 @@ export default class Add extends React.Component<IAddProps, IAddState> {
             isCredit={false}
             hasComment={true}
             hasCustomDate={false}
-            openMetadataModal={this.onMetadataModalOpen}
+            openMetadataModal={this.props.openCurrencyModal}
           />
-          <AmountDisplay amount={amount} />
+          <AmountDisplay amount={amount} currency={customCurrency || baseCurrency} />
         </View>
         <View style={styles.keyboard}>
           <VirtualKeyboard

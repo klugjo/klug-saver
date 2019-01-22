@@ -1,7 +1,7 @@
 import { postExpense, getExpenses, removeExpense, putArchiveContents } from './api';
 import { ARCHIVE_FILE_PATH, MODALS } from './constants/common';
 import { getArchiveFromState } from './util';
-import { IExpense } from './typings';
+import { IExpense, ICurrency } from './typings';
 
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 
@@ -42,6 +42,19 @@ export const openDeleteModal = (expense: IExpense) => ({
   type: OPEN_DELETE_MODAL,
   payload: expense
 });
+
+export const CLOSE_CURRENCY_MODAL = 'CLOSE_CURRENCY_MODAL';
+
+export const closeCurrencyModal = (currency?: ICurrency) => ({
+  type: CLOSE_CURRENCY_MODAL,
+  payload: currency
+});
+
+export const OPEN_CURRENCY_MODAL = 'OPEN_CURRENCY_MODAL';
+
+export const openCurrencyModal = {
+  type: OPEN_CURRENCY_MODAL
+};
 
 export const deleteExpense = (id: string, from: Date) => {
   return (dispatch: any) => {

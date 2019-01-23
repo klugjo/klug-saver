@@ -11,12 +11,11 @@ import { KSButton } from '../../components';
 import MetadataDisplay from './Components/Metadata/MetadataDisplay';
 import { CURRENCIES } from '../../constants/currencies';
 import MetadataModal from './Components/Metadata/MetadataModal';
+import KSCurrencyPicker from '../../components/KSCurrencyPicker';
 
 export interface IAddProps {
   addExpense: (expense: IExpense) => void;
-  openCurrencyModal: () => void;
   baseCurrency: ICurrency;
-  customCurrency?: ICurrency;
 }
 
 interface IAddState {
@@ -25,32 +24,29 @@ interface IAddState {
   selectedSubCategory: string;
   customCurrency?: ICurrency;
   metadataModalOpen: boolean;
+  currencyPickerOpen: boolean;
+  currency: ICurrency
 }
 
 export default class Add extends React.Component<IAddProps, IAddState> {
-  constructor(props: IAddProps) {
-    super(props);
-
-    this.state = {
-      amount: '',
-      selectedCategory: undefined,
-      selectedSubCategory: '',
-      metadataModalOpen: false
-    };
-  }
+  state = {
+    amount: '',
+    selectedCategory: undefined,
+    selectedSubCategory: '',
+    metadataModalOpen: false,
+    currencyPickerOpen: false,
+    currency: this.props.baseCurrency
+  };
 
   render() {
     const {
       amount,
       selectedCategory,
       selectedSubCategory,
-      metadataModalOpen
+      metadataModalOpen,
+      currencyPickerOpen,
+      currency
     } = this.state;
-
-    const {
-      baseCurrency,
-      customCurrency
-    } = this.props;
 
     return (
       <View style={styles.container}>
@@ -67,9 +63,9 @@ export default class Add extends React.Component<IAddProps, IAddState> {
             isCredit={false}
             hasComment={true}
             hasCustomDate={false}
-            openMetadataModal={this.props.openCurrencyModal}
+            openMetadataModal={this.onCurrencyPickerOpen}
           />
-          <AmountDisplay amount={amount} currency={customCurrency || baseCurrency} />
+          <AmountDisplay amount={amount} currency={currency} />
         </View>
         <View style={styles.keyboard}>
           <VirtualKeyboard
@@ -94,7 +90,12 @@ export default class Add extends React.Component<IAddProps, IAddState> {
           open={metadataModalOpen}
           onClose={this.onMetadataModalClose}
           onSave={this.onMetadataModalSave}
-          defaultCurrencyCode={'SGD'}
+          defaultCurrencyCode={currency.code}
+        />
+        <KSCurrencyPicker
+          open={currencyPickerOpen}
+          currency={currency}
+          close={this.onCurrencyPickerClose}
         />
       </View>
     );
@@ -106,6 +107,14 @@ export default class Add extends React.Component<IAddProps, IAddState> {
 
   private onMetadataModalClose = () => {
     this.setState({ metadataModalOpen: false });
+  }
+
+  private onCurrencyPickerOpen = () => {
+    this.setState({ currencyPickerOpen: true });
+  }
+
+  private onCurrencyPickerClose = (currency: ICurrency) => {
+    this.setState({ currencyPickerOpen: false, currency });
   }
 
   private onMetadataModalSave = () => {

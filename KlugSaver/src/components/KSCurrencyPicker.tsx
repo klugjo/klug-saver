@@ -1,24 +1,21 @@
 import React from 'react';
 import { View, Text, Modal, StyleSheet, FlatList, TouchableHighlight } from 'react-native';
-import { ICurrency } from '../../typings';
-import { CURRENCIES_ARRAY } from '../../constants/currencies';
+import { ICurrency } from '../typings';
+import { CURRENCIES_ARRAY } from '../constants/currencies';
 
-export interface ICurrencyPickerProps {
+export interface IKSCurrencyPickerProps {
   open: boolean;
-  baseCurrency: ICurrency;
-  customCurrency?: ICurrency;
-  close: (currency?: ICurrency) => void;
+  currency: ICurrency;
+  close: (currency: ICurrency) => void;
 }
 
-class CurrencyPicker extends React.Component<ICurrencyPickerProps, {}> {
+class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}> {
   public render() {
     const { open } = this.props;
 
     if (!open) {
       return null;
     }
-
-    console.log(open);
 
     return (
       <Modal
@@ -46,7 +43,7 @@ class CurrencyPicker extends React.Component<ICurrencyPickerProps, {}> {
   }
 }
 
-export default CurrencyPicker;
+export default KSCurrencyPicker;
 
 const styles = StyleSheet.create({
   container: {

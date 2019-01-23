@@ -7,7 +7,6 @@ import Swiper from './src/containers/Swiper';
 import { store, persistor } from './src/configureStore';
 import { getTheme } from './src/theme/utils';
 import DeleteModal from './src/containers/DeleteModal';
-import CurrencyPickerModal from './src/containers/CurrencyPickerModal';
 
 export default class App extends Component<{}, {}> {
   render() {
@@ -20,7 +19,6 @@ export default class App extends Component<{}, {}> {
             />
             <Swiper />
             <DeleteModal />
-            <CurrencyPickerModal />
           </View>
         </PersistGate>
       </Provider>

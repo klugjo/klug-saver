@@ -112,12 +112,12 @@ export const CURRENCIES: { [key: string]: ICurrency } = {
   },
   BAM: {
     symbol: 'KM',
-    name: 'Bosnia-Herzegovina Convertible Mark',
+    name: 'Bosnia-Herzegovina CM',
     symbolNative: 'KM',
     decimalDigits: 2,
     rounding: 0,
     code: 'BAM',
-    namePlural: 'Bosnia-Herzegovina convertible marks'
+    namePlural: 'Bosnia-Herzegovina CM'
   },
   BDT: {
     symbol: 'Tk',

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Modal, StyleSheet, FlatList, TouchableHighlight } from 'react-native';
 import { ICurrency } from '../typings';
 import { CURRENCIES_ARRAY } from '../constants/currencies';
+import { getTheme } from '../theme/utils';
 
 export interface IKSCurrencyPickerProps {
   open: boolean;
@@ -33,10 +34,17 @@ class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}> {
     );
   }
 
-  private renderItem = ({ item }: { item: ICurrency }) =>
-    <TouchableHighlight onPress={this.pickCurrency(item)}>
-      <Text>{item.name}</Text>
+  private renderItem = ({ item }: { item: ICurrency }) => {
+    const { currency } = this.props;
+    const selectedStyle = currency.code === item.code && styles.selected;
+
+    return <TouchableHighlight onPress={this.pickCurrency(item)}>
+      <View style={[styles.item, selectedStyle]}>
+        <Text style={[styles.itemCodeText, selectedStyle]}>{item.code}</Text>
+        <Text style={[styles.itemNameText, selectedStyle]}>{item.name}</Text>
+      </View>
     </TouchableHighlight>;
+  }
 
   private pickCurrency = (item: ICurrency) => () => {
     this.props.close(item);
@@ -52,20 +60,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'stretch'
   },
-  labelContainer: {
+  item: {
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    paddingHorizontal: 30,
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: getTheme().underlayColor
   },
-  messageText: {
-    fontSize: 20,
-    textAlign: 'center',
-    marginTop: 30
+  selected: {
+    backgroundColor: getTheme().accentMainColor,
+    color: getTheme().backgroundMainColor
   },
-  buttons: {
-    marginTop: 70,
-    flexDirection: 'row',
-    justifyContent: 'space-around'
+  itemCodeText: {
+    fontSize: 16,
+    width: 60
   },
-  button: {
+  itemNameText: {
+    fontSize: 16
   }
 });

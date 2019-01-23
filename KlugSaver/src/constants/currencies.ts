@@ -398,22 +398,13 @@ export const CURRENCIES: { [key: string]: ICurrency } = {
     code: 'GEL',
     namePlural: 'Georgian laris'
   },
-  GHS: {
-    symbol: 'GH₵',
-    name: 'Ghanaian Cedi',
-    symbolNative: 'GH₵',
-    decimalDigits: 2,
-    rounding: 0,
-    code: 'GHS',
-    namePlural: 'Ghanaian cedis'
-  },
   GIP: {
     symbol: '£',
     name: 'Gibraltar Pound',
     symbolNative: '£',
     decimalDigits: 2,
     rounding: 0,
-    code: 'GHS',
+    code: 'GIP',
     namePlural: 'Gibraltar pound'
   },
   GNF: {
@@ -965,15 +956,6 @@ export const CURRENCIES: { [key: string]: ICurrency } = {
     code: 'SBD',
     namePlural: 'Solomon Islander Dollars'
   },
-  SDG: {
-    symbol: 'SDG',
-    name: 'Sudanese Pound',
-    symbolNative: 'SDG',
-    decimalDigits: 2,
-    rounding: 0,
-    code: 'SDG',
-    namePlural: 'Sudanese pounds'
-  },
   SEK: {
     symbol: 'Skr',
     name: 'Swedish Krona',
@@ -1010,15 +992,6 @@ export const CURRENCIES: { [key: string]: ICurrency } = {
     code: 'SOS',
     namePlural: 'Somali shillings'
   },
-  SSP: {
-    symbol: '£',
-    name: 'South Sudanese pound',
-    symbolNative: '£',
-    decimalDigits: 2,
-    rounding: 0,
-    code: 'SSP',
-    namePlural: 'South Sudanese pound'
-  },
   STD: {
     symbol: 'Db',
     name: 'Sao Tomean Dobra',
@@ -1026,15 +999,6 @@ export const CURRENCIES: { [key: string]: ICurrency } = {
     decimalDigits: 0,
     rounding: 0,
     code: 'STD',
-    namePlural: 'Sao Tomean Dobra'
-  },
-  STN: {
-    symbol: 'Db',
-    name: 'Sao Tomean Dobra',
-    symbolNative: 'Db',
-    decimalDigits: 0,
-    rounding: 0,
-    code: 'STN',
     namePlural: 'Sao Tomean Dobra'
   },
   SYP: {

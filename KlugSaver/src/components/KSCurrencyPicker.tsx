@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, Modal, StyleSheet, FlatList, TouchableHighlight } from 'react-native';
+import { View, Text, Modal, StyleSheet, FlatList, TouchableHighlight, Image } from 'react-native';
 import { ICurrency } from '../typings';
 import { CURRENCIES_ARRAY } from '../constants/currencies';
 import { getTheme } from '../theme/utils';
+import { flags } from '../constants/flags';
 
 export interface IKSCurrencyPickerProps {
   open: boolean;
@@ -40,6 +41,10 @@ class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}> {
 
     return <TouchableHighlight onPress={this.pickCurrency(item)}>
       <View style={[styles.item, selectedStyle]}>
+        <Image
+          style={styles.flag}
+          source={{uri: `data:image/png;base64,${flags[item.code]}`}}
+        />
         <Text style={[styles.itemCodeText, selectedStyle]}>{item.code}</Text>
         <Text style={[styles.itemNameText, selectedStyle]}>{item.name}</Text>
       </View>
@@ -62,7 +67,7 @@ const styles = StyleSheet.create({
   },
   item: {
     flexDirection: 'row',
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
     paddingVertical: 8,
     borderBottomWidth: 1,
     borderBottomColor: getTheme().underlayColor
@@ -70,6 +75,11 @@ const styles = StyleSheet.create({
   selected: {
     backgroundColor: getTheme().accentMainColor,
     color: getTheme().backgroundMainColor
+  },
+  flag: {
+    width: 30,
+    height: 20,
+    marginRight: 25
   },
   itemCodeText: {
     fontSize: 16,

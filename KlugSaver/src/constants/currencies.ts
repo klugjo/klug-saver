@@ -557,7 +557,7 @@ export const CURRENCIES: { [key: string]: ICurrency } = {
     symbolNative: 'Ksh',
     decimalDigits: 2,
     rounding: 0,
-    code: 'KES',
+    code: 'KGS',
     namePlural: 'Kenyan shillings'
   },
   KHR: {
@@ -1034,7 +1034,7 @@ export const CURRENCIES: { [key: string]: ICurrency } = {
     symbolNative: 'ЅМ',
     decimalDigits: 2,
     rounding: 0,
-    code: 'THB',
+    code: 'TJS',
     namePlural: 'Tajikistani Somoni'
   },
   TND: {

@@ -29,6 +29,7 @@ class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}> {
           <FlatList
             data={CURRENCIES_ARRAY}
             renderItem={this.renderItem}
+            keyExtractor={(item) => item.code}
           />
         </View>
       </Modal>
@@ -39,7 +40,7 @@ class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}> {
     const { currency } = this.props;
     const selectedStyle = currency.code === item.code && styles.selected;
 
-    return <TouchableHighlight onPress={this.pickCurrency(item)}>
+    return <TouchableHighlight key={item.code} onPress={this.pickCurrency(item)}>
       <View style={[styles.item, selectedStyle]}>
         <Image
           style={styles.flag}

@@ -9,8 +9,6 @@ import AmountDisplay from './Components/AmountDisplay';
 import { SubCategoryModal } from './Components/Categories/SubCategoryModal';
 import { IExpense, ICategory, ICurrency, SideEnum } from '../../typings';
 import { KSButton } from '../../components';
-import MetadataDisplay from './Components/Metadata/MetadataDisplay';
-import { CURRENCIES } from '../../constants/currencies';
 import KSCurrencyPicker from '../../components/KSCurrencyPicker';
 import { CommentsModal } from './Components/Metadata/CommentsModal';
 import { DateModal } from './Components/Metadata/DateModal';
@@ -21,7 +19,7 @@ export interface IAddProps {
   baseCurrency: ICurrency;
 }
 
-enum openModalEnum {
+export enum openModalEnum {
   currency,
   comments,
   date,
@@ -78,14 +76,6 @@ export default class Add extends React.Component<IAddProps, IAddState> {
           />
         </View>
         <View style={styles.metadata}>
-          <MetadataDisplay
-            currency={CURRENCIES.AUD}
-            isCustomCurrency={true}
-            isCredit={false}
-            hasComment={true}
-            hasCustomDate={false}
-            openMetadataModal={this.openModal(openModalEnum.side)}
-          />
           <AmountDisplay amount={amount} currency={currency} />
         </View>
         <View style={styles.keyboard}>
@@ -93,6 +83,7 @@ export default class Add extends React.Component<IAddProps, IAddState> {
             addChar={this.addChar}
             deleteChar={this.deleteChar}
             addDecimal={this.addDecimal}
+            openModal={this.openModal}
           />
         </View>
         <KSButton
@@ -222,12 +213,12 @@ const styles = StyleSheet.create({
     flex: 0.25
   },
   metadata: {
-    flex: 0.25,
+    flex: 0.20,
     flexDirection: 'column',
-    justifyContent: 'space-around'
+    justifyContent: 'center'
   },
   keyboard: {
-    flex: 0.35
+    flex: 0.40
   },
   saveButton: {
     flex: 0.1,

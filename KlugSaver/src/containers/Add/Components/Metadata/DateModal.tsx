@@ -1,9 +1,9 @@
 import React from 'react';
 import moment from 'moment';
 import { StyleSheet, View, TouchableHighlight, Text } from 'react-native';
-
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconAlt from 'react-native-vector-icons/MaterialIcons';
+
 import { getTheme } from '../../../../theme/utils';
 import { KSModal } from '../../../../components/KSModal';
 import { KSButton } from '../../../../components';

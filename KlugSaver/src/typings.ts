@@ -58,3 +58,8 @@ export interface ICurrency {
   code: string;
   namePlural: string;
 }
+
+export enum SideEnum {
+  Debit,
+  Credit
+}

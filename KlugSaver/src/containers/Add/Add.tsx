@@ -7,13 +7,14 @@ import VirtualKeyboard from './Components/VirtualKeyboard';
 import Categories from './Components/Categories/Categories';
 import AmountDisplay from './Components/AmountDisplay';
 import { SubCategoryModal } from './Components/Categories/SubCategoryModal';
-import { IExpense, ICategory, ICurrency } from '../../typings';
+import { IExpense, ICategory, ICurrency, SideEnum } from '../../typings';
 import { KSButton } from '../../components';
 import MetadataDisplay from './Components/Metadata/MetadataDisplay';
 import { CURRENCIES } from '../../constants/currencies';
 import KSCurrencyPicker from '../../components/KSCurrencyPicker';
 import { CommentsModal } from './Components/Metadata/CommentsModal';
 import { DateModal } from './Components/Metadata/DateModal';
+import { SideModal } from './Components/Metadata/SideModal';
 
 export interface IAddProps {
   addExpense: (expense: IExpense) => void;
@@ -23,7 +24,8 @@ export interface IAddProps {
 enum openModalEnum {
   currency,
   comments,
-  date
+  date,
+  side
 }
 
 interface IAddState {
@@ -35,6 +37,7 @@ interface IAddState {
   currency: ICurrency,
   comment?: string;
   customDate: moment.Moment;
+  side: SideEnum
 }
 
 export default class Add extends React.Component<IAddProps, IAddState> {
@@ -45,7 +48,8 @@ export default class Add extends React.Component<IAddProps, IAddState> {
     openModal: undefined,
     currency: this.props.baseCurrency,
     comment: undefined,
-    customDate: moment()
+    customDate: moment(),
+    side: SideEnum.Debit
   };
 
   render() {
@@ -56,7 +60,8 @@ export default class Add extends React.Component<IAddProps, IAddState> {
       openModal,
       currency,
       comment,
-      customDate
+      customDate,
+      side
     } = this.state;
 
     return (
@@ -74,7 +79,7 @@ export default class Add extends React.Component<IAddProps, IAddState> {
             isCredit={false}
             hasComment={true}
             hasCustomDate={false}
-            openMetadataModal={this.openModal(openModalEnum.date)}
+            openMetadataModal={this.openModal(openModalEnum.side)}
           />
           <AmountDisplay amount={amount} currency={currency} />
         </View>
@@ -114,8 +119,18 @@ export default class Add extends React.Component<IAddProps, IAddState> {
           onDateChange={this.onDateChange}
           date={customDate}
         />
+        <SideModal
+          side={side}
+          open={openModal === openModalEnum.side}
+          close={this.closeModal}
+          onSideChange={this.onSideChange}
+        />
       </View>
     );
+  }
+
+  private onSideChange = (side: SideEnum) => {
+    this.setState({ side });
   }
 
   private onDateChange = (date: moment.Moment) => {
@@ -135,38 +150,38 @@ export default class Add extends React.Component<IAddProps, IAddState> {
   }
 
   private onCommentChange = (comment: string) => {
-    this.setState({ comment })
+    this.setState({ comment });
   }
 
-  addChar = (character: string) => () => {
+  private addChar = (character: string) => () => {
     const amount = this.state.amount + character;
     this.setState({ amount });
   };
 
-  deleteChar = () => {
+  private deleteChar = () => {
     const amount = this.state.amount.slice(0, -1);
     this.setState({ amount });
   };
 
-  addDecimal = () => {
+  private addDecimal = () => {
     const amount = this.state.amount.replace('.', '') + '.';
     this.setState({ amount });
   };
 
-  onSelectedCategoryChange = (newCategory?: ICategory) => {
+  private onSelectedCategoryChange = (newCategory?: ICategory) => {
     const selectedCategory = newCategory === this.state.selectedCategory ? undefined : newCategory;
     this.setState({ selectedCategory, selectedSubCategory: '' });
   };
 
-  onSelectedSubCategoryChange = (selectedSubCategory: string) => {
+  private onSelectedSubCategoryChange = (selectedSubCategory: string) => {
     this.setState({ selectedSubCategory });
   };
 
-  onSubCategoryModalClose = () => {
+  private onSubCategoryModalClose = () => {
     this.setState({ selectedCategory: undefined, selectedSubCategory: '' });
   }
 
-  onSave = () => {
+  private onSave = () => {
     const { amount, selectedCategory, selectedSubCategory } = this.state;
 
     if (!amount) {

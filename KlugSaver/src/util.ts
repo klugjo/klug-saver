@@ -18,7 +18,7 @@ const dateLabelsMap = {
   [today.subtract(1, 'days').format(DD_MMM_YYYY_FORMAT)]: today.format('dddd')
 };
 
-export const toddMMMForHumans = (date: number) => {
+export const toddMMMForHumans = (date: number | moment.Moment) => {
   const result = moment(date).format(DD_MMM_YYYY_FORMAT);
 
   return dateLabelsMap[result] || result;

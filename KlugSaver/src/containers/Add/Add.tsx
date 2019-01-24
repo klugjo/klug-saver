@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, TouchableHighlightBase } from 'react-native';
+import moment from 'moment';
+import { View, StyleSheet } from 'react-native';
 import numeral from 'numeral';
 
 import VirtualKeyboard from './Components/VirtualKeyboard';
@@ -12,6 +13,7 @@ import MetadataDisplay from './Components/Metadata/MetadataDisplay';
 import { CURRENCIES } from '../../constants/currencies';
 import KSCurrencyPicker from '../../components/KSCurrencyPicker';
 import { CommentsModal } from './Components/Metadata/CommentsModal';
+import { DateModal } from './Components/Metadata/DateModal';
 
 export interface IAddProps {
   addExpense: (expense: IExpense) => void;
@@ -20,7 +22,8 @@ export interface IAddProps {
 
 enum openModalEnum {
   currency,
-  comments
+  comments,
+  date
 }
 
 interface IAddState {
@@ -31,6 +34,7 @@ interface IAddState {
   openModal?: openModalEnum;
   currency: ICurrency,
   comment?: string;
+  customDate: moment.Moment;
 }
 
 export default class Add extends React.Component<IAddProps, IAddState> {
@@ -40,7 +44,8 @@ export default class Add extends React.Component<IAddProps, IAddState> {
     selectedSubCategory: '',
     openModal: undefined,
     currency: this.props.baseCurrency,
-    comment: undefined
+    comment: undefined,
+    customDate: moment()
   };
 
   render() {
@@ -50,7 +55,8 @@ export default class Add extends React.Component<IAddProps, IAddState> {
       selectedSubCategory,
       openModal,
       currency,
-      comment
+      comment,
+      customDate
     } = this.state;
 
     return (
@@ -68,7 +74,7 @@ export default class Add extends React.Component<IAddProps, IAddState> {
             isCredit={false}
             hasComment={true}
             hasCustomDate={false}
-            openMetadataModal={this.openModal(openModalEnum.comments)}
+            openMetadataModal={this.openModal(openModalEnum.date)}
           />
           <AmountDisplay amount={amount} currency={currency} />
         </View>
@@ -102,9 +108,19 @@ export default class Add extends React.Component<IAddProps, IAddState> {
           onCommentChange={this.onCommentChange}
           comment={comment}
         />
+        <DateModal
+          open={openModal === openModalEnum.date}
+          close={this.closeModal}
+          onDateChange={this.onDateChange}
+          date={customDate}
+        />
       </View>
     );
   }
+
+  private onDateChange = (date: moment.Moment) => {
+    this.setState({ customDate: date })
+  };
 
   private openModal = (openModal: openModalEnum) => () => {
     this.setState({ openModal });
@@ -119,7 +135,7 @@ export default class Add extends React.Component<IAddProps, IAddState> {
   }
 
   private onCommentChange = (comment: string) => {
-    this.setState({comment})
+    this.setState({ comment })
   }
 
   addChar = (character: string) => () => {

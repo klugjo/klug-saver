@@ -41,16 +41,21 @@ interface IAddState {
 }
 
 export default class Add extends React.Component<IAddProps, IAddState> {
-  state = {
-    amount: '',
-    selectedCategory: undefined,
-    selectedSubCategory: '',
-    openModal: undefined,
-    currency: this.props.baseCurrency,
-    comment: undefined,
-    customDate: moment(),
-    side: SideEnum.Debit
-  };
+
+  constructor(props: IAddProps) {
+    super(props);
+
+    this.state = {
+      amount: '',
+      selectedCategory: undefined,
+      selectedSubCategory: '',
+      openModal: undefined,
+      currency: this.props.baseCurrency,
+      comment: undefined,
+      customDate: moment(),
+      side: SideEnum.Debit
+    };
+  }
 
   render() {
     const {

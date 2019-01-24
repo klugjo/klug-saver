@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableHighlightBase } from 'react-native';
 import numeral from 'numeral';
 
 import VirtualKeyboard from './Components/VirtualKeyboard';
@@ -10,12 +10,17 @@ import { IExpense, ICategory, ICurrency } from '../../typings';
 import { KSButton } from '../../components';
 import MetadataDisplay from './Components/Metadata/MetadataDisplay';
 import { CURRENCIES } from '../../constants/currencies';
-import MetadataModal from './Components/Metadata/MetadataModal';
 import KSCurrencyPicker from '../../components/KSCurrencyPicker';
+import { CommentsModal } from './Components/Metadata/CommentsModal';
 
 export interface IAddProps {
   addExpense: (expense: IExpense) => void;
   baseCurrency: ICurrency;
+}
+
+enum openModalEnum {
+  currency,
+  comments
 }
 
 interface IAddState {
@@ -23,9 +28,9 @@ interface IAddState {
   selectedCategory?: ICategory;
   selectedSubCategory: string;
   customCurrency?: ICurrency;
-  metadataModalOpen: boolean;
-  currencyPickerOpen: boolean;
-  currency: ICurrency
+  openModal?: openModalEnum;
+  currency: ICurrency,
+  comment?: string;
 }
 
 export default class Add extends React.Component<IAddProps, IAddState> {
@@ -33,9 +38,9 @@ export default class Add extends React.Component<IAddProps, IAddState> {
     amount: '',
     selectedCategory: undefined,
     selectedSubCategory: '',
-    metadataModalOpen: false,
-    currencyPickerOpen: false,
-    currency: this.props.baseCurrency
+    openModal: undefined,
+    currency: this.props.baseCurrency,
+    comment: undefined
   };
 
   render() {
@@ -43,9 +48,9 @@ export default class Add extends React.Component<IAddProps, IAddState> {
       amount,
       selectedCategory,
       selectedSubCategory,
-      metadataModalOpen,
-      currencyPickerOpen,
-      currency
+      openModal,
+      currency,
+      comment
     } = this.state;
 
     return (
@@ -63,7 +68,7 @@ export default class Add extends React.Component<IAddProps, IAddState> {
             isCredit={false}
             hasComment={true}
             hasCustomDate={false}
-            openMetadataModal={this.onCurrencyPickerOpen}
+            openMetadataModal={this.openModal(openModalEnum.comments)}
           />
           <AmountDisplay amount={amount} currency={currency} />
         </View>
@@ -86,39 +91,35 @@ export default class Add extends React.Component<IAddProps, IAddState> {
           onPickSubCategory={this.onSelectedSubCategoryChange}
           onClose={this.onSubCategoryModalClose}
         />
-        <MetadataModal
-          open={metadataModalOpen}
-          onClose={this.onMetadataModalClose}
-          onSave={this.onMetadataModalSave}
-          defaultCurrencyCode={currency.code}
-        />
         <KSCurrencyPicker
-          open={currencyPickerOpen}
+          open={openModal === openModalEnum.currency}
           currency={currency}
           close={this.onCurrencyPickerClose}
+        />
+        <CommentsModal
+          open={openModal === openModalEnum.comments}
+          close={this.closeModal}
+          onCommentChange={this.onCommentChange}
+          comment={comment}
         />
       </View>
     );
   }
 
-  private onMetadataModalOpen = () => {
-    this.setState({ metadataModalOpen: true });
+  private openModal = (openModal: openModalEnum) => () => {
+    this.setState({ openModal });
   }
 
-  private onMetadataModalClose = () => {
-    this.setState({ metadataModalOpen: false });
-  }
-
-  private onCurrencyPickerOpen = () => {
-    this.setState({ currencyPickerOpen: true });
+  private closeModal = () => {
+    this.setState({ openModal: undefined });
   }
 
   private onCurrencyPickerClose = (currency: ICurrency) => {
-    this.setState({ currencyPickerOpen: false, currency });
+    this.setState({ openModal: undefined, currency });
   }
 
-  private onMetadataModalSave = () => {
-    this.setState({ metadataModalOpen: false });
+  private onCommentChange = (comment: string) => {
+    this.setState({comment})
   }
 
   addChar = (character: string) => () => {

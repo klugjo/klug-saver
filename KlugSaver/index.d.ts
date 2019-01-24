@@ -29,3 +29,5 @@ declare namespace jest {
     toHaveStyle(name: string, value: string): CustomMatcherResult;
   }
 }
+
+declare module 'react-native-keyboard-accessory';

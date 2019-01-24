@@ -44,7 +44,7 @@ const MetadataDisplay = ({
       </View>
       <View style={styles.badge}>
         <Icon
-          name={hasComment ? 'comment-check-outline' : 'comment-outline'}
+          name={hasComment ? 'comment-text-outline' : 'comment-outline'}
           size={20}
           color={hasComment ? getTheme().accentMainColor : getTheme().underlayColor}
         />

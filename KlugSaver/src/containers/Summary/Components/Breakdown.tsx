@@ -4,8 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { formatAmount } from '../../../util';
 import { getTheme } from '../../../theme/utils';
-import { IExpense, ICategory } from '../../../typings';
-import { categoryMap } from '../../../constants/categories';
+import { IExpense } from '../../../typings';
 import { getTotalsForCategory, getTotals } from '../helpers';
 
 export interface IBreakdownTotal {
@@ -16,26 +15,26 @@ export interface IBreakdownTotal {
 
 interface IBreakdownProps {
   expenses: IExpense[];
-  filter?: ICategory;
-  onFilterChange: (category: ICategory) => void;
+  filter?: string;
+  onFilterChange: (categoryTitle: string) => void;
 }
 
-const renderLabels = (onFilterChange: (category: ICategory) => void) => (t: IBreakdownTotal, index: number) => (
+const renderLabels = (onFilterChange: (categoryTitle: string) => void) => (t: IBreakdownTotal, index: number) => (
   <TouchableHighlight
     style={styles.row}
     key={index}
-    onPress={() => onFilterChange(categoryMap[t.title])}
+    onPress={() => onFilterChange(t.title)}
     underlayColor={getTheme().backgroundMainColor}
   >
     <Text style={styles.labelText}>{t.title}</Text>
   </TouchableHighlight>
 );
 
-const renderBars = (max: number, onFilterChange: (category: ICategory) => void) => (t: IBreakdownTotal, index: number) => (
+const renderBars = (max: number, onFilterChange: (categoryTitle: string) => void) => (t: IBreakdownTotal, index: number) => (
   <TouchableHighlight
     style={styles.row}
     key={index}
-    onPress={() => onFilterChange(categoryMap[t.title])}
+    onPress={() => onFilterChange(t.title)}
     underlayColor={getTheme().backgroundMainColor}
   >
     <View style={styles.barBackground}>
@@ -44,11 +43,11 @@ const renderBars = (max: number, onFilterChange: (category: ICategory) => void) 
   </TouchableHighlight>
 );
 
-const renderTotals = (onFilterChange: (category: ICategory) => void) => (t: IBreakdownTotal, index: number) => (
+const renderTotals = (onFilterChange: (categoryTitle: string) => void) => (t: IBreakdownTotal, index: number) => (
   <TouchableHighlight
     style={styles.row}
     key={index}
-    onPress={() => onFilterChange(categoryMap[t.title])}
+    onPress={() => onFilterChange(t.title)}
     underlayColor={getTheme().backgroundMainColor}
   >
     <Text style={styles.totalText}>{formatAmount(t.total)}</Text>

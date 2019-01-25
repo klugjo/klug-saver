@@ -2,7 +2,6 @@ import React from 'react';
 import { View, StyleSheet, Button, SectionList } from 'react-native';
 
 import { IExpense } from '../../typings';
-import { getTheme } from '../../theme/utils';
 import { toddMMMForHumans, getRefreshDate } from '../../util';
 import SectionHeader from './Components/SectionHeader';
 import ExpenseRow from './Components/ExpenseRow';

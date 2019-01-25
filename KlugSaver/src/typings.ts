@@ -15,6 +15,10 @@ export interface ICategory {
   icon: string;
 }
 
+export interface ICategoryMap {
+  [key: string]: ICategory;
+}
+
 export interface IExpense {
   amount: number;
   category: string;
@@ -22,6 +26,7 @@ export interface IExpense {
   id: string;
   subCategory: string;
   updatedAt: number;
+  color: string;
   customCurrency?: ICurrency;
   customDate?: number;
   comments?: string;
@@ -35,6 +40,7 @@ export interface IMainState {
   expenseToDelete?: IExpense;
   baseCurrency: ICurrency;
   customCurrency?: ICurrency;
+  categories: ICategory[];
 }
 
 export interface IAction {

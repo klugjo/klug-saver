@@ -2,18 +2,27 @@ import { ADD_EXPENSE, GET_EXPENSE_LIST, SAVE_DROPBOX_TOKEN, OPEN_DELETE_MODAL, C
 import { IMainState, IExpense, IAction } from './typings';
 import { MODALS } from './constants/common';
 import { CURRENCIES } from './constants/currencies';
+import { categoryList, DEFAULT_CATEGORY_COLOR } from './constants/categories';
+import { getCategoryMapFromList } from './selectors';
 
 const DEFAULT_STATE: IMainState = {
   expenses: [],
   openModal: '',
   expenseToDelete: undefined,
-  baseCurrency: CURRENCIES.SGD
+  baseCurrency: CURRENCIES.SGD,
+  categories: categoryList
 };
 
 const getExpenseList = (action: IAction, state: IMainState) => {
-  const expenses = [...action.payload] as Array<IExpense>;
+  const expensesRaw = [...action.payload] as any[];
+  const categoryMap = getCategoryMapFromList(state.categories);
 
-  expenses.sort((a, b) => b.createdAt - a.createdAt);
+  expensesRaw.sort((a, b) => b.createdAt - a.createdAt);
+
+  const expenses = expensesRaw.map(e => ({
+    ...e,
+    color: e.color || (categoryMap[e.title] ? categoryMap[e.title] : DEFAULT_CATEGORY_COLOR)
+  })) as IExpense[];
 
   return { ...state, expenses };
 };

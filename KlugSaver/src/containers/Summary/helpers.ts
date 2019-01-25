@@ -1,10 +1,9 @@
 import moment from 'moment';
 
-import { toddMMMForHumans, toddMMM, sum } from '../../util';
+import { toddMMMForHumans, toddMMM, sum, uniq } from '../../util';
 import { PeriodFilterType } from './Root';
 import { IExpense, ICategory } from '../../typings';
 import { IBreakdownTotal } from './Components/Breakdown';
-import { categoryList } from '../../constants/categories';
 
 export const getPeriodLabel = (periodFilterType: PeriodFilterType, offset: number) => {
   const date = moment().add(offset, periodFilterType);
@@ -28,7 +27,7 @@ export const getFilteredExpenses = (
   expenses: IExpense[],
   periodFilterType: PeriodFilterType,
   offset: number,
-  filter?: ICategory
+  filter?: string
 ): IExpense[] => {
   const startDate = moment().add(offset, periodFilterType).startOf(periodFilterType);
   const endDate = moment().add(offset, periodFilterType).endOf(periodFilterType);
@@ -36,23 +35,32 @@ export const getFilteredExpenses = (
   return expenses.filter(e =>
     e.createdAt >= startDate.valueOf() &&
     e.createdAt < endDate.valueOf() &&
-    (!filter || e.category === filter.title)
+    (!filter || e.category === filter)
   );
 };
 
 export const getTotals = (expenses: IExpense[]): IBreakdownTotal[] => {
-  return categoryList.map(c => ({
-    ...c, 
-    total: sum(expenses.filter((e: IExpense) => e.category === c.title), (e: IExpense) => e.amount)})
-  ).sort((a, b) => b.total - a.total);
+  const categories = uniq(expenses.map(e => e.category));
+
+  return categories.map(title => {
+    const filteredExpenses = expenses.filter((e: IExpense) => e.category === title);
+    return {
+      title,
+      color: filteredExpenses[0].color,
+      total: sum(filteredExpenses, (e: IExpense) => e.amount)
+    }
+  }).sort((a, b) => b.total - a.total);
 };
 
-export const getTotalsForCategory = (expenses: IExpense[], category: ICategory): IBreakdownTotal[] => {
-  const filteredExpenses = expenses.filter(e => e.category === category.title);
+export const getTotalsForCategory = (expenses: IExpense[], category: string): IBreakdownTotal[] => {
+  const subCategories = uniq(expenses.filter(e => e.category === category).map(e => e.subCategory));
 
-  return category.subCategories.map(subCategory => ({
-    title: subCategory,
-    total: sum(filteredExpenses.filter((e: IExpense) => e.subCategory === subCategory), (e: IExpense) => e.amount),
-    color: category.color
-  })).sort((a, b) => b.total - a.total);
+  return subCategories.map(title => {
+    const filteredExpenses = expenses.filter((e: IExpense) => e.subCategory === title);
+    return {
+      title,
+      color: filteredExpenses[0].color,
+      total: sum(filteredExpenses, (e: IExpense) => e.amount)
+    }
+  }).sort((a, b) => b.total - a.total);
 };

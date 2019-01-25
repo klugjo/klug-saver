@@ -1,23 +1,25 @@
 import React from 'React';
 import { View, StyleSheet } from 'react-native';
 
-import { IExpense, ICategory } from '../../typings';
+import { IExpense, ICategory, ICategoryMap } from '../../typings';
 import Breakdown from './Components/Breakdown';
 import { GrandTotal } from './Components/GrandTotal';
 import { PeriodPicker } from './Components/PeriodPicker';
 import { CategoryFilterHeader } from './Components/CategoryFilterHeader';
 import { getPeriodLabel, getFilteredExpenses } from './helpers';
+import { DEFAULT_CATEGORY_COLOR } from '../../constants/categories';
 
 export type PeriodFilterType = 'year' | 'month' | 'week' | 'day';
 
 interface IRootProps {
   expenses: IExpense[];
+  categoryMap: ICategoryMap;
 }
 
 interface IRootState {
   periodFilterType: PeriodFilterType;
   offset: number;
-  filter?: ICategory;
+  filter?: string;
 }
 
 export default class Root extends React.Component<IRootProps, IRootState> {
@@ -33,6 +35,7 @@ export default class Root extends React.Component<IRootProps, IRootState> {
   public render() {
     const { periodFilterType, offset, filter } = this.state;
     const expenses = getFilteredExpenses(this.props.expenses, periodFilterType, offset, filter);
+    const filterColor = (expenses && expenses.length) ? expenses[0].color : DEFAULT_CATEGORY_COLOR;
 
     return <View style={styles.breakdownContainer}>
       <PeriodPicker
@@ -47,7 +50,7 @@ export default class Root extends React.Component<IRootProps, IRootState> {
         onBefore={this.onOffsetChange(-1)}
         onNext={this.onOffsetChange(1)}
       />
-      <CategoryFilterHeader filter={filter} onReset={this.onResetFilter} />
+      <CategoryFilterHeader color={filterColor} filter={filter} onReset={this.onResetFilter} />
       <Breakdown
         expenses={expenses}
         filter={filter}
@@ -56,7 +59,7 @@ export default class Root extends React.Component<IRootProps, IRootState> {
     </View>
   }
 
-  private onFilterChange = (filter: ICategory) => {
+  private onFilterChange = (filter: string) => {
     this.setState({ filter });
   }
 

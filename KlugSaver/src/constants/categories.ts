@@ -1,6 +1,5 @@
 import { ICategory } from '../typings';
 
-
 export const categories = {
   col1: [
     {
@@ -100,6 +99,8 @@ export const categories = {
     }
   ]
 };
+
+export const DEFAULT_CATEGORY_COLOR = '#a1c3d3';
 
 export const categoryList: Array<ICategory> = [...categories.col1, ...categories.col2];
 

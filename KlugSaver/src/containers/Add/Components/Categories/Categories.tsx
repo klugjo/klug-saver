@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
 
-import { categories } from '../../../../constants/categories';
 import { ICategory } from '../../../../typings';
 import { getTheme } from '../../../../theme/utils';
 
 export interface IMainCategoriesPicker {
   selectedCategory?: ICategory;
   onPickCategory: (category?: ICategory) => void;
+  categories: ICategory[];
 }
 
 export default class MainCategoriesPicker extends React.Component<IMainCategoriesPicker, {}> {
@@ -25,7 +25,8 @@ export default class MainCategoriesPicker extends React.Component<IMainCategorie
       >
         <View style={[styles.buttonStyle, {
           backgroundColor: isSelected ? getTheme().backgroundMainColor : cat.color,
-          borderWidth: isSelected ? 1 : 0 }
+          borderWidth: isSelected ? 1 : 0
+        }
         ]}>
           <Text style={{ color: isSelected ? getTheme().textMainColor : getTheme().backgroundMainColor }}>{cat.title}</Text>
         </View>
@@ -38,13 +39,14 @@ export default class MainCategoriesPicker extends React.Component<IMainCategorie
   }
 
   render() {
+    const { categories } = this.props;
     return (
       <View style={styles.categoriesRoot}>
         <View style={styles.categoriesLine}>
-          {categories.col1.map(this.renderButton)}
+          {categories.slice(0, 4).map(this.renderButton)}
         </View>
         <View style={styles.categoriesLine}>
-          {categories.col2.map(this.renderButton)}
+          {categories.slice(4, 8).map(this.renderButton)}
         </View>
       </View>
     )

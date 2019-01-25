@@ -46,3 +46,7 @@ export const getRefreshDate = () => {
 
   return from;
 };
+
+export const uniq = <T extends {}>(arr: T[]): T[] => {
+  return arr.filter((v: T, i: number, a: T[]) => a.indexOf(v) === i);
+};

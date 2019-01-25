@@ -17,6 +17,7 @@ import { SideModal } from './Components/Metadata/SideModal';
 export interface IAddProps {
   addExpense: (expense: IExpense) => void;
   baseCurrency: ICurrency;
+  categories: ICategory[];
 }
 
 export enum openModalEnum {
@@ -57,6 +58,7 @@ export default class Add extends React.Component<IAddProps, IAddState> {
       customDate,
       side
     } = this.state;
+    const { categories } = this.props;
 
     return (
       <View style={styles.container}>
@@ -64,6 +66,7 @@ export default class Add extends React.Component<IAddProps, IAddState> {
           <Categories
             onPickCategory={this.onSelectedCategoryChange}
             selectedCategory={selectedCategory}
+            categories={categories}
           />
         </View>
         <View style={styles.metadata}>
@@ -191,7 +194,8 @@ export default class Add extends React.Component<IAddProps, IAddState> {
       category: selectedCategory.title,
       subCategory: selectedSubCategory,
       createdAt: new Date().getTime(),
-      updatedAt: new Date().getTime()
+      updatedAt: new Date().getTime(),
+      color: selectedCategory.color
     });
 
     this.reset();

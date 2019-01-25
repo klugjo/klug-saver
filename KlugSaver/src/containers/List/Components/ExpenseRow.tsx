@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import { IExpense } from '../../../typings';
 import { formatAmount } from '../../../util';
-import { getTheme, getCategoryColor } from '../../../theme/utils';
+import { getTheme } from '../../../theme/utils';
 import { textStyleBase, textStyleThin } from '../../../theme/styles';
 
 export interface IExpenseRowProps {
@@ -16,7 +16,7 @@ const ExpenseRow = ({ item, openDeleteModal }: IExpenseRowProps) => (
     underlayColor={getTheme().underlayColor}
   >
     <View style={styles.expenseRowView}>
-      <View style={[styles.rowColorView, { backgroundColor: getCategoryColor(item.category) }]} />
+      <View style={[styles.rowColorView, { backgroundColor: item.color }]} />
       <Text style={styles.descriptionText}>{item.category}</Text>
       <Text style={styles.subDescriptionText}>{item.subCategory}</Text>
       <Text style={styles.amountText}>{formatAmount(item.amount)}</Text>

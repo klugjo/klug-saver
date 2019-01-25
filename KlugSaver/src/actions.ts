@@ -1,5 +1,5 @@
 import { postExpense, getExpenses, removeExpense, putArchiveContents } from './api';
-import { ARCHIVE_FILE_PATH, MODALS } from './constants/common';
+import { ARCHIVE_FILE_PATH } from './constants/common';
 import { getArchiveFromState } from './util';
 import { IExpense, ICurrency } from './typings';
 
@@ -10,7 +10,7 @@ export const addExpense = (payload: any) => {
     postExpense(payload).then(
       (response: any) => dispatch({
         type: ADD_EXPENSE,
-        payload: response.data
+        payload: {...payload, ...response.data}
       })
     );
   };
@@ -25,7 +25,7 @@ export const getExpenseList = (from?: Date) => {
       dispatch({
         type: GET_EXPENSE_LIST,
         payload: response.data
-      })
+      });
     });
   }
 }

@@ -21,7 +21,8 @@ const getExpenseList = (action: IAction, state: IMainState) => {
 
   const expenses = expensesRaw.map(e => ({
     ...e,
-    color: e.color || (categoryMap[e.title] ? categoryMap[e.title] : DEFAULT_CATEGORY_COLOR)
+    color: (e.color && e.color !== DEFAULT_CATEGORY_COLOR)
+      || (categoryMap[e.category] ? categoryMap[e.category].color : DEFAULT_CATEGORY_COLOR)
   })) as IExpense[];
 
   return { ...state, expenses };

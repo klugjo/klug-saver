@@ -28,7 +28,7 @@ export const CommentsModal = ({ open, close, onCommentChange, comment }: ICommen
             onChangeText={onCommentChange}
             value={comment}
             multiline={true}
-            autoFocus={open}
+            autoFocus={!comment ? open : false}
           />
           <View style={styles.rowButtons}>
             <KSButton

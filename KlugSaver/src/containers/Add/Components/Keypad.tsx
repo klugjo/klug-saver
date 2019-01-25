@@ -10,6 +10,7 @@ export interface IVirtualKeyboardProps {
   addChar: (char: string) => () => void;
   deleteChar: () => void;
   addDecimal: () => void;
+  reset: () => void;
   openModal: (modal: openModalEnum) => () => void;
 }
 
@@ -31,14 +32,15 @@ const VirtualKeyboard = ({
   addChar,
   deleteChar,
   addDecimal,
-  openModal
+  openModal,
+  reset
 }: IVirtualKeyboardProps) => (
     <View style={styles.keyboardRoot}>
       <View style={styles.keyboardLine}>
         {renderButton('1', addChar('1'))}
         {renderButton('2', addChar('2'))}
         {renderButton('3', addChar('3'))}
-        {renderIcon('arrow-bottom-right-bold-outline', openModal(openModalEnum.side))}
+        {renderButton('AC', reset)}
       </View>
       <View style={styles.keyboardLine}>
         {renderButton('4', addChar('4'))}
@@ -55,8 +57,8 @@ const VirtualKeyboard = ({
       <View style={styles.keyboardLine}>
         {renderButton('.', addDecimal)}
         {renderButton('0', addChar('0'))}
-        {renderButton('<', deleteChar)}
-        {renderButton('$', () => {})}
+        {renderIcon('backspace', deleteChar)}
+        {renderIcon('arrow-bottom-right-bold-outline', openModal(openModalEnum.side))}
       </View>
     </View>
   );

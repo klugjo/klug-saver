@@ -3,7 +3,7 @@ import moment from 'moment';
 import { View, StyleSheet } from 'react-native';
 import numeral from 'numeral';
 
-import VirtualKeyboard from './Components/VirtualKeyboard';
+import Keypad from './Components/Keypad';
 import Categories from './Components/Categories/Categories';
 import AmountDisplay from './Components/AmountDisplay';
 import { SubCategoryModal } from './Components/Categories/SubCategoryModal';
@@ -43,16 +43,7 @@ export default class Add extends React.Component<IAddProps, IAddState> {
   constructor(props: IAddProps) {
     super(props);
 
-    this.state = {
-      amount: '',
-      selectedCategory: undefined,
-      selectedSubCategory: '',
-      openModal: undefined,
-      currency: this.props.baseCurrency,
-      comment: undefined,
-      customDate: moment(),
-      side: SideEnum.Debit
-    };
+    this.state = this.getEmptyState();
   }
 
   render() {
@@ -79,11 +70,12 @@ export default class Add extends React.Component<IAddProps, IAddState> {
           <AmountDisplay amount={amount} currency={currency} />
         </View>
         <View style={styles.keyboard}>
-          <VirtualKeyboard
+          <Keypad
             addChar={this.addChar}
             deleteChar={this.deleteChar}
             addDecimal={this.addDecimal}
             openModal={this.openModal}
+            reset={this.reset}
           />
         </View>
         <KSButton
@@ -199,8 +191,25 @@ export default class Add extends React.Component<IAddProps, IAddState> {
       updatedAt: new Date().getTime()
     });
 
-    this.setState({ amount: '', selectedCategory: undefined, selectedSubCategory: '' });
+    this.reset();
   };
+
+  private reset = () => {
+    this.setState(this.getEmptyState());
+  }
+
+  private getEmptyState = () => {
+    return {
+      amount: '',
+      selectedCategory: undefined,
+      selectedSubCategory: '',
+      openModal: undefined,
+      currency: this.props.baseCurrency,
+      comment: undefined,
+      customDate: moment(),
+      side: SideEnum.Debit
+    };
+  }
 };
 
 const styles = StyleSheet.create({

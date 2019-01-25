@@ -15,7 +15,7 @@ export interface IVirtualKeyboardProps {
   isDateSet: boolean;
   isSideExpense: boolean;
   isCommentSet: boolean;
-}
+};
 
 const renderButton = (digit: string, onPress: () => void) => (
   <KSButton

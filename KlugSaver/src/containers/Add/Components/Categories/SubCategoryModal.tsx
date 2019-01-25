@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, Modal, StyleSheet, TouchableHighlight } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 
 import { ICategory } from '../../../../typings';
 import { getTheme } from '../../../../theme/utils';
+import { KSModal } from '../../../../components/KSModal';
 
 export interface ISubCategoryModal {
   category?: ICategory;
@@ -20,18 +20,12 @@ export const SubCategoryModal = ({ category, onPickSubCategory, open, onClose }:
   }
 
   return (
-    <Modal
-      animationType="slide"
-      transparent={false}
-      visible={open}
+    <KSModal
+      open={open}
+      title={category!.title}
+      close={onClose}
     >
-      <View style={styles.container}>
-        <View style={styles.backButtonContainer}>
-          <TouchableHighlight onPress={onClose}>
-            <Icon name="close" size={30} color={getTheme().underlayColor} />
-          </TouchableHighlight>
-          <Text style={styles.titleText}>{category!.title}</Text>
-        </View>
+      <View style={styles.root}>
         {
           items.map((item, index) => (
             <TouchableHighlight
@@ -47,35 +41,17 @@ export const SubCategoryModal = ({ category, onPickSubCategory, open, onClose }:
           ))
         }
       </View>
-    </Modal>
+    </KSModal>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'stretch',
-    paddingTop: 30,
     flexWrap: 'wrap'
-  },
-  backButtonContainer: {
-    width: '90%',
-    paddingBottom: 15,
-    marginHorizontal: 15,
-    marginBottom: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    borderBottomColor: '#CCC',
-    borderBottomWidth: 1
-  },
-  titleText: {
-    marginLeft: 30,
-    fontSize: 18,
-    color: getTheme().textSecondaryColor,
-    marginBottom: 2 
   },
   buttonContainer: {
     height: 90,

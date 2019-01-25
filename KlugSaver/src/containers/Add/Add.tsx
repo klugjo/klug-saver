@@ -76,6 +76,9 @@ export default class Add extends React.Component<IAddProps, IAddState> {
             addDecimal={this.addDecimal}
             openModal={this.openModal}
             reset={this.reset}
+            isDateSet={!customDate.isSame(new Date(), 'day')}
+            isSideExpense={side === SideEnum.Expense}
+            isCommentSet={!!comment}
           />
         </View>
         <KSButton
@@ -207,7 +210,7 @@ export default class Add extends React.Component<IAddProps, IAddState> {
       currency: this.props.baseCurrency,
       comment: undefined,
       customDate: moment(),
-      side: SideEnum.Debit
+      side: SideEnum.Expense
     };
   }
 };

@@ -28,6 +28,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: getTheme().fontThin,
-    fontSize: 18
+    fontSize: 20
   }
 });

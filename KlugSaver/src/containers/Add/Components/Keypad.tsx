@@ -12,6 +12,9 @@ export interface IVirtualKeyboardProps {
   addDecimal: () => void;
   reset: () => void;
   openModal: (modal: openModalEnum) => () => void;
+  isDateSet: boolean;
+  isSideExpense: boolean;
+  isCommentSet: boolean;
 }
 
 const renderButton = (digit: string, onPress: () => void) => (
@@ -22,9 +25,9 @@ const renderButton = (digit: string, onPress: () => void) => (
   />
 );
 
-const renderIcon = (icon: string, onPress: () => void) => (
+const renderIcon = (icon: string, color: string, onPress: () => void) => (
   <TouchableHighlight onPress={onPress} style={styles.iconButton} underlayColor={getTheme().underlayColor}>
-    <Icon name={icon} size={18} color={getTheme().textMainColor} />
+    <Icon name={icon} size={20} color={color} />
   </TouchableHighlight>
 );
 
@@ -33,8 +36,17 @@ const VirtualKeyboard = ({
   deleteChar,
   addDecimal,
   openModal,
-  reset
-}: IVirtualKeyboardProps) => (
+  reset,
+  isDateSet,
+  isCommentSet,
+  isSideExpense
+}: IVirtualKeyboardProps) => {
+  const dateIconColor = isDateSet ? getTheme().accentMainColor : getTheme().textMainColor;
+  const commentIconColor = isCommentSet ? getTheme().accentMainColor : getTheme().textMainColor;
+  const sideIcon = isSideExpense ? 'arrow-bottom-right-bold-outline' : 'arrow-top-right-bold-outline';
+  const sideIconColor = isSideExpense ? getTheme().textMainColor : getTheme().accentMainColor;
+  
+  return (
     <View style={styles.keyboardRoot}>
       <View style={styles.keyboardLine}>
         {renderButton('1', addChar('1'))}
@@ -46,22 +58,23 @@ const VirtualKeyboard = ({
         {renderButton('4', addChar('4'))}
         {renderButton('5', addChar('5'))}
         {renderButton('6', addChar('6'))}
-        {renderIcon('calendar-text', openModal(openModalEnum.date))}
+        {renderIcon('calendar-text', dateIconColor, openModal(openModalEnum.date))}
       </View>
       <View style={styles.keyboardLine}>
         {renderButton('7', addChar('7'))}
         {renderButton('8', addChar('8'))}
         {renderButton('9', addChar('9'))}
-        {renderIcon('comment-text-outline', openModal(openModalEnum.comments))}
+        {renderIcon('comment-text-outline', commentIconColor, openModal(openModalEnum.comments))}
       </View>
       <View style={styles.keyboardLine}>
         {renderButton('.', addDecimal)}
         {renderButton('0', addChar('0'))}
-        {renderIcon('backspace', deleteChar)}
-        {renderIcon('arrow-bottom-right-bold-outline', openModal(openModalEnum.side))}
+        {renderIcon('backspace', getTheme().textMainColor, deleteChar)}
+        {renderIcon(sideIcon, sideIconColor, openModal(openModalEnum.side))}
       </View>
     </View>
-  );
+  )
+};
 
 const styles = StyleSheet.create({
   keyboardRoot: {

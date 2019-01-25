@@ -16,8 +16,8 @@ export interface ISideModalProps {
 };
 
 export const SideModal = ({ open, close, side, onSideChange }: ISideModalProps) => {
-  const isCredit = side === SideEnum.Credit;
-  const isDebit = side === SideEnum.Debit;
+  const isCredit = side === SideEnum.Income;
+  const isDebit = side === SideEnum.Expense;
 
   return (
     <KSModal
@@ -29,7 +29,7 @@ export const SideModal = ({ open, close, side, onSideChange }: ISideModalProps) 
         <View style={styles.buttonGroup}>
           <TouchableHighlight
             style={[styles.button, styles.buttonLeft, isDebit && styles.selectedView]}
-            onPress={() => onSideChange(SideEnum.Debit)}
+            onPress={() => onSideChange(SideEnum.Expense)}
             underlayColor={getTheme().accentMainColor}
           >
             <View style={styles.textContainer}>
@@ -43,7 +43,7 @@ export const SideModal = ({ open, close, side, onSideChange }: ISideModalProps) 
           </TouchableHighlight>
           <TouchableHighlight
             style={[styles.button, styles.buttonRight, isCredit && styles.selectedView]}
-            onPress={() => onSideChange(SideEnum.Credit)}
+            onPress={() => onSideChange(SideEnum.Income)}
             underlayColor={getTheme().accentMainColor}
           >
             <View style={styles.textContainer}>

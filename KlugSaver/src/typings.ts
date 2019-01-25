@@ -60,6 +60,6 @@ export interface ICurrency {
 }
 
 export enum SideEnum {
-  Debit,
-  Credit
+  Expense,
+  Income
 }

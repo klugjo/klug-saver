@@ -6,7 +6,7 @@ import numeral from 'numeral';
 import Keypad from './Components/Keypad';
 import Categories from './Components/Categories/Categories';
 import AmountDisplay from './Components/AmountDisplay';
-import { SubCategoryModal } from './Components/Categories/SubCategoryModal';
+import SubCategoryModal from './Components/Categories/SubCategoryModal';
 import { IExpense, ICategory, ICurrency, SideEnum } from '../../typings';
 import { KSButton } from '../../components';
 import KSCurrencyPicker from '../../components/KSCurrencyPicker';

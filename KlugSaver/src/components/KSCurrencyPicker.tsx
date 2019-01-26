@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, Modal, StyleSheet, FlatList, TouchableHighlight, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableHighlight, Image } from 'react-native';
 import { ICurrency } from '../typings';
 import { CURRENCIES_ARRAY } from '../constants/currencies';
 import { getTheme } from '../theme/utils';
 import { flags } from '../constants/flags';
+import { KSModal } from './KSModal';
 
 export interface IKSCurrencyPickerProps {
   open: boolean;
@@ -13,17 +14,17 @@ export interface IKSCurrencyPickerProps {
 
 class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}> {
   public render() {
-    const { open } = this.props;
+    const { open, currency } = this.props;
 
     if (!open) {
       return null;
     }
 
     return (
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={open}
+      <KSModal
+        open={open}
+        title="Currency Change"
+        close={this.pickCurrency(currency)}
       >
         <View style={styles.container}>
           <FlatList
@@ -32,7 +33,7 @@ class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}> {
             keyExtractor={(item) => item.code}
           />
         </View>
-      </Modal>
+      </KSModal>
     );
   }
 

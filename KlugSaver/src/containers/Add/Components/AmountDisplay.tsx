@@ -1,6 +1,6 @@
 import React from 'react';
 import numeral from 'numeral';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 
 import { formatAmount } from '../../../util';
 import { getTheme } from '../../../theme/utils';
@@ -9,6 +9,7 @@ import { ICurrency } from '../../../typings';
 export interface IAmountDisplayProps {
   amount?: string;
   currency: ICurrency;
+  onCurrencyPickerOpen: () => void;
 }
 
 const getFontSize = (amountText?: string) => {
@@ -35,9 +36,15 @@ const getCurrencyMarginTop = (amountText?: string) => {
   }
 };
 
-const AmountDisplay = ({ amount, currency }: IAmountDisplayProps) => {
+const AmountDisplay = ({ amount, currency, onCurrencyPickerOpen }: IAmountDisplayProps) => {
   return <View style={styles.amountContainer}>
-    <Text style={[styles.currency, {marginTop: getCurrencyMarginTop(amount)}]}>{currency.code}</Text>
+    <TouchableHighlight
+      style={[styles.currencyButton, { marginTop: getCurrencyMarginTop(amount) }]}
+      onPress={onCurrencyPickerOpen}
+      underlayColor={getTheme().underlayColor}
+    >
+      <Text style={styles.currency}>{currency.code}</Text>
+    </TouchableHighlight>
     <Text style={[styles.amountText, { fontSize: getFontSize(amount) }]}>
       {formatAmount(amount || 0)}
     </Text>
@@ -56,9 +63,11 @@ const styles = StyleSheet.create({
   amountText: {
     color: getTheme().textMainColor
   },
+  currencyButton: {
+    marginRight: 15
+  },
   currency: {
     fontSize: 20,
-    marginRight: 15,
     color: getTheme().textSecondaryColor
   }
 });

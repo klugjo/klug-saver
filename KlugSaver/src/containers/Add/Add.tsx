@@ -71,7 +71,11 @@ export default class Add extends React.Component<IAddProps, IAddState> {
           />
         </View>
         <View style={styles.metadata}>
-          <AmountDisplay amount={amount} currency={currency} />
+          <AmountDisplay
+            amount={amount}
+            currency={currency}
+            onCurrencyPickerOpen={this.openModal(openModalEnum.currency)}
+          />
         </View>
         <View style={styles.keyboard}>
           <Keypad

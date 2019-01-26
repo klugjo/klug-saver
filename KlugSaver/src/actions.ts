@@ -1,7 +1,7 @@
 import { postExpense, getExpenses, removeExpense, putArchiveContents } from './api';
 import { ARCHIVE_FILE_PATH } from './constants/common';
 import { getArchiveFromState } from './util';
-import { IExpense, ICurrency } from './typings';
+import { IExpense, ICurrency, ICategory } from './typings';
 
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 
@@ -43,19 +43,6 @@ export const openDeleteModal = (expense: IExpense) => ({
   payload: expense
 });
 
-export const CLOSE_CURRENCY_MODAL = 'CLOSE_CURRENCY_MODAL';
-
-export const closeCurrencyModal = (currency?: ICurrency) => ({
-  type: CLOSE_CURRENCY_MODAL,
-  payload: currency
-});
-
-export const OPEN_CURRENCY_MODAL = 'OPEN_CURRENCY_MODAL';
-
-export const openCurrencyModal = {
-  type: OPEN_CURRENCY_MODAL
-};
-
 export const deleteExpense = (id: string, from: Date) => {
   return (dispatch: any) => {
     removeExpense(id).then(
@@ -70,6 +57,18 @@ export const deleteExpense = (id: string, from: Date) => {
     );
   };
 }
+
+export const SAVE_CATEGORY = 'SAVE_CATEGORY';
+
+export const saveCategory = (oldTitle: string, categoryToSave: ICategory) => ({
+  type: SAVE_CATEGORY,
+  payload: {
+    oldTitle,
+    categoryToSave
+  }
+});
+
+
 
 export const SAVE_DROPBOX_TOKEN = 'SAVE_DROPBOX_TOKEN';
 

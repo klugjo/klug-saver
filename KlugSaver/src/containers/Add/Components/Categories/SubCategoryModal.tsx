@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, TextInput, Modal } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight, TextInput, Modal, Alert, ScrollView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -11,6 +11,7 @@ export interface ISubCategoryModalProps {
   onPickSubCategory: (item: string) => void;
   open: boolean;
   onClose: () => void;
+  saveCategory: (oldTitle: string, categoryToSave: ICategory) => void;
 }
 
 interface ISubCategoryModalState {
@@ -50,7 +51,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
               <Icon name="close" size={30} color={getTheme().underlayColor} />
             </TouchableHighlight>
             <Text style={styles.titleText}>{category!.title}</Text>
-            <TouchableHighlight onPress={this.toggleEditMode}>
+            <TouchableHighlight onPress={this.toggleEditMode} underlayColor={getTheme().underlayColor}>
               <Icon name="pencil" size={30} color={getTheme().underlayColor} />
             </TouchableHighlight>
           </View>
@@ -72,8 +73,13 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
             style={styles.buttonContainer}
           >
             <View style={[styles.buttonStyle, styles.buttonStyleEdit, { backgroundColor: category!.color }]}>
-              <TextInput selectTextOnFocus={true} style={styles.buttonText}>{item}</TextInput>
-              <TouchableHighlight onPress={this.onDelete(index)} style={styles.deleteButton}>
+              <TextInput
+                selectTextOnFocus={true}
+                style={styles.buttonText}
+                value={item}
+                onChangeText={this.onChangeText(index)}
+              />
+              <TouchableHighlight onPress={this.onDelete(index)} style={styles.deleteButton} underlayColor={getTheme().underlayColor}>
                 <Icon name="close" size={25} color={getTheme().backgroundMainColor} />
               </TouchableHighlight>
             </View>
@@ -82,7 +88,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
       }
       <TouchableHighlight style={styles.buttonContainer} onPress={this.addItem}>
         <View style={[styles.buttonStyle, { backgroundColor: category!.color }]}>
-          <Icon name="plus-box-outline" size={25} color={getTheme().backgroundMainColor} />
+          <Icon name="plus" size={30} color={getTheme().backgroundMainColor} />
         </View>
       </TouchableHighlight>
     </KeyboardAwareScrollView>;
@@ -93,7 +99,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
 
     const items = this.getSubCategories();
 
-    return <View style={styles.root}>
+    return <ScrollView contentContainerStyle={styles.root}>
       {
         items.map((item, index) => (
           <TouchableHighlight
@@ -108,7 +114,8 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
           </TouchableHighlight>
         ))
       }
-    </View>;
+      <View style={{height: 100}} />
+    </ScrollView>;
   }
 
   private close = () => {
@@ -117,10 +124,37 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
   }
 
   private toggleEditMode = () => {
-    const { isEditing } = this.state;
+    const { category } = this.props;
+    const { isEditing, items } = this.state;
 
     if (isEditing) {
-      this.setState({ isEditing: false, items: [] });
+      Alert.alert(
+        'Save',
+        'Do you want to save the current configuration ?',
+        [
+          {
+            text: 'Save',
+            onPress: () => {
+              this.setState({ isEditing: false, items: [] });
+              this.props.saveCategory(category!.title, { ...category!, subCategories: items });
+            },
+            style: 'default'
+          },
+          {
+            text: 'Undo',
+            onPress: () => {
+              this.setState({ isEditing: false, items: [] });
+            },
+            style: 'cancel'
+          },
+          {
+            text: 'Cancel',
+            onPress: () => { },
+            style: 'cancel'
+          }
+        ]
+      );
+
     } else {
       this.setState({ isEditing: true, items: this.getSubCategories() });
     }
@@ -137,7 +171,15 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
   }
 
   private onDelete = (index: number) => () => {
+    const items = [...this.state.items];
+    items.splice(index, 1);
+    this.setState({ items });
+  };
 
+  private onChangeText = (index: number) => (value: string) => {
+    const items = [...this.state.items];
+    items[index] = value;
+    this.setState({ items });
   };
 }
 

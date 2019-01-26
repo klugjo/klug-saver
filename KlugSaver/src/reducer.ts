@@ -1,4 +1,4 @@
-import { ADD_EXPENSE, GET_EXPENSE_LIST, SAVE_DROPBOX_TOKEN, OPEN_DELETE_MODAL, CLOSE_DELETE_MODAL, OPEN_CURRENCY_MODAL, CLOSE_CURRENCY_MODAL } from './actions';
+import { ADD_EXPENSE, GET_EXPENSE_LIST, SAVE_DROPBOX_TOKEN, OPEN_DELETE_MODAL, CLOSE_DELETE_MODAL, SAVE_CATEGORY } from './actions';
 import { IMainState, IExpense, IAction } from './typings';
 import { MODALS } from './constants/common';
 import { CURRENCIES } from './constants/currencies';
@@ -28,6 +28,14 @@ const getExpenseList = (action: IAction, state: IMainState) => {
   return { ...state, expenses };
 };
 
+const saveCategory = (action: IAction, state: IMainState): IMainState => {
+  const index = state.categories.findIndex(c => c.title === action.payload.oldTitle);
+  const categories = [...state.categories];
+  categories[index] = action.payload.categoryToSave;
+
+  return {...state, categories};
+};
+
 export default function reducer(state: IMainState = DEFAULT_STATE, action: IAction): IMainState {
   switch (action.type) {
     case ADD_EXPENSE:
@@ -40,10 +48,8 @@ export default function reducer(state: IMainState = DEFAULT_STATE, action: IActi
       return { ...state, openModal: '', expenseToDelete: undefined };
     case SAVE_DROPBOX_TOKEN:
       return { ...state, dropboxToken: action.payload };
-    case OPEN_CURRENCY_MODAL:
-      return { ...state, openModal: MODALS.CURRENCY };
-    case CLOSE_CURRENCY_MODAL:
-      return { ...state, openModal: '', customCurrency: action.payload };
+    case SAVE_CATEGORY:
+      return saveCategory(action, state);
     default:
       return state;
   }

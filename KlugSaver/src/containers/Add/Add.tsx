@@ -18,6 +18,7 @@ export interface IAddProps {
   addExpense: (expense: IExpense) => void;
   baseCurrency: ICurrency;
   categories: ICategory[];
+  saveCategory: (oldTitle: string, categoryToSave: ICategory) => void;
 }
 
 export enum openModalEnum {
@@ -58,7 +59,7 @@ export default class Add extends React.Component<IAddProps, IAddState> {
       customDate,
       side
     } = this.state;
-    const { categories } = this.props;
+    const { categories, saveCategory } = this.props;
 
     return (
       <View style={styles.container}>
@@ -91,10 +92,11 @@ export default class Add extends React.Component<IAddProps, IAddState> {
           textStyle={styles.saveButtonText}
         />
         <SubCategoryModal
-          category={selectedCategory}
+          category={selectedCategory && categories.find(c => c.title === selectedCategory.title)}
           open={!!selectedCategory && !selectedSubCategory}
           onPickSubCategory={this.onSelectedSubCategoryChange}
           onClose={this.onSubCategoryModalClose}
+          saveCategory={saveCategory}
         />
         <KSCurrencyPicker
           open={openModal === openModalEnum.currency}

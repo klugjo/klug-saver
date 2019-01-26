@@ -7,10 +7,11 @@ export interface IKSModalProps {
   close: () => void;
   title: string;
   open: boolean;
-  children?: ReactNode
+  children?: ReactNode,
+  containerStyle?: any;
 }
 
-export const KSModal = ({ open, close, title, children }: IKSModalProps) => {
+export const KSModal = ({ open, close, title, children, containerStyle }: IKSModalProps) => {
   if (!open) {
     return null;
   }
@@ -21,7 +22,7 @@ export const KSModal = ({ open, close, title, children }: IKSModalProps) => {
       transparent={false}
       visible={open}
     >
-      <View style={styles.container}>
+      <View style={[styles.container, containerStyle]}>
         <View style={styles.backButtonContainer}>
           <TouchableHighlight onPress={close}>
             <Icon name="close" size={30} color={getTheme().underlayColor} />

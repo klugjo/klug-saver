@@ -25,6 +25,7 @@ class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}> {
         open={open}
         title="Currency Change"
         close={this.pickCurrency(currency)}
+        containerStyle={styles.modalContainerOverride}
       >
         <View style={styles.container}>
           <FlatList
@@ -61,6 +62,9 @@ class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}> {
 export default KSCurrencyPicker;
 
 const styles = StyleSheet.create({
+  modalContainerOverride: {
+    paddingHorizontal: 0
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -69,8 +73,8 @@ const styles = StyleSheet.create({
   },
   item: {
     flexDirection: 'row',
-    paddingHorizontal: 20,
     paddingVertical: 8,
+    paddingHorizontal: 15,
     borderBottomWidth: 1,
     borderBottomColor: getTheme().underlayColor
   },
@@ -85,9 +89,11 @@ const styles = StyleSheet.create({
   },
   itemCodeText: {
     fontSize: 16,
-    width: 60
+    width: 60,
+    fontFamily: getTheme().fontThin
   },
   itemNameText: {
-    fontSize: 16
+    fontSize: 16,
+    fontFamily: getTheme().fontThin
   }
 });

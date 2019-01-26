@@ -18,6 +18,7 @@ export interface ISubCategoryModalProps {
 interface ISubCategoryModalState {
   isEditing: boolean;
   items: string[];
+  title: string;
 }
 
 class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCategoryModalState> {
@@ -26,13 +27,14 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
 
     this.state = {
       isEditing: false,
-      items: []
+      items: [],
+      title: ''
     };
   }
 
   render() {
     const { category, open } = this.props;
-    const { isEditing } = this.state;
+    const { isEditing, title } = this.state;
 
     const items = this.getSubCategories();
 
@@ -51,7 +53,18 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
             <TouchableHighlight onPress={this.close}>
               <Icon name="close" size={30} color={getTheme().underlayColor} />
             </TouchableHighlight>
-            <Text style={styles.titleText}>{category!.title}</Text>
+            {
+              isEditing ?
+                <TextInput
+                  style={styles.titleText}
+                  value={title}
+                  onChangeText={this.onTitleChange}
+                  keyboardAppearance="light"
+                  selectionColor={getTheme().textSecondaryColor}
+                  selectTextOnFocus={true}
+                /> :
+                <Text style={styles.titleText}>{category!.title}</Text>
+            }
             <TouchableHighlight onPress={this.toggleEditMode} underlayColor={getTheme().underlayColor}>
               <Icon name="pencil" size={30} color={getTheme().underlayColor} />
             </TouchableHighlight>
@@ -138,22 +151,24 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
     if (this.state.isEditing) {
       this.promptBeforeSaving();
     } else {
+      this.reset();
       this.props.onClose();
     }
   }
 
   private toggleEditMode = () => {
+    const { category } = this.props;
     const { isEditing } = this.state;
 
     if (isEditing) {
       this.promptBeforeSaving();
     } else {
-      this.setState({ isEditing: true, items: this.getSubCategories() });
+      this.setState({ isEditing: true, items: this.getSubCategories(), title: category!.title });
     }
   }
 
   private promptBeforeSaving = () => {
-    const { items } = this.state;
+    const { items, title } = this.state;
     const { category } = this.props;
 
     Alert.alert(
@@ -163,15 +178,15 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
         {
           text: 'Save',
           onPress: () => {
-            this.setState({ isEditing: false, items: [] });
-            this.props.saveCategory(category!.title, { ...category!, subCategories: items });
+            this.reset();
+            this.props.saveCategory(category!.title, { ...category!, subCategories: items, title });
           },
           style: 'default'
         },
         {
           text: 'Undo',
           onPress: () => {
-            this.setState({ isEditing: false, items: [] });
+            this.reset();
           },
           style: 'cancel'
         },
@@ -182,6 +197,10 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
         }
       ]
     );
+  }
+
+  private reset = () => {
+    this.setState({ isEditing: false, items: [], title: '' });
   }
 
   private addItem = () => {
@@ -205,6 +224,10 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
     items[index] = value;
     this.setState({ items });
   };
+
+  private onTitleChange = (title: string) => {
+    this.setState({ title });
+  }
 }
 
 export default SubCategoryModal;

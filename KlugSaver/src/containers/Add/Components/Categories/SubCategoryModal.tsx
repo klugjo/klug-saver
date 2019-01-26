@@ -63,7 +63,6 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
   }
 
   private renderEditView = () => {
-    const { category } = this.props;
     const { items } = this.state;
 
     return <KeyboardAvoidingView style={styles.root} behavior="padding" >
@@ -136,45 +135,53 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
   }
 
   private close = () => {
-    this.setState({ isEditing: false, items: [] });
-    this.props.onClose();
+    if (this.state.isEditing) {
+      this.promptBeforeSaving();
+    } else {
+      this.props.onClose();
+    }
   }
 
   private toggleEditMode = () => {
-    const { category } = this.props;
-    const { isEditing, items } = this.state;
+    const { isEditing } = this.state;
 
     if (isEditing) {
-      Alert.alert(
-        'Save',
-        'Do you want to save the current configuration ?',
-        [
-          {
-            text: 'Save',
-            onPress: () => {
-              this.setState({ isEditing: false, items: [] });
-              this.props.saveCategory(category!.title, { ...category!, subCategories: items });
-            },
-            style: 'default'
-          },
-          {
-            text: 'Undo',
-            onPress: () => {
-              this.setState({ isEditing: false, items: [] });
-            },
-            style: 'cancel'
-          },
-          {
-            text: 'Cancel',
-            onPress: () => { },
-            style: 'cancel'
-          }
-        ]
-      );
-
+      this.promptBeforeSaving();
     } else {
       this.setState({ isEditing: true, items: this.getSubCategories() });
     }
+  }
+
+  private promptBeforeSaving = () => {
+    const { items } = this.state;
+    const { category } = this.props;
+
+    Alert.alert(
+      'Save',
+      'Do you want to save the current configuration ?',
+      [
+        {
+          text: 'Save',
+          onPress: () => {
+            this.setState({ isEditing: false, items: [] });
+            this.props.saveCategory(category!.title, { ...category!, subCategories: items });
+          },
+          style: 'default'
+        },
+        {
+          text: 'Undo',
+          onPress: () => {
+            this.setState({ isEditing: false, items: [] });
+          },
+          style: 'cancel'
+        },
+        {
+          text: 'Cancel',
+          onPress: () => { },
+          style: 'cancel'
+        }
+      ]
+    );
   }
 
   private addItem = () => {

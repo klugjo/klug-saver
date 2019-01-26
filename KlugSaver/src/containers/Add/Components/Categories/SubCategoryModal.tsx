@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, TextInput, Modal, Alert, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight, TextInput, Modal, Alert, ScrollView, FlatList, KeyboardAvoidingView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { ICategory } from '../../../../typings';
 import { getTheme } from '../../../../theme/utils';
+
+const ADD_BUTTON = 'ADD_BUTTON';
 
 export interface ISubCategoryModalProps {
   category?: ICategory;
@@ -65,33 +67,47 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
     const { category } = this.props;
     const { items } = this.state;
 
-    return <KeyboardAwareScrollView contentContainerStyle={styles.root} extraScrollHeight={50}>
-      {
-        items.map((item, index) => (
-          <View
-            key={index}
-            style={styles.buttonContainer}
-          >
-            <View style={[styles.buttonStyle, styles.buttonStyleEdit, { backgroundColor: category!.color }]}>
-              <TextInput
-                selectTextOnFocus={true}
-                style={styles.buttonText}
-                value={item}
-                onChangeText={this.onChangeText(index)}
-              />
-              <TouchableHighlight onPress={this.onDelete(index)} style={styles.deleteButton} underlayColor={getTheme().underlayColor}>
-                <Icon name="close" size={25} color={getTheme().backgroundMainColor} />
-              </TouchableHighlight>
-            </View>
-          </View>
-        ))
-      }
-      <TouchableHighlight style={styles.buttonContainer} onPress={this.addItem}>
-        <View style={[styles.buttonStyle, { backgroundColor: category!.color }]}>
-          <Icon name="plus" size={30} color={getTheme().backgroundMainColor} />
-        </View>
-      </TouchableHighlight>
-    </KeyboardAwareScrollView>;
+    return <KeyboardAvoidingView style={styles.root} behavior="padding" >
+      <FlatList
+        data={[...items, ADD_BUTTON]}
+        numColumns={2}
+        contentContainerStyle={styles.list}
+        renderItem={({ item, index }: { item: string, index: number }) => (
+          item === ADD_BUTTON && index === items.length ?
+            this.renderAddButton({ index }) :
+            this.renderEditButton({ item, index })
+
+        )}
+      />
+    </KeyboardAvoidingView>;
+  }
+
+  private renderEditButton = ({ item, index }: { item: string, index: number }) => {
+    const { category } = this.props;
+
+    return <View style={styles.buttonContainer}>
+      <View style={[styles.buttonStyle, styles.buttonStyleEdit, { backgroundColor: category!.color }]} key={index}>
+        <TextInput
+          selectTextOnFocus={true}
+          style={styles.buttonText}
+          value={item}
+          onChangeText={this.onChangeText(index)}
+        />
+        <TouchableHighlight onPress={this.onDelete(index)} style={styles.deleteButton} underlayColor={getTheme().underlayColor}>
+          <Icon name="close" size={25} color={getTheme().backgroundMainColor} />
+        </TouchableHighlight>
+      </View>
+    </View>
+  };
+
+  private renderAddButton = ({ index }: { index: number }) => {
+    const { category } = this.props;
+
+    return <TouchableHighlight style={styles.buttonContainer} onPress={this.addItem} key={index}>
+      <View style={[styles.buttonStyle, { backgroundColor: category!.color }]}>
+        <Icon name="plus" size={30} color={getTheme().backgroundMainColor} />
+      </View>
+    </TouchableHighlight>;
   }
 
   private renderNonEditView = () => {
@@ -99,23 +115,23 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
 
     const items = this.getSubCategories();
 
-    return <ScrollView contentContainerStyle={styles.root}>
-      {
-        items.map((item, index) => (
-          <TouchableHighlight
-            key={index}
-            onPress={() => onPickSubCategory(item)}
-            style={styles.buttonContainer}
-            underlayColor={getTheme().backgroundMainColor}
-          >
-            <View style={[styles.buttonStyle, { backgroundColor: category!.color }]}>
-              <Text style={styles.buttonText}>{item}</Text>
-            </View>
-          </TouchableHighlight>
-        ))
-      }
-      <View style={{height: 100}} />
-    </ScrollView>;
+    return <FlatList
+      data={items}
+      numColumns={2}
+      contentContainerStyle={styles.list}
+      renderItem={({ item, index }: { item: string, index: number }) => (
+        <TouchableHighlight
+          key={index}
+          onPress={() => onPickSubCategory(item)}
+          style={styles.buttonContainer}
+          underlayColor={getTheme().backgroundMainColor}
+        >
+          <View style={[styles.buttonStyle, { backgroundColor: category!.color }]}>
+            <Text style={styles.buttonText}>{item}</Text>
+          </View>
+        </TouchableHighlight>
+      )}
+    />;
   }
 
   private close = () => {
@@ -241,5 +257,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row'
+  },
+  list: {
+    paddingBottom: 50
   }
 });

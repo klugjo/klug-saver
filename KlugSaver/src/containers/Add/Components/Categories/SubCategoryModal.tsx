@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, TextInput, Modal, Alert, ScrollView, FlatList, KeyboardAvoidingView } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { View, Text, StyleSheet, TouchableHighlight, TextInput, Modal, Alert, FlatList, KeyboardAvoidingView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { ICategory } from '../../../../typings';
@@ -92,6 +91,8 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
           style={styles.buttonText}
           value={item}
           onChangeText={this.onChangeText(index)}
+          keyboardAppearance="light"
+          selectionColor={getTheme().backgroundMainColor}
         />
         <TouchableHighlight onPress={this.onDelete(index)} style={styles.deleteButton} underlayColor={getTheme().underlayColor}>
           <Icon name="close" size={25} color={getTheme().backgroundMainColor} />

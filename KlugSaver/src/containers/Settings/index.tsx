@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { IMainState } from '../../typings';
-import DropBox from './DropBox';
+import Settings from './Settings';
 import { saveDropboxToken, saveDropboxArchive } from '../../actions';
 
 interface IStateProps {
@@ -24,4 +24,4 @@ const mapDispatchToProps = (dispatch: any): IDispatchProps => ({
   saveDropboxArchive: () => dispatch(saveDropboxArchive())
 });
 
-export default connect<IStateProps, IDispatchProps, {}, IMainState>(mapStateToProps, mapDispatchToProps)(DropBox);
+export default connect<IStateProps, IDispatchProps, {}, IMainState>(mapStateToProps, mapDispatchToProps)(Settings);

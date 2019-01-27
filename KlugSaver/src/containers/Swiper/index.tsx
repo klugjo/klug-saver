@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native';
 import Add from '../Add';
 import List from '../List';
 import Summary from '../Summary';
-import Sync from '../Sync';
+import Settings from '../Settings';
 
 export default class Root extends React.Component {
   render() {
@@ -24,7 +24,7 @@ export default class Root extends React.Component {
       <Summary />
     </View>
     <View style={styles.screen}>
-      <Sync />
+      <Settings />
     </View>
   </Swiper>;
   }

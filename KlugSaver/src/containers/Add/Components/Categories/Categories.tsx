@@ -24,11 +24,11 @@ export default class MainCategoriesPicker extends React.Component<IMainCategorie
         underlayColor={getTheme().backgroundMainColor}
       >
         <View style={[styles.buttonStyle, {
-          backgroundColor: isSelected ? getTheme().backgroundMainColor : cat.color,
-          borderWidth: isSelected ? 1 : 0
+          borderColor: cat.color,
+          backgroundColor: isSelected ? getTheme().backgroundMainColor : cat.color
         }
         ]}>
-          <Text style={{ color: isSelected ? getTheme().textMainColor : getTheme().backgroundMainColor }}>{cat.title}</Text>
+          <Text style={{ color: isSelected ? cat.color : getTheme().backgroundMainColor }}>{cat.title}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -74,11 +74,20 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     flex: 1,
-    height: 50,
+    height: 45,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    borderRadius: 10,
-    borderColor: getTheme().textSecondaryColor
+    borderWidth: 1,
+    backgroundColor: getTheme().backgroundMainColor,
+    borderRadius: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
   }
 });

@@ -61,6 +61,7 @@ class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}> {
 
 export default KSCurrencyPicker;
 
+
 const styles = StyleSheet.create({
   modalContainerOverride: {
     paddingHorizontal: 0

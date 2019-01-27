@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     marginRight: 15
   },
   amountText: {
-    ...textStyleBase,
+    ...textStyleThin,
     width: 60,
     textAlign: 'right'
   },
@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
   },
   subDescriptionText: {
     ...textStyleThin,
-    color: getTheme().textSecondaryColor,
     flexGrow: 1
   }
 });

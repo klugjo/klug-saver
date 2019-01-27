@@ -91,7 +91,7 @@ export default class Add extends React.Component<IAddProps, IAddState> {
         </View>
         <KSButton
           onPress={this.onSave}
-          text="SAVE"
+          text="ADD"
           containerStyle={styles.saveButton}
           textStyle={styles.saveButtonText}
         />

@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
 
 import { ICategory } from '../../../../typings';
 import { getTheme } from '../../../../theme/utils';
+import { dropShadow, textStyleBase } from '../../../../theme/styles';
 
 export interface IMainCategoriesPicker {
   selectedCategory?: ICategory;
@@ -26,7 +27,8 @@ export default class MainCategoriesPicker extends React.Component<IMainCategorie
         <View style={[styles.buttonStyle, {
           borderColor: cat.color,
           backgroundColor: isSelected ? getTheme().backgroundMainColor : cat.color
-        }
+        },
+        !isSelected && dropShadow
         ]}>
           <Text style={{ color: isSelected ? cat.color : getTheme().backgroundMainColor }}>{cat.title}</Text>
         </View>
@@ -80,14 +82,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderWidth: 1,
     backgroundColor: getTheme().backgroundMainColor,
-    borderRadius: 5,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-    elevation: 4,
+    borderRadius: 5
   }
 });

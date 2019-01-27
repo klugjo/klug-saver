@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { IExpense } from '../../../typings';
 import { sum, formatAmount } from '../../../util';
 import { getTheme } from '../../../theme/utils';
-import { textStyleHeader } from '../../../theme/styles';
+import { textStyleHeader, textStyleBase } from '../../../theme/styles';
 
 export interface ISectionHeaderProps {
   section: {
@@ -32,15 +32,14 @@ const styles = StyleSheet.create({
     backgroundColor: getTheme().backgroundMainColor,
     paddingBottom: 3,
     paddingRight: 16,
-    paddingTop: 10
+    paddingTop: 15
   },
   headerRowText: {
-    ...textStyleHeader,
+    ...textStyleBase,
     marginLeft: 23
   },
   headerAmountText: {
-    ...textStyleHeader,
-    color: getTheme().textSecondaryColor,
+    ...textStyleBase,
     flexGrow: 1,
     textAlign: 'right'
   }

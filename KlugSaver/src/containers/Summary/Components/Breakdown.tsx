@@ -6,6 +6,7 @@ import { formatAmount } from '../../../util';
 import { getTheme } from '../../../theme/utils';
 import { IExpense } from '../../../typings';
 import { getTotalsForCategory, getTotals } from '../helpers';
+import { textStyleBase } from '../../../theme/styles';
 
 export interface IBreakdownTotal {
   title: string;
@@ -105,13 +106,12 @@ const styles = StyleSheet.create({
   },
   labelText: {
     marginHorizontal: 15,
-    fontSize: 17,
-    fontFamily: getTheme().fontThin
+    ...textStyleBase
   },
   totalText: {
-    fontSize: 17,
+    
     marginHorizontal: 15,
-    fontFamily: getTheme().fontThin,
+    ...textStyleBase,
     textAlign: 'right'
   }
 });

@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { IExpense } from '../../../typings';
 import { sum, formatAmount, toddMMM } from '../../../util';
-import { textStyleHeader } from '../../../theme/styles';
+import { textStyleHeader, textStyleThin } from '../../../theme/styles';
 import { getTheme } from '../../../theme/utils';
 
 export interface IGrandTotalProps {
@@ -65,8 +65,7 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   datesText: {
-    fontFamily: getTheme().fontThin,
-    color: getTheme().textSecondaryColor,
+    ...textStyleThin,
     textAlign: 'center'
   }
 });

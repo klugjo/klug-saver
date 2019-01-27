@@ -1,7 +1,8 @@
 import { postExpense, getExpenses, removeExpense, putArchiveContents } from './api';
 import { ARCHIVE_FILE_PATH } from './constants/common';
 import { getArchiveFromState } from './util';
-import { IExpense, ICurrency, ICategory } from './typings';
+import { IExpense, ICurrency, ICategory, IMainState } from './typings';
+import { Alert } from 'react-native';
 
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 
@@ -68,8 +69,6 @@ export const saveCategory = (oldTitle: string, categoryToSave: ICategory) => ({
   }
 });
 
-
-
 export const SAVE_DROPBOX_TOKEN = 'SAVE_DROPBOX_TOKEN';
 
 export const saveDropboxToken = (token: string) => {
@@ -82,11 +81,13 @@ export const saveDropboxToken = (token: string) => {
 export const SAVE_DROPBOX_ARCHIVE = 'SAVE_DROPBOX_ARCHIVE';
 
 export const saveDropboxArchive = () => {
-  return (dispatch: any, getState: () => any) => {
+  return (dispatch: any, getState: () => IMainState) => {
     const state = getState();
     const { dropboxToken } = state;
+    console.log('Saving Archive');
 
-    putArchiveContents(ARCHIVE_FILE_PATH, JSON.stringify(getArchiveFromState(state)), dropboxToken).then(() => {
+    putArchiveContents(ARCHIVE_FILE_PATH, JSON.stringify(getArchiveFromState(state)), dropboxToken!).then(() => {
+      console.log('Archive saved');
       dispatch({
         type: SAVE_DROPBOX_ARCHIVE
       });

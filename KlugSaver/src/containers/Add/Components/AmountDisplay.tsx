@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     padding: 10,
-    height: 78
+    height: 85
   },
   amountText: {
     color: getTheme().textMainColor

@@ -1,9 +1,8 @@
 import React from 'react';
-import { Dropbox } from 'dropbox';
-import { StyleSheet, WebView, NavState, View, Text } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { KSButton } from '../../components';
 import { getTheme } from '../../theme/utils';
-import { KSModal } from '../../components/KSModal';
+import DropboxModal from './Components/DropboxModal';
 
 const APP_CLIENT_ID = '4hksbxm1vxsyncq';
 const CALLBACK_URL = 'https://www.codeblocq.com/';
@@ -28,48 +27,12 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
     };
   }
 
-  private _lastURL: any;
-
-  private generateAuthorisationURL = () => {
-    const client = new Dropbox({ clientId: APP_CLIENT_ID, fetch } as any);
-    return client.getAuthenticationUrl(CALLBACK_URL);
-  }
-
-  private processAccessToken = (fragment: string) => {
-    const frag = fragment.replace(/^#/, "");
-    const blocks = (frag || "").split("&");
-    const blockNum = blocks.length;
-    for (let i = 0; i < blockNum; i += 1) {
-      const [key, value] = blocks[i].split("=");
-      if (key === "access_token") {
-        this.props.saveDropboxToken(value);
-        this.closeDropboxModal();
-        break;
-      }
-    }
-  }
-
-  private handleNavigationChange = (webviewState: NavState) => {
-    const url = webviewState.url;
-
-    console.log(url);
-
-    if (this._lastURL !== url && url) {
-      this._lastURL = url;
-      const fragments = url.match(/(#.+)?$/);
-      const fragment = fragments ? fragments[1] : '';
-      if (fragment) {
-        this.processAccessToken(fragment);
-      }
-    }
-  }
-
   private saveArchive = () => {
     this.props.saveDropboxArchive();
   }
 
   render() {
-    const { dropboxToken } = this.props;
+    const { dropboxToken, saveDropboxToken } = this.props;
 
     return <View style={styles.root}>
       <View style={styles.card}>
@@ -94,17 +57,11 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
         }
 
       </View>
-      <KSModal
-        open={this.state.dropboxModalOpen}
-        title="Dropbox Account linking"
-        close={this.closeDropboxModal}
-      >
-        <WebView
-          source={{ uri: this.generateAuthorisationURL() }}
-          style={styles.webView}
-          onNavigationStateChange={state => this.handleNavigationChange(state)}
-        />
-      </KSModal>
+      <DropboxModal
+        dropboxModalOpen={this.state.dropboxModalOpen}
+        closeDropboxModal={this.closeDropboxModal}
+        saveDropboxToken={saveDropboxToken}
+      />
     </View>;
   }
 
@@ -119,8 +76,7 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
-    backgroundColor: getTheme().underlayColor
+    flex: 1
   },
   card: {
     backgroundColor: getTheme().backgroundMainColor,
@@ -132,12 +88,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center'
-  },
-  webView: {
-    display: 'flex',
-    flex: 1,
-    height: '100%',
-    width: '100%'
   }
 });
 

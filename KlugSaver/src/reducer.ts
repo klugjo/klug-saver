@@ -1,5 +1,5 @@
 import { ADD_EXPENSE, GET_EXPENSE_LIST, SAVE_DROPBOX_TOKEN, OPEN_DELETE_MODAL, CLOSE_DELETE_MODAL, SAVE_CATEGORY } from './actions';
-import { IMainState, IExpense, IAction } from './typings';
+import { IMainState, IExpense, IAction, CloudBackup } from './typings';
 import { MODALS } from './constants/common';
 import { CURRENCIES } from './constants/currencies';
 import { categoryList, DEFAULT_CATEGORY_COLOR } from './constants/categories';
@@ -10,7 +10,8 @@ const DEFAULT_STATE: IMainState = {
   openModal: '',
   expenseToDelete: undefined,
   baseCurrency: CURRENCIES.SGD,
-  categories: categoryList
+  categories: categoryList,
+  cloudBackup: CloudBackup.None
 };
 
 const getExpenseList = (action: IAction, state: IMainState) => {

@@ -1,16 +1,16 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { KSButton } from '../../components';
 import { getTheme } from '../../theme/utils';
 import DropboxModal from './Components/DropboxModal';
-
-const APP_CLIENT_ID = '4hksbxm1vxsyncq';
-const CALLBACK_URL = 'https://www.codeblocq.com/';
+import { textStyleHeader, textStyleBase } from '../../theme/styles';
+import { CloudBackup } from '../../typings';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface ISettingsProps {
   dropboxToken?: string;
   saveDropboxToken: (token: string) => void;
   saveDropboxArchive: () => void;
+  cloudBackup: CloudBackup;
 }
 
 interface ISettingsState {
@@ -36,26 +36,17 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
 
     return <View style={styles.root}>
       <View style={styles.card}>
-        <Text>Dropbox Sync:</Text>
-        {
-          dropboxToken ?
-            <View>
-              <Text>Syncing. Dropbox Token : {dropboxToken}</Text>
-              <View style={styles.buttons}>
-                <KSButton
-                  text="Save"
-                  onPress={this.saveArchive}
-                />
-              </View>
-            </View> :
-            <View>
-              <KSButton
-                text="Sync"
-                onPress={this.openDropboxModal}
-              />
-            </View>
-        }
-
+        <Text style={styles.title}>Cloud Backup Strategy:</Text>
+        <View style={styles.radioButtons}>
+          <View style={[styles.radioButton, styles.buttonSelected]}>
+            <Icon name="cellphone-iphone" size={30} color={getTheme().backgroundMainColor} />
+            <Text style={[styles.radioText, styles.textSelected]}>Phone</Text>
+          </View>
+          <View style={styles.radioButton}>
+            <Icon name="dropbox" size={30} color={getTheme().textMainColor} />
+            <Text style={styles.radioText}>Dropbox</Text>
+          </View>
+        </View>
       </View>
       <DropboxModal
         dropboxModalOpen={this.state.dropboxModalOpen}
@@ -79,15 +70,35 @@ const styles = StyleSheet.create({
     flex: 1
   },
   card: {
-    backgroundColor: getTheme().backgroundMainColor,
     borderRadius: 5,
     margin: 20
   },
-  buttons: {
-    height: 100,
+  radioButtons: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: getTheme().underlayColor
+  },
+  radioButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    flex: 1
+  },
+  buttonSelected: {
+    backgroundColor: getTheme().accentMainColor
+  },
+  textSelected: {
+    color: getTheme().backgroundMainColor
+  },
+  radioText: {
+    ...textStyleBase,
+    color: getTheme().textMainColor
+  },
+  title: {
+    ...textStyleHeader
   }
 });
 

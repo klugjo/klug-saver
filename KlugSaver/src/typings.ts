@@ -41,6 +41,7 @@ export interface IMainState {
   baseCurrency: ICurrency;
   customCurrency?: ICurrency;
   categories: ICategory[];
+  cloudBackup: CloudBackup;
 }
 
 export interface IAction {
@@ -68,4 +69,9 @@ export interface ICurrency {
 export enum SideEnum {
   Expense,
   Income
+}
+
+export enum CloudBackup {
+  Phone,
+  Dropbox
 }

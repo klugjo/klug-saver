@@ -1,27 +1,31 @@
 import { connect } from 'react-redux';
 
-import { IMainState } from '../../typings';
+import { IMainState, CloudBackup } from '../../typings';
 import Settings from './Settings';
-import { saveDropboxToken, saveDropboxArchive } from '../../actions';
+import { saveDropboxToken, saveDropboxArchive, saveBackupStrategy } from '../../actions';
 
 interface IStateProps {
   dropboxToken?: string;
+  cloudBackup: CloudBackup;
 }
 
 interface IDispatchProps {
   saveDropboxToken: (token: string) => void;
   saveDropboxArchive: () => void;
+  saveBackupStrategy: (cloudBackup: CloudBackup) => void;
 }
 
 const mapStateToProps = (state: IMainState): IStateProps => {
   return {
-    dropboxToken: state.dropboxToken
+    dropboxToken: state.dropboxToken,
+    cloudBackup: state.cloudBackup
   };
 };
 
 const mapDispatchToProps = (dispatch: any): IDispatchProps => ({
   saveDropboxToken: (token) => dispatch(saveDropboxToken(token)),
-  saveDropboxArchive: () => dispatch(saveDropboxArchive())
+  saveDropboxArchive: () => dispatch(saveDropboxArchive()),
+  saveBackupStrategy: (cloudBackup: CloudBackup) => dispatch(saveBackupStrategy(cloudBackup))
 });
 
 export default connect<IStateProps, IDispatchProps, {}, IMainState>(mapStateToProps, mapDispatchToProps)(Settings);

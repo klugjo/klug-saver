@@ -1,4 +1,4 @@
-import { ADD_EXPENSE, GET_EXPENSE_LIST, SAVE_DROPBOX_TOKEN, OPEN_DELETE_MODAL, CLOSE_DELETE_MODAL, SAVE_CATEGORY } from './actions';
+import { ADD_EXPENSE, GET_EXPENSE_LIST, SAVE_DROPBOX_TOKEN, OPEN_DELETE_MODAL, CLOSE_DELETE_MODAL, SAVE_CATEGORY, SAVE_BACKUP_STRATEGY } from './actions';
 import { IMainState, IExpense, IAction, CloudBackup } from './typings';
 import { MODALS } from './constants/common';
 import { CURRENCIES } from './constants/currencies';
@@ -11,7 +11,7 @@ const DEFAULT_STATE: IMainState = {
   expenseToDelete: undefined,
   baseCurrency: CURRENCIES.SGD,
   categories: categoryList,
-  cloudBackup: CloudBackup.None
+  cloudBackup: CloudBackup.Phone
 };
 
 const getExpenseList = (action: IAction, state: IMainState) => {
@@ -34,7 +34,7 @@ const saveCategory = (action: IAction, state: IMainState): IMainState => {
   const categories = [...state.categories];
   categories[index] = action.payload.categoryToSave;
 
-  return {...state, categories};
+  return { ...state, categories };
 };
 
 export default function reducer(state: IMainState = DEFAULT_STATE, action: IAction): IMainState {
@@ -51,6 +51,8 @@ export default function reducer(state: IMainState = DEFAULT_STATE, action: IActi
       return { ...state, dropboxToken: action.payload };
     case SAVE_CATEGORY:
       return saveCategory(action, state);
+    case SAVE_BACKUP_STRATEGY:
+      return { ...state, cloudBackup: action.payload };
     default:
       return state;
   }

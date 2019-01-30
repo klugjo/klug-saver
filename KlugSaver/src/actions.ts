@@ -1,7 +1,7 @@
 import { postExpense, getExpenses, removeExpense, putArchiveContents } from './api';
 import { ARCHIVE_FILE_PATH } from './constants/common';
 import { getArchiveFromState } from './util';
-import { IExpense, ICurrency, ICategory, IMainState } from './typings';
+import { IExpense, ICurrency, ICategory, IMainState, CloudBackup, IAction } from './typings';
 import { Alert } from 'react-native';
 
 export const ADD_EXPENSE = 'ADD_EXPENSE';
@@ -39,7 +39,7 @@ export const closeDeleteModal = {
 
 export const OPEN_DELETE_MODAL = 'OPEN_DELETE_MODAL';
 
-export const openDeleteModal = (expense: IExpense) => ({
+export const openDeleteModal = (expense: IExpense): IAction => ({
   type: OPEN_DELETE_MODAL,
   payload: expense
 });
@@ -61,7 +61,7 @@ export const deleteExpense = (id: string, from: Date) => {
 
 export const SAVE_CATEGORY = 'SAVE_CATEGORY';
 
-export const saveCategory = (oldTitle: string, categoryToSave: ICategory) => ({
+export const saveCategory = (oldTitle: string, categoryToSave: ICategory): IAction => ({
   type: SAVE_CATEGORY,
   payload: {
     oldTitle,
@@ -69,9 +69,16 @@ export const saveCategory = (oldTitle: string, categoryToSave: ICategory) => ({
   }
 });
 
+export const SAVE_BACKUP_STRATEGY = 'SAVE_BACKUP_STRATEGY';
+
+export const saveBackupStrategy = (backupStrategy: CloudBackup): IAction => ({
+  type: SAVE_BACKUP_STRATEGY,
+  payload: backupStrategy
+});
+
 export const SAVE_DROPBOX_TOKEN = 'SAVE_DROPBOX_TOKEN';
 
-export const saveDropboxToken = (token: string) => {
+export const saveDropboxToken = (token: string): IAction => {
   return {
     type: SAVE_DROPBOX_TOKEN,
     payload: token

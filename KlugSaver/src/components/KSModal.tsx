@@ -25,7 +25,7 @@ export const KSModal = ({ open, close, title, children, containerStyle }: IKSMod
       <View style={[styles.container, containerStyle]}>
         <View style={styles.backButtonContainer}>
           <TouchableHighlight onPress={close}>
-            <Icon name="close" size={30} color={getTheme().underlayColor} />
+            <Icon name="chevron-down" size={30} color={getTheme().underlayColor} />
           </TouchableHighlight>
           <Text style={styles.titleText}>{title}</Text>
         </View>

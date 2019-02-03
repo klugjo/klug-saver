@@ -51,7 +51,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
         <View style={styles.container}>
           <View style={styles.backButtonContainer}>
             <TouchableHighlight onPress={this.close}>
-              <Icon name="close" size={30} color={getTheme().underlayColor} />
+              <Icon name="chevron-down" size={30} color={getTheme().underlayColor} />
             </TouchableHighlight>
             {
               isEditing ?
@@ -83,6 +83,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
         data={[...items, ADD_BUTTON]}
         numColumns={2}
         contentContainerStyle={styles.list}
+        keyExtractor={(item, index) => item + index}
         renderItem={({ item, index }: { item: string, index: number }) => (
           item === ADD_BUTTON && index === items.length ?
             this.renderAddButton({ index }) :
@@ -97,7 +98,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
     const { category } = this.props;
 
     return <View style={styles.buttonContainer}>
-      <View style={[styles.buttonStyle, styles.buttonStyleEdit, { backgroundColor: category!.color }]} key={index}>
+      <View style={[styles.buttonStyle, styles.buttonStyleEdit, { backgroundColor: category!.color }]}>
         <TextInput
           selectTextOnFocus={true}
           style={styles.buttonText}
@@ -116,7 +117,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
   private renderAddButton = ({ index }: { index: number }) => {
     const { category } = this.props;
 
-    return <TouchableHighlight style={styles.buttonContainer} onPress={this.addItem} key={index}>
+    return <TouchableHighlight style={styles.buttonContainer} onPress={this.addItem}>
       <View style={[styles.buttonStyle, { backgroundColor: category!.color }]}>
         <Icon name="plus" size={30} color={getTheme().backgroundMainColor} />
       </View>
@@ -132,9 +133,9 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
       data={items}
       numColumns={2}
       contentContainerStyle={styles.list}
+      keyExtractor={(item, index) => item + index}
       renderItem={({ item, index }: { item: string, index: number }) => (
         <TouchableHighlight
-          key={index}
           onPress={() => onPickSubCategory(item)}
           style={styles.buttonContainer}
           underlayColor={getTheme().backgroundMainColor}

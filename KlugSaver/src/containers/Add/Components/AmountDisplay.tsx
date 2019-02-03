@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 5,
     backgroundColor: '#F3F3F3',
-    ...dropShadow,
     marginHorizontal: 15
   },
   amountText: {

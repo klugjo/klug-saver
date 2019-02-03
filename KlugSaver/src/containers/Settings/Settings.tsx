@@ -59,11 +59,11 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
             </React.Fragment>
           </TouchableHighlight>
         </View>
-        <View style={styles.buttons}>
+        {cloudBackup === CloudBackup.Dropbox && <View style={styles.buttons}>
           {!isDropboxLinked && <KSButton text="Link Account" onPress={this.openDropboxModal} />}
           {isDropboxLinked && <KSButton text="Backup" onPress={this.saveArchive} />}
           {isDropboxLinked && <KSButton text="Restore" onPress={this.openDropboxModal} containerStyle={{ marginLeft: 20 }} />}
-        </View>
+        </View>}
       </View>
       <DropboxModal
         dropboxModalOpen={this.state.dropboxModalOpen}

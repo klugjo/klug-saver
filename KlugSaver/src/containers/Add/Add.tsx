@@ -13,6 +13,7 @@ import KSCurrencyPicker from '../../components/KSCurrencyPicker';
 import { CommentsModal } from './Components/Metadata/CommentsModal';
 import { DateModal } from './Components/Metadata/DateModal';
 import { SideModal } from './Components/Metadata/SideModal';
+import { getTheme } from '../../theme/utils';
 
 export interface IAddProps {
   addExpense: (expense: IExpense) => void;
@@ -89,12 +90,14 @@ export default class Add extends React.Component<IAddProps, IAddState> {
             isCommentSet={!!comment}
           />
         </View>
-        <KSButton
-          onPress={this.onSave}
-          text="ADD"
-          containerStyle={styles.saveButton}
-          textStyle={styles.saveButtonText}
-        />
+        <View style={styles.saveButtonContainer}>
+          <KSButton
+            onPress={this.onSave}
+            text="ADD"
+            containerStyle={styles.saveButton}
+            textStyle={styles.saveButtonText}
+          />
+        </View>
         <SubCategoryModal
           category={selectedCategory && categories.find(c => c.title === selectedCategory.title)}
           open={!!selectedCategory && !selectedSubCategory}
@@ -242,10 +245,16 @@ const styles = StyleSheet.create({
   keyboard: {
     flex: 0.40
   },
-  saveButton: {
+  saveButtonContainer: {
     flex: 0.1,
     marginHorizontal: 30,
     marginBottom: 10
+  },
+  saveButton: {
+    borderWidth: 1,
+    borderColor: getTheme().textMainColor,
+    borderRadius: 5,
+    padding: 7
   },
   saveButtonText: {
     fontSize: 20

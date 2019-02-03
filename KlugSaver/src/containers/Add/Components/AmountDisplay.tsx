@@ -5,6 +5,7 @@ import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import { formatAmount } from '../../../util';
 import { getTheme } from '../../../theme/utils';
 import { ICurrency } from '../../../typings';
+import { dropShadow } from '../../../theme/styles';
 
 export interface IAmountDisplayProps {
   amount?: string;
@@ -15,31 +16,17 @@ export interface IAmountDisplayProps {
 const getFontSize = (amountText?: string) => {
   const amount = numeral(amountText).value();
 
-  if (!amount || amount < 10000) {
-    return 60;
-  } else if (amount < 10000000) {
+  if (amount < 10000000) {
     return 40;
   } else {
     return 25;
   }
 };
 
-const getCurrencyMarginTop = (amountText?: string) => {
-  const amount = numeral(amountText).value();
-
-  if (!amount || amount < 10000) {
-    return 10;
-  } else if (amount < 10000000) {
-    return 5;
-  } else {
-    return 0;
-  }
-};
-
 const AmountDisplay = ({ amount, currency, onCurrencyPickerOpen }: IAmountDisplayProps) => {
   return <View style={styles.amountContainer}>
     <TouchableHighlight
-      style={[styles.currencyButton, { marginTop: getCurrencyMarginTop(amount) }]}
+      style={styles.currencyButton}
       onPress={onCurrencyPickerOpen}
       underlayColor={getTheme().underlayColor}
     >
@@ -56,15 +43,21 @@ export default AmountDisplay;
 const styles = StyleSheet.create({
   amountContainer: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    padding: 10,
-    height: 85
+    alignItems: 'center',
+    height: 80,
+    borderRadius: 5,
+    backgroundColor: '#F3F3F3',
+    ...dropShadow,
+    marginHorizontal: 15
   },
   amountText: {
     color: getTheme().textMainColor
   },
   currencyButton: {
-    marginRight: 15
+    marginRight: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingLeft: 20
   },
   currency: {
     fontSize: 20,

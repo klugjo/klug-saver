@@ -1,21 +1,20 @@
-import { postExpense, getExpenses, removeExpense, putArchiveContents } from './api';
+import { getExpenses, putArchiveContents, getArchiveContents } from './api';
 import { ARCHIVE_FILE_PATH } from './constants/common';
 import { getArchiveFromState } from './util';
-import { IExpense, ICurrency, ICategory, IMainState, CloudBackup, IAction } from './typings';
-import { Alert } from 'react-native';
+import { IExpense, ICategory, IMainState, CloudBackup, IAction } from './typings';
+
+const uuid = require('uuid/v4');
 
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 
-export const addExpense = (payload: any) => {
-  return (dispatch: any) => {
-    postExpense(payload).then(
-      (response: any) => dispatch({
-        type: ADD_EXPENSE,
-        payload: {...payload, ...response.data}
-      })
-    );
-  };
-}
+export const addExpense = (payload: any) => ({
+  type: ADD_EXPENSE,
+  payload: {
+    ...payload,
+    createdAt: new Date().getTime(),
+    id: uuid()
+  }
+});
 
 export const GET_EXPENSE_LIST = 'GET_EXPENSE_LIST';
 
@@ -44,20 +43,12 @@ export const openDeleteModal = (expense: IExpense): IAction => ({
   payload: expense
 });
 
-export const deleteExpense = (id: string, from: Date) => {
-  return (dispatch: any) => {
-    removeExpense(id).then(
-      () => {
-        getExpenses({ from }).then((response: any) => {
-          dispatch({
-            type: GET_EXPENSE_LIST,
-            payload: response.data
-          })
-        });
-      }
-    );
-  };
-}
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+
+export const deleteExpense = (id: string) => ({
+  type: DELETE_EXPENSE,
+  payload: id
+});
 
 export const SAVE_CATEGORY = 'SAVE_CATEGORY';
 
@@ -102,16 +93,17 @@ export const saveDropboxArchive = () => {
   };
 };
 
-// export const GET_DROPBOX_ARCHIVE = 'GET_DROPBOX_ARCHIVE';
+export const GET_DROPBOX_ARCHIVE = 'GET_DROPBOX_ARCHIVE';
 
-// export const getDropboxArchive = () => {
-//   return (dispatch: any, getState: () => any) => {
-//     const { dropboxToken } = getState();
+export const restoreDropboxArchive = () => {
+  return (dispatch: any, getState: () => any) => {
+    const { dropboxToken } = getState();
 
-//     getArchiveContents(ARCHIVE_FILE_PATH, dropboxToken).then(() => {
-//       dispatch({
-//         type: GET_DROPBOX_ARCHIVE
-//       });
-//     });
-//   };
-// };
+    getArchiveContents(ARCHIVE_FILE_PATH, dropboxToken).then((response: any) => {
+      dispatch({
+        type: GET_DROPBOX_ARCHIVE,
+        payload: response.data
+      });
+    });
+  };
+};

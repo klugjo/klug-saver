@@ -1,5 +1,6 @@
 import numeral from 'numeral';
 import moment from 'moment';
+import { IMainState } from './typings';
 
 const DD_MMM_FORMAT = 'DD MMM';
 const DD_MMM_YYYY_FORMAT = 'DD MMM YYYY';
@@ -24,9 +25,12 @@ export const toddMMMForHumans = (date: number | moment.Moment) => {
   return dateLabelsMap[result] || result;
 };
 
-export const getArchiveFromState = ({ expenses }: any) => {
+export const getArchiveFromState = ({ expenses, baseCurrency, categories, cloudBackup }: IMainState) => {
   return {
-    expenses
+    expenses,
+    baseCurrency,
+    categories,
+    cloudBackup
   };
 };
 

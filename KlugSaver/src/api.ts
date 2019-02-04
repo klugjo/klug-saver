@@ -20,26 +20,25 @@ export const removeExpense = (id: string) => axios({
   url: `https://9so0o0nevi.execute-api.ap-southeast-1.amazonaws.com/prod/expense/${id}`
 });
 
-const DOWNLOAD_URL = 'https://content.dropboxapi.com/2/files/download';
-const UPLOAD_URL = 'https://content.dropboxapi.com/2/files/upload';
-
-export function getArchiveContents(filePath: string, token: string) {
-  const fetchOptions = {
-    method: 'POST',
+export const getArchiveContents = (filePath: string, token: string) => {
+  return axios({
+    method: 'post',
+    url: 'https://content.dropboxapi.com/2/files/download',
     headers: {
       Authorization: `Bearer ${token}`,
       'Dropbox-API-Arg': JSON.stringify({
         path: filePath
       })
     }
-  };
-  return fetch(DOWNLOAD_URL, fetchOptions).then(res => res.text());
+  });
 }
 
 export function putArchiveContents(filePath: string, textContents: any, token: string) {
   const buff = new Buffer(textContents, 'utf8');
-  const fetchOptions = {
-    method: 'POST',
+
+  return axios({
+    method: 'post',
+    url: 'https://content.dropboxapi.com/2/files/upload',
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/octet-stream',
@@ -48,7 +47,6 @@ export function putArchiveContents(filePath: string, textContents: any, token: s
         mode: 'overwrite'
       })
     },
-    body: buff
-  };
-  return fetch(UPLOAD_URL, fetchOptions);
+    data: buff
+  });
 }

@@ -12,6 +12,7 @@ interface ISettingsProps {
   dropboxToken?: string;
   saveDropboxToken: (token: string) => void;
   saveDropboxArchive: () => void;
+  restoreDropboxArchive: () => void;
   saveBackupStrategy: (cloudBackup: CloudBackup) => void;
   cloudBackup: CloudBackup;
 }
@@ -62,7 +63,7 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
         {cloudBackup === CloudBackup.Dropbox && <View style={styles.buttons}>
           {!isDropboxLinked && <KSButton text="Link Account" onPress={this.openDropboxModal} />}
           {isDropboxLinked && <KSButton text="Backup" onPress={this.saveArchive} />}
-          {isDropboxLinked && <KSButton text="Restore" onPress={this.openDropboxModal} containerStyle={{ marginLeft: 20 }} />}
+          {isDropboxLinked && <KSButton text="Restore" onPress={this.restoreArchive} containerStyle={{ marginLeft: 20 }} />}
         </View>}
       </View>
       <DropboxModal
@@ -83,6 +84,10 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
 
   private saveArchive = () => {
     this.props.saveDropboxArchive();
+  }
+
+  private restoreArchive = () => {
+    this.props.restoreDropboxArchive();
   }
 
   private saveBackupStrategy = (cloudBackup: CloudBackup) => () => {

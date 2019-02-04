@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { IMainState, CloudBackup } from '../../typings';
 import Settings from './Settings';
-import { saveDropboxToken, saveDropboxArchive, saveBackupStrategy } from '../../actions';
+import { saveDropboxToken, saveDropboxArchive, saveBackupStrategy, restoreDropboxArchive } from '../../actions';
 
 interface IStateProps {
   dropboxToken?: string;
@@ -12,6 +12,7 @@ interface IStateProps {
 interface IDispatchProps {
   saveDropboxToken: (token: string) => void;
   saveDropboxArchive: () => void;
+  restoreDropboxArchive: () => void;
   saveBackupStrategy: (cloudBackup: CloudBackup) => void;
 }
 
@@ -25,6 +26,7 @@ const mapStateToProps = (state: IMainState): IStateProps => {
 const mapDispatchToProps = (dispatch: any): IDispatchProps => ({
   saveDropboxToken: (token) => dispatch(saveDropboxToken(token)),
   saveDropboxArchive: () => dispatch(saveDropboxArchive()),
+  restoreDropboxArchive: () => dispatch(restoreDropboxArchive()),
   saveBackupStrategy: (cloudBackup: CloudBackup) => dispatch(saveBackupStrategy(cloudBackup))
 });
 

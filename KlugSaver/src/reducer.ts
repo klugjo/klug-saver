@@ -1,4 +1,4 @@
-import { ADD_EXPENSE, GET_EXPENSE_LIST, SAVE_DROPBOX_TOKEN, OPEN_DELETE_MODAL, CLOSE_DELETE_MODAL, SAVE_CATEGORY, SAVE_BACKUP_STRATEGY } from './actions';
+import { ADD_EXPENSE, GET_EXPENSE_LIST, SAVE_DROPBOX_TOKEN, OPEN_DELETE_MODAL, CLOSE_DELETE_MODAL, SAVE_CATEGORY, SAVE_BACKUP_STRATEGY, GET_DROPBOX_ARCHIVE, DELETE_EXPENSE } from './actions';
 import { IMainState, IExpense, IAction, CloudBackup } from './typings';
 import { MODALS } from './constants/common';
 import { CURRENCIES } from './constants/currencies';
@@ -37,10 +37,19 @@ const saveCategory = (action: IAction, state: IMainState): IMainState => {
   return { ...state, categories };
 };
 
+const deleteExpense = (action: IAction, state: IMainState): IMainState => {
+  return {
+    ...state,
+    expenses: state.expenses.filter(e => e.id !== action.payload)
+  };
+};
+
 export default function reducer(state: IMainState = DEFAULT_STATE, action: IAction): IMainState {
   switch (action.type) {
     case ADD_EXPENSE:
       return { ...state, expenses: [action.payload, ...state.expenses] };
+    case DELETE_EXPENSE:
+      return deleteExpense(action, state);
     case GET_EXPENSE_LIST:
       return getExpenseList(action, state);
     case OPEN_DELETE_MODAL:
@@ -53,6 +62,8 @@ export default function reducer(state: IMainState = DEFAULT_STATE, action: IActi
       return saveCategory(action, state);
     case SAVE_BACKUP_STRATEGY:
       return { ...state, cloudBackup: action.payload };
+    case GET_DROPBOX_ARCHIVE:
+      return { ...state, ...action.payload };
     default:
       return state;
   }

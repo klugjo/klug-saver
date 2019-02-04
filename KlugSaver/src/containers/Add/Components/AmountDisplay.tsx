@@ -5,7 +5,6 @@ import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import { formatAmount } from '../../../util';
 import { getTheme } from '../../../theme/utils';
 import { ICurrency } from '../../../typings';
-import { dropShadow } from '../../../theme/styles';
 
 export interface IAmountDisplayProps {
   amount?: string;

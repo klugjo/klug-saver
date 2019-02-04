@@ -251,8 +251,6 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   saveButton: {
-    borderWidth: 1,
-    borderColor: getTheme().textMainColor,
     borderRadius: 5,
     padding: 7
   },

@@ -59,7 +59,9 @@ const styles = StyleSheet.create({
   categoriesRoot: {
     flexDirection: 'column',
     flex: 1,
-    justifyContent: 'space-around'
+    justifyContent: 'space-between',
+    marginHorizontal: 15,
+    paddingTop: 20
   },
   categoriesLine: {
     flex: 1,

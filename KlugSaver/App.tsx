@@ -15,7 +15,7 @@ export default class App extends Component<{}, {}> {
         <PersistGate loading={null} persistor={persistor}>
           <View style={styles.container}>
             <StatusBar
-              hidden={true}
+              barStyle="dark-content"
             />
             <Swiper />
             <DeleteModal />

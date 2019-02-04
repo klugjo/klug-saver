@@ -45,9 +45,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: 80,
-    borderRadius: 5,
-    backgroundColor: '#F3F3F3',
-    marginHorizontal: 15
+    backgroundColor: '#FFF',
+    marginHorizontal: 15,
   },
   amountText: {
     color: getTheme().textMainColor

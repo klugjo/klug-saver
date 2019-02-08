@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { ICategory } from '../../../../typings';
 import { getTheme } from '../../../../theme/utils';
 import { dropShadow } from '../../../../theme/styles';
+import { categoryList } from '../../../../constants/categories';
 
 export interface IMainCategoriesPicker {
   selectedCategory?: ICategory;
@@ -22,15 +24,13 @@ export default class MainCategoriesPicker extends React.Component<IMainCategorie
         onPress={this.pickCategory(cat)}
         key={cat.title}
         style={styles.buttonContainer}
-        underlayColor={getTheme().backgroundMainColor}
+        underlayColor={getTheme().underlayColor}
       >
         <View style={[
-          styles.buttonStyle, {
-            borderColor: cat.color,
-            backgroundColor: isSelected ? getTheme().backgroundMainColor : cat.color
-          }
+          styles.buttonStyle
         ]}>
-          <Text style={{ color: isSelected ? cat.color : getTheme().backgroundMainColor }}>{cat.title}</Text>
+          <Icon name={cat.icon} size={20} color={cat.color} />
+          <Text style={{ color: '#000', fontSize: 13, marginTop: 3 }}>{cat.title}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -41,7 +41,7 @@ export default class MainCategoriesPicker extends React.Component<IMainCategorie
   }
 
   render() {
-    const { categories } = this.props;
+    const categories = categoryList;
     return (
       <View style={styles.categoriesRoot}>
         <View style={styles.categoriesLine}>
@@ -70,20 +70,21 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   buttonContainer: {
-    height: 50,
+    height: 55,
     flex: 0.23,
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   buttonStyle: {
     flex: 1,
-    height: 45,
-    justifyContent: 'center',
+    height: 55,
     alignItems: 'center',
-    flexDirection: 'row',
+    justifyContent: 'space-around',
     borderWidth: 1,
-    backgroundColor: getTheme().backgroundMainColor,
-    borderRadius: 5
+    borderRadius: 3,
+    paddingVertical: 5,
+    borderColor: getTheme().underlayColor,
+    backgroundColor: getTheme().backgroundMainColor
   }
 });

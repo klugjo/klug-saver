@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, SectionList } from 'react-native';
+import { View, StyleSheet, Button, SectionList } from 'react-native';
 
 import { IExpense } from '../../typings';
 import { toddMMMForHumans, getRefreshDate } from '../../util';
@@ -16,6 +16,10 @@ export default class List extends React.Component<IListProps, {}> {
   public render() {
     return (
       <View style={styles.rootView}>
+        <Button
+          title="Refresh"
+          onPress={this.onRefresh}
+        />
         {this.renderList()}
       </View>
     );
@@ -61,7 +65,7 @@ export default class List extends React.Component<IListProps, {}> {
 
 const styles = StyleSheet.create({
   rootView: {
-    paddingTop: 20
+    paddingBottom: 40
   },
   refreshButton: {
     backgroundColor: '#003249'

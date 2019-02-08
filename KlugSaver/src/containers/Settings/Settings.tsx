@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { textStyleHeader, textStyleBase } from '../../theme/styles';
+import { textStyleHeader, textStyleBase, dropShadow } from '../../theme/styles';
 import { getTheme } from '../../theme/utils';
 import { CloudBackup } from '../../typings';
 import { KSButton } from '../../components';
@@ -37,7 +37,7 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
 
     return <View style={styles.root}>
       <View style={styles.card}>
-        <Text style={styles.title}>Cloud Backup Strategy:</Text>
+        <Text style={styles.title}>Backup Strategy</Text>
         <View style={styles.radioButtons}>
           <TouchableHighlight
             style={[styles.radioButton, cloudBackup === CloudBackup.Phone ? styles.buttonSelected : null]}
@@ -101,7 +101,10 @@ const styles = StyleSheet.create({
   },
   card: {
     borderRadius: 5,
-    margin: 20
+    margin: 20,
+    padding: 15,
+    backgroundColor: getTheme().backgroundMainColor,
+    ...dropShadow
   },
   radioButtons: {
     flexDirection: 'row',
@@ -113,7 +116,7 @@ const styles = StyleSheet.create({
   },
   buttons: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-around',
     alignItems: 'center',
     marginTop: 10
   },
@@ -134,7 +137,7 @@ const styles = StyleSheet.create({
     color: getTheme().textMainColor
   },
   title: {
-    ...textStyleHeader
+    ...textStyleBase
   }
 });
 

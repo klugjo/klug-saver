@@ -93,7 +93,7 @@ export default class Add extends React.Component<IAddProps, IAddState> {
         <View style={styles.saveButtonContainer}>
           <KSButton
             onPress={this.onSave}
-            text="ADD"
+            text="+ Add Expense"
             containerStyle={styles.saveButton}
             textStyle={styles.saveButtonText}
           />
@@ -251,10 +251,13 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   saveButton: {
-    borderRadius: 5,
-    padding: 7
+    borderWidth: 1,
+    borderRadius: 3,
+    borderColor: getTheme().underlayColor,
+    padding: 10,
+    marginTop: 15
   },
   saveButtonText: {
-    fontSize: 20
+    fontSize: 16
   }
 });

@@ -16,7 +16,7 @@ const getFontSize = (amountText?: string) => {
   const amount = numeral(amountText).value();
 
   if (amount < 10000000) {
-    return 40;
+    return 45;
   } else {
     return 25;
   }
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: 80,
-    backgroundColor: '#FFF',
-    marginHorizontal: 15,
+    backgroundColor: getTheme().backgroundMainColor,
+    marginHorizontal: 15
   },
   amountText: {
     color: getTheme().textMainColor,

@@ -4,8 +4,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { ICategory } from '../../../../typings';
 import { getTheme } from '../../../../theme/utils';
-import { dropShadow } from '../../../../theme/styles';
-import { categoryList } from '../../../../constants/categories';
 
 export interface IMainCategoriesPicker {
   selectedCategory?: ICategory;
@@ -27,10 +25,11 @@ export default class MainCategoriesPicker extends React.Component<IMainCategorie
         underlayColor={getTheme().underlayColor}
       >
         <View style={[
-          styles.buttonStyle
+          styles.buttonStyle,
+          { borderColor: isSelected ? cat.color : getTheme().underlayColor }
         ]}>
           <Icon name={cat.icon} size={20} color={cat.color} />
-          <Text style={styles.text}>{cat.title}</Text>
+          <Text style={[styles.text, { color: isSelected ? cat.color : getTheme().textMainColor }]}>{cat.title}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -41,7 +40,7 @@ export default class MainCategoriesPicker extends React.Component<IMainCategorie
   }
 
   render() {
-    const categories = categoryList;
+    const { categories } = this.props;
     return (
       <View style={styles.categoriesRoot}>
         <View style={styles.categoriesLine}>
@@ -84,7 +83,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 3,
     paddingVertical: 5,
-    borderColor: getTheme().underlayColor,
     backgroundColor: getTheme().backgroundMainColor
   },
   text: {

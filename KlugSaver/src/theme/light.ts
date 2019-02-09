@@ -6,8 +6,8 @@ const theme: IThemeConstants = {
   textSecondaryColor: '#878787',
   accentMainColor: '#498BE7',
   underlayColor: '#DDD',
-  fontMain: 'HelveticaNeue',
-  fontThin: 'HelveticaNeue-Thin'
+  fontMain: 'Verdana',
+  fontThin: 'Verdana'
 };
 
 export default theme;

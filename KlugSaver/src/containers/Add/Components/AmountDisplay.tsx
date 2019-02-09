@@ -48,7 +48,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
   amountText: {
-    color: getTheme().textMainColor
+    color: getTheme().textMainColor,
+    fontFamily: getTheme().fontMain
   },
   currencyButton: {
     marginRight: 15,
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
   },
   currency: {
     fontSize: 20,
-    color: getTheme().textSecondaryColor
+    color: getTheme().textSecondaryColor,
+    fontFamily: getTheme().fontMain
   }
 });

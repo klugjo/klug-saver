@@ -30,7 +30,7 @@ export default class MainCategoriesPicker extends React.Component<IMainCategorie
           styles.buttonStyle
         ]}>
           <Icon name={cat.icon} size={20} color={cat.color} />
-          <Text style={{ color: '#000', fontSize: 13, marginTop: 3 }}>{cat.title}</Text>
+          <Text style={styles.text}>{cat.title}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -86,5 +86,11 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     borderColor: getTheme().underlayColor,
     backgroundColor: getTheme().backgroundMainColor
+  },
+  text: {
+    color: '#000',
+    fontSize: 13,
+    marginTop: 3,
+    fontFamily: getTheme().fontThin
   }
 });

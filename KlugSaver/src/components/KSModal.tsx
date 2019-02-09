@@ -9,9 +9,10 @@ export interface IKSModalProps {
   open: boolean;
   children?: ReactNode,
   containerStyle?: any;
+  icon?: String;
 }
 
-export const KSModal = ({ open, close, title, children, containerStyle }: IKSModalProps) => {
+export const KSModal = ({ open, close, title, children, containerStyle, icon }: IKSModalProps) => {
   if (!open) {
     return null;
   }

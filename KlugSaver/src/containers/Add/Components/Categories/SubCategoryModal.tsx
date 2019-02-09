@@ -53,6 +53,9 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
             <TouchableHighlight onPress={this.close}>
               <Icon name="chevron-down" size={30} color={getTheme().underlayColor} />
             </TouchableHighlight>
+            <TouchableHighlight onPress={this.editIcon} style={styles.icon}>
+              <Icon name={category!.icon} size={30} color={category!.color} />
+            </TouchableHighlight>
             {
               isEditing ?
                 <TextInput
@@ -119,7 +122,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
 
     return <TouchableHighlight style={styles.buttonContainer} onPress={this.addItem}>
       <View style={[styles.buttonStyle, { backgroundColor: category!.color }]}>
-        <Icon name="plus" size={30} color={getTheme().backgroundMainColor} />
+      <Text style={styles.buttonText}>+ Add New</Text>
       </View>
     </TouchableHighlight>;
   }
@@ -229,6 +232,10 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
   private onTitleChange = (title: string) => {
     this.setState({ title });
   }
+
+  private editIcon = () => {
+
+  }
 }
 
 export default SubCategoryModal;
@@ -255,15 +262,19 @@ const styles = StyleSheet.create({
     borderBottomColor: '#CCC',
     borderBottomWidth: 1
   },
+  icon: {
+    marginLeft: 10,
+    paddingHorizontal: 10
+  },
   titleText: {
-    marginLeft: 30,
-    fontSize: 18,
-    color: getTheme().textSecondaryColor,
+    marginLeft: 10,
+    fontSize: 20,
+    color: getTheme().textMainColor,
     marginBottom: 2,
     flex: 1
   },
   buttonContainer: {
-    height: 90,
+    height: 70,
     width: '50%'
   },
   buttonText: {
@@ -277,7 +288,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     margin: 15,
-    borderRadius: 10,
+    borderRadius: 3,
     padding: 10
   },
   buttonStyleEdit: {

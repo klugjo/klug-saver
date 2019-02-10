@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { ICategory } from '../../../../typings';
 import { getTheme } from '../../../../theme/utils';
+import KSIconPicker from '../../../../components/KSIconPicker';
 
 const ADD_BUTTON = 'ADD_BUTTON';
 
@@ -19,6 +20,7 @@ interface ISubCategoryModalState {
   isEditing: boolean;
   items: string[];
   title: string;
+  isIconPickerOpen: boolean;
 }
 
 class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCategoryModalState> {
@@ -28,13 +30,14 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
     this.state = {
       isEditing: false,
       items: [],
-      title: ''
+      title: '',
+      isIconPickerOpen: false
     };
   }
 
   render() {
     const { category, open } = this.props;
-    const { isEditing, title } = this.state;
+    const { isEditing, title, isIconPickerOpen } = this.state;
 
     const items = this.getSubCategories();
 
@@ -73,6 +76,11 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
             </TouchableHighlight>
           </View>
           {isEditing ? this.renderEditView() : this.renderNonEditView()}
+          <KSIconPicker
+            open={isIconPickerOpen}
+            close={this.closeIconPicker}
+            icon={category!.icon}
+          />
         </View>
       </Modal>
     );
@@ -122,7 +130,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
 
     return <TouchableHighlight style={styles.buttonContainer} onPress={this.addItem}>
       <View style={[styles.buttonStyle, { backgroundColor: category!.color }]}>
-      <Text style={styles.buttonText}>+ Add New</Text>
+        <Text style={styles.buttonText}>+ Add New</Text>
       </View>
     </TouchableHighlight>;
   }
@@ -234,7 +242,11 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
   }
 
   private editIcon = () => {
+    this.setState({ isIconPickerOpen: true });
+  }
 
+  private closeIconPicker = () => {
+    this.setState({ isIconPickerOpen: false });
   }
 }
 

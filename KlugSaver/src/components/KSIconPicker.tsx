@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableHighlight, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableHighlight, TextInput } from 'react-native';
 import { getTheme } from '../theme/utils';
 import { KSModal } from './KSModal';
 import { ICONS } from '../constants/icons';
@@ -12,9 +12,23 @@ export interface IKSIconPickerProps {
   close: (icon: string) => void;
 }
 
-class KSIconPicker extends React.Component<IKSIconPickerProps, {}> {
+interface IKSIconPickerState {
+  searchText: string;
+}
+
+class KSIconPicker extends React.Component<IKSIconPickerProps, IKSIconPickerState> {
+  constructor(props: IKSIconPickerProps) {
+    super(props);
+
+    this.state = {
+      searchText: ''
+    };
+  }
+
   public render() {
     const { open, icon } = this.props;
+    const { searchText } = this.state;
+    const icons = this.getIcons();
 
     if (!open) {
       return null;
@@ -28,8 +42,18 @@ class KSIconPicker extends React.Component<IKSIconPickerProps, {}> {
         containerStyle={styles.modalContainerOverride}
       >
         <View style={styles.container}>
+          <View style={{ height: 60, flexDirection: 'row' }}>
+            <TextInput
+              style={styles.buttonText}
+              value={searchText}
+              onChangeText={this.onSearchTextChange}
+              keyboardAppearance="light"
+              selectionColor={getTheme().textSecondaryColor}
+              placeholder="Search ..."
+            />
+          </View>
           <FlatList
-            data={ICONS}
+            data={icons}
             renderItem={this.renderItem}
             keyExtractor={item => item}
           />
@@ -53,6 +77,22 @@ class KSIconPicker extends React.Component<IKSIconPickerProps, {}> {
   private pickIcon = (item: string) => () => {
     this.props.close(item);
   }
+
+  private onSearchTextChange = (searchText: string) => {
+    this.setState({ searchText });
+  }
+
+  private getIcons = () => {
+    const { searchText } = this.state;
+    
+    if (!searchText) {
+      return ICONS;
+    }
+
+    const terms = searchText.trim().split(' ');
+
+    return ICONS.filter(i => terms.every(t => i.indexOf(t.toLowerCase()) > -1));
+  }
 }
 
 export default KSIconPicker;
@@ -63,10 +103,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0
   },
   container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'stretch'
+    flex: 1
   },
   item: {
     flexDirection: 'row',
@@ -88,5 +125,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 15,
     fontFamily: getTheme().fontThin
+  },
+  buttonText: {
+    color: getTheme().textSecondaryColor,
+    flex: 1,
+    height: 40,
+    backgroundColor: getTheme().underlayColor,
+    fontSize: 16,
+    borderRadius: 20,
+    paddingHorizontal: 20,
+    marginHorizontal: 15
   }
 });

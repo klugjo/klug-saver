@@ -76,6 +76,7 @@ class KSIconPicker extends React.Component<IKSIconPickerProps, IKSIconPickerStat
 
   private pickIcon = (item: string) => () => {
     this.props.close(item);
+    this.setState({ searchText: '' });
   }
 
   private onSearchTextChange = (searchText: string) => {

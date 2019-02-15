@@ -21,6 +21,7 @@ interface ISubCategoryModalState {
   items: string[];
   title: string;
   isIconPickerOpen: boolean;
+  icon: string;
 }
 
 class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCategoryModalState> {
@@ -31,13 +32,14 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
       isEditing: false,
       items: [],
       title: '',
-      isIconPickerOpen: false
+      isIconPickerOpen: false,
+      icon: ''
     };
   }
 
   render() {
     const { category, open } = this.props;
-    const { isEditing, title, isIconPickerOpen } = this.state;
+    const { isEditing, title, isIconPickerOpen, icon } = this.state;
 
     const items = this.getSubCategories();
 
@@ -56,9 +58,15 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
             <TouchableHighlight onPress={this.close}>
               <Icon name="chevron-down" size={30} color={getTheme().underlayColor} />
             </TouchableHighlight>
-            <TouchableHighlight onPress={this.editIcon} style={styles.icon}>
-              <Icon name={category!.icon} size={30} color={category!.color} />
-            </TouchableHighlight>
+            {
+              isEditing ?
+                <TouchableHighlight onPress={this.editIcon} style={styles.icon}>
+                  <Icon name={icon} size={30} color={category!.color} />
+                </TouchableHighlight> :
+                <View style={styles.icon}>
+                  <Icon name={category!.icon} size={30} color={category!.color} />
+                </View>
+            }
             {
               isEditing ?
                 <TextInput
@@ -72,7 +80,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
                 <Text style={styles.titleText}>{category!.title}</Text>
             }
             <TouchableHighlight onPress={this.toggleEditMode} underlayColor={getTheme().underlayColor}>
-              <Icon name="pencil" size={30} color={getTheme().underlayColor} />
+              <Icon name={isEditing ? 'check-circle' : 'pencil'} size={30} color={getTheme().underlayColor} />
             </TouchableHighlight>
           </View>
           {isEditing ? this.renderEditView() : this.renderNonEditView()}
@@ -175,12 +183,12 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
     if (isEditing) {
       this.promptBeforeSaving();
     } else {
-      this.setState({ isEditing: true, items: this.getSubCategories(), title: category!.title });
+      this.setState({ isEditing: true, items: this.getSubCategories(), title: category!.title, icon: category!.icon });
     }
   }
 
   private promptBeforeSaving = () => {
-    const { items, title } = this.state;
+    const { items, title, icon } = this.state;
     const { category } = this.props;
 
     Alert.alert(
@@ -191,21 +199,21 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
           text: 'Save',
           onPress: () => {
             this.reset();
-            this.props.saveCategory(category!.title, { ...category!, subCategories: items, title });
+            this.props.saveCategory(category!.title, { ...category!, subCategories: items, title, icon });
           },
           style: 'default'
         },
         {
-          text: 'Undo',
+          text: 'Undo Changes',
           onPress: () => {
             this.reset();
           },
-          style: 'cancel'
+          style: 'default'
         },
         {
-          text: 'Cancel',
+          text: 'Keep on Modifying',
           onPress: () => { },
-          style: 'cancel'
+          style: 'default'
         }
       ]
     );
@@ -245,8 +253,8 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
     this.setState({ isIconPickerOpen: true });
   }
 
-  private closeIconPicker = () => {
-    this.setState({ isIconPickerOpen: false });
+  private closeIconPicker = (icon: string) => {
+    this.setState({ isIconPickerOpen: false, icon });
   }
 }
 

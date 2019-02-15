@@ -6,20 +6,17 @@ import { getTheme } from '../../../theme/utils';
 export interface ICategoryFilterHeaderProps {
   filter?: string;
   onReset: () => void;
-  color?: string
 };
 
-export const CategoryFilterHeader = ({ filter, onReset, color }: ICategoryFilterHeaderProps) => {
+export const CategoryFilterHeader = ({ filter, onReset }: ICategoryFilterHeaderProps) => {
   if (!filter) {
     return null;
   }
 
   return <View style={styles.root}>
     <TouchableHighlight onPress={onReset}>
-      <View style={[styles.tag, { backgroundColor: color }]}>
-        <View>
-          <Icon name="close" size={20} color={getTheme().backgroundMainColor} />
-        </View>
+      <View style={styles.tag}>
+        <Icon name="close" size={20} color={getTheme().textMainColor} />
         <Text style={styles.text}>{filter}</Text>
       </View>
     </TouchableHighlight>
@@ -35,15 +32,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 15,
-    paddingHorizontal: 15,
+    paddingLeft: 15,
+    paddingRight: 20,
     paddingVertical: 6,
     marginLeft: 15,
-    borderRadius: 10
+    borderWidth: 1,
+    borderRadius: 3,
+    borderColor: getTheme().underlayColor
   },
   text: {
     fontSize: 17,
     fontFamily: getTheme().fontMain,
-    color: getTheme().backgroundMainColor,
+    color: getTheme().textMainColor,
     marginLeft: 15
   }
 });

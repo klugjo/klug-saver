@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, TextInput, Modal, Alert, FlatList, KeyboardAvoidingView } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight, TextInput, Modal, Alert, FlatList, KeyboardAvoidingView, NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { ICategory } from '../../../../typings';
@@ -22,6 +22,8 @@ interface ISubCategoryModalState {
   title: string;
   isIconPickerOpen: boolean;
   icon: string;
+  textinputEditIndex?: number;
+  textinputEditValue: string;
 }
 
 class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCategoryModalState> {
@@ -33,7 +35,9 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
       items: [],
       title: '',
       isIconPickerOpen: false,
-      icon: ''
+      icon: '',
+      textinputEditIndex: undefined,
+      textinputEditValue: ''
     };
   }
 
@@ -99,6 +103,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
 
     return <KeyboardAvoidingView style={styles.root} behavior="padding" >
       <FlatList
+        keyboardShouldPersistTaps="handled"
         data={[...items, ADD_BUTTON]}
         numColumns={2}
         contentContainerStyle={styles.list}
@@ -115,14 +120,17 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
 
   private renderEditButton = ({ item, index }: { item: string, index: number }) => {
     const { category } = this.props;
+    const { textinputEditIndex, textinputEditValue } = this.state;
 
     return <View style={styles.buttonContainer}>
       <View style={[styles.buttonStyle, styles.buttonStyleEdit, { backgroundColor: category!.color }]}>
         <TextInput
           selectTextOnFocus={true}
           style={styles.buttonText}
-          value={item}
-          onChangeText={this.onChangeText(index)}
+          value={index !== textinputEditIndex ? item : textinputEditValue}
+          onFocus={this.focusTextInput(index)}
+          onBlur={this.blurTextInput(index)}
+          onChangeText={this.onChangeText}
           keyboardAppearance="light"
           selectionColor={getTheme().backgroundMainColor}
         />
@@ -239,11 +247,19 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
     this.setState({ items });
   };
 
-  private onChangeText = (index: number) => (value: string) => {
+  private blurTextInput = (index: number) => (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
     const items = [...this.state.items];
-    items[index] = value;
-    this.setState({ items });
+    items[index] = e.nativeEvent.text;
+    this.setState({ items, textinputEditIndex: undefined, textinputEditValue: '' });
   };
+
+  private focusTextInput = (index: number) => () => {
+    this.setState({ textinputEditIndex: index, textinputEditValue: this.state.items[index] });
+  }
+
+  private onChangeText = (value: string) => {
+    this.setState({ textinputEditValue: value });
+  }
 
   private onTitleChange = (title: string) => {
     this.setState({ title });

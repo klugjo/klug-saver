@@ -258,6 +258,7 @@ const styles = StyleSheet.create({
     marginTop: 15
   },
   saveButtonText: {
-    fontSize: 16
+    fontSize: 16,
+    color: getTheme().textMainColor
   }
 });

@@ -22,6 +22,7 @@ const renderButton = (digit: string, onPress: () => void) => (
     onPress={onPress}
     text={digit}
     containerStyle={styles.keyboardKey}
+    textStyle={styles.keyboardKeyText}
   />
 );
 
@@ -90,6 +91,9 @@ const styles = StyleSheet.create({
     flexGrow: 0.25,
     marginHorizontal: 10,
     minWidth: 30
+  },
+  keyboardKeyText: {
+    color: getTheme().textMainColor
   },
   iconButton: {
     flex: 0.25,

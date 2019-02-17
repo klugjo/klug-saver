@@ -1,13 +1,13 @@
 import { IThemeConstants } from '../typings';
 
 const theme: IThemeConstants = {
-  backgroundMainColor: '#000000',
+  backgroundMainColor: '#1b2c42',
   textMainColor: '#FFFFFF',
-  textSecondaryColor: '#878787',
-  accentMainColor: '#498BE7',
-  underlayColor: '#878787',
-  fontMain: 'HelveticaNeue',
-  fontThin: 'HelveticaNeue'
+  textSecondaryColor: '#dadcdf',
+  accentMainColor: '#4ccc9a',
+  underlayColor: '#2c4a6f',
+  fontMain: 'Helvetica',
+  fontThin: 'Helvetica-Light'
 };
 
 export default theme;

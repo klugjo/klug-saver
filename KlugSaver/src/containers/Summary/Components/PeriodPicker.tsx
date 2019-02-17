@@ -25,25 +25,25 @@ export const PeriodPicker = ({ currentFilterType, onCurrentFilterChange }: IPeri
       style={getFilterStyles(currentFilterType === 'year')}
       onPress={() => onCurrentFilterChange('year')}
     >
-      <Text>Year</Text>
+      <Text style={styles.text}>Year</Text>
     </TouchableHighlight>
     <TouchableHighlight
       style={getFilterStyles(currentFilterType === 'month')}
       onPress={() => onCurrentFilterChange('month')}
     >
-      <Text>Month</Text>
+      <Text style={styles.text}>Month</Text>
     </TouchableHighlight>
     <TouchableHighlight
       style={getFilterStyles(currentFilterType === 'week')}
       onPress={() => onCurrentFilterChange('week')}
     >
-      <Text>Week</Text>
+      <Text style={styles.text}>Week</Text>
     </TouchableHighlight>
     <TouchableHighlight
       style={getFilterStyles(currentFilterType === 'day')}
       onPress={() => onCurrentFilterChange('day')}
     >
-      <Text>Day</Text>
+      <Text style={styles.text}>Day</Text>
     </TouchableHighlight>
   </View>;
 };
@@ -59,5 +59,8 @@ const styles = StyleSheet.create({
   period: {
     paddingVertical: 10,
     borderBottomWidth: 2
+  },
+  text: {
+    color: getTheme().textMainColor
   }
 });

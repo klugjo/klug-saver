@@ -9,10 +9,9 @@ export interface IKSModalProps {
   open: boolean;
   children?: ReactNode,
   containerStyle?: any;
-  icon?: String;
 }
 
-export const KSModal = ({ open, close, title, children, containerStyle, icon }: IKSModalProps) => {
+export const KSModal = ({ open, close, title, children, containerStyle }: IKSModalProps) => {
   if (!open) {
     return null;
   }
@@ -41,7 +40,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'stretch',
     paddingTop: 30,
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
+    backgroundColor: getTheme().backgroundMainColor
   },
   backButtonContainer: {
     paddingBottom: 15,

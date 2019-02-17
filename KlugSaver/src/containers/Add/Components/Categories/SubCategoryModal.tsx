@@ -288,7 +288,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'stretch',
     paddingTop: 30,
-    paddingHorizontal: 15
+    paddingHorizontal: 15,
+    backgroundColor: getTheme().backgroundMainColor
   },
   backButtonContainer: {
     paddingBottom: 15,

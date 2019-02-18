@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ICategory } from '../../../../typings';
 import { getTheme } from '../../../../theme/utils';
 import KSIconPicker from '../../../../components/KSIconPicker';
+import { ThemeType } from '../../../../constants/common';
 
 const ADD_BUTTON = 'ADD_BUTTON';
 
@@ -110,7 +111,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
         keyExtractor={(item, index) => item + index}
         renderItem={({ item, index }: { item: string, index: number }) => (
           item === ADD_BUTTON && index === items.length ?
-            this.renderAddButton({ index }) :
+            this.renderAddButton() :
             this.renderEditButton({ item, index })
 
         )}
@@ -123,30 +124,30 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
     const { textinputEditIndex, textinputEditValue } = this.state;
 
     return <View style={styles.buttonContainer}>
-      <View style={[styles.buttonStyle, styles.buttonStyleEdit, { backgroundColor: category!.color }]}>
+      <View style={[styles.buttonStyle, styles.buttonStyleEdit, this.getButtonStyle(category!)]}>
         <TextInput
           selectTextOnFocus={true}
-          style={styles.buttonText}
+          style={[styles.buttonText, this.getButtonTextStyle(category!)]}
           value={index !== textinputEditIndex ? item : textinputEditValue}
           onFocus={this.focusTextInput(index)}
           onBlur={this.blurTextInput(index)}
           onChangeText={this.onChangeText}
           keyboardAppearance="light"
-          selectionColor={getTheme().backgroundMainColor}
+          selectionColor={getTheme().type === ThemeType.Dark ? category!.color : getTheme().backgroundMainColor}
         />
         <TouchableHighlight onPress={this.onDelete(index)} style={styles.deleteButton} underlayColor={getTheme().underlayColor}>
-          <Icon name="close" size={25} color={getTheme().backgroundMainColor} />
+          <Icon name="close" size={25} color={getTheme().type === ThemeType.Dark ? category!.color : getTheme().backgroundMainColor} />
         </TouchableHighlight>
       </View>
     </View>
   };
 
-  private renderAddButton = ({ index }: { index: number }) => {
+  private renderAddButton = () => {
     const { category } = this.props;
 
     return <TouchableHighlight style={styles.buttonContainer} onPress={this.addItem}>
-      <View style={[styles.buttonStyle, { backgroundColor: category!.color }]}>
-        <Text style={styles.buttonText}>+ Add New</Text>
+      <View style={[styles.buttonStyle, this.getButtonStyle(category!)]}>
+        <Text style={[styles.buttonText, this.getButtonTextStyle(category!)]}>+ Add New</Text>
       </View>
     </TouchableHighlight>;
   }
@@ -161,18 +162,34 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
       numColumns={2}
       contentContainerStyle={styles.list}
       keyExtractor={(item, index) => item + index}
-      renderItem={({ item, index }: { item: string, index: number }) => (
+      renderItem={({ item }: { item: string }) => (
         <TouchableHighlight
           onPress={() => onPickSubCategory(item)}
           style={styles.buttonContainer}
           underlayColor={getTheme().backgroundMainColor}
         >
-          <View style={[styles.buttonStyle, { backgroundColor: category!.color }]}>
-            <Text style={styles.buttonText}>{item}</Text>
+          <View style={[styles.buttonStyle, this.getButtonStyle(category!)]}>
+            <Text style={[styles.buttonText, this.getButtonTextStyle(category!)]}>{item}</Text>
           </View>
         </TouchableHighlight>
       )}
     />;
+  }
+
+  private getButtonStyle = (category: ICategory) => {
+    if (getTheme().type === ThemeType.Dark) {
+      return { borderColor: category!.color, backgroundColor: getTheme().backgroundMainColor };
+    } else {
+      return { backgroundColor: getTheme().backgroundMainColor, borderColor: category!.color };
+    }
+  }
+
+  private getButtonTextStyle = (category: ICategory) => {
+    if (getTheme().type === ThemeType.Dark) {
+      return { color: category!.color };
+    } else {
+      return { color: getTheme().backgroundMainColor };
+    }
   }
 
   private close = () => {
@@ -296,7 +313,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomColor: '#CCC',
+    borderBottomColor: getTheme().underlayColor,
     borderBottomWidth: 1
   },
   icon: {
@@ -315,7 +332,6 @@ const styles = StyleSheet.create({
     width: '50%'
   },
   buttonText: {
-    color: getTheme().backgroundMainColor,
     flexShrink: 1
   },
   buttonStyle: {
@@ -326,7 +342,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     margin: 15,
     borderRadius: 3,
-    padding: 10
+    padding: 10,
+    borderWidth: 1
   },
   buttonStyleEdit: {
     justifyContent: 'space-between'

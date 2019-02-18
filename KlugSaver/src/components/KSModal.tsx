@@ -48,13 +48,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomColor: '#CCC',
+    borderBottomColor: getTheme().underlayColor,
     borderBottomWidth: 1
   },
   titleText: {
     marginLeft: 30,
-    fontSize: 18,
-    color: getTheme().textSecondaryColor,
+    fontSize: 20,
+    color: getTheme().textMainColor,
     marginBottom: 2
   }
 });

@@ -1,3 +1,5 @@
+import { ThemeType } from "./constants/common";
+
 export interface IThemeConstants {
   accentMainColor: string;
   backgroundMainColor: string;
@@ -6,6 +8,7 @@ export interface IThemeConstants {
   fontMain: string;
   fontThin: string;
   underlayColor: string;
+  type: ThemeType;
 }
 
 export interface ICategory {

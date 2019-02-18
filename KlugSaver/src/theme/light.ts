@@ -1,4 +1,5 @@
 import { IThemeConstants } from '../typings';
+import { ThemeType } from '../constants/common';
 
 const theme: IThemeConstants = {
   backgroundMainColor: '#FFFFFF',
@@ -7,7 +8,8 @@ const theme: IThemeConstants = {
   accentMainColor: '#498BE7',
   underlayColor: '#DDD',
   fontMain: 'Helvetica',
-  fontThin: 'Helvetica-Light'
+  fontThin: 'Helvetica-Light',
+  type: ThemeType.Light
 };
 
 export default theme;

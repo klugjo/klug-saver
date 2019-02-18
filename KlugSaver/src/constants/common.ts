@@ -10,3 +10,8 @@ export const MODALS = {
   DELETE: 'DELETE_MODAL',
   CURRENCY: 'CURRENCY_MODAL'
 };
+
+export enum ThemeType {
+  Dark,
+  Light
+};

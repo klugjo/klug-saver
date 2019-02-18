@@ -48,8 +48,9 @@ class KSIconPicker extends React.Component<IKSIconPickerProps, IKSIconPickerStat
               value={searchText}
               onChangeText={this.onSearchTextChange}
               keyboardAppearance="light"
-              selectionColor={getTheme().textSecondaryColor}
+              selectionColor={getTheme().textMainColor}
               placeholder="Search ..."
+              placeholderTextColor={getTheme().textSecondaryColor}
             />
           </View>
           <FlatList
@@ -101,7 +102,6 @@ export default KSIconPicker;
 
 const styles = StyleSheet.create({
   modalContainerOverride: {
-    paddingHorizontal: 0
   },
   container: {
     flex: 1
@@ -125,7 +125,8 @@ const styles = StyleSheet.create({
   itemNameText: {
     fontSize: 16,
     marginLeft: 15,
-    fontFamily: getTheme().fontThin
+    fontFamily: getTheme().fontThin,
+    color: getTheme().textMainColor
   },
   buttonText: {
     color: getTheme().textSecondaryColor,

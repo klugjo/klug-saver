@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: getTheme().fontThin,
-    fontSize: 20
+    fontSize: 20,
+    color: getTheme().textMainColor
   }
 });

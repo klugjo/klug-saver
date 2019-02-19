@@ -63,10 +63,13 @@ const styles = StyleSheet.create({
     height: 160
   },
   textInput: {
-    backgroundColor: '#F3F3F3',
+    backgroundColor: getTheme().backgroundMainColor,
+    color: getTheme().textMainColor,
     height: 100,
     flex: 1,
-    padding: 10
+    padding: 10,
+    borderWidth: 1,
+    borderColor: getTheme().underlayColor
   },
   rowButtons: {
     flexDirection: 'row',

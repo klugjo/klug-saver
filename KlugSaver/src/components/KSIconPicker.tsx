@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   },
   selected: {
     backgroundColor: getTheme().accentMainColor,
-    color: getTheme().backgroundMainColor
+    color: getTheme().accentTextColor
   },
   flag: {
     width: 30,

@@ -36,7 +36,7 @@ export const SideModal = ({ open, close, side, onSideChange }: ISideModalProps) 
               <Icon
                 name="arrow-bottom-right-bold-outline"
                 size={25}
-                color={isDebit ? '#FFF' : getTheme().textMainColor}
+                color={isDebit ? getTheme().accentTextColor : getTheme().textMainColor}
               />
               <Text style={[styles.text, isDebit && styles.selectedText]}>Expense</Text>
             </View>
@@ -50,7 +50,7 @@ export const SideModal = ({ open, close, side, onSideChange }: ISideModalProps) 
               <Icon
                 name="arrow-top-right-bold-outline"
                 size={25}
-                color={isCredit ? '#FFF' : getTheme().textMainColor}
+                color={isCredit ? getTheme().accentTextColor : getTheme().textMainColor}
               />
               <Text style={[styles.text, isCredit && styles.selectedText]}>Income</Text>
             </View>
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     backgroundColor: getTheme().accentMainColor
   },
   selectedText: {
-    color: '#FFF'
+    color: getTheme().accentTextColor
   },
   textContainer: {
     flex: 1,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
   text: {
     marginLeft: 15,
-    color: '#FFF',
+    color: getTheme().accentTextColor,
     ...textStyleHeader
   }
 });

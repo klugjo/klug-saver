@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   selected: {
     backgroundColor: getTheme().accentMainColor,
-    color: getTheme().backgroundMainColor
+    color: getTheme().accentTextColor
   },
   flag: {
     width: 30,
@@ -91,10 +91,12 @@ const styles = StyleSheet.create({
   itemCodeText: {
     fontSize: 16,
     width: 60,
-    fontFamily: getTheme().fontThin
+    fontFamily: getTheme().fontThin,
+    color: getTheme().textMainColor
   },
   itemNameText: {
     fontSize: 16,
-    fontFamily: getTheme().fontThin
+    fontFamily: getTheme().fontThin,
+    color: getTheme().textMainColor
   }
 });

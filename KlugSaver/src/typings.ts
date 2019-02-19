@@ -2,6 +2,7 @@ import { ThemeType } from "./constants/common";
 
 export interface IThemeConstants {
   accentMainColor: string;
+  accentTextColor: string;
   backgroundMainColor: string;
   textMainColor: string;
   textSecondaryColor: string;

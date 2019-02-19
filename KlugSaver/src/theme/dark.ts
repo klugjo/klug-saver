@@ -6,6 +6,7 @@ const theme: IThemeConstants = {
   textMainColor: '#FFFFFF',
   textSecondaryColor: '#dadcdf',
   accentMainColor: '#4ccc9a',
+  accentTextColor: '#FFF',
   underlayColor: '#2c4a6f',
   fontMain: 'Helvetica',
   fontThin: 'Helvetica-Light',

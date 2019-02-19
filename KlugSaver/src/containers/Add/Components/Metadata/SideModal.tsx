@@ -36,7 +36,7 @@ export const SideModal = ({ open, close, side, onSideChange }: ISideModalProps) 
               <Icon
                 name="arrow-bottom-right-bold-outline"
                 size={25}
-                color={isDebit ? getTheme().backgroundMainColor : getTheme().textMainColor}
+                color="#FFF"
               />
               <Text style={[styles.text, isDebit && styles.selectedText]}>Expense</Text>
             </View>
@@ -50,7 +50,7 @@ export const SideModal = ({ open, close, side, onSideChange }: ISideModalProps) 
               <Icon
                 name="arrow-top-right-bold-outline"
                 size={25}
-                color={isCredit ? getTheme().backgroundMainColor : getTheme().textMainColor}
+                color="#FFF"
               />
               <Text style={[styles.text, isCredit && styles.selectedText]}>Income</Text>
             </View>
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     borderRadius: 10,
-    backgroundColor: '#F3F3F3',
+    backgroundColor: getTheme().underlayColor,
     height: 60
   },
   button: {
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     backgroundColor: getTheme().accentMainColor
   },
   selectedText: {
-    color: getTheme().backgroundMainColor
+    color: '#FFF'
   },
   textContainer: {
     flex: 1,

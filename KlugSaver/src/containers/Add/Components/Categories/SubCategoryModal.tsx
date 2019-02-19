@@ -180,7 +180,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
     if (getTheme().type === ThemeType.Dark) {
       return { borderColor: category!.color, backgroundColor: getTheme().backgroundMainColor };
     } else {
-      return { backgroundColor: getTheme().backgroundMainColor, borderColor: category!.color };
+      return { backgroundColor: category!.color, borderColor: category!.color };
     }
   }
 

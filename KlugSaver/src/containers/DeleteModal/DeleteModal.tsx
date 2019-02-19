@@ -3,6 +3,7 @@ import { View, Text, Modal, StyleSheet, Button } from 'react-native';
 import { IExpense } from '../../typings';
 import { getRefreshDate } from '../../util';
 import { KSButton } from '../../components';
+import { getTheme } from '../../theme/utils';
 
 export interface IDeleteModalProps {
   open: boolean;
@@ -78,7 +79,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'stretch'
+    alignItems: 'stretch',
+    backgroundColor: getTheme().backgroundMainColor
   },
   labelContainer: {
     flexDirection: 'row',
@@ -87,7 +89,8 @@ const styles = StyleSheet.create({
   messageText: {
     fontSize: 20,
     textAlign: 'center',
-    marginTop: 30
+    marginTop: 30,
+    color: getTheme().textMainColor
   },
   buttons: {
     marginTop: 70,

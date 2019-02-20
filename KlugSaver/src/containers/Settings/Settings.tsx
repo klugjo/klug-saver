@@ -8,6 +8,7 @@ import { CloudBackup } from '../../typings';
 import { KSButton } from '../../components';
 import DropboxModal from './Components/DropboxModal';
 import { BackupStrategy } from './Components/BackupStrategy';
+import { SyncingButtons } from './Components/SyncingButtons';
 
 interface ISettingsProps {
   dropboxToken?: string;
@@ -40,6 +41,9 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
       <BackupStrategy
         cloudBackup={cloudBackup}
         saveBackupStrategy={this.saveBackupStrategy}
+      />
+      <SyncingButtons
+        cloudBackup={cloudBackup}
         isDropboxLinked={isDropboxLinked}
         openDropboxModal={this.openDropboxModal}
         saveArchive={this.saveArchive}

@@ -10,23 +10,23 @@ import Settings from '../Settings';
 export default class Root extends React.Component {
   render() {
     return <Swiper
-    showsButtons={false}
-    loop={false}
-    showsPagination={false}
-  >
-    <View style={styles.screen}>
-      <Add />
-    </View>
-    <View style={styles.screen}>
-      <List />
-    </View>
-    <View style={styles.screen}>
-      <Summary />
-    </View>
-    <View style={styles.screen}>
-      <Settings />
-    </View>
-  </Swiper>;
+      showsButtons={false}
+      loop={false}
+      showsPagination={false}
+    >
+      <View style={styles.screen}>
+        <Settings />
+      </View>
+      <View style={styles.screen}>
+        <Add />
+      </View>
+      <View style={styles.screen}>
+        <List />
+      </View>
+      <View style={styles.screen}>
+        <Summary />
+      </View>
+    </Swiper>;
   }
 }
 

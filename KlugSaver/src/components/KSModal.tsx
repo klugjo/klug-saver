@@ -7,7 +7,7 @@ export interface IKSModalProps {
   close: () => void;
   title: string;
   open: boolean;
-  children?: ReactNode,
+  children?: ReactNode;
   containerStyle?: any;
 }
 

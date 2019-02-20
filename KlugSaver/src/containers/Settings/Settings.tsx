@@ -7,6 +7,7 @@ import { getTheme } from '../../theme/utils';
 import { CloudBackup } from '../../typings';
 import { KSButton } from '../../components';
 import DropboxModal from './Components/DropboxModal';
+import { BackupStrategy } from './Components/BackupStrategy';
 
 interface ISettingsProps {
   dropboxToken?: string;
@@ -36,36 +37,14 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
     const isDropboxLinked = !!dropboxToken;
 
     return <View style={styles.root}>
-      <View style={styles.card}>
-        <Text style={styles.title}>Backup Strategy</Text>
-        <View style={styles.radioButtons}>
-          <TouchableHighlight
-            style={[styles.radioButton, cloudBackup === CloudBackup.Phone ? styles.buttonSelected : null]}
-            onPress={this.saveBackupStrategy(CloudBackup.Phone)}
-            underlayColor={getTheme().accentMainColor}
-          >
-            <React.Fragment>
-              <Icon name="cellphone-iphone" size={30} color={cloudBackup === CloudBackup.Phone ? getTheme().backgroundMainColor : getTheme().textMainColor} />
-              <Text style={[styles.radioText, cloudBackup === CloudBackup.Phone ? styles.textSelected : null]}>Phone</Text>
-            </React.Fragment>
-          </TouchableHighlight>
-          <TouchableHighlight
-            style={[styles.radioButton, cloudBackup === CloudBackup.Dropbox ? styles.buttonSelected : null]}
-            onPress={this.saveBackupStrategy(CloudBackup.Dropbox)}
-            underlayColor={getTheme().accentMainColor}
-          >
-            <React.Fragment>
-              <Icon name="dropbox" size={30} color={cloudBackup === CloudBackup.Dropbox ? getTheme().backgroundMainColor : getTheme().textMainColor} />
-              <Text style={[styles.radioText, cloudBackup === CloudBackup.Dropbox ? styles.textSelected : null]}>Dropbox</Text>
-            </React.Fragment>
-          </TouchableHighlight>
-        </View>
-        {cloudBackup === CloudBackup.Dropbox && <View style={styles.buttons}>
-          {!isDropboxLinked && <KSButton text="Link Account" onPress={this.openDropboxModal} />}
-          {isDropboxLinked && <KSButton text="Backup" onPress={this.saveArchive} />}
-          {isDropboxLinked && <KSButton text="Restore" onPress={this.restoreArchive} containerStyle={{ marginLeft: 20 }} />}
-        </View>}
-      </View>
+      <BackupStrategy
+        cloudBackup={cloudBackup}
+        saveBackupStrategy={this.saveBackupStrategy}
+        isDropboxLinked={isDropboxLinked}
+        openDropboxModal={this.openDropboxModal}
+        saveArchive={this.saveArchive}
+        restoreArchive={this.restoreArchive}
+      />
       <DropboxModal
         dropboxModalOpen={this.state.dropboxModalOpen}
         closeDropboxModal={this.closeDropboxModal}
@@ -99,46 +78,7 @@ const styles = StyleSheet.create({
   root: {
     flex: 1
   },
-  card: {
-    borderRadius: 5,
-    margin: 20,
-    padding: 15,
-    backgroundColor: getTheme().backgroundMainColor,
-    ...dropShadow
-  },
-  radioButtons: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 20,
-    borderWidth: 1,
-    borderColor: getTheme().underlayColor
-  },
-  buttons: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    marginTop: 10
-  },
-  radioButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10,
-    flex: 1
-  },
-  buttonSelected: {
-    backgroundColor: getTheme().accentMainColor
-  },
-  textSelected: {
-    color: getTheme().backgroundMainColor
-  },
-  radioText: {
-    ...textStyleBase,
-    color: getTheme().textMainColor
-  },
-  title: {
-    ...textStyleBase
-  }
+
 });
 
 export default Settings;

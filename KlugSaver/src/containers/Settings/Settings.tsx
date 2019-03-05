@@ -1,14 +1,13 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { StyleSheet, View } from 'react-native';
 
-import { textStyleHeader, textStyleBase, dropShadow } from '../../theme/styles';
 import { getTheme } from '../../theme/utils';
 import { CloudBackup } from '../../typings';
-import { KSButton } from '../../components';
 import DropboxModal from './Components/DropboxModal';
 import { BackupStrategy } from './Components/BackupStrategy';
 import { SyncingButtons } from './Components/SyncingButtons';
+import { ThemePicker } from './Components/ThemePicker';
+import { ThemeType } from '../../constants/common';
 
 interface ISettingsProps {
   dropboxToken?: string;
@@ -17,6 +16,8 @@ interface ISettingsProps {
   restoreDropboxArchive: () => void;
   saveBackupStrategy: (cloudBackup: CloudBackup) => void;
   cloudBackup: CloudBackup;
+  changeTheme: (theme: ThemeType) => void;
+  theme: ThemeType;
 }
 
 interface ISettingsState {
@@ -34,7 +35,7 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
   }
 
   render() {
-    const { dropboxToken, saveDropboxToken, cloudBackup } = this.props;
+    const { dropboxToken, saveDropboxToken, cloudBackup, changeTheme, theme } = this.props;
     const isDropboxLinked = !!dropboxToken;
 
     return <View style={styles.root}>
@@ -53,6 +54,10 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
         dropboxModalOpen={this.state.dropboxModalOpen}
         closeDropboxModal={this.closeDropboxModal}
         saveDropboxToken={saveDropboxToken}
+      />
+      <ThemePicker
+        theme={theme}
+        changeTheme={changeTheme}
       />
     </View>;
   }

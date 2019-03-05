@@ -1,5 +1,5 @@
 import { getExpenses, putArchiveContents, getArchiveContents } from './api';
-import { ARCHIVE_FILE_PATH } from './constants/common';
+import { ARCHIVE_FILE_PATH, ThemeType } from './constants/common';
 import { getArchiveFromState } from './util';
 import { IExpense, ICategory, IMainState, CloudBackup, IAction } from './typings';
 
@@ -73,6 +73,15 @@ export const saveDropboxToken = (token: string): IAction => {
   return {
     type: SAVE_DROPBOX_TOKEN,
     payload: token
+  };
+};
+
+export const CHANGE_THEME = 'CHANGE_THEME';
+
+export const changeTheme = (theme: ThemeType): IAction => {
+  return {
+    type: CHANGE_THEME,
+    payload: theme
   };
 };
 

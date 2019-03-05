@@ -46,6 +46,7 @@ export interface IMainState {
   customCurrency?: ICurrency;
   categories: ICategory[];
   cloudBackup: CloudBackup;
+  theme: ThemeType;
 }
 
 export interface IAction {

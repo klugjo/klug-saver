@@ -27,7 +27,7 @@ const AmountDisplay = ({ amount, currency, onCurrencyPickerOpen }: IAmountDispla
     <TouchableHighlight
       style={styles.currencyButton}
       onPress={onCurrencyPickerOpen}
-      underlayColor={getTheme().underlayColor}
+      underlayColor={theme.underlayColor}
     >
       <Text style={styles.currency}>{currency.code}</Text>
     </TouchableHighlight>
@@ -39,17 +39,17 @@ const AmountDisplay = ({ amount, currency, onCurrencyPickerOpen }: IAmountDispla
 
 export default AmountDisplay;
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   amountContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     height: 80,
-    backgroundColor: getTheme().backgroundMainColor,
+    backgroundColor: theme.backgroundMainColor,
     marginHorizontal: 15
   },
   amountText: {
-    color: getTheme().textMainColor,
-    fontFamily: getTheme().fontMain
+    color: theme.textMainColor,
+    fontFamily: theme.fontMain
   },
   currencyButton: {
     marginRight: 15,
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   },
   currency: {
     fontSize: 20,
-    color: getTheme().textSecondaryColor,
-    fontFamily: getTheme().fontMain
+    color: theme.textSecondaryColor,
+    fontFamily: theme.fontMain
   }
 });

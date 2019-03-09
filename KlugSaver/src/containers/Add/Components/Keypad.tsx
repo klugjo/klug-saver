@@ -27,7 +27,7 @@ const renderButton = (digit: string, onPress: () => void) => (
 );
 
 const renderIcon = (icon: string, color: string, onPress: () => void) => (
-  <TouchableHighlight onPress={onPress} style={styles.iconButton} underlayColor={getTheme().underlayColor}>
+  <TouchableHighlight onPress={onPress} style={styles.iconButton} underlayColor={theme.underlayColor}>
     <Icon name={icon} size={20} color={color} />
   </TouchableHighlight>
 );
@@ -42,10 +42,10 @@ const VirtualKeyboard = ({
   isCommentSet,
   isSideExpense
 }: IVirtualKeyboardProps) => {
-  const dateIconColor = isDateSet ? getTheme().accentMainColor : getTheme().textMainColor;
-  const commentIconColor = isCommentSet ? getTheme().accentMainColor : getTheme().textMainColor;
+  const dateIconColor = isDateSet ? theme.accentMainColor : theme.textMainColor;
+  const commentIconColor = isCommentSet ? theme.accentMainColor : theme.textMainColor;
   const sideIcon = isSideExpense ? 'arrow-bottom-right-bold-outline' : 'arrow-top-right-bold-outline';
-  const sideIconColor = isSideExpense ? getTheme().textMainColor : getTheme().accentMainColor;
+  const sideIconColor = isSideExpense ? theme.textMainColor : theme.accentMainColor;
   
   return (
     <View style={styles.keyboardRoot}>
@@ -70,14 +70,14 @@ const VirtualKeyboard = ({
       <View style={styles.keyboardLine}>
         {renderButton('.', addDecimal)}
         {renderButton('0', addChar('0'))}
-        {renderIcon('backspace', getTheme().textMainColor, deleteChar)}
+        {renderIcon('backspace', theme.textMainColor, deleteChar)}
         {renderIcon(sideIcon, sideIconColor, openModal(openModalEnum.side))}
       </View>
     </View>
   )
 };
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   keyboardRoot: {
     flexDirection: 'column',
     flex: 1
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     minWidth: 30
   },
   keyboardKeyText: {
-    color: getTheme().textMainColor
+    color: theme.textMainColor
   },
   iconButton: {
     flex: 0.25,

@@ -61,7 +61,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
         <View style={styles.container}>
           <View style={styles.backButtonContainer}>
             <TouchableHighlight onPress={this.close}>
-              <Icon name="chevron-down" size={30} color={getTheme().underlayColor} />
+              <Icon name="chevron-down" size={30} color={theme.underlayColor} />
             </TouchableHighlight>
             {
               isEditing ?
@@ -79,13 +79,13 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
                   value={title}
                   onChangeText={this.onTitleChange}
                   keyboardAppearance="light"
-                  selectionColor={getTheme().textSecondaryColor}
+                  selectionColor={theme.textSecondaryColor}
                   selectTextOnFocus={true}
                 /> :
                 <Text style={styles.titleText}>{category!.title}</Text>
             }
-            <TouchableHighlight onPress={this.toggleEditMode} underlayColor={getTheme().underlayColor}>
-              <Icon name={isEditing ? 'check-circle' : 'pencil'} size={30} color={getTheme().underlayColor} />
+            <TouchableHighlight onPress={this.toggleEditMode} underlayColor={theme.underlayColor}>
+              <Icon name={isEditing ? 'check-circle' : 'pencil'} size={30} color={theme.underlayColor} />
             </TouchableHighlight>
           </View>
           {isEditing ? this.renderEditView() : this.renderNonEditView()}
@@ -133,10 +133,10 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
           onBlur={this.blurTextInput(index)}
           onChangeText={this.onChangeText}
           keyboardAppearance="light"
-          selectionColor={getTheme().type === ThemeType.Dark ? category!.color : getTheme().backgroundMainColor}
+          selectionColor={theme.type === ThemeType.Dark ? category!.color : theme.backgroundMainColor}
         />
-        <TouchableHighlight onPress={this.onDelete(index)} style={styles.deleteButton} underlayColor={getTheme().underlayColor}>
-          <Icon name="close" size={25} color={getTheme().type === ThemeType.Dark ? category!.color : getTheme().backgroundMainColor} />
+        <TouchableHighlight onPress={this.onDelete(index)} style={styles.deleteButton} underlayColor={theme.underlayColor}>
+          <Icon name="close" size={25} color={theme.type === ThemeType.Dark ? category!.color : theme.backgroundMainColor} />
         </TouchableHighlight>
       </View>
     </View>
@@ -166,7 +166,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
         <TouchableHighlight
           onPress={() => onPickSubCategory(item)}
           style={styles.buttonContainer}
-          underlayColor={getTheme().backgroundMainColor}
+          underlayColor={theme.backgroundMainColor}
         >
           <View style={[styles.buttonStyle, this.getButtonStyle(category!)]}>
             <Text style={[styles.buttonText, this.getButtonTextStyle(category!)]}>{item}</Text>
@@ -177,18 +177,18 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
   }
 
   private getButtonStyle = (category: ICategory) => {
-    if (getTheme().type === ThemeType.Dark) {
-      return { borderColor: category!.color, backgroundColor: getTheme().backgroundMainColor };
+    if (theme.type === ThemeType.Dark) {
+      return { borderColor: category!.color, backgroundColor: theme.backgroundMainColor };
     } else {
       return { backgroundColor: category!.color, borderColor: category!.color };
     }
   }
 
   private getButtonTextStyle = (category: ICategory) => {
-    if (getTheme().type === ThemeType.Dark) {
+    if (theme.type === ThemeType.Dark) {
       return { color: category!.color };
     } else {
-      return { color: getTheme().backgroundMainColor };
+      return { color: theme.backgroundMainColor };
     }
   }
 
@@ -293,7 +293,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
 
 export default SubCategoryModal;
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   root: {
     flex: 1,
     flexDirection: 'row',
@@ -306,14 +306,14 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     paddingTop: 30,
     paddingHorizontal: 15,
-    backgroundColor: getTheme().backgroundMainColor
+    backgroundColor: theme.backgroundMainColor
   },
   backButtonContainer: {
     paddingBottom: 15,
     marginBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomColor: getTheme().underlayColor,
+    borderBottomColor: theme.underlayColor,
     borderBottomWidth: 1
   },
   icon: {
@@ -323,7 +323,7 @@ const styles = StyleSheet.create({
   titleText: {
     marginLeft: 10,
     fontSize: 20,
-    color: getTheme().textMainColor,
+    color: theme.textMainColor,
     marginBottom: 2,
     flex: 1
   },

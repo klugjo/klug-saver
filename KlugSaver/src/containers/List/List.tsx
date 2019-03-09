@@ -63,7 +63,7 @@ export default class List extends React.Component<IListProps, {}> {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   rootView: {
     paddingBottom: 40
   },

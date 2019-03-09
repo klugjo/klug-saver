@@ -14,8 +14,8 @@ const getFilterStyles = (selected: boolean) => [
   styles.period,
   {
     borderColor: selected ?
-      getTheme().accentMainColor :
-      getTheme().backgroundMainColor
+      theme.accentMainColor :
+      theme.backgroundMainColor
   }
 ];
 
@@ -48,11 +48,11 @@ export const PeriodPicker = ({ currentFilterType, onCurrentFilterChange }: IPeri
   </View>;
 };
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   root: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    borderColor: getTheme().underlayColor,
+    borderColor: theme.underlayColor,
     borderBottomWidth: 1,
     marginVertical: 20
   },
@@ -61,6 +61,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2
   },
   text: {
-    color: getTheme().textMainColor
+    color: theme.textMainColor
   }
 });

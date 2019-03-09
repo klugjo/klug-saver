@@ -33,22 +33,22 @@ export const DateModal = ({ open, close, onDateChange, date }: IDateModalProps) 
       title="Change Expense Date"
     >
       <View style={styles.root}>
-        <Icon name="calendar-text" size={40} color={getTheme().accentMainColor} />
+        <Icon name="calendar-text" size={40} color={theme.accentMainColor} />
         <View style={styles.datePicker}>
           <TouchableHighlight
             style={styles.arrowButton}
             onPress={onChangeDays(-1)}
-            underlayColor={getTheme().underlayColor}
+            underlayColor={theme.underlayColor}
           >
-            <IconAlt name="navigate-before" size={30} color={getTheme().textSecondaryColor} />
+            <IconAlt name="navigate-before" size={30} color={theme.textSecondaryColor} />
           </TouchableHighlight>
           <Text style={styles.dateText}>{toddMMMForHumans(dateToDisplay)}</Text>
           <TouchableHighlight
             style={styles.arrowButton}
             onPress={onChangeDays(1)}
-            underlayColor={getTheme().underlayColor}
+            underlayColor={theme.underlayColor}
           >
-            <IconAlt name="navigate-next" size={30} color={getTheme().textSecondaryColor} />
+            <IconAlt name="navigate-next" size={30} color={theme.textSecondaryColor} />
           </TouchableHighlight>
         </View>
         <KSButton
@@ -61,7 +61,7 @@ export const DateModal = ({ open, close, onDateChange, date }: IDateModalProps) 
   );
 };
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   root: {
     alignItems: 'center',
     paddingTop: 20

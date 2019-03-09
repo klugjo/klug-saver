@@ -16,14 +16,14 @@ export const CategoryFilterHeader = ({ filter, onReset }: ICategoryFilterHeaderP
   return <View style={styles.root}>
     <TouchableHighlight onPress={onReset}>
       <View style={styles.tag}>
-        <Icon name="close" size={20} color={getTheme().textMainColor} />
+        <Icon name="close" size={20} color={theme.textMainColor} />
         <Text style={styles.text}>{filter}</Text>
       </View>
     </TouchableHighlight>
   </View>;
 };
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   root: {
     justifyContent: 'center',
     alignItems: 'flex-start'
@@ -38,12 +38,12 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     borderWidth: 1,
     borderRadius: 3,
-    borderColor: getTheme().underlayColor
+    borderColor: theme.underlayColor
   },
   text: {
     fontSize: 17,
-    fontFamily: getTheme().fontMain,
-    color: getTheme().textMainColor,
+    fontFamily: theme.fontMain,
+    color: theme.textMainColor,
     marginLeft: 15
   }
 });

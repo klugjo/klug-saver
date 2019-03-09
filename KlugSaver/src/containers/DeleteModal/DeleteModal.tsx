@@ -74,13 +74,13 @@ class DeleteModal extends React.Component<IDeleteModalProps, {}> {
 
 export default DeleteModal;
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'stretch',
-    backgroundColor: getTheme().backgroundMainColor
+    backgroundColor: theme.backgroundMainColor
   },
   labelContainer: {
     flexDirection: 'row',
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     marginTop: 30,
-    color: getTheme().textMainColor
+    color: theme.textMainColor
   },
   buttons: {
     marginTop: 70,

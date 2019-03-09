@@ -15,12 +15,12 @@ export const KSCard = ({ text, children }: IKSCardProps) => {
   </View>;
 };
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   card: {
     marginTop: 20,
     marginHorizontal: 15,
     padding: 15,
-    backgroundColor: getTheme().backgroundMainColor,
+    backgroundColor: theme.backgroundMainColor,
   },
   title: {
     ...textStyleBase,

@@ -23,8 +23,8 @@ export const GrandTotal = ({ expenses, label, isBeforeHidden, isNextHidden, onBe
     {
       isBeforeHidden ?
         <View style={styles.arrowButton} /> :
-        <TouchableHighlight style={styles.arrowButton} onPress={onBefore} underlayColor={getTheme().underlayColor}>
-          <Icon name="navigate-before" size={30} color={getTheme().textSecondaryColor} />
+        <TouchableHighlight style={styles.arrowButton} onPress={onBefore} underlayColor={theme.underlayColor}>
+          <Icon name="navigate-before" size={30} color={theme.textSecondaryColor} />
         </TouchableHighlight>
     }
     <View style={styles.amountView}>
@@ -38,14 +38,14 @@ export const GrandTotal = ({ expenses, label, isBeforeHidden, isNextHidden, onBe
     {
       isNextHidden ?
         <View style={styles.arrowButton} /> :
-        <TouchableHighlight style={styles.arrowButton} onPress={onNext} underlayColor={getTheme().underlayColor}>
-          <Icon name="navigate-next" size={30} color={getTheme().textSecondaryColor} />
+        <TouchableHighlight style={styles.arrowButton} onPress={onNext} underlayColor={theme.underlayColor}>
+          <Icon name="navigate-next" size={30} color={theme.textSecondaryColor} />
         </TouchableHighlight>
     }
   </View>;
 };
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   root: {
     marginVertical: 20,
     flexDirection: 'row',

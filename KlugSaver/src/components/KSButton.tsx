@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableHighlight, Text, StyleSheet } from 'react-native';
-import { getTheme } from '../theme/utils';
+import ThemeContext from '../theme/ThemeContext';
+import { IThemeConstants } from '../typings';
 
 interface IKSButtonProps {
   onPress: () => void;
@@ -9,17 +10,19 @@ interface IKSButtonProps {
   textStyle?: any;
 }
 
-export const KSButton = ({ onPress, text, textStyle, containerStyle }: IKSButtonProps) => {
+export const KSButton = ({ onPress, text, textStyle, containerStyle }: IKSButtonProps, context: IThemeConstants) => {
   return <TouchableHighlight
-    style={[styles.root, containerStyle]}
+    style={[styles(context).root, containerStyle]}
     onPress={onPress}
-    underlayColor={getTheme().underlayColor}
+    underlayColor={context.underlayColor}
   >
     <Text style={[styles.text, textStyle]}>{text}</Text>
   </TouchableHighlight>
 };
 
-const styles = StyleSheet.create({
+KSButton.contextType = ThemeContext;
+
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   root: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -27,8 +30,8 @@ const styles = StyleSheet.create({
     borderRadius: 15
   },
   text: {
-    fontFamily: getTheme().fontThin,
+    fontFamily: theme.fontThin,
     fontSize: 20,
-    color: getTheme().textMainColor
+    color: theme.textMainColor
   }
 });

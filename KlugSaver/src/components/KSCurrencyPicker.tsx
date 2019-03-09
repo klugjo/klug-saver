@@ -62,7 +62,7 @@ class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}> {
 export default KSCurrencyPicker;
 
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   modalContainerOverride: {
     paddingHorizontal: 0
   },
@@ -77,11 +77,11 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 15,
     borderBottomWidth: 1,
-    borderBottomColor: getTheme().underlayColor
+    borderBottomColor: theme.underlayColor
   },
   selected: {
-    backgroundColor: getTheme().accentMainColor,
-    color: getTheme().accentTextColor
+    backgroundColor: theme.accentMainColor,
+    color: theme.accentTextColor
   },
   flag: {
     width: 30,
@@ -91,12 +91,12 @@ const styles = StyleSheet.create({
   itemCodeText: {
     fontSize: 16,
     width: 60,
-    fontFamily: getTheme().fontThin,
-    color: getTheme().textMainColor
+    fontFamily: theme.fontThin,
+    color: theme.textMainColor
   },
   itemNameText: {
     fontSize: 16,
-    fontFamily: getTheme().fontThin,
-    color: getTheme().textMainColor
+    fontFamily: theme.fontThin,
+    color: theme.textMainColor
   }
 });

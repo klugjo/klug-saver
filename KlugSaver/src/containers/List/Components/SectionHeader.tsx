@@ -25,11 +25,11 @@ const SectionHeader = ({ section }: ISectionHeaderProps) => (
 
 export default SectionHeader;
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   headerRowView: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: getTheme().backgroundMainColor,
+    backgroundColor: theme.backgroundMainColor,
     paddingBottom: 3,
     paddingRight: 16,
     paddingTop: 15

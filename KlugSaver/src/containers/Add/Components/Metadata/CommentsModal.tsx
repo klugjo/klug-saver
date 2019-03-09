@@ -21,7 +21,7 @@ export const CommentsModal = ({ open, close, onCommentChange, comment }: ICommen
       title="Comment"
     >
       <View style={styles.rowInput}>
-        <Icon name="comment-text-outline" size={40} color={getTheme().accentMainColor} />
+        <Icon name="comment-text-outline" size={40} color={theme.accentMainColor} />
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.textInput}
@@ -48,7 +48,7 @@ export const CommentsModal = ({ open, close, onCommentChange, comment }: ICommen
   );
 };
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   rowInput: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -63,13 +63,13 @@ const styles = StyleSheet.create({
     height: 160
   },
   textInput: {
-    backgroundColor: getTheme().backgroundMainColor,
-    color: getTheme().textMainColor,
+    backgroundColor: theme.backgroundMainColor,
+    color: theme.textMainColor,
     height: 100,
     flex: 1,
     padding: 10,
     borderWidth: 1,
-    borderColor: getTheme().underlayColor
+    borderColor: theme.underlayColor
   },
   rowButtons: {
     flexDirection: 'row',

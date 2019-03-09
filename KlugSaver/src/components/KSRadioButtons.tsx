@@ -22,10 +22,10 @@ export const KSRadioButtons = ({ items }: IKSRadioButtonsProps) => {
         key={index}
         style={[styles.radioButton, item.selected ? styles.buttonSelected : null]}
         onPress={item.onPress}
-        underlayColor={getTheme().accentMainColor}
+        underlayColor={theme.accentMainColor}
       >
         <React.Fragment>
-          {item.icon && <Icon name={item.icon} size={30} color={item.selected ? getTheme().backgroundMainColor : getTheme().textMainColor} />}
+          {item.icon && <Icon name={item.icon} size={30} color={item.selected ? theme.backgroundMainColor : theme.textMainColor} />}
           <Text style={[styles.radioText, item.selected ? styles.textSelected : null]}>{item.text}</Text>
         </React.Fragment>
       </TouchableHighlight>
@@ -33,14 +33,14 @@ export const KSRadioButtons = ({ items }: IKSRadioButtonsProps) => {
   </View>;
 };
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   radioButtons: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
     borderWidth: 1,
-    borderColor: getTheme().underlayColor
+    borderColor: theme.underlayColor
   },
   radioButton: {
     justifyContent: 'center',
@@ -49,13 +49,13 @@ const styles = StyleSheet.create({
     flex: 1
   },
   buttonSelected: {
-    backgroundColor: getTheme().accentMainColor
+    backgroundColor: theme.accentMainColor
   },
   textSelected: {
-    color: getTheme().backgroundMainColor
+    color: theme.backgroundMainColor
   },
   radioText: {
     ...textStyleBase,
-    color: getTheme().textMainColor
+    color: theme.textMainColor
   },
 });

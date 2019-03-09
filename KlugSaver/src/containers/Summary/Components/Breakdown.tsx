@@ -25,7 +25,7 @@ const renderLabels = (onFilterChange: (categoryTitle: string) => void) => (t: IB
     style={styles.row}
     key={index}
     onPress={() => onFilterChange(t.title)}
-    underlayColor={getTheme().backgroundMainColor}
+    underlayColor={theme.backgroundMainColor}
   >
     <Text style={styles.labelText}>{t.title}</Text>
   </TouchableHighlight>
@@ -36,7 +36,7 @@ const renderBars = (max: number, onFilterChange: (categoryTitle: string) => void
     style={styles.row}
     key={index}
     onPress={() => onFilterChange(t.title)}
-    underlayColor={getTheme().backgroundMainColor}
+    underlayColor={theme.backgroundMainColor}
   >
     <View style={styles.barBackground}>
       <View style={[styles.bar, { backgroundColor: t.color, flexGrow: t.total / max }]}></View>
@@ -49,7 +49,7 @@ const renderTotals = (onFilterChange: (categoryTitle: string) => void) => (t: IB
     style={styles.row}
     key={index}
     onPress={() => onFilterChange(t.title)}
-    underlayColor={getTheme().backgroundMainColor}
+    underlayColor={theme.backgroundMainColor}
   >
     <Text style={styles.totalText}>{formatAmount(t.total)}</Text>
   </TouchableHighlight>
@@ -61,7 +61,7 @@ const Breakdown = ({ expenses, filter, onFilterChange }: IBreakdownProps) => {
 
   if (!expenses || !expenses.length) {
     return <View style={styles.root}>
-      <Icon name="not-interested" size={30} color={getTheme().underlayColor} />
+      <Icon name="not-interested" size={30} color={theme.underlayColor} />
     </View>;
   }
 
@@ -80,7 +80,7 @@ const Breakdown = ({ expenses, filter, onFilterChange }: IBreakdownProps) => {
 
 export default Breakdown;
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   root: {
     flex: 1,
     marginVertical: 20,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   },
   barBackground: {
     height: 10,
-    backgroundColor: getTheme().underlayColor,
+    backgroundColor: theme.underlayColor,
     flexDirection: 'row',
     borderRadius: 5
   },

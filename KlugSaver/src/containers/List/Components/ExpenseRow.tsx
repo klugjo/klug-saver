@@ -13,7 +13,7 @@ export interface IExpenseRowProps {
 const ExpenseRow = ({ item, openDeleteModal }: IExpenseRowProps) => (
   <TouchableHighlight
     onPress={() => openDeleteModal(item)}
-    underlayColor={getTheme().underlayColor}
+    underlayColor={theme.underlayColor}
   >
     <View style={styles.expenseRowView}>
       <View style={[styles.rowColorView, { backgroundColor: item.color }]} />
@@ -26,7 +26,7 @@ const ExpenseRow = ({ item, openDeleteModal }: IExpenseRowProps) => (
 
 export default ExpenseRow;
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   expenseRowView: {
     flex: 1,
     flexDirection: 'row',

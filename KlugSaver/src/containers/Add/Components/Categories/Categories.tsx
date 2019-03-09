@@ -22,14 +22,14 @@ export default class MainCategoriesPicker extends React.Component<IMainCategorie
         onPress={this.pickCategory(cat)}
         key={cat.title}
         style={styles.buttonContainer}
-        underlayColor={getTheme().underlayColor}
+        underlayColor={theme.underlayColor}
       >
         <View style={[
           styles.buttonStyle,
-          { borderColor: isSelected ? cat.color : getTheme().underlayColor }
+          { borderColor: isSelected ? cat.color : theme.underlayColor }
         ]}>
           <Icon name={cat.icon} size={20} color={cat.color} />
-          <Text style={[styles.text, { color: isSelected ? cat.color : getTheme().textMainColor }]}>{cat.title}</Text>
+          <Text style={[styles.text, { color: isSelected ? cat.color : theme.textMainColor }]}>{cat.title}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -54,7 +54,7 @@ export default class MainCategoriesPicker extends React.Component<IMainCategorie
   }
 }
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   categoriesRoot: {
     flexDirection: 'column',
     flex: 1,
@@ -83,12 +83,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 3,
     paddingVertical: 5,
-    backgroundColor: getTheme().backgroundMainColor
+    backgroundColor: theme.backgroundMainColor
   },
   text: {
     color: '#000',
     fontSize: 13,
     marginTop: 3,
-    fontFamily: getTheme().fontThin
+    fontFamily: theme.fontThin
   }
 });

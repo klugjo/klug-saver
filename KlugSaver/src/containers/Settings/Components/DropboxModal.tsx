@@ -67,7 +67,7 @@ class DropboxModal extends React.Component<IDropboxModalProps, {}> {
 
 export default DropboxModal;
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   webView: {
     display: 'flex',
     flex: 1,

@@ -48,9 +48,9 @@ class KSIconPicker extends React.Component<IKSIconPickerProps, IKSIconPickerStat
               value={searchText}
               onChangeText={this.onSearchTextChange}
               keyboardAppearance="light"
-              selectionColor={getTheme().textMainColor}
+              selectionColor={theme.textMainColor}
               placeholder="Search ..."
-              placeholderTextColor={getTheme().textSecondaryColor}
+              placeholderTextColor={theme.textSecondaryColor}
             />
           </View>
           <FlatList
@@ -69,7 +69,7 @@ class KSIconPicker extends React.Component<IKSIconPickerProps, IKSIconPickerStat
 
     return <TouchableHighlight key={item} onPress={this.pickIcon(item)}>
       <View style={[styles.item, selectedStyle]}>
-        <Icon name={item} size={20} color={getTheme().textMainColor} />
+        <Icon name={item} size={20} color={theme.textMainColor} />
         <Text style={[styles.itemNameText, selectedStyle]}>{item}</Text>
       </View>
     </TouchableHighlight>;
@@ -100,7 +100,7 @@ class KSIconPicker extends React.Component<IKSIconPickerProps, IKSIconPickerStat
 export default KSIconPicker;
 
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   modalContainerOverride: {
   },
   container: {
@@ -111,11 +111,11 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 15,
     borderBottomWidth: 1,
-    borderBottomColor: getTheme().underlayColor
+    borderBottomColor: theme.underlayColor
   },
   selected: {
-    backgroundColor: getTheme().accentMainColor,
-    color: getTheme().accentTextColor
+    backgroundColor: theme.accentMainColor,
+    color: theme.accentTextColor
   },
   flag: {
     width: 30,
@@ -125,14 +125,14 @@ const styles = StyleSheet.create({
   itemNameText: {
     fontSize: 16,
     marginLeft: 15,
-    fontFamily: getTheme().fontThin,
-    color: getTheme().textMainColor
+    fontFamily: theme.fontThin,
+    color: theme.textMainColor
   },
   buttonText: {
-    color: getTheme().textSecondaryColor,
+    color: theme.textSecondaryColor,
     flex: 1,
     height: 40,
-    backgroundColor: getTheme().underlayColor,
+    backgroundColor: theme.underlayColor,
     fontSize: 16,
     borderRadius: 20,
     paddingHorizontal: 20,

@@ -228,7 +228,7 @@ export default class Add extends React.Component<IAddProps, IAddState> {
   }
 };
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -253,12 +253,12 @@ const styles = StyleSheet.create({
   saveButton: {
     borderWidth: 1,
     borderRadius: 3,
-    borderColor: getTheme().underlayColor,
+    borderColor: theme.underlayColor,
     padding: 10,
     marginTop: 15
   },
   saveButtonText: {
     fontSize: 16,
-    color: getTheme().textMainColor
+    color: theme.textMainColor
   }
 });

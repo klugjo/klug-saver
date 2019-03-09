@@ -74,7 +74,7 @@ export default class Root extends React.Component<IRootProps, IRootState> {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   breakdownContainer: {
     flex: 1
   }

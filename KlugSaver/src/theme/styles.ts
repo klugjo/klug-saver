@@ -1,18 +1,18 @@
 import { getTheme } from "./utils";
 
 export const textStyleBase = {
-  fontFamily: getTheme().fontMain,
-  color: getTheme().textMainColor
+  fontFamily: theme.fontMain,
+  color: theme.textMainColor
 };
 
 export const textStyleThin = {
-  fontFamily: getTheme().fontThin,
-  color: getTheme().textMainColor
+  fontFamily: theme.fontThin,
+  color: theme.textMainColor
 };
 
 export const textStyleHeader = {
-  fontFamily: getTheme().fontMain,
-  color: getTheme().textMainColor,
+  fontFamily: theme.fontMain,
+  color: theme.textMainColor,
   fontSize: 20
 };
 

@@ -23,7 +23,7 @@ export const SyncingButtons = ({ cloudBackup, isDropboxLinked, openDropboxModal,
   </KSCard>
 };
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   buttons: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -33,13 +33,13 @@ const styles = StyleSheet.create({
   buttonContainer: {
     borderWidth: 1,
     borderRadius: 3,
-    borderColor: getTheme().underlayColor,
+    borderColor: theme.underlayColor,
     padding: 10,
     marginTop: 15,
     marginHorizontal: 5
   },
   buttonText: {
     fontSize: 16,
-    color: getTheme().textMainColor
+    color: theme.textMainColor
   }
 });

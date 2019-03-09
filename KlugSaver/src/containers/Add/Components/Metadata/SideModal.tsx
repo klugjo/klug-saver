@@ -30,13 +30,13 @@ export const SideModal = ({ open, close, side, onSideChange }: ISideModalProps) 
           <TouchableHighlight
             style={[styles.button, styles.buttonLeft, isDebit && styles.selectedView]}
             onPress={() => onSideChange(SideEnum.Expense)}
-            underlayColor={getTheme().accentMainColor}
+            underlayColor={theme.accentMainColor}
           >
             <View style={styles.textContainer}>
               <Icon
                 name="arrow-bottom-right-bold-outline"
                 size={25}
-                color={isDebit ? getTheme().accentTextColor : getTheme().textMainColor}
+                color={isDebit ? theme.accentTextColor : theme.textMainColor}
               />
               <Text style={[styles.text, isDebit && styles.selectedText]}>Expense</Text>
             </View>
@@ -44,13 +44,13 @@ export const SideModal = ({ open, close, side, onSideChange }: ISideModalProps) 
           <TouchableHighlight
             style={[styles.button, styles.buttonRight, isCredit && styles.selectedView]}
             onPress={() => onSideChange(SideEnum.Income)}
-            underlayColor={getTheme().accentMainColor}
+            underlayColor={theme.accentMainColor}
           >
             <View style={styles.textContainer}>
               <Icon
                 name="arrow-top-right-bold-outline"
                 size={25}
-                color={isCredit ? getTheme().accentTextColor : getTheme().textMainColor}
+                color={isCredit ? theme.accentTextColor : theme.textMainColor}
               />
               <Text style={[styles.text, isCredit && styles.selectedText]}>Income</Text>
             </View>
@@ -61,7 +61,7 @@ export const SideModal = ({ open, close, side, onSideChange }: ISideModalProps) 
   );
 };
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   root: {
     alignItems: 'center',
     paddingTop: 20
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     borderRadius: 10,
-    backgroundColor: getTheme().underlayColor,
+    backgroundColor: theme.underlayColor,
     height: 60
   },
   button: {
@@ -87,10 +87,10 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10
   },
   selectedView: {
-    backgroundColor: getTheme().accentMainColor
+    backgroundColor: theme.accentMainColor
   },
   selectedText: {
-    color: getTheme().accentTextColor
+    color: theme.accentTextColor
   },
   textContainer: {
     flex: 1,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
   text: {
     marginLeft: 15,
-    color: getTheme().accentTextColor,
+    color: theme.accentTextColor,
     ...textStyleHeader
   }
 });

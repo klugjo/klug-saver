@@ -83,7 +83,7 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   root: {
     flex: 1
   },

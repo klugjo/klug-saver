@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, StyleSheet, TouchableHighlight, Text } from 'react-native';
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { getTheme } from '../theme/utils';
 import { textStyleBase } from '../theme/styles';
+import { IThemeConstants } from '../typings';
 
 interface IKSRadioButtonsItem {
   selected: boolean;
@@ -15,18 +15,18 @@ export interface IKSRadioButtonsProps {
   items: IKSRadioButtonsItem[];
 };
 
-export const KSRadioButtons = ({ items }: IKSRadioButtonsProps) => {
-  return <View style={styles.radioButtons}>
+export const KSRadioButtons = ({ items }: IKSRadioButtonsProps, theme: IThemeConstants) => {
+  return <View style={styles(theme).radioButtons}>
     {items.map((item: IKSRadioButtonsItem, index: number) => (
       <TouchableHighlight
         key={index}
-        style={[styles.radioButton, item.selected ? styles.buttonSelected : null]}
+        style={[styles(theme).radioButton, item.selected ? styles(theme).buttonSelected : null]}
         onPress={item.onPress}
         underlayColor={theme.accentMainColor}
       >
         <React.Fragment>
           {item.icon && <Icon name={item.icon} size={30} color={item.selected ? theme.backgroundMainColor : theme.textMainColor} />}
-          <Text style={[styles.radioText, item.selected ? styles.textSelected : null]}>{item.text}</Text>
+          <Text style={[styles(theme).radioText, item.selected ? styles(theme).textSelected : null]}>{item.text}</Text>
         </React.Fragment>
       </TouchableHighlight>
     ))}
@@ -55,7 +55,7 @@ const styles = (theme: IThemeConstants) => StyleSheet.create({
     color: theme.backgroundMainColor
   },
   radioText: {
-    ...textStyleBase,
+    ...textStyleBase(theme),
     color: theme.textMainColor
   },
 });

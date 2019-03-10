@@ -1,12 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
-import { formatAmount } from '../../../util';
-import { getTheme } from '../../../theme/utils';
-import { IExpense } from '../../../typings';
-import { getTotalsForCategory, getTotals } from '../helpers';
 import { textStyleBase } from '../../../theme/styles';
+import { IExpense, IThemeConstants } from '../../../typings';
+import { formatAmount } from '../../../util';
+import { getTotals, getTotalsForCategory } from '../helpers';
+
 
 export interface IBreakdownTotal {
   title: string;
@@ -20,60 +19,60 @@ interface IBreakdownProps {
   onFilterChange: (categoryTitle: string) => void;
 }
 
-const renderLabels = (onFilterChange: (categoryTitle: string) => void) => (t: IBreakdownTotal, index: number) => (
+const renderLabels = (onFilterChange: (categoryTitle: string) => void, theme: IThemeConstants) => (t: IBreakdownTotal, index: number) => (
   <TouchableHighlight
-    style={styles.row}
+    style={styles(theme).row}
     key={index}
     onPress={() => onFilterChange(t.title)}
     underlayColor={theme.backgroundMainColor}
   >
-    <Text style={styles.labelText}>{t.title}</Text>
+    <Text style={styles(theme).labelText}>{t.title}</Text>
   </TouchableHighlight>
 );
 
-const renderBars = (max: number, onFilterChange: (categoryTitle: string) => void) => (t: IBreakdownTotal, index: number) => (
+const renderBars = (max: number, onFilterChange: (categoryTitle: string) => void, theme: IThemeConstants) => (t: IBreakdownTotal, index: number) => (
   <TouchableHighlight
-    style={styles.row}
+    style={styles(theme).row}
     key={index}
     onPress={() => onFilterChange(t.title)}
     underlayColor={theme.backgroundMainColor}
   >
-    <View style={styles.barBackground}>
-      <View style={[styles.bar, { backgroundColor: t.color, flexGrow: t.total / max }]}></View>
+    <View style={styles(theme).barBackground}>
+      <View style={[styles(theme).bar, { backgroundColor: t.color, flexGrow: t.total / max }]}></View>
     </View>
   </TouchableHighlight>
 );
 
-const renderTotals = (onFilterChange: (categoryTitle: string) => void) => (t: IBreakdownTotal, index: number) => (
+const renderTotals = (onFilterChange: (categoryTitle: string) => void, theme: IThemeConstants) => (t: IBreakdownTotal, index: number) => (
   <TouchableHighlight
-    style={styles.row}
+    style={styles(theme).row}
     key={index}
     onPress={() => onFilterChange(t.title)}
     underlayColor={theme.backgroundMainColor}
   >
-    <Text style={styles.totalText}>{formatAmount(t.total)}</Text>
+    <Text style={styles(theme).totalText}>{formatAmount(t.total)}</Text>
   </TouchableHighlight>
 );
 
-const Breakdown = ({ expenses, filter, onFilterChange }: IBreakdownProps) => {
+const Breakdown = ({ expenses, filter, onFilterChange }: IBreakdownProps, theme: IThemeConstants) => {
   const totals = !!filter ? getTotalsForCategory(expenses, filter) : getTotals(expenses);
   const max = Math.max(...totals.map(t => t.total));
 
   if (!expenses || !expenses.length) {
-    return <View style={styles.root}>
+    return <View style={styles(theme).root}>
       <Icon name="not-interested" size={30} color={theme.underlayColor} />
     </View>;
   }
 
-  return <View style={styles.root}>
+  return <View style={styles(theme).root}>
     <View>
-      {totals.map(renderLabels(onFilterChange))}
+      {totals.map(renderLabels(onFilterChange, theme))}
     </View>
-    <View style={styles.barContainer}>
-      {totals.map(renderBars(max, onFilterChange))}
+    <View style={styles(theme).barContainer}>
+      {totals.map(renderBars(max, onFilterChange, theme))}
     </View>
     <View>
-      {totals.map(renderTotals(onFilterChange))}
+      {totals.map(renderTotals(onFilterChange, theme))}
     </View>
   </View>;
 };
@@ -106,12 +105,12 @@ const styles = (theme: IThemeConstants) => StyleSheet.create({
   },
   labelText: {
     marginHorizontal: 15,
-    ...textStyleBase
+    ...textStyleBase(theme)
   },
   totalText: {
-    
+
     marginHorizontal: 15,
-    ...textStyleBase,
+    ...textStyleBase(theme),
     textAlign: 'right'
   }
 });

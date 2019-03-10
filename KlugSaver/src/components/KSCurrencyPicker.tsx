@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableHighlight, Image } from 'react-native';
-import { ICurrency } from '../typings';
+import { ICurrency, IThemeConstants } from '../typings';
 import { CURRENCIES_ARRAY } from '../constants/currencies';
-import { getTheme } from '../theme/utils';
 import { flags } from '../constants/flags';
 import { KSModal } from './KSModal';
 
@@ -12,9 +11,10 @@ export interface IKSCurrencyPickerProps {
   close: (currency: ICurrency) => void;
 }
 
-class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}> {
+class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}, IThemeConstants> {
   public render() {
     const { open, currency } = this.props;
+    const theme = this.context;
 
     if (!open) {
       return null;
@@ -25,9 +25,9 @@ class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}> {
         open={open}
         title="Currency Change"
         close={this.pickCurrency(currency)}
-        containerStyle={styles.modalContainerOverride}
+        containerStyle={styles(theme).modalContainerOverride}
       >
-        <View style={styles.container}>
+        <View style={styles(theme).container}>
           <FlatList
             data={CURRENCIES_ARRAY}
             renderItem={this.renderItem}
@@ -40,16 +40,17 @@ class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}> {
 
   private renderItem = ({ item }: { item: ICurrency }) => {
     const { currency } = this.props;
-    const selectedStyle = currency.code === item.code && styles.selected;
+    const theme = this.context;
+    const selectedStyle = currency.code === item.code && styles(theme).selected;
 
     return <TouchableHighlight key={item.code} onPress={this.pickCurrency(item)}>
-      <View style={[styles.item, selectedStyle]}>
+      <View style={[styles(theme).item, selectedStyle]}>
         <Image
-          style={styles.flag}
+          style={styles(theme).flag}
           source={{uri: `data:image/png;base64,${flags[item.code]}`}}
         />
-        <Text style={[styles.itemCodeText, selectedStyle]}>{item.code}</Text>
-        <Text style={[styles.itemNameText, selectedStyle]}>{item.name}</Text>
+        <Text style={[styles(theme).itemCodeText, selectedStyle]}>{item.code}</Text>
+        <Text style={[styles(theme).itemNameText, selectedStyle]}>{item.name}</Text>
       </View>
     </TouchableHighlight>;
   }

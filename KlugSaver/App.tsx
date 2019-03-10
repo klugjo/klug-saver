@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, StatusBar } from 'react-native';
+import { StatusBar, StyleSheet, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-
-import Swiper from './src/containers/Swiper';
-import { store, persistor } from './src/configureStore';
-import { getTheme } from './src/theme/utils';
-import DeleteModal from './src/containers/DeleteModal';
+import { persistor, store } from './src/configureStore';
 import { ThemeType } from './src/constants/common';
+import DeleteModal from './src/containers/DeleteModal';
+import Swiper from './src/containers/Swiper';
+import theme from './src/theme/light';
 import ThemeContext from './src/theme/ThemeContext';
+import { getTheme } from './src/theme/utils';
 
 export default class App extends Component<{}, {}> {
   render() {
     return (
       <Provider store={store}>
-        <ThemeContext.Provider value={getTheme(store.getState().theme)}>
+        <ThemeContext.Provider value={theme}>
           <PersistGate loading={null} persistor={persistor}>
             <View style={styles(store.getState().theme).container}>
               <StatusBar

@@ -1,9 +1,8 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { KSCard } from '../../../components/KSCard';
+import { StyleSheet, View } from 'react-native';
 import { KSButton } from '../../../components';
-import { CloudBackup } from '../../../typings';
-import { getTheme } from '../../../theme/utils';
+import { KSCard } from '../../../components/KSCard';
+import { CloudBackup, IThemeConstants } from '../../../typings';
 
 export interface ISyncingButtonsProps {
   cloudBackup: CloudBackup;
@@ -13,12 +12,15 @@ export interface ISyncingButtonsProps {
   restoreArchive: () => void;
 };
 
-export const SyncingButtons = ({ cloudBackup, isDropboxLinked, openDropboxModal, saveArchive, restoreArchive }: ISyncingButtonsProps) => {
+export const SyncingButtons = (
+  { cloudBackup, isDropboxLinked, openDropboxModal, saveArchive, restoreArchive }: ISyncingButtonsProps,
+  theme: IThemeConstants
+) => {
   return <KSCard text="SYNCING ACTIONS">
-    {cloudBackup === CloudBackup.Dropbox && <View style={styles.buttons}>
-      {!isDropboxLinked && <KSButton text="Link Account" onPress={openDropboxModal} containerStyle={styles.buttonContainer} textStyle={styles.buttonText} />}
-      {isDropboxLinked && <KSButton text="Backup" onPress={saveArchive} containerStyle={styles.buttonContainer} textStyle={styles.buttonText} />}
-      {isDropboxLinked && <KSButton text="Restore" onPress={restoreArchive} containerStyle={styles.buttonContainer} textStyle={styles.buttonText} />}
+    {cloudBackup === CloudBackup.Dropbox && <View style={styles(theme).buttons}>
+      {!isDropboxLinked && <KSButton text="Link Account" onPress={openDropboxModal} containerStyle={styles(theme).buttonContainer} textStyle={styles(theme).buttonText} />}
+      {isDropboxLinked && <KSButton text="Backup" onPress={saveArchive} containerStyle={styles(theme).buttonContainer} textStyle={styles(theme).buttonText} />}
+      {isDropboxLinked && <KSButton text="Restore" onPress={restoreArchive} containerStyle={styles(theme).buttonContainer} textStyle={styles(theme).buttonText} />}
     </View>}
   </KSCard>
 };

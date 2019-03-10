@@ -1,7 +1,8 @@
-import React from 'react';
-import { StyleSheet, WebView, NavState } from 'react-native';
 import { Dropbox } from 'dropbox';
+import React from 'react';
+import { NavState, StyleSheet, WebView } from 'react-native';
 import { KSModal } from '../../../components/KSModal';
+import { IThemeConstants } from '../../../typings';
 
 const APP_CLIENT_ID = '4hksbxm1vxsyncq';
 const CALLBACK_URL = 'https://www.codeblocq.com/';
@@ -12,7 +13,7 @@ export interface IDropboxModalProps {
   saveDropboxToken: (token: string) => void;
 };
 
-class DropboxModal extends React.Component<IDropboxModalProps, {}> {
+class DropboxModal extends React.Component<IDropboxModalProps, {}, IThemeConstants> {
 
   private _lastURL: any;
 
@@ -50,6 +51,7 @@ class DropboxModal extends React.Component<IDropboxModalProps, {}> {
 
   render() {
     const { dropboxModalOpen, closeDropboxModal } = this.props;
+    const theme = this.context;
 
     return <KSModal
       open={dropboxModalOpen}
@@ -58,7 +60,7 @@ class DropboxModal extends React.Component<IDropboxModalProps, {}> {
     >
       <WebView
         source={{ uri: this.generateAuthorisationURL() }}
-        style={styles.webView}
+        style={styles(theme).webView}
         onNavigationStateChange={state => this.handleNavigationChange(state)}
       />
     </KSModal>

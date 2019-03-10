@@ -1,9 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { IExpense } from '../../../typings';
-import { sum, formatAmount } from '../../../util';
-import { getTheme } from '../../../theme/utils';
-import { textStyleHeader, textStyleBase } from '../../../theme/styles';
+import { StyleSheet, Text, View } from 'react-native';
+import { textStyleBase } from '../../../theme/styles';
+import { IExpense, IThemeConstants } from '../../../typings';
+import { formatAmount, sum } from '../../../util';
 
 export interface ISectionHeaderProps {
   section: {
@@ -12,12 +11,12 @@ export interface ISectionHeaderProps {
   }
 }
 
-const SectionHeader = ({ section }: ISectionHeaderProps) => (
-  <View style={styles.headerRowView}>
-      <Text style={styles.headerRowText}>
-        {section.title}
-      </Text>
-    <Text style={styles.headerAmountText}>
+const SectionHeader = ({ section }: ISectionHeaderProps, theme: IThemeConstants) => (
+  <View style={styles(theme).headerRowView}>
+    <Text style={styles(theme).headerRowText}>
+      {section.title}
+    </Text>
+    <Text style={styles(theme).headerAmountText}>
       {formatAmount(sum(section.data, (d: IExpense) => d.amount))}
     </Text>
   </View>
@@ -35,11 +34,11 @@ const styles = (theme: IThemeConstants) => StyleSheet.create({
     paddingTop: 15
   },
   headerRowText: {
-    ...textStyleBase,
+    ...textStyleBase(theme),
     marginLeft: 23
   },
   headerAmountText: {
-    ...textStyleBase,
+    ...textStyleBase(theme),
     flexGrow: 1,
     textAlign: 'right'
   }

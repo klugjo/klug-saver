@@ -3,8 +3,8 @@ import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { KSButton } from '../../../components';
-import { getTheme } from '../../../theme/utils';
 import { openModalEnum } from '../Add';
+import { IThemeConstants } from '../../../typings';
 
 export interface IVirtualKeyboardProps {
   addChar: (char: string) => () => void;
@@ -17,17 +17,17 @@ export interface IVirtualKeyboardProps {
   isCommentSet: boolean;
 };
 
-const renderButton = (digit: string, onPress: () => void) => (
+const renderButton = (digit: string, onPress: () => void, theme: IThemeConstants) => (
   <KSButton
     onPress={onPress}
     text={digit}
-    containerStyle={styles.keyboardKey}
-    textStyle={styles.keyboardKeyText}
+    containerStyle={styles(theme).keyboardKey}
+    textStyle={styles(theme).keyboardKeyText}
   />
 );
 
-const renderIcon = (icon: string, color: string, onPress: () => void) => (
-  <TouchableHighlight onPress={onPress} style={styles.iconButton} underlayColor={theme.underlayColor}>
+const renderIcon = (icon: string, color: string, onPress: () => void, theme: IThemeConstants) => (
+  <TouchableHighlight onPress={onPress} style={styles(theme).iconButton} underlayColor={theme.underlayColor}>
     <Icon name={icon} size={20} color={color} />
   </TouchableHighlight>
 );
@@ -41,37 +41,37 @@ const VirtualKeyboard = ({
   isDateSet,
   isCommentSet,
   isSideExpense
-}: IVirtualKeyboardProps) => {
+}: IVirtualKeyboardProps, theme: IThemeConstants) => {
   const dateIconColor = isDateSet ? theme.accentMainColor : theme.textMainColor;
   const commentIconColor = isCommentSet ? theme.accentMainColor : theme.textMainColor;
   const sideIcon = isSideExpense ? 'arrow-bottom-right-bold-outline' : 'arrow-top-right-bold-outline';
   const sideIconColor = isSideExpense ? theme.textMainColor : theme.accentMainColor;
   
   return (
-    <View style={styles.keyboardRoot}>
-      <View style={styles.keyboardLine}>
-        {renderButton('1', addChar('1'))}
-        {renderButton('2', addChar('2'))}
-        {renderButton('3', addChar('3'))}
-        {renderButton('AC', reset)}
+    <View style={styles(theme).keyboardRoot}>
+      <View style={styles(theme).keyboardLine}>
+        {renderButton('1', addChar('1'), theme)}
+        {renderButton('2', addChar('2'), theme)}
+        {renderButton('3', addChar('3'), theme)}
+        {renderButton('AC', reset, theme)}
       </View>
-      <View style={styles.keyboardLine}>
-        {renderButton('4', addChar('4'))}
-        {renderButton('5', addChar('5'))}
-        {renderButton('6', addChar('6'))}
-        {renderIcon('calendar-text', dateIconColor, openModal(openModalEnum.date))}
+      <View style={styles(theme).keyboardLine}>
+        {renderButton('4', addChar('4'), theme)}
+        {renderButton('5', addChar('5'), theme)}
+        {renderButton('6', addChar('6'), theme)}
+        {renderIcon('calendar-text', dateIconColor, openModal(openModalEnum.date), theme)}
       </View>
-      <View style={styles.keyboardLine}>
-        {renderButton('7', addChar('7'))}
-        {renderButton('8', addChar('8'))}
-        {renderButton('9', addChar('9'))}
-        {renderIcon('comment-text-outline', commentIconColor, openModal(openModalEnum.comments))}
+      <View style={styles(theme).keyboardLine}>
+        {renderButton('7', addChar('7'), theme)}
+        {renderButton('8', addChar('8'), theme)}
+        {renderButton('9', addChar('9'), theme)}
+        {renderIcon('comment-text-outline', commentIconColor, openModal(openModalEnum.comments), theme)}
       </View>
-      <View style={styles.keyboardLine}>
-        {renderButton('.', addDecimal)}
-        {renderButton('0', addChar('0'))}
-        {renderIcon('backspace', theme.textMainColor, deleteChar)}
-        {renderIcon(sideIcon, sideIconColor, openModal(openModalEnum.side))}
+      <View style={styles(theme).keyboardLine}>
+        {renderButton('.', addDecimal, theme)}
+        {renderButton('0', addChar('0'), theme)}
+        {renderIcon('backspace', theme.textMainColor, deleteChar, theme)}
+        {renderIcon(sideIcon, sideIconColor, openModal(openModalEnum.side), theme)}
       </View>
     </View>
   )

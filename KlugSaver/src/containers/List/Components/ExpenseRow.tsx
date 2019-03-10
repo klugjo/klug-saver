@@ -1,25 +1,24 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
-import { IExpense } from '../../../typings';
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { textStyleThin } from '../../../theme/styles';
+import { IExpense, IThemeConstants } from '../../../typings';
 import { formatAmount } from '../../../util';
-import { getTheme } from '../../../theme/utils';
-import { textStyleBase, textStyleThin } from '../../../theme/styles';
 
 export interface IExpenseRowProps {
   item: IExpense;
   openDeleteModal: (expense: IExpense) => any;
 }
 
-const ExpenseRow = ({ item, openDeleteModal }: IExpenseRowProps) => (
+const ExpenseRow = ({ item, openDeleteModal }: IExpenseRowProps, theme: IThemeConstants) => (
   <TouchableHighlight
     onPress={() => openDeleteModal(item)}
     underlayColor={theme.underlayColor}
   >
-    <View style={styles.expenseRowView}>
-      <View style={[styles.rowColorView, { backgroundColor: item.color }]} />
-      <Text style={styles.descriptionText}>{item.category}</Text>
-      <Text style={styles.subDescriptionText}>{item.subCategory}</Text>
-      <Text style={styles.amountText}>{formatAmount(item.amount)}</Text>
+    <View style={styles(theme).expenseRowView}>
+      <View style={[styles(theme).rowColorView, { backgroundColor: item.color }]} />
+      <Text style={styles(theme).descriptionText}>{item.category}</Text>
+      <Text style={styles(theme).subDescriptionText}>{item.subCategory}</Text>
+      <Text style={styles(theme).amountText}>{formatAmount(item.amount)}</Text>
     </View>
   </TouchableHighlight>
 );
@@ -38,16 +37,16 @@ const styles = (theme: IThemeConstants) => StyleSheet.create({
     marginRight: 15
   },
   amountText: {
-    ...textStyleThin,
+    ...textStyleThin(theme),
     width: 60,
     textAlign: 'right'
   },
   descriptionText: {
-    ...textStyleThin,
+    ...textStyleThin(theme),
     width: 100
   },
   subDescriptionText: {
-    ...textStyleThin,
+    ...textStyleThin(theme),
     flexGrow: 1
   }
 });

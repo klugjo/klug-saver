@@ -2,8 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableHighlight, TextInput, Modal, Alert, FlatList, KeyboardAvoidingView, NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { ICategory } from '../../../../typings';
-import { getTheme } from '../../../../theme/utils';
+import { ICategory, IThemeConstants } from '../../../../typings';
 import KSIconPicker from '../../../../components/KSIconPicker';
 import { ThemeType } from '../../../../constants/common';
 
@@ -27,7 +26,7 @@ interface ISubCategoryModalState {
   textinputEditValue: string;
 }
 
-class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCategoryModalState> {
+class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCategoryModalState, IThemeConstants> {
   constructor(props: ISubCategoryModalProps) {
     super(props);
 
@@ -45,6 +44,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
   render() {
     const { category, open } = this.props;
     const { isEditing, title, isIconPickerOpen, icon } = this.state;
+    const theme = this.context;
 
     const items = this.getSubCategories();
 
@@ -58,31 +58,31 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
         transparent={false}
         visible={open}
       >
-        <View style={styles.container}>
-          <View style={styles.backButtonContainer}>
+        <View style={styles(theme).container}>
+          <View style={styles(theme).backButtonContainer}>
             <TouchableHighlight onPress={this.close}>
               <Icon name="chevron-down" size={30} color={theme.underlayColor} />
             </TouchableHighlight>
             {
               isEditing ?
-                <TouchableHighlight onPress={this.editIcon} style={styles.icon}>
+                <TouchableHighlight onPress={this.editIcon} style={styles(theme).icon}>
                   <Icon name={icon} size={30} color={category!.color} />
                 </TouchableHighlight> :
-                <View style={styles.icon}>
+                <View style={styles(theme).icon}>
                   <Icon name={category!.icon} size={30} color={category!.color} />
                 </View>
             }
             {
               isEditing ?
                 <TextInput
-                  style={styles.titleText}
+                  style={styles(theme).titleText}
                   value={title}
                   onChangeText={this.onTitleChange}
                   keyboardAppearance="light"
                   selectionColor={theme.textSecondaryColor}
                   selectTextOnFocus={true}
                 /> :
-                <Text style={styles.titleText}>{category!.title}</Text>
+                <Text style={styles(theme).titleText}>{category!.title}</Text>
             }
             <TouchableHighlight onPress={this.toggleEditMode} underlayColor={theme.underlayColor}>
               <Icon name={isEditing ? 'check-circle' : 'pencil'} size={30} color={theme.underlayColor} />
@@ -101,13 +101,14 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
 
   private renderEditView = () => {
     const { items } = this.state;
+    const theme = this.context;
 
-    return <KeyboardAvoidingView style={styles.root} behavior="padding" >
+    return <KeyboardAvoidingView style={styles(theme).root} behavior="padding" >
       <FlatList
         keyboardShouldPersistTaps="handled"
         data={[...items, ADD_BUTTON]}
         numColumns={2}
-        contentContainerStyle={styles.list}
+        contentContainerStyle={styles(theme).list}
         keyExtractor={(item, index) => item + index}
         renderItem={({ item, index }: { item: string, index: number }) => (
           item === ADD_BUTTON && index === items.length ?
@@ -121,13 +122,14 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
 
   private renderEditButton = ({ item, index }: { item: string, index: number }) => {
     const { category } = this.props;
+    const theme = this.context;
     const { textinputEditIndex, textinputEditValue } = this.state;
 
-    return <View style={styles.buttonContainer}>
-      <View style={[styles.buttonStyle, styles.buttonStyleEdit, this.getButtonStyle(category!)]}>
+    return <View style={styles(theme).buttonContainer}>
+      <View style={[styles(theme).buttonStyle, styles(theme).buttonStyleEdit, this.getButtonStyle(category!)]}>
         <TextInput
           selectTextOnFocus={true}
-          style={[styles.buttonText, this.getButtonTextStyle(category!)]}
+          style={[styles(theme).buttonText, this.getButtonTextStyle(category!)]}
           value={index !== textinputEditIndex ? item : textinputEditValue}
           onFocus={this.focusTextInput(index)}
           onBlur={this.blurTextInput(index)}
@@ -135,7 +137,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
           keyboardAppearance="light"
           selectionColor={theme.type === ThemeType.Dark ? category!.color : theme.backgroundMainColor}
         />
-        <TouchableHighlight onPress={this.onDelete(index)} style={styles.deleteButton} underlayColor={theme.underlayColor}>
+        <TouchableHighlight onPress={this.onDelete(index)} style={styles(theme).deleteButton} underlayColor={theme.underlayColor}>
           <Icon name="close" size={25} color={theme.type === ThemeType.Dark ? category!.color : theme.backgroundMainColor} />
         </TouchableHighlight>
       </View>
@@ -144,32 +146,33 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
 
   private renderAddButton = () => {
     const { category } = this.props;
+    const theme = this.context;
 
-    return <TouchableHighlight style={styles.buttonContainer} onPress={this.addItem}>
-      <View style={[styles.buttonStyle, this.getButtonStyle(category!)]}>
-        <Text style={[styles.buttonText, this.getButtonTextStyle(category!)]}>+ Add New</Text>
+    return <TouchableHighlight style={styles(theme).buttonContainer} onPress={this.addItem}>
+      <View style={[styles(theme).buttonStyle, this.getButtonStyle(category!)]}>
+        <Text style={[styles(theme).buttonText, this.getButtonTextStyle(category!)]}>+ Add New</Text>
       </View>
     </TouchableHighlight>;
   }
 
   private renderNonEditView = () => {
     const { category, onPickSubCategory } = this.props;
-
+    const theme = this.context;
     const items = this.getSubCategories();
 
     return <FlatList
       data={items}
       numColumns={2}
-      contentContainerStyle={styles.list}
+      contentContainerStyle={styles(theme).list}
       keyExtractor={(item, index) => item + index}
       renderItem={({ item }: { item: string }) => (
         <TouchableHighlight
           onPress={() => onPickSubCategory(item)}
-          style={styles.buttonContainer}
+          style={styles(theme).buttonContainer}
           underlayColor={theme.backgroundMainColor}
         >
-          <View style={[styles.buttonStyle, this.getButtonStyle(category!)]}>
-            <Text style={[styles.buttonText, this.getButtonTextStyle(category!)]}>{item}</Text>
+          <View style={[styles(theme).buttonStyle, this.getButtonStyle(category!)]}>
+            <Text style={[styles(theme).buttonText, this.getButtonTextStyle(category!)]}>{item}</Text>
           </View>
         </TouchableHighlight>
       )}
@@ -177,6 +180,8 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
   }
 
   private getButtonStyle = (category: ICategory) => {
+    const theme = this.context;
+
     if (theme.type === ThemeType.Dark) {
       return { borderColor: category!.color, backgroundColor: theme.backgroundMainColor };
     } else {
@@ -185,6 +190,8 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
   }
 
   private getButtonTextStyle = (category: ICategory) => {
+    const theme = this.context;
+    
     if (theme.type === ThemeType.Dark) {
       return { color: category!.color };
     } else {

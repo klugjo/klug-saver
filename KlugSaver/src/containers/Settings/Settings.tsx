@@ -1,13 +1,12 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-
-import { getTheme } from '../../theme/utils';
-import { CloudBackup } from '../../typings';
-import DropboxModal from './Components/DropboxModal';
+import { ThemeType } from '../../constants/common';
+import { CloudBackup, IThemeConstants } from '../../typings';
 import { BackupStrategy } from './Components/BackupStrategy';
+import DropboxModal from './Components/DropboxModal';
 import { SyncingButtons } from './Components/SyncingButtons';
 import { ThemePicker } from './Components/ThemePicker';
-import { ThemeType } from '../../constants/common';
+
 
 interface ISettingsProps {
   dropboxToken?: string;
@@ -24,7 +23,7 @@ interface ISettingsState {
   dropboxModalOpen: boolean;
 }
 
-class Settings extends React.Component<ISettingsProps, ISettingsState> {
+class Settings extends React.Component<ISettingsProps, ISettingsState, IThemeConstants> {
 
   constructor(props: ISettingsProps) {
     super(props);
@@ -35,10 +34,11 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
   }
 
   render() {
-    const { dropboxToken, saveDropboxToken, cloudBackup, changeTheme, theme } = this.props;
+    const { dropboxToken, saveDropboxToken, cloudBackup, changeTheme } = this.props;
+    const theme = this.context;
     const isDropboxLinked = !!dropboxToken;
 
-    return <View style={styles.root}>
+    return <View style={styles(theme).root}>
       <BackupStrategy
         cloudBackup={cloudBackup}
         saveBackupStrategy={this.saveBackupStrategy}

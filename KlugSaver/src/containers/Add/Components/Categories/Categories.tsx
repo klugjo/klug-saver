@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { ICategory } from '../../../../typings';
+import { ICategory, IThemeConstants } from '../../../../typings';
 import { getTheme } from '../../../../theme/utils';
 
 export interface IMainCategoriesPicker {
@@ -11,25 +11,26 @@ export interface IMainCategoriesPicker {
   categories: ICategory[];
 }
 
-export default class MainCategoriesPicker extends React.Component<IMainCategoriesPicker, {}> {
+export default class MainCategoriesPicker extends React.Component<IMainCategoriesPicker, {}, IThemeConstants> {
 
   renderButton = (cat: ICategory) => {
     const { selectedCategory } = this.props;
+    const theme = this.context;
     const isSelected = selectedCategory && selectedCategory.title === cat.title;
 
     return (
       <TouchableHighlight
         onPress={this.pickCategory(cat)}
         key={cat.title}
-        style={styles.buttonContainer}
+        style={styles(theme).buttonContainer}
         underlayColor={theme.underlayColor}
       >
         <View style={[
-          styles.buttonStyle,
+          styles(theme).buttonStyle,
           { borderColor: isSelected ? cat.color : theme.underlayColor }
         ]}>
           <Icon name={cat.icon} size={20} color={cat.color} />
-          <Text style={[styles.text, { color: isSelected ? cat.color : theme.textMainColor }]}>{cat.title}</Text>
+          <Text style={[styles(theme).text, { color: isSelected ? cat.color : theme.textMainColor }]}>{cat.title}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -41,16 +42,18 @@ export default class MainCategoriesPicker extends React.Component<IMainCategorie
 
   render() {
     const { categories } = this.props;
+    const theme = this.context;
+
     return (
-      <View style={styles.categoriesRoot}>
-        <View style={styles.categoriesLine}>
+      <View style={styles(theme).categoriesRoot}>
+        <View style={styles(theme).categoriesLine}>
           {categories.slice(0, 4).map(this.renderButton)}
         </View>
-        <View style={styles.categoriesLine}>
+        <View style={styles(theme).categoriesLine}>
           {categories.slice(4, 8).map(this.renderButton)}
         </View>
       </View>
-    )
+    );
   }
 }
 

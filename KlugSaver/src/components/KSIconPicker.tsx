@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableHighlight, TextInput } from 'react-native';
-import { getTheme } from '../theme/utils';
 import { KSModal } from './KSModal';
 import { ICONS } from '../constants/icons';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { IThemeConstants } from '../typings';
 
 
 export interface IKSIconPickerProps {
@@ -16,7 +16,7 @@ interface IKSIconPickerState {
   searchText: string;
 }
 
-class KSIconPicker extends React.Component<IKSIconPickerProps, IKSIconPickerState> {
+class KSIconPicker extends React.Component<IKSIconPickerProps, IKSIconPickerState, IThemeConstants> {
   constructor(props: IKSIconPickerProps) {
     super(props);
 
@@ -28,6 +28,7 @@ class KSIconPicker extends React.Component<IKSIconPickerProps, IKSIconPickerStat
   public render() {
     const { open, icon } = this.props;
     const { searchText } = this.state;
+    const theme = this.context;
     const icons = this.getIcons();
 
     if (!open) {
@@ -39,12 +40,12 @@ class KSIconPicker extends React.Component<IKSIconPickerProps, IKSIconPickerStat
         open={open}
         title="Choose an Icon"
         close={this.pickIcon(icon)}
-        containerStyle={styles.modalContainerOverride}
+        containerStyle={styles(theme).modalContainerOverride}
       >
-        <View style={styles.container}>
+        <View style={styles(theme).container}>
           <View style={{ height: 60, flexDirection: 'row' }}>
             <TextInput
-              style={styles.buttonText}
+              style={styles(theme).buttonText}
               value={searchText}
               onChangeText={this.onSearchTextChange}
               keyboardAppearance="light"
@@ -65,12 +66,13 @@ class KSIconPicker extends React.Component<IKSIconPickerProps, IKSIconPickerStat
 
   private renderItem = ({ item }: { item: string }) => {
     const { icon } = this.props;
-    const selectedStyle = icon === item && styles.selected;
+    const theme = this.context;
+    const selectedStyle = icon === item && styles(theme).selected;
 
     return <TouchableHighlight key={item} onPress={this.pickIcon(item)}>
-      <View style={[styles.item, selectedStyle]}>
+      <View style={[styles(theme).item, selectedStyle]}>
         <Icon name={item} size={20} color={theme.textMainColor} />
-        <Text style={[styles.itemNameText, selectedStyle]}>{item}</Text>
+        <Text style={[styles(theme).itemNameText, selectedStyle]}>{item}</Text>
       </View>
     </TouchableHighlight>;
   }

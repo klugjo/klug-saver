@@ -3,8 +3,7 @@ import numeral from 'numeral';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 
 import { formatAmount } from '../../../util';
-import { getTheme } from '../../../theme/utils';
-import { ICurrency } from '../../../typings';
+import { ICurrency, IThemeConstants } from '../../../typings';
 
 export interface IAmountDisplayProps {
   amount?: string;
@@ -22,16 +21,16 @@ const getFontSize = (amountText?: string) => {
   }
 };
 
-const AmountDisplay = ({ amount, currency, onCurrencyPickerOpen }: IAmountDisplayProps) => {
-  return <View style={styles.amountContainer}>
+const AmountDisplay = ({ amount, currency, onCurrencyPickerOpen }: IAmountDisplayProps, theme: IThemeConstants) => {
+  return <View style={styles(theme).amountContainer}>
     <TouchableHighlight
-      style={styles.currencyButton}
+      style={styles(theme).currencyButton}
       onPress={onCurrencyPickerOpen}
       underlayColor={theme.underlayColor}
     >
-      <Text style={styles.currency}>{currency.code}</Text>
+      <Text style={styles(theme).currency}>{currency.code}</Text>
     </TouchableHighlight>
-    <Text style={[styles.amountText, { fontSize: getFontSize(amount) }]}>
+    <Text style={[styles(theme).amountText, { fontSize: getFontSize(amount) }]}>
       {formatAmount(amount || 0)}
     </Text>
   </View>;

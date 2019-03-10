@@ -1,11 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
-import { IExpense } from '../../../typings';
-import { sum, formatAmount, toddMMM } from '../../../util';
 import { textStyleHeader, textStyleThin } from '../../../theme/styles';
-import { getTheme } from '../../../theme/utils';
+import { IExpense, IThemeConstants } from '../../../typings';
+import { formatAmount, sum } from '../../../util';
+
 
 export interface IGrandTotalProps {
   expenses: IExpense[];
@@ -16,29 +15,29 @@ export interface IGrandTotalProps {
   onNext: () => void;
 };
 
-export const GrandTotal = ({ expenses, label, isBeforeHidden, isNextHidden, onBefore, onNext }: IGrandTotalProps) => {
+export const GrandTotal = ({ expenses, label, isBeforeHidden, isNextHidden, onBefore, onNext }: IGrandTotalProps, theme: IThemeConstants) => {
   const total = sum(expenses, (t: IExpense) => t.amount);
 
-  return <View style={styles.root}>
+  return <View style={styles(theme).root}>
     {
       isBeforeHidden ?
-        <View style={styles.arrowButton} /> :
-        <TouchableHighlight style={styles.arrowButton} onPress={onBefore} underlayColor={theme.underlayColor}>
+        <View style={styles(theme).arrowButton} /> :
+        <TouchableHighlight style={styles(theme).arrowButton} onPress={onBefore} underlayColor={theme.underlayColor}>
           <Icon name="navigate-before" size={30} color={theme.textSecondaryColor} />
         </TouchableHighlight>
     }
-    <View style={styles.amountView}>
-      <Text style={styles.amountText}>
+    <View style={styles(theme).amountView}>
+      <Text style={styles(theme).amountText}>
         {formatAmount(total)}
       </Text>
-      <Text style={styles.datesText}>
+      <Text style={styles(theme).datesText}>
         {label}
       </Text>
     </View>
     {
       isNextHidden ?
-        <View style={styles.arrowButton} /> :
-        <TouchableHighlight style={styles.arrowButton} onPress={onNext} underlayColor={theme.underlayColor}>
+        <View style={styles(theme).arrowButton} /> :
+        <TouchableHighlight style={styles(theme).arrowButton} onPress={onNext} underlayColor={theme.underlayColor}>
           <Icon name="navigate-next" size={30} color={theme.textSecondaryColor} />
         </TouchableHighlight>
     }
@@ -60,12 +59,12 @@ const styles = (theme: IThemeConstants) => StyleSheet.create({
     flex: 0.6
   },
   amountText: {
-    ...textStyleHeader,
+    ...textStyleHeader(theme),
     textAlign: 'center',
     marginBottom: 10
   },
   datesText: {
-    ...textStyleThin,
+    ...textStyleThin(theme),
     textAlign: 'center'
   }
 });

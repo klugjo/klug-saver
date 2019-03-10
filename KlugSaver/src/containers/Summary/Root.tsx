@@ -1,12 +1,12 @@
 import React from 'React';
-import { View, StyleSheet } from 'react-native';
-
-import { IExpense, ICategoryMap } from '../../typings';
+import { StyleSheet, View } from 'react-native';
+import { ICategoryMap, IExpense, IThemeConstants } from '../../typings';
 import Breakdown from './Components/Breakdown';
+import { CategoryFilterHeader } from './Components/CategoryFilterHeader';
 import { GrandTotal } from './Components/GrandTotal';
 import { PeriodPicker } from './Components/PeriodPicker';
-import { CategoryFilterHeader } from './Components/CategoryFilterHeader';
-import { getPeriodLabel, getFilteredExpenses } from './helpers';
+import { getFilteredExpenses, getPeriodLabel } from './helpers';
+
 
 export type PeriodFilterType = 'year' | 'month' | 'week' | 'day';
 
@@ -21,7 +21,7 @@ interface IRootState {
   filter?: string;
 }
 
-export default class Root extends React.Component<IRootProps, IRootState> {
+export default class Root extends React.Component<IRootProps, IRootState, IThemeConstants> {
   constructor(props: IRootProps) {
     super(props);
     this.state = {
@@ -33,9 +33,10 @@ export default class Root extends React.Component<IRootProps, IRootState> {
 
   public render() {
     const { periodFilterType, offset, filter } = this.state;
+    const theme = this.context;
     const expenses = getFilteredExpenses(this.props.expenses, periodFilterType, offset, filter);
 
-    return <View style={styles.breakdownContainer}>
+    return <View style={styles(theme).breakdownContainer}>
       <PeriodPicker
         currentFilterType={periodFilterType}
         onCurrentFilterChange={this.onCurrentFilterChange}

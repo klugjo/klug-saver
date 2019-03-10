@@ -1,20 +1,20 @@
-import { getTheme } from "./utils";
+import { IThemeConstants } from '../typings';
 
-export const textStyleBase = {
+export const textStyleBase = (theme: IThemeConstants) => ({
   fontFamily: theme.fontMain,
   color: theme.textMainColor
-};
+});
 
-export const textStyleThin = {
+export const textStyleThin = (theme: IThemeConstants) => ({
   fontFamily: theme.fontThin,
   color: theme.textMainColor
-};
+});
 
-export const textStyleHeader = {
+export const textStyleHeader = (theme: IThemeConstants) => ({
   fontFamily: theme.fontMain,
   color: theme.textMainColor,
   fontSize: 20
-};
+});
 
 export const viewBadgeStyle = {
   justifyContent: 'center',

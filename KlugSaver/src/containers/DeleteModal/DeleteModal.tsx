@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, Text, Modal, StyleSheet, Button } from 'react-native';
-import { IExpense } from '../../typings';
+import { IExpense, IThemeConstants } from '../../typings';
 import { getRefreshDate } from '../../util';
 import { KSButton } from '../../components';
-import { getTheme } from '../../theme/utils';
 
 export interface IDeleteModalProps {
   open: boolean;
@@ -12,9 +11,10 @@ export interface IDeleteModalProps {
   onDelete?: (id: string, from: Date) => void;
 }
 
-class DeleteModal extends React.Component<IDeleteModalProps, {}> {
+class DeleteModal extends React.Component<IDeleteModalProps, {}, IThemeConstants> {
   public render() {
     const { open, expense } = this.props;
+    const theme = this.context;
 
     if (!expense) {
       return null;
@@ -27,19 +27,19 @@ class DeleteModal extends React.Component<IDeleteModalProps, {}> {
         visible={open && !!expense}
         onRequestClose={this.onClose}
       >
-        <View style={styles.container}>
-          <View style={styles.labelContainer}>
-            <Text style={styles.messageText}>
+        <View style={styles(theme).container}>
+          <View style={styles(theme).labelContainer}>
+            <Text style={styles(theme).messageText}>
               {expense.category} - {expense.subCategory}
             </Text>
           </View>
-          <View style={styles.labelContainer}>
-            <Text style={styles.messageText}>
+          <View style={styles(theme).labelContainer}>
+            <Text style={styles(theme).messageText}>
               SGD {expense.amount}
             </Text>
           </View>
 
-          <View style={styles.buttons}>
+          <View style={styles(theme).buttons}>
             <KSButton
               text="Delete"
               onPress={this.onDelete}

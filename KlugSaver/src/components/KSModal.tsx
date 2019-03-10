@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { View, Text, Modal, StyleSheet, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getTheme } from '../theme/utils';
+import { IThemeConstants } from '../typings';
 
 export interface IKSModalProps {
   close: () => void;
@@ -11,7 +12,7 @@ export interface IKSModalProps {
   containerStyle?: any;
 }
 
-export const KSModal = ({ open, close, title, children, containerStyle }: IKSModalProps) => {
+export const KSModal = ({ open, close, title, children, containerStyle }: IKSModalProps, theme: IThemeConstants) => {
   if (!open) {
     return null;
   }
@@ -22,12 +23,12 @@ export const KSModal = ({ open, close, title, children, containerStyle }: IKSMod
       transparent={false}
       visible={open}
     >
-      <View style={[styles.container, containerStyle]}>
-        <View style={styles.backButtonContainer}>
+      <View style={[styles(theme).container, containerStyle]}>
+        <View style={styles(theme).backButtonContainer}>
           <TouchableHighlight onPress={close}>
             <Icon name="chevron-down" size={30} color={theme.underlayColor} />
           </TouchableHighlight>
-          <Text style={styles.titleText}>{title}</Text>
+          <Text style={styles(theme).titleText}>{title}</Text>
         </View>
         {children}
       </View>

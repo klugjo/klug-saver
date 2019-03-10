@@ -1,23 +1,23 @@
 import React from 'react';
-import { StyleSheet, TouchableHighlight, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { getTheme } from '../../../theme/utils';
+import { IThemeConstants } from '../../../typings';
 
 export interface ICategoryFilterHeaderProps {
   filter?: string;
   onReset: () => void;
 };
 
-export const CategoryFilterHeader = ({ filter, onReset }: ICategoryFilterHeaderProps) => {
+export const CategoryFilterHeader = ({ filter, onReset }: ICategoryFilterHeaderProps, theme: IThemeConstants) => {
   if (!filter) {
     return null;
   }
 
-  return <View style={styles.root}>
+  return <View style={styles(theme).root}>
     <TouchableHighlight onPress={onReset}>
-      <View style={styles.tag}>
+      <View style={styles(theme).tag}>
         <Icon name="close" size={20} color={theme.textMainColor} />
-        <Text style={styles.text}>{filter}</Text>
+        <Text style={styles(theme).text}>{filter}</Text>
       </View>
     </TouchableHighlight>
   </View>;

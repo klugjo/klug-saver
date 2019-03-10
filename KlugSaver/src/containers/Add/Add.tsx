@@ -7,7 +7,7 @@ import Keypad from './Components/Keypad';
 import Categories from './Components/Categories/Categories';
 import AmountDisplay from './Components/AmountDisplay';
 import SubCategoryModal from './Components/Categories/SubCategoryModal';
-import { IExpense, ICategory, ICurrency, SideEnum } from '../../typings';
+import { IExpense, ICategory, ICurrency, SideEnum, IThemeConstants } from '../../typings';
 import { KSButton } from '../../components';
 import KSCurrencyPicker from '../../components/KSCurrencyPicker';
 import { CommentsModal } from './Components/Metadata/CommentsModal';
@@ -41,7 +41,7 @@ interface IAddState {
   side: SideEnum
 }
 
-export default class Add extends React.Component<IAddProps, IAddState> {
+export default class Add extends React.Component<IAddProps, IAddState, IThemeConstants> {
 
   constructor(props: IAddProps) {
     super(props);
@@ -61,24 +61,25 @@ export default class Add extends React.Component<IAddProps, IAddState> {
       side
     } = this.state;
     const { categories, saveCategory } = this.props;
+    const theme = this.context;
 
     return (
-      <View style={styles.container}>
-        <View style={styles.categories}>
+      <View style={styles(theme).container}>
+        <View style={styles(theme).categories}>
           <Categories
             onPickCategory={this.onSelectedCategoryChange}
             selectedCategory={selectedCategory}
             categories={categories}
           />
         </View>
-        <View style={styles.metadata}>
+        <View style={styles(theme).metadata}>
           <AmountDisplay
             amount={amount}
             currency={currency}
             onCurrencyPickerOpen={this.openModal(openModalEnum.currency)}
           />
         </View>
-        <View style={styles.keyboard}>
+        <View style={styles(theme).keyboard}>
           <Keypad
             addChar={this.addChar}
             deleteChar={this.deleteChar}
@@ -90,12 +91,12 @@ export default class Add extends React.Component<IAddProps, IAddState> {
             isCommentSet={!!comment}
           />
         </View>
-        <View style={styles.saveButtonContainer}>
+        <View style={styles(theme).saveButtonContainer}>
           <KSButton
             onPress={this.onSave}
             text="+ Add Expense"
-            containerStyle={styles.saveButton}
-            textStyle={styles.saveButtonText}
+            containerStyle={styles(theme).saveButton}
+            textStyle={styles(theme).saveButtonText}
           />
         </View>
         <SubCategoryModal

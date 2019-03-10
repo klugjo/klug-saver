@@ -1,11 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import { KSModal } from '../../../../components/KSModal';
-import { SideEnum } from '../../../../typings';
-import { getTheme } from '../../../../theme/utils';
 import { textStyleHeader } from '../../../../theme/styles';
+import { IThemeConstants, SideEnum } from '../../../../typings';
+
 
 
 export interface ISideModalProps {
@@ -15,7 +14,7 @@ export interface ISideModalProps {
   side: SideEnum;
 };
 
-export const SideModal = ({ open, close, side, onSideChange }: ISideModalProps) => {
+export const SideModal = ({ open, close, side, onSideChange }: ISideModalProps, theme: IThemeConstants) => {
   const isCredit = side === SideEnum.Income;
   const isDebit = side === SideEnum.Expense;
 
@@ -25,34 +24,34 @@ export const SideModal = ({ open, close, side, onSideChange }: ISideModalProps) 
       close={close}
       title="Change Expense Side"
     >
-      <View style={styles.root}>
-        <View style={styles.buttonGroup}>
+      <View style={styles(theme).root}>
+        <View style={styles(theme).buttonGroup}>
           <TouchableHighlight
-            style={[styles.button, styles.buttonLeft, isDebit && styles.selectedView]}
+            style={[styles(theme).button, styles(theme).buttonLeft, isDebit && styles(theme).selectedView]}
             onPress={() => onSideChange(SideEnum.Expense)}
             underlayColor={theme.accentMainColor}
           >
-            <View style={styles.textContainer}>
+            <View style={styles(theme).textContainer}>
               <Icon
                 name="arrow-bottom-right-bold-outline"
                 size={25}
                 color={isDebit ? theme.accentTextColor : theme.textMainColor}
               />
-              <Text style={[styles.text, isDebit && styles.selectedText]}>Expense</Text>
+              <Text style={[styles(theme).text, isDebit && styles(theme).selectedText]}>Expense</Text>
             </View>
           </TouchableHighlight>
           <TouchableHighlight
-            style={[styles.button, styles.buttonRight, isCredit && styles.selectedView]}
+            style={[styles(theme).button, styles(theme).buttonRight, isCredit && styles(theme).selectedView]}
             onPress={() => onSideChange(SideEnum.Income)}
             underlayColor={theme.accentMainColor}
           >
-            <View style={styles.textContainer}>
+            <View style={styles(theme).textContainer}>
               <Icon
                 name="arrow-top-right-bold-outline"
                 size={25}
                 color={isCredit ? theme.accentTextColor : theme.textMainColor}
               />
-              <Text style={[styles.text, isCredit && styles.selectedText]}>Income</Text>
+              <Text style={[styles(theme).text, isCredit && styles(theme).selectedText]}>Income</Text>
             </View>
           </TouchableHighlight>
         </View>
@@ -101,6 +100,6 @@ const styles = (theme: IThemeConstants) => StyleSheet.create({
   text: {
     marginLeft: 15,
     color: theme.accentTextColor,
-    ...textStyleHeader
+    ...textStyleHeader(theme)
   }
 });

@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getTheme } from '../../../../theme/utils';
 import { KSModal } from '../../../../components/KSModal';
 import { KSButton } from '../../../../components';
+import { IThemeConstants } from '../../../../typings';
 
 export interface ICommentsModalProps {
   open: boolean;
@@ -13,33 +14,33 @@ export interface ICommentsModalProps {
   comment?: string;
 };
 
-export const CommentsModal = ({ open, close, onCommentChange, comment }: ICommentsModalProps) => {
+export const CommentsModal = ({ open, close, onCommentChange, comment }: ICommentsModalProps, theme: IThemeConstants) => {
   return (
     <KSModal
       open={open}
       close={close}
       title="Comment"
     >
-      <View style={styles.rowInput}>
+      <View style={styles(theme).rowInput}>
         <Icon name="comment-text-outline" size={40} color={theme.accentMainColor} />
-        <View style={styles.inputContainer}>
+        <View style={styles(theme).inputContainer}>
           <TextInput
-            style={styles.textInput}
+            style={styles(theme).textInput}
             onChangeText={onCommentChange}
             value={comment}
             multiline={true}
             autoFocus={!comment ? open : false}
           />
-          <View style={styles.rowButtons}>
+          <View style={styles(theme).rowButtons}>
             <KSButton
               onPress={() => onCommentChange('')}
               text="Clear"
-              containerStyle={styles.button}
+              containerStyle={styles(theme).button}
               />
             <KSButton
               onPress={close}
               text="Done"
-              containerStyle={styles.button}
+              containerStyle={styles(theme).button}
             />
           </View>
         </View>

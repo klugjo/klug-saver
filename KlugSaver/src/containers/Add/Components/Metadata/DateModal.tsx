@@ -1,14 +1,14 @@
-import React from 'react';
 import moment from 'moment';
-import { StyleSheet, View, TouchableHighlight, Text } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconAlt from 'react-native-vector-icons/MaterialIcons';
-
-import { getTheme } from '../../../../theme/utils';
-import { KSModal } from '../../../../components/KSModal';
 import { KSButton } from '../../../../components';
-import { toddMMMForHumans } from '../../../../util';
+import { KSModal } from '../../../../components/KSModal';
 import { textStyleHeader } from '../../../../theme/styles';
+import { IThemeConstants } from '../../../../typings';
+import { toddMMMForHumans } from '../../../../util';
+
 
 
 export interface IDateModalProps {
@@ -18,7 +18,7 @@ export interface IDateModalProps {
   date: moment.Moment;
 };
 
-export const DateModal = ({ open, close, onDateChange, date }: IDateModalProps) => {
+export const DateModal = ({ open, close, onDateChange, date }: IDateModalProps, theme: IThemeConstants) => {
   const dateToDisplay = date || moment();
   const onChangeDays = (daysOffset: number) => () => {
     const newDate = dateToDisplay.clone();
@@ -32,19 +32,19 @@ export const DateModal = ({ open, close, onDateChange, date }: IDateModalProps) 
       close={close}
       title="Change Expense Date"
     >
-      <View style={styles.root}>
+      <View style={styles(theme).root}>
         <Icon name="calendar-text" size={40} color={theme.accentMainColor} />
-        <View style={styles.datePicker}>
+        <View style={styles(theme).datePicker}>
           <TouchableHighlight
-            style={styles.arrowButton}
+            style={styles(theme).arrowButton}
             onPress={onChangeDays(-1)}
             underlayColor={theme.underlayColor}
           >
             <IconAlt name="navigate-before" size={30} color={theme.textSecondaryColor} />
           </TouchableHighlight>
-          <Text style={styles.dateText}>{toddMMMForHumans(dateToDisplay)}</Text>
+          <Text style={styles(theme).dateText}>{toddMMMForHumans(dateToDisplay)}</Text>
           <TouchableHighlight
-            style={styles.arrowButton}
+            style={styles(theme).arrowButton}
             onPress={onChangeDays(1)}
             underlayColor={theme.underlayColor}
           >
@@ -54,7 +54,7 @@ export const DateModal = ({ open, close, onDateChange, date }: IDateModalProps) 
         <KSButton
           onPress={close}
           text="Done"
-          containerStyle={styles.button}
+          containerStyle={styles(theme).button}
         />
       </View>
     </KSModal>
@@ -78,7 +78,7 @@ const styles = (theme: IThemeConstants) => StyleSheet.create({
     flex: 0.2
   },
   dateText: {
-    ...textStyleHeader,
+    ...textStyleHeader(theme),
     flex: 0.6,
     textAlign: 'center'
   },

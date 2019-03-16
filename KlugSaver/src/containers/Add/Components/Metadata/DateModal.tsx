@@ -6,19 +6,19 @@ import IconAlt from 'react-native-vector-icons/MaterialIcons';
 import { KSButton } from '../../../../components';
 import { KSModal } from '../../../../components/KSModal';
 import { textStyleHeader } from '../../../../theme/styles';
+import { withTheme } from '../../../../theme/withTheme';
 import { IThemeConstants } from '../../../../typings';
 import { toddMMMForHumans } from '../../../../util';
-
-
 
 export interface IDateModalProps {
   open: boolean;
   close: () => void;
   onDateChange: (date: moment.Moment) => void;
   date: moment.Moment;
+  theme: IThemeConstants;
 };
 
-export const DateModal = ({ open, close, onDateChange, date }: IDateModalProps, theme: IThemeConstants) => {
+const DateModalBase = ({ open, close, onDateChange, date, theme }: IDateModalProps) => {
   const dateToDisplay = date || moment();
   const onChangeDays = (daysOffset: number) => () => {
     const newDate = dateToDisplay.clone();
@@ -60,6 +60,8 @@ export const DateModal = ({ open, close, onDateChange, date }: IDateModalProps, 
     </KSModal>
   );
 };
+
+export const DateModal = withTheme(DateModalBase);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   root: {

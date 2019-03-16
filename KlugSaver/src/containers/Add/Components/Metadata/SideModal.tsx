@@ -3,18 +3,18 @@ import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { KSModal } from '../../../../components/KSModal';
 import { textStyleHeader } from '../../../../theme/styles';
+import { withTheme } from '../../../../theme/withTheme';
 import { IThemeConstants, SideEnum } from '../../../../typings';
-
-
 
 export interface ISideModalProps {
   open: boolean;
   close: () => void;
   onSideChange: (side: SideEnum) => void;
   side: SideEnum;
+  theme: IThemeConstants;
 };
 
-export const SideModal = ({ open, close, side, onSideChange }: ISideModalProps, theme: IThemeConstants) => {
+const SideModalBase = ({ open, close, side, onSideChange, theme }: ISideModalProps) => {
   const isCredit = side === SideEnum.Income;
   const isDebit = side === SideEnum.Expense;
 
@@ -59,6 +59,8 @@ export const SideModal = ({ open, close, side, onSideChange }: ISideModalProps, 
     </KSModal>
   );
 };
+
+export const SideModal = withTheme(SideModalBase);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   root: {

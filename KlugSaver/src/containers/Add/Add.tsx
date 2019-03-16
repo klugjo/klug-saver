@@ -1,25 +1,26 @@
-import React from 'react';
 import moment from 'moment';
-import { View, StyleSheet } from 'react-native';
 import numeral from 'numeral';
-
-import Keypad from './Components/Keypad';
-import Categories from './Components/Categories/Categories';
-import AmountDisplay from './Components/AmountDisplay';
-import SubCategoryModal from './Components/Categories/SubCategoryModal';
-import { IExpense, ICategory, ICurrency, SideEnum, IThemeConstants } from '../../typings';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { KSButton } from '../../components';
 import KSCurrencyPicker from '../../components/KSCurrencyPicker';
+import { withTheme } from '../../theme/withTheme';
+import { ICategory, ICurrency, IExpense, IThemeConstants, SideEnum } from '../../typings';
+import AmountDisplay from './Components/AmountDisplay';
+import Categories from './Components/Categories/Categories';
+import SubCategoryModal from './Components/Categories/SubCategoryModal';
+import Keypad from './Components/Keypad';
 import { CommentsModal } from './Components/Metadata/CommentsModal';
 import { DateModal } from './Components/Metadata/DateModal';
 import { SideModal } from './Components/Metadata/SideModal';
-import { getTheme } from '../../theme/utils';
+
 
 export interface IAddProps {
   addExpense: (expense: IExpense) => void;
   baseCurrency: ICurrency;
   categories: ICategory[];
   saveCategory: (oldTitle: string, categoryToSave: ICategory) => void;
+  theme: IThemeConstants;
 }
 
 export enum openModalEnum {
@@ -41,8 +42,7 @@ interface IAddState {
   side: SideEnum
 }
 
-export default class Add extends React.Component<IAddProps, IAddState, IThemeConstants> {
-
+class Add extends React.Component<IAddProps, IAddState> {
   constructor(props: IAddProps) {
     super(props);
 
@@ -228,6 +228,8 @@ export default class Add extends React.Component<IAddProps, IAddState, IThemeCon
     };
   }
 };
+
+export default withTheme(Add);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   container: {

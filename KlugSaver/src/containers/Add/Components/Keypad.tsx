@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
+import { StyleSheet, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import { KSButton } from '../../../components';
-import { openModalEnum } from '../Add';
+import { withTheme } from '../../../theme/withTheme';
 import { IThemeConstants } from '../../../typings';
+import { openModalEnum } from '../Add';
+
 
 export interface IVirtualKeyboardProps {
   addChar: (char: string) => () => void;
@@ -15,6 +16,7 @@ export interface IVirtualKeyboardProps {
   isDateSet: boolean;
   isSideExpense: boolean;
   isCommentSet: boolean;
+  theme: IThemeConstants
 };
 
 const renderButton = (digit: string, onPress: () => void, theme: IThemeConstants) => (
@@ -32,7 +34,7 @@ const renderIcon = (icon: string, color: string, onPress: () => void, theme: ITh
   </TouchableHighlight>
 );
 
-const VirtualKeyboard = ({
+const VirtualKeyboardBase = ({
   addChar,
   deleteChar,
   addDecimal,
@@ -40,13 +42,14 @@ const VirtualKeyboard = ({
   reset,
   isDateSet,
   isCommentSet,
-  isSideExpense
-}: IVirtualKeyboardProps, theme: IThemeConstants) => {
+  isSideExpense,
+  theme
+}: IVirtualKeyboardProps) => {
   const dateIconColor = isDateSet ? theme.accentMainColor : theme.textMainColor;
   const commentIconColor = isCommentSet ? theme.accentMainColor : theme.textMainColor;
   const sideIcon = isSideExpense ? 'arrow-bottom-right-bold-outline' : 'arrow-top-right-bold-outline';
   const sideIconColor = isSideExpense ? theme.textMainColor : theme.accentMainColor;
-  
+
   return (
     <View style={styles(theme).keyboardRoot}>
       <View style={styles(theme).keyboardLine}>
@@ -76,6 +79,8 @@ const VirtualKeyboard = ({
     </View>
   )
 };
+
+export const VirtualKeyboard = withTheme(VirtualKeyboardBase);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   keyboardRoot: {

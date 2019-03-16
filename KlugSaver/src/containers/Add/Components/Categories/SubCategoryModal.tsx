@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, TextInput, Modal, Alert, FlatList, KeyboardAvoidingView, NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
+import { Alert, FlatList, KeyboardAvoidingView, Modal, NativeSyntheticEvent, StyleSheet, Text, TextInput, TextInputFocusEventData, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
-import { ICategory, IThemeConstants } from '../../../../typings';
 import KSIconPicker from '../../../../components/KSIconPicker';
 import { ThemeType } from '../../../../constants/common';
+import { withTheme } from '../../../../theme/withTheme';
+import { ICategory, IThemeConstants } from '../../../../typings';
 
 const ADD_BUTTON = 'ADD_BUTTON';
 
@@ -14,6 +14,7 @@ export interface ISubCategoryModalProps {
   open: boolean;
   onClose: () => void;
   saveCategory: (oldTitle: string, categoryToSave: ICategory) => void;
+  theme: IThemeConstants;
 }
 
 interface ISubCategoryModalState {
@@ -26,7 +27,7 @@ interface ISubCategoryModalState {
   textinputEditValue: string;
 }
 
-class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCategoryModalState, IThemeConstants> {
+class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCategoryModalState> {
   constructor(props: ISubCategoryModalProps) {
     super(props);
 
@@ -42,9 +43,8 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
   }
 
   render() {
-    const { category, open } = this.props;
+    const { category, open, theme } = this.props;
     const { isEditing, title, isIconPickerOpen, icon } = this.state;
-    const theme = this.context;
 
     const items = this.getSubCategories();
 
@@ -101,7 +101,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
 
   private renderEditView = () => {
     const { items } = this.state;
-    const theme = this.context;
+    const { theme } = this.props;
 
     return <KeyboardAvoidingView style={styles(theme).root} behavior="padding" >
       <FlatList
@@ -121,8 +121,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
   }
 
   private renderEditButton = ({ item, index }: { item: string, index: number }) => {
-    const { category } = this.props;
-    const theme = this.context;
+    const { category, theme } = this.props;
     const { textinputEditIndex, textinputEditValue } = this.state;
 
     return <View style={styles(theme).buttonContainer}>
@@ -145,8 +144,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
   };
 
   private renderAddButton = () => {
-    const { category } = this.props;
-    const theme = this.context;
+    const { category, theme } = this.props;
 
     return <TouchableHighlight style={styles(theme).buttonContainer} onPress={this.addItem}>
       <View style={[styles(theme).buttonStyle, this.getButtonStyle(category!)]}>
@@ -156,8 +154,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
   }
 
   private renderNonEditView = () => {
-    const { category, onPickSubCategory } = this.props;
-    const theme = this.context;
+    const { category, onPickSubCategory, theme } = this.props;
     const items = this.getSubCategories();
 
     return <FlatList
@@ -180,7 +177,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
   }
 
   private getButtonStyle = (category: ICategory) => {
-    const theme = this.context;
+    const { theme } = this.props;
 
     if (theme.type === ThemeType.Dark) {
       return { borderColor: category!.color, backgroundColor: theme.backgroundMainColor };
@@ -190,8 +187,8 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
   }
 
   private getButtonTextStyle = (category: ICategory) => {
-    const theme = this.context;
-    
+    const { theme } = this.props;
+
     if (theme.type === ThemeType.Dark) {
       return { color: category!.color };
     } else {
@@ -298,7 +295,7 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
   }
 }
 
-export default SubCategoryModal;
+export default withTheme(SubCategoryModal);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   root: {

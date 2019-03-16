@@ -1,14 +1,15 @@
-import React from 'react';
 import numeral from 'numeral';
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
-
-import { formatAmount } from '../../../util';
+import React from 'react';
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { withTheme } from '../../../theme/withTheme';
 import { ICurrency, IThemeConstants } from '../../../typings';
+import { formatAmount } from '../../../util';
 
 export interface IAmountDisplayProps {
   amount?: string;
   currency: ICurrency;
   onCurrencyPickerOpen: () => void;
+  theme: IThemeConstants;
 }
 
 const getFontSize = (amountText?: string) => {
@@ -21,7 +22,7 @@ const getFontSize = (amountText?: string) => {
   }
 };
 
-const AmountDisplay = ({ amount, currency, onCurrencyPickerOpen }: IAmountDisplayProps, theme: IThemeConstants) => {
+const AmountDisplay = ({ amount, currency, onCurrencyPickerOpen, theme }: IAmountDisplayProps) => {
   return <View style={styles(theme).amountContainer}>
     <TouchableHighlight
       style={styles(theme).currencyButton}
@@ -36,7 +37,7 @@ const AmountDisplay = ({ amount, currency, onCurrencyPickerOpen }: IAmountDispla
   </View>;
 }
 
-export default AmountDisplay;
+export default withTheme(AmountDisplay);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   amountContainer: {

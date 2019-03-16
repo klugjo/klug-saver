@@ -1,10 +1,9 @@
 import React from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
-
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { getTheme } from '../../../../theme/utils';
-import { KSModal } from '../../../../components/KSModal';
 import { KSButton } from '../../../../components';
+import { KSModal } from '../../../../components/KSModal';
+import { withTheme } from '../../../../theme/withTheme';
 import { IThemeConstants } from '../../../../typings';
 
 export interface ICommentsModalProps {
@@ -12,9 +11,10 @@ export interface ICommentsModalProps {
   close: () => void;
   onCommentChange: (comment: string) => void;
   comment?: string;
+  theme: IThemeConstants;
 };
 
-export const CommentsModal = ({ open, close, onCommentChange, comment }: ICommentsModalProps, theme: IThemeConstants) => {
+const CommentsModalBase = ({ open, close, onCommentChange, comment, theme }: ICommentsModalProps) => {
   return (
     <KSModal
       open={open}
@@ -36,7 +36,7 @@ export const CommentsModal = ({ open, close, onCommentChange, comment }: ICommen
               onPress={() => onCommentChange('')}
               text="Clear"
               containerStyle={styles(theme).button}
-              />
+            />
             <KSButton
               onPress={close}
               text="Done"
@@ -48,6 +48,8 @@ export const CommentsModal = ({ open, close, onCommentChange, comment }: ICommen
     </KSModal>
   );
 };
+
+export const CommentsModal = withTheme(CommentsModalBase);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   rowInput: {

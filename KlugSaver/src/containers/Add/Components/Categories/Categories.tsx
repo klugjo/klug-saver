@@ -1,21 +1,20 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import { withTheme } from '../../../../theme/withTheme';
 import { ICategory, IThemeConstants } from '../../../../typings';
-import { getTheme } from '../../../../theme/utils';
 
 export interface IMainCategoriesPicker {
   selectedCategory?: ICategory;
   onPickCategory: (category?: ICategory) => void;
   categories: ICategory[];
+  theme: IThemeConstants;
 }
 
-export default class MainCategoriesPicker extends React.Component<IMainCategoriesPicker, {}, IThemeConstants> {
+class MainCategoriesPicker extends React.Component<IMainCategoriesPicker, {}> {
 
   renderButton = (cat: ICategory) => {
-    const { selectedCategory } = this.props;
-    const theme = this.context;
+    const { selectedCategory, theme } = this.props;
     const isSelected = selectedCategory && selectedCategory.title === cat.title;
 
     return (
@@ -41,8 +40,7 @@ export default class MainCategoriesPicker extends React.Component<IMainCategorie
   }
 
   render() {
-    const { categories } = this.props;
-    const theme = this.context;
+    const { categories, theme } = this.props;
 
     return (
       <View style={styles(theme).categoriesRoot}>
@@ -56,6 +54,8 @@ export default class MainCategoriesPicker extends React.Component<IMainCategorie
     );
   }
 }
+
+export default withTheme(MainCategoriesPicker);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   categoriesRoot: {

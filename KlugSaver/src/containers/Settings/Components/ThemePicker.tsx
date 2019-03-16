@@ -2,33 +2,28 @@ import React from 'react';
 import { KSCard } from '../../../components/KSCard';
 import { KSRadioButtons } from '../../../components/KSRadioButtons';
 import { ThemeType } from '../../../constants/common';
-import darkTheme from '../../../theme/dark';
-import lightTheme from '../../../theme/light';
-import { withTheme } from '../../../theme/withTheme';
 import { IThemeConstants } from '../../../typings';
 
 export interface IThemePickerProps {
   theme: IThemeConstants;
-  setTheme: (theme: IThemeConstants) => void;
+  changeTheme: (theme: ThemeType) => void;
 };
 
-const ThemePickerBase = ({ theme, setTheme }: IThemePickerProps) => {
+export const ThemePicker = ({ theme, changeTheme }: IThemePickerProps) => {
   return <KSCard text="THEME">
     <KSRadioButtons
       items={[
         {
           text: 'Light',
-          onPress: () => setTheme(lightTheme),
+          onPress: () => changeTheme(ThemeType.Light),
           selected: theme.type === ThemeType.Light
         },
         {
           text: 'Dark',
-          onPress: () => setTheme(darkTheme),
+          onPress: () => changeTheme(ThemeType.Dark),
           selected: theme.type === ThemeType.Dark
         }
       ]}
     />
   </KSCard>
 };
-
-export const ThemePicker = withTheme(ThemePickerBase);

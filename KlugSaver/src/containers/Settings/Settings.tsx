@@ -1,6 +1,9 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ThemeType } from '../../constants/common';
+import darkTheme from '../../theme/dark';
+import lightTheme from '../../theme/light';
+import { withTheme } from '../../theme/withTheme';
 import { CloudBackup, IThemeConstants } from '../../typings';
 import { BackupStrategy } from './Components/BackupStrategy';
 import DropboxModal from './Components/DropboxModal';
@@ -14,7 +17,8 @@ interface ISettingsProps {
   restoreDropboxArchive: () => void;
   saveBackupStrategy: (cloudBackup: CloudBackup) => void;
   cloudBackup: CloudBackup;
-  changeTheme: (theme: ThemeType) => void;
+  changeTheme: (theme: ThemeType) => void; // Redux
+  setTheme: (theme: IThemeConstants) => void; // Theme Provider
   theme: IThemeConstants;
 }
 
@@ -33,7 +37,7 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
   }
 
   render() {
-    const { dropboxToken, saveDropboxToken, cloudBackup, changeTheme, theme } = this.props;
+    const { dropboxToken, saveDropboxToken, cloudBackup, theme } = this.props;
     const isDropboxLinked = !!dropboxToken;
 
     return <View style={styles(theme).root}>
@@ -55,7 +59,7 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
       />
       <ThemePicker
         theme={theme}
-        changeTheme={changeTheme}
+        changeTheme={this.changeTheme}
       />
     </View>;
   }
@@ -79,6 +83,13 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
   private saveBackupStrategy = (cloudBackup: CloudBackup) => () => {
     this.props.saveBackupStrategy(cloudBackup);
   }
+
+  private changeTheme = (theme: ThemeType) => {
+    const { setTheme, changeTheme } = this.props;
+
+    setTheme(theme === ThemeType.Light ? lightTheme : darkTheme);
+    changeTheme(theme);
+  }
 }
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
@@ -88,4 +99,4 @@ const styles = (theme: IThemeConstants) => StyleSheet.create({
 
 });
 
-export default Settings;
+export default withTheme(Settings);

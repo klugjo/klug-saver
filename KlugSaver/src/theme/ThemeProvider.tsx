@@ -1,5 +1,8 @@
 import * as React from 'react';
+import { store } from '../configureStore';
+import { ThemeType } from '../constants/common';
 import { IThemeConstants } from '../typings';
+import darkTheme from './dark';
 import KSContext from './KSContext';
 import lightTheme from './light';
 
@@ -13,7 +16,7 @@ export default class ThemeProvider extends React.Component<{}, IThemeProviderSta
     super(props);
     this.state = {
       setTheme: this.setTheme,
-      theme: lightTheme
+      theme: store.getState().theme === ThemeType.Light ? lightTheme : darkTheme
     };
   }
 

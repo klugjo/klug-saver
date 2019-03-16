@@ -1,20 +1,21 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableHighlight, Image } from 'react-native';
-import { ICurrency, IThemeConstants } from '../typings';
+import { FlatList, Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { CURRENCIES_ARRAY } from '../constants/currencies';
 import { flags } from '../constants/flags';
+import { withTheme } from '../theme/withTheme';
+import { ICurrency, IThemeConstants } from '../typings';
 import { KSModal } from './KSModal';
 
 export interface IKSCurrencyPickerProps {
   open: boolean;
   currency: ICurrency;
   close: (currency: ICurrency) => void;
+  theme: IThemeConstants;
 }
 
-class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}, IThemeConstants> {
+class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}> {
   public render() {
-    const { open, currency } = this.props;
-    const theme = this.context;
+    const { open, currency, theme } = this.props;
 
     if (!open) {
       return null;
@@ -39,15 +40,14 @@ class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}, IThem
   }
 
   private renderItem = ({ item }: { item: ICurrency }) => {
-    const { currency } = this.props;
-    const theme = this.context;
+    const { currency, theme } = this.props;
     const selectedStyle = currency.code === item.code && styles(theme).selected;
 
     return <TouchableHighlight key={item.code} onPress={this.pickCurrency(item)}>
       <View style={[styles(theme).item, selectedStyle]}>
         <Image
           style={styles(theme).flag}
-          source={{uri: `data:image/png;base64,${flags[item.code]}`}}
+          source={{ uri: `data:image/png;base64,${flags[item.code]}` }}
         />
         <Text style={[styles(theme).itemCodeText, selectedStyle]}>{item.code}</Text>
         <Text style={[styles(theme).itemNameText, selectedStyle]}>{item.name}</Text>
@@ -60,7 +60,7 @@ class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}, IThem
   }
 }
 
-export default KSCurrencyPicker;
+export default withTheme(KSCurrencyPicker);
 
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({

@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
-import { View, Text, Modal, StyleSheet, TouchableHighlight } from 'react-native';
+import { Modal, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { getTheme } from '../theme/utils';
+import { withTheme } from '../theme/withTheme';
 import { IThemeConstants } from '../typings';
 
 export interface IKSModalProps {
@@ -10,9 +10,10 @@ export interface IKSModalProps {
   open: boolean;
   children?: ReactNode;
   containerStyle?: any;
+  theme: IThemeConstants;
 }
 
-export const KSModal = ({ open, close, title, children, containerStyle }: IKSModalProps, theme: IThemeConstants) => {
+const KSModalBase = ({ open, close, title, children, containerStyle, theme }: IKSModalProps) => {
   if (!open) {
     return null;
   }
@@ -35,6 +36,8 @@ export const KSModal = ({ open, close, title, children, containerStyle }: IKSMod
     </Modal>
   );
 }
+
+export const KSModal = withTheme(KSModalBase);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   container: {

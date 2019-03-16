@@ -1,19 +1,23 @@
 import React, { ReactNode } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { textStyleBase } from '../theme/styles';
+import { withTheme } from '../theme/withTheme';
 import { IThemeConstants } from '../typings';
 
 export interface IKSCardProps {
   text: string;
   children?: ReactNode;
+  theme: IThemeConstants;
 };
 
-export const KSCard = ({ text, children }: IKSCardProps, theme: IThemeConstants) => {
+const KSCardBase = ({ text, children, theme }: IKSCardProps) => {
   return <View style={styles(theme).card}>
     <Text style={styles(theme).title}>{text}</Text>
     {children}
   </View>;
 };
+
+export const KSCard = withTheme(KSCardBase);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   card: {

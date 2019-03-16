@@ -1,22 +1,24 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableHighlight, TextInput } from 'react-native';
-import { KSModal } from './KSModal';
-import { ICONS } from '../constants/icons';
+import { FlatList, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { ICONS } from '../constants/icons';
+import { withTheme } from '../theme/withTheme';
 import { IThemeConstants } from '../typings';
+import { KSModal } from './KSModal';
 
 
 export interface IKSIconPickerProps {
   open: boolean;
   icon: string;
   close: (icon: string) => void;
+  theme: IThemeConstants;
 }
 
 interface IKSIconPickerState {
   searchText: string;
 }
 
-class KSIconPicker extends React.Component<IKSIconPickerProps, IKSIconPickerState, IThemeConstants> {
+class KSIconPicker extends React.Component<IKSIconPickerProps, IKSIconPickerState> {
   constructor(props: IKSIconPickerProps) {
     super(props);
 
@@ -26,9 +28,8 @@ class KSIconPicker extends React.Component<IKSIconPickerProps, IKSIconPickerStat
   }
 
   public render() {
-    const { open, icon } = this.props;
+    const { open, icon, theme } = this.props;
     const { searchText } = this.state;
-    const theme = this.context;
     const icons = this.getIcons();
 
     if (!open) {
@@ -65,8 +66,7 @@ class KSIconPicker extends React.Component<IKSIconPickerProps, IKSIconPickerStat
   }
 
   private renderItem = ({ item }: { item: string }) => {
-    const { icon } = this.props;
-    const theme = this.context;
+    const { icon, theme } = this.props;
     const selectedStyle = icon === item && styles(theme).selected;
 
     return <TouchableHighlight key={item} onPress={this.pickIcon(item)}>
@@ -88,7 +88,7 @@ class KSIconPicker extends React.Component<IKSIconPickerProps, IKSIconPickerStat
 
   private getIcons = () => {
     const { searchText } = this.state;
-    
+
     if (!searchText) {
       return ICONS;
     }
@@ -99,7 +99,7 @@ class KSIconPicker extends React.Component<IKSIconPickerProps, IKSIconPickerStat
   }
 }
 
-export default KSIconPicker;
+export default withTheme(KSIconPicker);
 
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({

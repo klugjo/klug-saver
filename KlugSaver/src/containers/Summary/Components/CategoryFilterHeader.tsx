@@ -7,9 +7,10 @@ import { IThemeConstants } from '../../../typings';
 export interface ICategoryFilterHeaderProps {
   filter?: string;
   onReset: () => void;
+  theme: IThemeConstants;
 };
 
-const CategoryFilterHeaderBase = ({ filter, onReset }: ICategoryFilterHeaderProps, theme: IThemeConstants) => {
+const CategoryFilterHeaderBase = ({ filter, onReset, theme }: ICategoryFilterHeaderProps) => {
   if (!filter) {
     return null;
   }

@@ -11,11 +11,11 @@ export interface ISyncingButtonsProps {
   openDropboxModal: () => void;
   saveArchive: () => void;
   restoreArchive: () => void;
+  theme: IThemeConstants;
 };
 
 const SyncingButtonsBase = (
-  { cloudBackup, isDropboxLinked, openDropboxModal, saveArchive, restoreArchive }: ISyncingButtonsProps,
-  theme: IThemeConstants
+  { cloudBackup, isDropboxLinked, openDropboxModal, saveArchive, restoreArchive, theme }: ISyncingButtonsProps
 ) => {
   return <KSCard text="SYNCING ACTIONS">
     {cloudBackup === CloudBackup.Dropbox && <View style={styles(theme).buttons}>

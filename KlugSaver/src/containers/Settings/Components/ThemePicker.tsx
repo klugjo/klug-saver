@@ -1,29 +1,34 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { ThemeType } from '../../../constants/common';
 import { KSCard } from '../../../components/KSCard';
 import { KSRadioButtons } from '../../../components/KSRadioButtons';
+import { ThemeType } from '../../../constants/common';
+import darkTheme from '../../../theme/dark';
+import lightTheme from '../../../theme/light';
+import { withTheme } from '../../../theme/withTheme';
+import { IThemeConstants } from '../../../typings';
 
 export interface IThemePickerProps {
-  theme: ThemeType;
-  changeTheme: (theme: ThemeType) => void;
+  theme: IThemeConstants;
+  setTheme: (theme: IThemeConstants) => void;
 };
 
-export const ThemePicker = ({ theme, changeTheme }: IThemePickerProps) => {
+const ThemePickerBase = ({ theme, setTheme }: IThemePickerProps) => {
   return <KSCard text="THEME">
     <KSRadioButtons
       items={[
         {
           text: 'Light',
-          onPress: () => changeTheme(ThemeType.Light),
-          selected: theme === ThemeType.Light
+          onPress: () => setTheme(lightTheme),
+          selected: theme.type === ThemeType.Light
         },
         {
           text: 'Dark',
-          onPress: () => changeTheme(ThemeType.Dark),
-          selected: theme === ThemeType.Dark
+          onPress: () => setTheme(darkTheme),
+          selected: theme.type === ThemeType.Dark
         }
       ]}
     />
   </KSCard>
 };
+
+export const ThemePicker = withTheme(ThemePickerBase);

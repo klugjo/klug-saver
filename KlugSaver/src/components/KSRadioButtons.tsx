@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { textStyleBase } from '../theme/styles';
+import { withTheme } from '../theme/withTheme';
 import { IThemeConstants } from '../typings';
 
 interface IKSRadioButtonsItem {
@@ -13,9 +14,10 @@ interface IKSRadioButtonsItem {
 
 export interface IKSRadioButtonsProps {
   items: IKSRadioButtonsItem[];
+  theme: IThemeConstants;
 };
 
-export const KSRadioButtons = ({ items }: IKSRadioButtonsProps, theme: IThemeConstants) => {
+const KSRadioButtonsBase = ({ items, theme }: IKSRadioButtonsProps) => {
   return <View style={styles(theme).radioButtons}>
     {items.map((item: IKSRadioButtonsItem, index: number) => (
       <TouchableHighlight
@@ -32,6 +34,8 @@ export const KSRadioButtons = ({ items }: IKSRadioButtonsProps, theme: IThemeCon
     ))}
   </View>;
 };
+
+export const KSRadioButtons = withTheme(KSRadioButtonsBase);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   radioButtons: {

@@ -3,37 +3,40 @@ import { StatusBar, StyleSheet, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './src/configureStore';
-import { ThemeType } from './src/constants/common';
 import DeleteModal from './src/containers/DeleteModal';
 import Swiper from './src/containers/Swiper';
-import theme from './src/theme/light';
-import ThemeContext from './src/theme/ThemeContext';
-import { getTheme } from './src/theme/utils';
+import ThemeProvider from './src/theme/ThemeProvider';
+import { withTheme } from './src/theme/withTheme';
+import { IThemeConstants } from './src/typings';
+
+const MainView = withTheme(({ theme }: { theme: IThemeConstants }) =>
+  <View style={styles(theme).container}>
+    <StatusBar
+      barStyle="dark-content"
+    />
+    <Swiper />
+    <DeleteModal />
+  </View>
+);
 
 export default class App extends Component<{}, {}> {
   render() {
     return (
       <Provider store={store}>
-        <ThemeContext.Provider value={theme}>
+        <ThemeProvider>
           <PersistGate loading={null} persistor={persistor}>
-            <View style={styles(store.getState().theme).container}>
-              <StatusBar
-                barStyle="dark-content"
-              />
-              <Swiper />
-              <DeleteModal />
-            </View>
+            <MainView />
           </PersistGate>
-        </ThemeContext.Provider>
+        </ThemeProvider>
       </Provider>
     );
   }
 }
 
-const styles = (theme: ThemeType) => StyleSheet.create({
+const styles = (theme: IThemeConstants) => StyleSheet.create({
   container: {
     paddingTop: 15,
     flex: 1,
-    backgroundColor: getTheme(theme).backgroundMainColor
+    backgroundColor: theme.backgroundMainColor
   }
 });

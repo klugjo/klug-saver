@@ -13,7 +13,7 @@ export interface IDropboxModalProps {
   saveDropboxToken: (token: string) => void;
 };
 
-class DropboxModal extends React.Component<IDropboxModalProps, {}, IThemeConstants> {
+class DropboxModal extends React.Component<IDropboxModalProps, {}> {
 
   private _lastURL: any;
 

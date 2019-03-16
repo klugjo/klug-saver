@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { textStyleBase } from '../../../theme/styles';
+import { withTheme } from '../../../theme/withTheme';
 import { IExpense, IThemeConstants } from '../../../typings';
 import { formatAmount, sum } from '../../../util';
 
@@ -8,10 +9,11 @@ export interface ISectionHeaderProps {
   section: {
     title: string;
     data: any[];
-  }
+  };
+  theme: IThemeConstants;
 }
 
-const SectionHeader = ({ section }: ISectionHeaderProps, theme: IThemeConstants) => (
+const SectionHeader = ({ section, theme }: ISectionHeaderProps) => (
   <View style={styles(theme).headerRowView}>
     <Text style={styles(theme).headerRowText}>
       {section.title}
@@ -22,7 +24,7 @@ const SectionHeader = ({ section }: ISectionHeaderProps, theme: IThemeConstants)
   </View>
 );
 
-export default SectionHeader;
+export default withTheme(SectionHeader);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   headerRowView: {

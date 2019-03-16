@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { withTheme } from '../../../theme/withTheme';
 import { IThemeConstants } from '../../../typings';
 
 export interface ICategoryFilterHeaderProps {
@@ -8,7 +9,7 @@ export interface ICategoryFilterHeaderProps {
   onReset: () => void;
 };
 
-export const CategoryFilterHeader = ({ filter, onReset }: ICategoryFilterHeaderProps, theme: IThemeConstants) => {
+const CategoryFilterHeaderBase = ({ filter, onReset }: ICategoryFilterHeaderProps, theme: IThemeConstants) => {
   if (!filter) {
     return null;
   }
@@ -22,6 +23,8 @@ export const CategoryFilterHeader = ({ filter, onReset }: ICategoryFilterHeaderP
     </TouchableHighlight>
   </View>;
 };
+
+export const CategoryFilterHeader = withTheme(CategoryFilterHeaderBase);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   root: {

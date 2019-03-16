@@ -1,15 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { textStyleThin } from '../../../theme/styles';
+import { withTheme } from '../../../theme/withTheme';
 import { IExpense, IThemeConstants } from '../../../typings';
 import { formatAmount } from '../../../util';
 
 export interface IExpenseRowProps {
   item: IExpense;
   openDeleteModal: (expense: IExpense) => any;
+  theme: IThemeConstants;
 }
 
-const ExpenseRow = ({ item, openDeleteModal }: IExpenseRowProps, theme: IThemeConstants) => (
+const ExpenseRow = ({ item, openDeleteModal, theme }: IExpenseRowProps) => (
   <TouchableHighlight
     onPress={() => openDeleteModal(item)}
     underlayColor={theme.underlayColor}
@@ -23,7 +25,7 @@ const ExpenseRow = ({ item, openDeleteModal }: IExpenseRowProps, theme: IThemeCo
   </TouchableHighlight>
 );
 
-export default ExpenseRow;
+export default withTheme(ExpenseRow);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   expenseRowView: {

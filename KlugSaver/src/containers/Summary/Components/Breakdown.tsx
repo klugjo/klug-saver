@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { textStyleBase } from '../../../theme/styles';
+import { withTheme } from '../../../theme/withTheme';
 import { IExpense, IThemeConstants } from '../../../typings';
 import { formatAmount } from '../../../util';
 import { getTotals, getTotalsForCategory } from '../helpers';
@@ -17,6 +18,7 @@ interface IBreakdownProps {
   expenses: IExpense[];
   filter?: string;
   onFilterChange: (categoryTitle: string) => void;
+  theme: IThemeConstants;
 }
 
 const renderLabels = (onFilterChange: (categoryTitle: string) => void, theme: IThemeConstants) => (t: IBreakdownTotal, index: number) => (
@@ -54,7 +56,7 @@ const renderTotals = (onFilterChange: (categoryTitle: string) => void, theme: IT
   </TouchableHighlight>
 );
 
-const Breakdown = ({ expenses, filter, onFilterChange }: IBreakdownProps, theme: IThemeConstants) => {
+const Breakdown = ({ expenses, filter, onFilterChange, theme }: IBreakdownProps) => {
   const totals = !!filter ? getTotalsForCategory(expenses, filter) : getTotals(expenses);
   const max = Math.max(...totals.map(t => t.total));
 
@@ -77,7 +79,7 @@ const Breakdown = ({ expenses, filter, onFilterChange }: IBreakdownProps, theme:
   </View>;
 };
 
-export default Breakdown;
+export default withTheme(Breakdown);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   root: {

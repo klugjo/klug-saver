@@ -60,8 +60,7 @@ class Add extends React.Component<IAddProps, IAddState> {
       customDate,
       side
     } = this.state;
-    const { categories, saveCategory } = this.props;
-    const theme = this.context;
+    const { categories, saveCategory, theme } = this.props;
 
     return (
       <View style={styles(theme).container}>

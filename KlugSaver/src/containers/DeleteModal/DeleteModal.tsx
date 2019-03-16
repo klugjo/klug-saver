@@ -1,20 +1,21 @@
 import React from 'react';
-import { View, Text, Modal, StyleSheet, Button } from 'react-native';
+import { Modal, StyleSheet, Text, View } from 'react-native';
+import { KSButton } from '../../components';
+import { withTheme } from '../../theme/withTheme';
 import { IExpense, IThemeConstants } from '../../typings';
 import { getRefreshDate } from '../../util';
-import { KSButton } from '../../components';
 
 export interface IDeleteModalProps {
   open: boolean;
   expense?: IExpense;
   onClose?: () => void;
   onDelete?: (id: string, from: Date) => void;
+  theme: IThemeConstants;
 }
 
-class DeleteModal extends React.Component<IDeleteModalProps, {}, IThemeConstants> {
+class DeleteModal extends React.Component<IDeleteModalProps, {}> {
   public render() {
-    const { open, expense } = this.props;
-    const theme = this.context;
+    const { open, expense, theme } = this.props;
 
     if (!expense) {
       return null;
@@ -72,7 +73,7 @@ class DeleteModal extends React.Component<IDeleteModalProps, {}, IThemeConstants
   }
 }
 
-export default DeleteModal;
+export default withTheme(DeleteModal);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   container: {

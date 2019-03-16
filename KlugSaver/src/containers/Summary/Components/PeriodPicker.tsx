@@ -1,6 +1,7 @@
 import { unitOfTime } from 'moment';
 import React from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { withTheme } from '../../../theme/withTheme';
 import { IThemeConstants } from '../../../typings';
 import { PeriodFilterType } from '../Root';
 
@@ -8,6 +9,7 @@ import { PeriodFilterType } from '../Root';
 export interface IPeriodPickerProps {
   currentFilterType: unitOfTime.StartOf;
   onCurrentFilterChange: (filter: PeriodFilterType) => void;
+  theme: IThemeConstants;
 };
 
 const getFilterStyles = (selected: boolean, theme: IThemeConstants) => [
@@ -19,7 +21,7 @@ const getFilterStyles = (selected: boolean, theme: IThemeConstants) => [
   }
 ];
 
-export const PeriodPicker = ({ currentFilterType, onCurrentFilterChange }: IPeriodPickerProps, theme: IThemeConstants) => {
+const PeriodPickerBase = ({ currentFilterType, onCurrentFilterChange, theme }: IPeriodPickerProps) => {
   return <View style={styles(theme).root}>
     <TouchableHighlight
       style={getFilterStyles(currentFilterType === 'year', theme)}
@@ -47,6 +49,8 @@ export const PeriodPicker = ({ currentFilterType, onCurrentFilterChange }: IPeri
     </TouchableHighlight>
   </View>;
 };
+
+export const PeriodPicker = withTheme(PeriodPickerBase);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   root: {

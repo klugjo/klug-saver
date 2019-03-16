@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
-
-import DeleteModal from './DeleteModal';
-import { IMainState, IExpense } from '../../typings';
-import { MODALS } from '../../constants/common';
 import { closeDeleteModal, deleteExpense } from '../../actions';
+import { MODALS } from '../../constants/common';
+import { IExpense, IMainState } from '../../typings';
+import DeleteModal from './DeleteModal';
+
 
 interface IStateProps {
   open: boolean;
@@ -24,7 +24,7 @@ const mapStateToProps = (state: IMainState): IStateProps => {
 
 const mapDispatchToProps = (dispatch: any): IDispatchProps => ({
   onClose: () => dispatch(closeDeleteModal),
-  onDelete: (id: string, from: Date) => dispatch(deleteExpense(id, from))
+  onDelete: (id: string, from: Date) => dispatch(deleteExpense(id))
 });
 
 export default connect<IStateProps, IDispatchProps, {}, IMainState>(mapStateToProps, mapDispatchToProps)(DeleteModal);

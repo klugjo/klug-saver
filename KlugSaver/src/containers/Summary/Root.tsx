@@ -1,5 +1,6 @@
 import React from 'React';
 import { StyleSheet, View } from 'react-native';
+import { withTheme } from '../../theme/withTheme';
 import { ICategoryMap, IExpense, IThemeConstants } from '../../typings';
 import Breakdown from './Components/Breakdown';
 import { CategoryFilterHeader } from './Components/CategoryFilterHeader';
@@ -7,12 +8,12 @@ import { GrandTotal } from './Components/GrandTotal';
 import { PeriodPicker } from './Components/PeriodPicker';
 import { getFilteredExpenses, getPeriodLabel } from './helpers';
 
-
 export type PeriodFilterType = 'year' | 'month' | 'week' | 'day';
 
 interface IRootProps {
   expenses: IExpense[];
   categoryMap: ICategoryMap;
+  theme: IThemeConstants;
 }
 
 interface IRootState {
@@ -21,7 +22,7 @@ interface IRootState {
   filter?: string;
 }
 
-export default class Root extends React.Component<IRootProps, IRootState, IThemeConstants> {
+class Root extends React.Component<IRootProps, IRootState> {
   constructor(props: IRootProps) {
     super(props);
     this.state = {
@@ -32,8 +33,8 @@ export default class Root extends React.Component<IRootProps, IRootState, ITheme
   }
 
   public render() {
+    const { theme } = this.props;
     const { periodFilterType, offset, filter } = this.state;
-    const theme = this.context;
     const expenses = getFilteredExpenses(this.props.expenses, periodFilterType, offset, filter);
 
     return <View style={styles(theme).breakdownContainer}>
@@ -74,6 +75,8 @@ export default class Root extends React.Component<IRootProps, IRootState, ITheme
     this.setState({ periodFilterType, offset: 0 });
   }
 }
+
+export default withTheme(Root);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   breakdownContainer: {

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { KSButton } from '../../../components';
 import { KSCard } from '../../../components/KSCard';
+import { withTheme } from '../../../theme/withTheme';
 import { CloudBackup, IThemeConstants } from '../../../typings';
 
 export interface ISyncingButtonsProps {
@@ -12,7 +13,7 @@ export interface ISyncingButtonsProps {
   restoreArchive: () => void;
 };
 
-export const SyncingButtons = (
+const SyncingButtonsBase = (
   { cloudBackup, isDropboxLinked, openDropboxModal, saveArchive, restoreArchive }: ISyncingButtonsProps,
   theme: IThemeConstants
 ) => {
@@ -24,6 +25,8 @@ export const SyncingButtons = (
     </View>}
   </KSCard>
 };
+
+export const SyncingButtons = withTheme(SyncingButtonsBase);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   buttons: {

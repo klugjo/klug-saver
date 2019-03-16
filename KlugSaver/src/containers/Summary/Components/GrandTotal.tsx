@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { textStyleHeader, textStyleThin } from '../../../theme/styles';
+import { withTheme } from '../../../theme/withTheme';
 import { IExpense, IThemeConstants } from '../../../typings';
 import { formatAmount, sum } from '../../../util';
 
@@ -13,9 +14,10 @@ export interface IGrandTotalProps {
   isNextHidden: boolean;
   onBefore: () => void;
   onNext: () => void;
+  theme: IThemeConstants;
 };
 
-export const GrandTotal = ({ expenses, label, isBeforeHidden, isNextHidden, onBefore, onNext }: IGrandTotalProps, theme: IThemeConstants) => {
+const GrandTotalBase = ({ expenses, label, isBeforeHidden, isNextHidden, onBefore, onNext, theme }: IGrandTotalProps) => {
   const total = sum(expenses, (t: IExpense) => t.amount);
 
   return <View style={styles(theme).root}>
@@ -43,6 +45,8 @@ export const GrandTotal = ({ expenses, label, isBeforeHidden, isNextHidden, onBe
     }
   </View>;
 };
+
+export const GrandTotal = withTheme(GrandTotalBase);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   root: {

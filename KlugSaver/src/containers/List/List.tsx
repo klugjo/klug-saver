@@ -1,18 +1,19 @@
 import React from 'react';
 import { Button, SectionList, StyleSheet, View } from 'react-native';
+import { withTheme } from '../../theme/withTheme';
 import { IExpense, IThemeConstants } from '../../typings';
 import { getRefreshDate, toddMMMForHumans } from '../../util';
 import ExpenseRow from './Components/ExpenseRow';
 import SectionHeader from './Components/SectionHeader';
 
-
 export interface IListProps {
   expenses: IExpense[];
   getExpenses: (from: Date) => any;
   openDeleteModal: (expense: IExpense) => any;
+  theme: IThemeConstants;
 }
 
-export default class List extends React.Component<IListProps, {}, IThemeConstants> {
+class List extends React.Component<IListProps, {}> {
   public render() {
     const theme = this.context;
 
@@ -64,6 +65,8 @@ export default class List extends React.Component<IListProps, {}, IThemeConstant
     this.props.getExpenses(getRefreshDate());
   }
 }
+
+export default withTheme(List);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   rootView: {

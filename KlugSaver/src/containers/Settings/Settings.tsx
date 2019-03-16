@@ -7,7 +7,6 @@ import DropboxModal from './Components/DropboxModal';
 import { SyncingButtons } from './Components/SyncingButtons';
 import { ThemePicker } from './Components/ThemePicker';
 
-
 interface ISettingsProps {
   dropboxToken?: string;
   saveDropboxToken: (token: string) => void;
@@ -16,14 +15,14 @@ interface ISettingsProps {
   saveBackupStrategy: (cloudBackup: CloudBackup) => void;
   cloudBackup: CloudBackup;
   changeTheme: (theme: ThemeType) => void;
-  theme: ThemeType;
+  theme: IThemeConstants;
 }
 
 interface ISettingsState {
   dropboxModalOpen: boolean;
 }
 
-class Settings extends React.Component<ISettingsProps, ISettingsState, IThemeConstants> {
+class Settings extends React.Component<ISettingsProps, ISettingsState> {
 
   constructor(props: ISettingsProps) {
     super(props);
@@ -34,8 +33,7 @@ class Settings extends React.Component<ISettingsProps, ISettingsState, IThemeCon
   }
 
   render() {
-    const { dropboxToken, saveDropboxToken, cloudBackup, changeTheme } = this.props;
-    const theme = this.context;
+    const { dropboxToken, saveDropboxToken, cloudBackup, changeTheme, theme } = this.props;
     const isDropboxLinked = !!dropboxToken;
 
     return <View style={styles(theme).root}>

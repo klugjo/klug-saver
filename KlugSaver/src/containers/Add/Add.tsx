@@ -14,7 +14,6 @@ import { CommentsModal } from './Components/Metadata/CommentsModal';
 import { DateModal } from './Components/Metadata/DateModal';
 import { SideModal } from './Components/Metadata/SideModal';
 
-
 export interface IAddProps {
   addExpense: (expense: IExpense) => void;
   baseCurrency: ICurrency;
@@ -197,13 +196,15 @@ class Add extends React.Component<IAddProps, IAddState> {
       return;
     }
 
+    const creationDate = this.state.customDate.valueOf() || new Date().getTime();
+
     this.props.addExpense({
       id: `${new Date().getTime()}`,
       amount: numeral(amount).value(),
       category: selectedCategory.title,
       subCategory: selectedSubCategory,
-      createdAt: new Date().getTime(),
-      updatedAt: new Date().getTime(),
+      createdAt: creationDate,
+      updatedAt: creationDate,
       color: selectedCategory.color
     });
 

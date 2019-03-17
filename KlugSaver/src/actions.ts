@@ -1,7 +1,7 @@
-import { getExpenses, putArchiveContents, getArchiveContents } from './api';
+import { getArchiveContents, getExpenses, putArchiveContents } from './api';
 import { ARCHIVE_FILE_PATH, ThemeType } from './constants/common';
+import { CloudBackup, IAction, ICategory, IExpense, IMainState } from './typings';
 import { getArchiveFromState } from './util';
-import { IExpense, ICategory, IMainState, CloudBackup, IAction } from './typings';
 
 const uuid = require('uuid/v4');
 
@@ -11,7 +11,6 @@ export const addExpense = (payload: any) => ({
   type: ADD_EXPENSE,
   payload: {
     ...payload,
-    createdAt: new Date().getTime(),
     id: uuid()
   }
 });

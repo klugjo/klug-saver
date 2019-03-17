@@ -1,10 +1,12 @@
 import moment from 'moment';
 import numeral from 'numeral';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
+import { getCurrencyRate } from '../../api';
 import { KSButton } from '../../components';
 import KSCurrencyPicker from '../../components/KSCurrencyPicker';
 import { ICategory, ICurrency, IExpense, IThemeConstants, SideEnum } from '../../typings';
+import { formatAmount } from '../../util';
 import { withTheme } from '../ThemeProvider/withTheme';
 import AmountDisplay from './Components/AmountDisplay';
 import Categories from './Components/Categories/Categories';
@@ -35,7 +37,6 @@ interface IAddState {
   selectedSubCategory: string;
   customCurrency?: ICurrency;
   openModal?: openModalEnum;
-  currency: ICurrency,
   comment?: string;
   customDate: moment.Moment;
   side: SideEnum
@@ -54,7 +55,7 @@ class Add extends React.Component<IAddProps, IAddState> {
       selectedCategory,
       selectedSubCategory,
       openModal,
-      currency,
+      customCurrency,
       comment,
       customDate,
       side
@@ -73,7 +74,7 @@ class Add extends React.Component<IAddProps, IAddState> {
         <View style={styles(theme).metadata}>
           <AmountDisplay
             amount={amount}
-            currency={currency}
+            currency={customCurrency}
             onCurrencyPickerOpen={this.openModal(openModalEnum.currency)}
           />
         </View>
@@ -106,7 +107,7 @@ class Add extends React.Component<IAddProps, IAddState> {
         />
         <KSCurrencyPicker
           open={openModal === openModalEnum.currency}
-          currency={currency}
+          currency={customCurrency}
           close={this.onCurrencyPickerClose}
         />
         <CommentsModal
@@ -148,7 +149,7 @@ class Add extends React.Component<IAddProps, IAddState> {
   }
 
   private onCurrencyPickerClose = (currency: ICurrency) => {
-    this.setState({ openModal: undefined, currency });
+    this.setState({ openModal: undefined, customCurrency: currency });
   }
 
   private onCommentChange = (comment: string) => {
@@ -184,13 +185,15 @@ class Add extends React.Component<IAddProps, IAddState> {
   }
 
   private onSave = () => {
+    const { baseCurrency } = this.props;
     const {
       amount,
       selectedCategory,
       selectedSubCategory,
       comment,
       customDate,
-      side
+      side,
+      customCurrency
     } = this.state;
 
     if (!amount) {
@@ -205,8 +208,7 @@ class Add extends React.Component<IAddProps, IAddState> {
 
     const creationDate = customDate.valueOf() || new Date().getTime();
     const amountToSave = (side === SideEnum.Income ? -1 : 1) * numeral(amount).value();
-
-    this.props.addExpense({
+    const expense = {
       id: `${new Date().getTime()}`,
       amount: amountToSave,
       category: selectedCategory.title,
@@ -215,7 +217,38 @@ class Add extends React.Component<IAddProps, IAddState> {
       updatedAt: creationDate,
       color: selectedCategory.color,
       comments: comment
-    });
+    };
+
+    if (customCurrency && baseCurrency.code !== customCurrency.code) {
+      getCurrencyRate(baseCurrency, customCurrency).then((rate: number) => {
+        const amountInBaseCurrency = amountToSave * rate;
+        Alert.alert(
+          'Confirm the echange rate',
+          `${customCurrency.code} ${formatAmount(amountToSave)} ≈ ${baseCurrency.code} ${formatAmount(amountInBaseCurrency)}`,
+          [
+            {
+              text: 'Accept', onPress: () => {
+                this.doSave({ ...expense, amount: amountInBaseCurrency });
+              }
+            },
+            {
+              text: 'Cancel',
+              onPress: () => { },
+              style: 'cancel'
+            }
+          ],
+          { cancelable: false }
+        );
+      }).catch(() => {
+        alert(`Live currency conversion is unavailable right now. Please input the amount in ${baseCurrency.code}`);
+      });
+    } else {
+      this.doSave(expense);
+    }
+  };
+
+  private doSave = (expense: IExpense) => {
+    this.props.addExpense(expense);
 
     this.reset();
   };
@@ -224,13 +257,13 @@ class Add extends React.Component<IAddProps, IAddState> {
     this.setState(this.getEmptyState());
   }
 
-  private getEmptyState = () => {
+  private getEmptyState = (): IAddState => {
     return {
       amount: '',
       selectedCategory: undefined,
       selectedSubCategory: '',
       openModal: undefined,
-      currency: this.props.baseCurrency,
+      customCurrency: this.props.baseCurrency,
       comment: undefined,
       customDate: moment(),
       side: SideEnum.Expense

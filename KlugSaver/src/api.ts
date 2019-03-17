@@ -1,11 +1,7 @@
 import axios from 'axios';
 import { Buffer } from 'buffer';
-
-export const postExpense = (data: any) => axios({
-  method: 'post',
-  url: 'https://9so0o0nevi.execute-api.ap-southeast-1.amazonaws.com/prod/expense',
-  data
-});
+import Config from 'react-native-config';
+import { ICurrency } from './typings';
 
 export const getExpenses = ({ from }: any) => axios({
   method: 'get',
@@ -13,11 +9,6 @@ export const getExpenses = ({ from }: any) => axios({
   params: {
     from
   }
-});
-
-export const removeExpense = (id: string) => axios({
-  method: 'delete',
-  url: `https://9so0o0nevi.execute-api.ap-southeast-1.amazonaws.com/prod/expense/${id}`
 });
 
 export const getArchiveContents = (filePath: string, token: string) => {
@@ -48,5 +39,21 @@ export function putArchiveContents(filePath: string, textContents: any, token: s
       })
     },
     data: buff
+  });
+}
+
+export const getCurrencyRate = (baseCurrency: ICurrency, currency: ICurrency) => {
+  const ccyPair = `${currency.code}_${baseCurrency.code}`;
+
+  return axios({
+    method: 'GET',
+    url: 'https://free.currencyconverterapi.com/api/v6/convert',
+    params: {
+      q: ccyPair,
+      compact: 'ultra',
+      apiKey: Config.REACT_APP_CCY_CONVERTER_KEY
+    }
+  }).then((response: any) => {
+    return response.data[ccyPair]
   });
 }

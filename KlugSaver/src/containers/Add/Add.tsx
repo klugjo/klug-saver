@@ -184,7 +184,14 @@ class Add extends React.Component<IAddProps, IAddState> {
   }
 
   private onSave = () => {
-    const { amount, selectedCategory, selectedSubCategory } = this.state;
+    const {
+      amount,
+      selectedCategory,
+      selectedSubCategory,
+      comment,
+      customDate,
+      side
+    } = this.state;
 
     if (!amount) {
       alert('Enter an amount');
@@ -196,17 +203,18 @@ class Add extends React.Component<IAddProps, IAddState> {
       return;
     }
 
-    const creationDate = this.state.customDate.valueOf() || new Date().getTime();
+    const creationDate = customDate.valueOf() || new Date().getTime();
+    const amountToSave = (side === SideEnum.Income ? -1 : 1) * numeral(amount).value();
 
     this.props.addExpense({
       id: `${new Date().getTime()}`,
-      amount: numeral(amount).value(),
+      amount: amountToSave,
       category: selectedCategory.title,
       subCategory: selectedSubCategory,
       createdAt: creationDate,
       updatedAt: creationDate,
       color: selectedCategory.color,
-      comments: this.state.comment
+      comments: comment
     });
 
     this.reset();

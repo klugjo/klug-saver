@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { KSAmountText } from '../../../components/KSAmountText';
 import { textStyleThin } from '../../../theme/styles';
-import { withTheme } from '../../../theme/withTheme';
 import { IExpense, IThemeConstants } from '../../../typings';
+import { withTheme } from '../../ThemeProvider/withTheme';
 
 export interface IExpenseRowProps {
   item: IExpense;

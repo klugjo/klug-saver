@@ -3,8 +3,8 @@ import { Alert, FlatList, KeyboardAvoidingView, Modal, NativeSyntheticEvent, Sty
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import KSIconPicker from '../../../../components/KSIconPicker';
 import { ThemeType } from '../../../../constants/common';
-import { withTheme } from '../../../../theme/withTheme';
 import { ICategory, IThemeConstants } from '../../../../typings';
+import { withTheme } from '../../../ThemeProvider/withTheme';
 
 const ADD_BUTTON = 'ADD_BUTTON';
 

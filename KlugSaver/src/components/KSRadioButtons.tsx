@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { withTheme } from '../containers/ThemeProvider/withTheme';
 import { textStyleBase } from '../theme/styles';
-import { withTheme } from '../theme/withTheme';
 import { IThemeConstants } from '../typings';
 
 interface IKSRadioButtonsItem {

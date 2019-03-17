@@ -1,8 +1,8 @@
 import { unitOfTime } from 'moment';
 import React from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
-import { withTheme } from '../../../theme/withTheme';
 import { IThemeConstants } from '../../../typings';
+import { withTheme } from '../../ThemeProvider/withTheme';
 import { PeriodFilterType } from '../Root';
 
 

@@ -3,8 +3,8 @@ import { StyleSheet, TextInput, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { KSButton } from '../../../../components';
 import { KSModal } from '../../../../components/KSModal';
-import { withTheme } from '../../../../theme/withTheme';
 import { IThemeConstants } from '../../../../typings';
+import { withTheme } from '../../../ThemeProvider/withTheme';
 
 export interface ICommentsModalProps {
   open: boolean;

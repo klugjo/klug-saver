@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableHighlight } from 'react-native';
-import { withTheme } from '../theme/withTheme';
+import { withTheme } from '../containers/ThemeProvider/withTheme';
 import { IThemeConstants } from '../typings';
 
 interface IKSButtonProps {

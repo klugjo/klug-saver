@@ -1,7 +1,7 @@
 import React from 'React';
 import { StyleSheet, View } from 'react-native';
-import { withTheme } from '../../theme/withTheme';
 import { ICategoryMap, IExpense, IThemeConstants } from '../../typings';
+import { withTheme } from '../ThemeProvider/withTheme';
 import Breakdown from './Components/Breakdown';
 import { CategoryFilterHeader } from './Components/CategoryFilterHeader';
 import { GrandTotal } from './Components/GrandTotal';

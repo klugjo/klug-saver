@@ -6,9 +6,9 @@ import IconAlt from 'react-native-vector-icons/MaterialIcons';
 import { KSButton } from '../../../../components';
 import { KSModal } from '../../../../components/KSModal';
 import { textStyleHeader } from '../../../../theme/styles';
-import { withTheme } from '../../../../theme/withTheme';
 import { IThemeConstants } from '../../../../typings';
 import { toddMMMForHumans } from '../../../../util';
+import { withTheme } from '../../../ThemeProvider/withTheme';
 
 export interface IDateModalProps {
   open: boolean;

@@ -1,9 +1,9 @@
 import numeral from 'numeral';
 import React from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
-import { withTheme } from '../../../theme/withTheme';
 import { ICurrency, IThemeConstants } from '../../../typings';
 import { formatAmount } from '../../../util';
+import { withTheme } from '../../ThemeProvider/withTheme';
 
 export interface IAmountDisplayProps {
   amount?: string;

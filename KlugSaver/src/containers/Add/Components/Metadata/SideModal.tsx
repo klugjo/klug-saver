@@ -3,8 +3,8 @@ import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { KSModal } from '../../../../components/KSModal';
 import { textStyleHeader } from '../../../../theme/styles';
-import { withTheme } from '../../../../theme/withTheme';
 import { IThemeConstants, SideEnum } from '../../../../typings';
+import { withTheme } from '../../../ThemeProvider/withTheme';
 
 export interface ISideModalProps {
   open: boolean;

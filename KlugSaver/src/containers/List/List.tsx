@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, SectionList, StyleSheet, View } from 'react-native';
-import { withTheme } from '../../theme/withTheme';
 import { IExpense, IThemeConstants } from '../../typings';
 import { getRefreshDate, toddMMMForHumans } from '../../util';
+import { withTheme } from '../ThemeProvider/withTheme';
 import ExpenseRow from './Components/ExpenseRow';
 import SectionHeader from './Components/SectionHeader';
 

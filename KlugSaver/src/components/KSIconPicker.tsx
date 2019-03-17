@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ICONS } from '../constants/icons';
-import { withTheme } from '../theme/withTheme';
+import { withTheme } from '../containers/ThemeProvider/withTheme';
 import { IThemeConstants } from '../typings';
 import { KSModal } from './KSModal';
 

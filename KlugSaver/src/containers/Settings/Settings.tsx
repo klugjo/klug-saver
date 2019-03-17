@@ -1,10 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ThemeType } from '../../constants/common';
-import darkTheme from '../../theme/dark';
-import lightTheme from '../../theme/light';
-import { withTheme } from '../../theme/withTheme';
 import { CloudBackup, IThemeConstants } from '../../typings';
+import { withTheme } from '../ThemeProvider/withTheme';
 import { BackupStrategy } from './Components/BackupStrategy';
 import DropboxModal from './Components/DropboxModal';
 import { SyncingButtons } from './Components/SyncingButtons';
@@ -87,7 +85,7 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
   private changeTheme = (theme: ThemeType) => {
     const { setTheme, changeTheme } = this.props;
 
-    setTheme(theme === ThemeType.Light ? lightTheme : darkTheme);
+    // setTheme(theme === ThemeType.Light ? lightTheme : darkTheme);
     changeTheme(theme);
   }
 }

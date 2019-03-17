@@ -5,8 +5,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './src/configureStore';
 import DeleteModal from './src/containers/DeleteModal';
 import Swiper from './src/containers/Swiper';
-import ThemeProvider from './src/theme/ThemeProvider';
-import { withTheme } from './src/theme/withTheme';
+import ThemeProvider from './src/containers/ThemeProvider';
+import { withTheme } from './src/containers/ThemeProvider/withTheme';
 import { IThemeConstants } from './src/typings';
 
 const MainView = withTheme(({ theme }: { theme: IThemeConstants }) =>

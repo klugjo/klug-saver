@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { withTheme } from '../containers/ThemeProvider/withTheme';
 import { textStyleBase } from '../theme/styles';
-import { withTheme } from '../theme/withTheme';
 import { IThemeConstants } from '../typings';
 
 export interface IKSCardProps {

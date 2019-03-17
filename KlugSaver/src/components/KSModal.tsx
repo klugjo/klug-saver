@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Modal, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { withTheme } from '../theme/withTheme';
+import { withTheme } from '../containers/ThemeProvider/withTheme';
 import { IThemeConstants } from '../typings';
 
 export interface IKSModalProps {

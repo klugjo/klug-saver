@@ -2,9 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { KSAmountText } from '../../../components/KSAmountText';
 import { textStyleBase } from '../../../theme/styles';
-import { withTheme } from '../../../theme/withTheme';
 import { IExpense, IThemeConstants } from '../../../typings';
 import { sum } from '../../../util';
+import { withTheme } from '../../ThemeProvider/withTheme';
 
 export interface ISectionHeaderProps {
   section: {

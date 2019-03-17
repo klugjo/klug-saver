@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { KSButton } from '../../../components';
 import { KSCard } from '../../../components/KSCard';
-import { withTheme } from '../../../theme/withTheme';
 import { CloudBackup, IThemeConstants } from '../../../typings';
+import { withTheme } from '../../ThemeProvider/withTheme';
 
 export interface ISyncingButtonsProps {
   cloudBackup: CloudBackup;

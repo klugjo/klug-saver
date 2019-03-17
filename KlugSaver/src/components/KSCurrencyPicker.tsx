@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { CURRENCIES_ARRAY } from '../constants/currencies';
 import { flags } from '../constants/flags';
-import { withTheme } from '../theme/withTheme';
+import { withTheme } from '../containers/ThemeProvider/withTheme';
 import { ICurrency, IThemeConstants } from '../typings';
 import { KSModal } from './KSModal';
 

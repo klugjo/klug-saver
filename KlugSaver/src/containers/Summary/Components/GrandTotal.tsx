@@ -3,9 +3,9 @@ import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { KSAmountText } from '../../../components/KSAmountText';
 import { textStyleHeader, textStyleThin } from '../../../theme/styles';
-import { withTheme } from '../../../theme/withTheme';
 import { IExpense, IThemeConstants } from '../../../typings';
 import { sum } from '../../../util';
+import { withTheme } from '../../ThemeProvider/withTheme';
 
 
 export interface IGrandTotalProps {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { withTheme } from '../../../../theme/withTheme';
 import { ICategory, IThemeConstants } from '../../../../typings';
+import { withTheme } from '../../../ThemeProvider/withTheme';
 
 export interface IMainCategoriesPicker {
   selectedCategory?: ICategory;

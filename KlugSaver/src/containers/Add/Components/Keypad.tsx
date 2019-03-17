@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { KSButton } from '../../../components';
-import { withTheme } from '../../../theme/withTheme';
 import { IThemeConstants } from '../../../typings';
+import { withTheme } from '../../ThemeProvider/withTheme';
 import { openModalEnum } from '../Add';
 
 

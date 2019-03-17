@@ -1,9 +1,9 @@
 import React from 'react';
 import { Modal, StyleSheet, Text, View } from 'react-native';
 import { KSButton } from '../../components';
-import { withTheme } from '../../theme/withTheme';
 import { ICurrency, IExpense, IThemeConstants } from '../../typings';
 import { getRefreshDate } from '../../util';
+import { withTheme } from '../ThemeProvider/withTheme';
 
 export interface IDeleteModalProps {
   open: boolean;

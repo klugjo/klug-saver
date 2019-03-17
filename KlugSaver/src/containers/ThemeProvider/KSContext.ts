@@ -1,6 +1,6 @@
 import React from 'react';
-import { IThemeConstants } from '../typings';
-import lightTheme from './light';
+import lightTheme from '../../theme/light';
+import { IThemeConstants } from '../../typings';
 
 export interface IKSContext {
   theme: IThemeConstants;

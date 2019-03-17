@@ -1,5 +1,5 @@
-import { IThemeConstants } from '../typings';
 import { ThemeType } from '../constants/common';
+import { IThemeConstants } from '../typings';
 
 const theme: IThemeConstants = {
   backgroundMainColor: '#FFFFFF',
@@ -10,7 +10,8 @@ const theme: IThemeConstants = {
   underlayColor: '#DDD',
   fontMain: 'Helvetica',
   fontThin: 'Helvetica-Light',
-  type: ThemeType.Light
+  type: ThemeType.Light,
+  barStyle: "dark-content"
 };
 
 export default theme;

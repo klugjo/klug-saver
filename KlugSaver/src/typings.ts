@@ -1,3 +1,4 @@
+import { StatusBarStyle } from "react-native";
 import { ThemeType } from "./constants/common";
 
 export interface IThemeConstants {
@@ -10,6 +11,7 @@ export interface IThemeConstants {
   fontThin: string;
   underlayColor: string;
   type: ThemeType;
+  barStyle: StatusBarStyle;
 }
 
 export interface ICategory {

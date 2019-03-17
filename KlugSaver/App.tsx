@@ -12,7 +12,7 @@ import { IThemeConstants } from './src/typings';
 const MainView = withTheme(({ theme }: { theme: IThemeConstants }) =>
   <View style={styles(theme).container}>
     <StatusBar
-      barStyle="dark-content"
+      barStyle={theme.barStyle}
     />
     <Swiper />
     <DeleteModal />

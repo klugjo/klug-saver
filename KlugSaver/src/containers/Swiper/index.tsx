@@ -1,11 +1,10 @@
 import React from 'react';
-import Swiper from 'react-native-swiper';
 import { StyleSheet, View } from 'react-native';
-
+import Swiper from 'react-native-swiper';
 import Add from '../Add';
 import List from '../List';
-import Summary from '../Summary';
 import Settings from '../Settings';
+import Summary from '../Summary';
 
 export default class Root extends React.Component {
   render() {
@@ -15,9 +14,6 @@ export default class Root extends React.Component {
       showsPagination={false}
     >
       <View style={styles.screen}>
-        <Settings />
-      </View>
-      <View style={styles.screen}>
         <Add />
       </View>
       <View style={styles.screen}>
@@ -25,6 +21,9 @@ export default class Root extends React.Component {
       </View>
       <View style={styles.screen}>
         <Summary />
+      </View>
+      <View style={styles.screen}>
+        <Settings />
       </View>
     </Swiper>;
   }

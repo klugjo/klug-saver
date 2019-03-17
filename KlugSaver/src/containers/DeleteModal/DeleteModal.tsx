@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, StyleSheet, Text, View } from 'react-native';
 import { KSButton } from '../../components';
 import { withTheme } from '../../theme/withTheme';
-import { IExpense, IThemeConstants } from '../../typings';
+import { ICurrency, IExpense, IThemeConstants } from '../../typings';
 import { getRefreshDate } from '../../util';
 
 export interface IDeleteModalProps {
@@ -11,15 +11,18 @@ export interface IDeleteModalProps {
   onClose?: () => void;
   onDelete?: (id: string, from: Date) => void;
   theme: IThemeConstants;
+  baseCurrency: ICurrency;
 }
 
 class DeleteModal extends React.Component<IDeleteModalProps, {}> {
   public render() {
-    const { open, expense, theme } = this.props;
+    const { open, expense, theme, baseCurrency } = this.props;
 
     if (!expense) {
       return null;
     }
+
+    const ccy = expense.customCurrency ? expense.customCurrency.code : baseCurrency.code;
 
     return (
       <Modal
@@ -36,9 +39,14 @@ class DeleteModal extends React.Component<IDeleteModalProps, {}> {
           </View>
           <View style={styles(theme).labelContainer}>
             <Text style={styles(theme).messageText}>
-              SGD {expense.amount}
+              {ccy} {expense.amount}
             </Text>
           </View>
+          {expense.comments && <View style={styles(theme).labelContainer}>
+            <Text style={styles(theme).messageText}>
+              ({expense.comments})
+            </Text>
+          </View>}
 
           <View style={styles(theme).buttons}>
             <KSButton

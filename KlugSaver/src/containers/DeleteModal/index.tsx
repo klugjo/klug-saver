@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import { closeDeleteModal, deleteExpense } from '../../actions';
 import { MODALS } from '../../constants/common';
-import { IExpense, IMainState } from '../../typings';
+import { ICurrency, IExpense, IMainState } from '../../typings';
 import DeleteModal from './DeleteModal';
-
 
 interface IStateProps {
   open: boolean;
   expense?: IExpense;
+  baseCurrency: ICurrency;
 }
 
 interface IDispatchProps {
@@ -18,7 +18,8 @@ interface IDispatchProps {
 const mapStateToProps = (state: IMainState): IStateProps => {
   return {
     open: state.openModal === MODALS.DELETE,
-    expense: state.expenseToDelete
+    expense: state.expenseToDelete,
+    baseCurrency: state.baseCurrency
   };
 };
 

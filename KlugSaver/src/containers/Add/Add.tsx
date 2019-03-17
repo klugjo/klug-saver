@@ -205,7 +205,8 @@ class Add extends React.Component<IAddProps, IAddState> {
       subCategory: selectedSubCategory,
       createdAt: creationDate,
       updatedAt: creationDate,
-      color: selectedCategory.color
+      color: selectedCategory.color,
+      comments: this.state.comment
     });
 
     this.reset();

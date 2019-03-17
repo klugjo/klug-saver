@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { KSAmountText } from '../../../components/KSAmountText';
 import { textStyleHeader, textStyleThin } from '../../../theme/styles';
 import { withTheme } from '../../../theme/withTheme';
 import { IExpense, IThemeConstants } from '../../../typings';
-import { formatAmount, sum } from '../../../util';
+import { sum } from '../../../util';
 
 
 export interface IGrandTotalProps {
@@ -29,9 +30,10 @@ const GrandTotalBase = ({ expenses, label, isBeforeHidden, isNextHidden, onBefor
         </TouchableHighlight>
     }
     <View style={styles(theme).amountView}>
-      <Text style={styles(theme).amountText}>
-        {formatAmount(total)}
-      </Text>
+      <KSAmountText
+        textStyle={styles(theme).amountText}
+        amount={total}
+      />
       <Text style={styles(theme).datesText}>
         {label}
       </Text>

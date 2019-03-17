@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { KSAmountText } from '../../../components/KSAmountText';
 import { textStyleBase } from '../../../theme/styles';
 import { withTheme } from '../../../theme/withTheme';
 import { IExpense, IThemeConstants } from '../../../typings';
-import { formatAmount } from '../../../util';
 import { getTotals, getTotalsForCategory } from '../helpers';
 
 
@@ -52,7 +52,10 @@ const renderTotals = (onFilterChange: (categoryTitle: string) => void, theme: IT
     onPress={() => onFilterChange(t.title)}
     underlayColor={theme.backgroundMainColor}
   >
-    <Text style={styles(theme).totalText}>{formatAmount(t.total)}</Text>
+    <KSAmountText
+      textStyle={styles(theme).totalText}
+      amount={t.total}
+    />
   </TouchableHighlight>
 );
 

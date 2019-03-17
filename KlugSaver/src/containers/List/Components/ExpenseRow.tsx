@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { KSAmountText } from '../../../components/KSAmountText';
 import { textStyleThin } from '../../../theme/styles';
 import { withTheme } from '../../../theme/withTheme';
 import { IExpense, IThemeConstants } from '../../../typings';
-import { formatAmount } from '../../../util';
 
 export interface IExpenseRowProps {
   item: IExpense;
@@ -20,7 +20,7 @@ const ExpenseRow = ({ item, openDeleteModal, theme }: IExpenseRowProps) => (
       <View style={[styles(theme).rowColorView, { backgroundColor: item.color }]} />
       <Text style={styles(theme).descriptionText}>{item.category}</Text>
       <Text style={styles(theme).subDescriptionText}>{item.subCategory}</Text>
-      <Text style={styles(theme).amountText}>{formatAmount(item.amount)}</Text>
+      <KSAmountText textStyle={styles(theme).amountText} amount={item.amount} />
     </View>
   </TouchableHighlight>
 );
@@ -40,7 +40,7 @@ const styles = (theme: IThemeConstants) => StyleSheet.create({
   },
   amountText: {
     ...textStyleThin(theme),
-    width: 60,
+    width: 80,
     textAlign: 'right'
   },
   descriptionText: {

@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { KSAmountText } from '../../../components/KSAmountText';
 import { textStyleBase } from '../../../theme/styles';
 import { withTheme } from '../../../theme/withTheme';
 import { IExpense, IThemeConstants } from '../../../typings';
-import { formatAmount, sum } from '../../../util';
+import { sum } from '../../../util';
 
 export interface ISectionHeaderProps {
   section: {
@@ -18,9 +19,10 @@ const SectionHeader = ({ section, theme }: ISectionHeaderProps) => (
     <Text style={styles(theme).headerRowText}>
       {section.title}
     </Text>
-    <Text style={styles(theme).headerAmountText}>
-      {formatAmount(sum(section.data, (d: IExpense) => d.amount))}
-    </Text>
+    <KSAmountText
+      textStyle={styles(theme).headerAmountText}
+      amount={sum(section.data, (d: IExpense) => d.amount)}
+    />
   </View>
 );
 

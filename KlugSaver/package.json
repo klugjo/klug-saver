@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "react-native run-ios --simulator=\"iPhone 6s\"",
+    "start": "react-native run-ios",
     "clean": "xcrun simctl erase all",
     "test": "jest"
   },

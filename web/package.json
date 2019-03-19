@@ -1,0 +1,34 @@
+{
+  "name": "klug-saver-web",
+  "version": "1.0.0",
+  "description": "Public site for Klug Saver app",
+  "main": "index.js",
+  "scripts": {
+    "autoprefixer": "postcss -u autoprefixer -r build/assets/css/*.css",
+    "scss": "node-sass --output-style expanded --indent-width 4 -o build/assets/css src/assets/sass",
+    "copyassets": "copyfiles -u 1 -e \"*.scss\" \"./src/assets/**/*\" build/",
+    "copyhtml": "copyfiles -u 1 src/index.html build/",
+    "copyimages": "copyfiles -u 1 \"src/images/**/*\" build/",
+    "serve": "browser-sync start --server --files \"build/**/*\" --startPath build",
+    "build:css": "npm run scss && npm run autoprefixer",
+    "build:assets": "npm run copyassets && npm run copyhtml && npm run copyimages",
+    "build:all": "npm run build:css && npm run build:assets",
+    "watch:css": "onchange \"src/assets/scss\" -- npm run build:css",
+    "watch:assets": "onchange \"src/assets\" -- npm run build:assets",
+    "watch:all": "npm-run-all -p serve watch:css watch:assets",
+    "clean": "rimraf build",
+    "start": "npm run clean && npm run build:all && npm run watch:all"
+  },
+  "author": "Klughertz Jonathan <klughertz.j@gmail.com> (http://klugjo.github.io/)",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^9.5.0",
+    "browser-sync": "^2.26.3",
+    "copyfiles": "^2.1.0",
+    "node-sass": "^4.11.0",
+    "npm-run-all": "^4.1.5",
+    "onchange": "^5.2.0",
+    "postcss-cli": "^6.1.2",
+    "rimraf": "^2.6.3"
+  }
+}

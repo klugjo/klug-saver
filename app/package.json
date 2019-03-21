@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "react-native run-ios --simulator=\"iPhone 6s\"",
+    "start": "react-native run-ios --simulator=\"iPhone 8 Plus\"",
     "clean": "xcrun simctl erase all",
-    "test": "jest"
+    "test": "jest",
+    "ios-devices": "xcrun simctl list devices"
   },
   "dependencies": {
     "@types/numeral": "0.0.25",

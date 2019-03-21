@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Modal, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Modal, SafeAreaView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { withTheme } from '../containers/ThemeProvider/withTheme';
 import { IThemeConstants } from '../typings';
@@ -24,15 +24,17 @@ const KSModalBase = ({ open, close, title, children, containerStyle, theme }: IK
       transparent={false}
       visible={open}
     >
-      <View style={[styles(theme).container, containerStyle]}>
-        <View style={styles(theme).backButtonContainer}>
-          <TouchableHighlight onPress={close}>
-            <Icon name="chevron-down" size={30} color={theme.underlayColor} />
-          </TouchableHighlight>
-          <Text style={styles(theme).titleText}>{title}</Text>
+      <SafeAreaView style={styles(theme).safeArea}>
+        <View style={[styles(theme).container, containerStyle]}>
+          <View style={styles(theme).backButtonContainer}>
+            <TouchableHighlight onPress={close}>
+              <Icon name="chevron-down" size={30} color={theme.underlayColor} />
+            </TouchableHighlight>
+            <Text style={styles(theme).titleText}>{title}</Text>
+          </View>
+          {children}
         </View>
-        {children}
-      </View>
+      </SafeAreaView>
     </Modal>
   );
 }
@@ -40,10 +42,14 @@ const KSModalBase = ({ open, close, title, children, containerStyle, theme }: IK
 export const KSModal = withTheme(KSModalBase);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: theme.backgroundMainColor
+  },
   container: {
     flex: 1,
     alignItems: 'stretch',
-    paddingTop: 30,
+    paddingTop: 20,
     paddingHorizontal: 15,
     backgroundColor: theme.backgroundMainColor
   },

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StatusBar, StyleSheet, View } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './src/configureStore';
@@ -10,13 +10,13 @@ import { withTheme } from './src/containers/ThemeProvider/withTheme';
 import { IThemeConstants } from './src/typings';
 
 const MainView = withTheme(({ theme }: { theme: IThemeConstants }) =>
-  <View style={styles(theme).container}>
+  <SafeAreaView style={styles(theme).container}>
     <StatusBar
       barStyle={theme.barStyle}
     />
     <Swiper />
     <DeleteModal />
-  </View>
+  </SafeAreaView>
 );
 
 export default class App extends Component<{}, {}> {
@@ -35,7 +35,6 @@ export default class App extends Component<{}, {}> {
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   container: {
-    paddingTop: 15,
     flex: 1,
     backgroundColor: theme.backgroundMainColor
   }

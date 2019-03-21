@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, StyleSheet, Text, View } from 'react-native';
+import { Modal, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { KSButton } from '../../components';
 import { ICurrency, IExpense, IThemeConstants } from '../../typings';
 import { getRefreshDate } from '../../util';
@@ -31,7 +31,7 @@ class DeleteModal extends React.Component<IDeleteModalProps, {}> {
         visible={open && !!expense}
         onRequestClose={this.onClose}
       >
-        <View style={styles(theme).container}>
+        <SafeAreaView style={styles(theme).container}>
           <View style={styles(theme).labelContainer}>
             <Text style={styles(theme).messageText}>
               {expense.category} - {expense.subCategory}
@@ -58,7 +58,7 @@ class DeleteModal extends React.Component<IDeleteModalProps, {}> {
               onPress={this.onClose}
             />
           </View>
-        </View>
+        </SafeAreaView>
       </Modal>
     );
   }

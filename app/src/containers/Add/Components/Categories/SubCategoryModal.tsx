@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, FlatList, KeyboardAvoidingView, Modal, NativeSyntheticEvent, StyleSheet, Text, TextInput, TextInputFocusEventData, TouchableHighlight, View } from 'react-native';
+import { Alert, FlatList, KeyboardAvoidingView, Modal, NativeSyntheticEvent, SafeAreaView, StyleSheet, Text, TextInput, TextInputFocusEventData, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import KSIconPicker from '../../../../components/KSIconPicker';
 import { ThemeType } from '../../../../constants/common';
@@ -58,43 +58,45 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
         transparent={false}
         visible={open}
       >
-        <View style={styles(theme).container}>
-          <View style={styles(theme).backButtonContainer}>
-            <TouchableHighlight onPress={this.close}>
-              <Icon name="chevron-down" size={30} color={theme.underlayColor} />
-            </TouchableHighlight>
-            {
-              isEditing ?
-                <TouchableHighlight onPress={this.editIcon} style={styles(theme).icon}>
-                  <Icon name={icon} size={30} color={category!.color} />
-                </TouchableHighlight> :
-                <View style={styles(theme).icon}>
-                  <Icon name={category!.icon} size={30} color={category!.color} />
-                </View>
-            }
-            {
-              isEditing ?
-                <TextInput
-                  style={styles(theme).titleText}
-                  value={title}
-                  onChangeText={this.onTitleChange}
-                  keyboardAppearance="light"
-                  selectionColor={theme.textSecondaryColor}
-                  selectTextOnFocus={true}
-                /> :
-                <Text style={styles(theme).titleText}>{category!.title}</Text>
-            }
-            <TouchableHighlight onPress={this.toggleEditMode} underlayColor={theme.underlayColor}>
-              <Icon name={isEditing ? 'check-circle' : 'pencil'} size={30} color={theme.underlayColor} />
-            </TouchableHighlight>
+        <SafeAreaView style={styles(theme).safeArea}>
+          <View style={styles(theme).container}>
+            <View style={styles(theme).backButtonContainer}>
+              <TouchableHighlight onPress={this.close}>
+                <Icon name="chevron-down" size={30} color={theme.underlayColor} />
+              </TouchableHighlight>
+              {
+                isEditing ?
+                  <TouchableHighlight onPress={this.editIcon} style={styles(theme).icon}>
+                    <Icon name={icon} size={30} color={category!.color} />
+                  </TouchableHighlight> :
+                  <View style={styles(theme).icon}>
+                    <Icon name={category!.icon} size={30} color={category!.color} />
+                  </View>
+              }
+              {
+                isEditing ?
+                  <TextInput
+                    style={styles(theme).titleText}
+                    value={title}
+                    onChangeText={this.onTitleChange}
+                    keyboardAppearance="light"
+                    selectionColor={theme.textSecondaryColor}
+                    selectTextOnFocus={true}
+                  /> :
+                  <Text style={styles(theme).titleText}>{category!.title}</Text>
+              }
+              <TouchableHighlight onPress={this.toggleEditMode} underlayColor={theme.underlayColor}>
+                <Icon name={isEditing ? 'check-circle' : 'pencil'} size={30} color={theme.underlayColor} />
+              </TouchableHighlight>
+            </View>
+            {isEditing ? this.renderEditView() : this.renderNonEditView()}
+            <KSIconPicker
+              open={isIconPickerOpen}
+              close={this.closeIconPicker}
+              icon={category!.icon}
+            />
           </View>
-          {isEditing ? this.renderEditView() : this.renderNonEditView()}
-          <KSIconPicker
-            open={isIconPickerOpen}
-            close={this.closeIconPicker}
-            icon={category!.icon}
-          />
-        </View>
+        </SafeAreaView>
       </Modal>
     );
   }
@@ -298,6 +300,10 @@ class SubCategoryModal extends React.Component<ISubCategoryModalProps, ISubCateg
 export default withTheme(SubCategoryModal);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: theme.backgroundMainColor
+  },
   root: {
     flex: 1,
     flexDirection: 'row',
@@ -308,13 +314,14 @@ const styles = (theme: IThemeConstants) => StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'stretch',
-    paddingTop: 30,
+    paddingTop: 20,
     paddingHorizontal: 15,
     backgroundColor: theme.backgroundMainColor
   },
   backButtonContainer: {
     paddingBottom: 15,
     marginBottom: 10,
+    paddingRight: 15,
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomColor: theme.underlayColor,

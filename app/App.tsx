@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import KSLoading from './src/components/KSLoading';
 import { persistor, store } from './src/configureStore';
 import DeleteModal from './src/containers/DeleteModal';
 import Swiper from './src/containers/Swiper';
@@ -16,6 +17,7 @@ const MainView = withTheme(({ theme }: { theme: IThemeConstants }) =>
     />
     <Swiper />
     <DeleteModal />
+    <KSLoading isLoading={false} />
   </SafeAreaView>
 );
 

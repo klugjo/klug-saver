@@ -60,6 +60,10 @@ class Root extends React.Component<IRootProps, IRootState> {
   }
 
   private onFilterChange = (filter: string) => {
+    if (this.state.filter) {
+      return;
+    }
+
     this.setState({ filter });
   }
 

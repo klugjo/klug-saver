@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import { ThemeType } from '../../constants/common';
 import { CloudBackup, IThemeConstants } from '../../typings';
 import { withTheme } from '../ThemeProvider/withTheme';
@@ -75,6 +75,23 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
   }
 
   private restoreArchive = () => {
+    Alert.alert(
+      'Restoration',
+      'All your expenses and settings will be replaced with your backup content. This operation is not reversible.',
+      [
+        {
+          text: 'Continue', onPress: () => {
+            this.props.restoreDropboxArchive();
+          }
+        },
+        {
+          text: 'Cancel',
+          onPress: () => { },
+          style: 'cancel'
+        }
+      ],
+      { cancelable: false }
+    );
     this.props.restoreDropboxArchive();
   }
 
@@ -83,9 +100,8 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
   }
 
   private changeTheme = (theme: ThemeType) => {
-    const { setTheme, changeTheme } = this.props;
+    const { changeTheme } = this.props;
 
-    // setTheme(theme === ThemeType.Light ? lightTheme : darkTheme);
     changeTheme(theme);
   }
 }

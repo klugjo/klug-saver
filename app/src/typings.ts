@@ -49,6 +49,7 @@ export interface IMainState {
   categories: ICategory[];
   cloudBackup: CloudBackup;
   theme: ThemeType;
+  loading: boolean;
 }
 
 export interface IAction {

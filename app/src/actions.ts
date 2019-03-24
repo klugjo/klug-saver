@@ -5,6 +5,8 @@ import { getArchiveFromState } from './util';
 
 const uuid = require('uuid/v4');
 
+export const SET_LOADING = 'SET_LOADING';
+
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 
 export const addExpense = (payload: any) => ({
@@ -90,10 +92,10 @@ export const saveDropboxArchive = () => {
   return (dispatch: any, getState: () => IMainState) => {
     const state = getState();
     const { dropboxToken } = state;
-    console.log('Saving Archive');
+
+    dispatch({ type: SET_LOADING });
 
     putArchiveContents(ARCHIVE_FILE_PATH, JSON.stringify(getArchiveFromState(state)), dropboxToken!).then(() => {
-      console.log('Archive saved');
       dispatch({
         type: SAVE_DROPBOX_ARCHIVE
       });
@@ -106,6 +108,8 @@ export const GET_DROPBOX_ARCHIVE = 'GET_DROPBOX_ARCHIVE';
 export const restoreDropboxArchive = () => {
   return (dispatch: any, getState: () => any) => {
     const { dropboxToken } = getState();
+
+    dispatch({ type: SET_LOADING });
 
     getArchiveContents(ARCHIVE_FILE_PATH, dropboxToken).then((response: any) => {
       dispatch({

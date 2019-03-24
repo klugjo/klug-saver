@@ -1,9 +1,9 @@
-import { ADD_EXPENSE, GET_EXPENSE_LIST, SAVE_DROPBOX_TOKEN, OPEN_DELETE_MODAL, CLOSE_DELETE_MODAL, SAVE_CATEGORY, SAVE_BACKUP_STRATEGY, GET_DROPBOX_ARCHIVE, DELETE_EXPENSE, CHANGE_THEME } from './actions';
-import { IMainState, IExpense, IAction, CloudBackup } from './typings';
+import { ADD_EXPENSE, CHANGE_THEME, CLOSE_DELETE_MODAL, DELETE_EXPENSE, GET_DROPBOX_ARCHIVE, GET_EXPENSE_LIST, OPEN_DELETE_MODAL, SAVE_BACKUP_STRATEGY, SAVE_CATEGORY, SAVE_DROPBOX_ARCHIVE, SAVE_DROPBOX_TOKEN, SET_LOADING } from './actions';
+import { categoryList, DEFAULT_CATEGORY_COLOR } from './constants/categories';
 import { MODALS, ThemeType } from './constants/common';
 import { CURRENCIES } from './constants/currencies';
-import { categoryList, DEFAULT_CATEGORY_COLOR } from './constants/categories';
 import { getCategoryMapFromList } from './selectors';
+import { CloudBackup, IAction, IExpense, IMainState } from './typings';
 
 const DEFAULT_STATE: IMainState = {
   expenses: [],
@@ -12,7 +12,8 @@ const DEFAULT_STATE: IMainState = {
   baseCurrency: CURRENCIES.SGD,
   categories: categoryList,
   cloudBackup: CloudBackup.Phone,
-  theme: ThemeType.Light
+  theme: ThemeType.Light,
+  loading: false
 };
 
 const getExpenseList = (action: IAction, state: IMainState) => {
@@ -47,6 +48,8 @@ const deleteExpense = (action: IAction, state: IMainState): IMainState => {
 
 export default function reducer(state: IMainState = DEFAULT_STATE, action: IAction): IMainState {
   switch (action.type) {
+    case SET_LOADING:
+      return { ...state, loading: true };
     case ADD_EXPENSE:
       return { ...state, expenses: [action.payload, ...state.expenses] };
     case DELETE_EXPENSE:
@@ -64,9 +67,11 @@ export default function reducer(state: IMainState = DEFAULT_STATE, action: IActi
     case SAVE_BACKUP_STRATEGY:
       return { ...state, cloudBackup: action.payload };
     case GET_DROPBOX_ARCHIVE:
-      return { ...state, ...action.payload };
+      return { ...state, ...action.payload, loading: false };
     case CHANGE_THEME:
       return { ...state, theme: action.payload };
+    case SAVE_DROPBOX_ARCHIVE:
+      return { ...state, loading: false };
     default:
       return state;
   }

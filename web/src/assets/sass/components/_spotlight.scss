@@ -13,13 +13,11 @@
 
 		.image {
 			width: 30%;
-			border-radius: 100%;
 			margin: 0 (_size(element-margin) * 1.5) 0 0;
 			display: block;
 
 			img {
 				display: block;
-				border-radius: 100%;
 				width: 100%;
 			}
 		}

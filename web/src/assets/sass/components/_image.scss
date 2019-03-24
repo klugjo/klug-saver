@@ -125,7 +125,6 @@
 
 	@mixin color-image($p: null) {
 		.image {
-			box-shadow: 0 0 0 4px _palette($p, bg), 0 0 0 5px _palette($p, border);
 
 			&.phone {
 				box-shadow: none;

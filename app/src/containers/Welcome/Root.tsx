@@ -1,11 +1,11 @@
 import React from 'react';
 import { withTheme } from '../ThemeProvider/withTheme';
+import GettingStarted from './screens/GettingStarted';
 import Hello from './screens/Hello';
-import Tutorial from './screens/Tutorial';
 
 const SCREENS = {
   HELLO: 'HELLO',
-  TUTORIAL: 'TUTORIAL'
+  GETTING_STARTED: 'GETTING_STARTED'
 }
 
 interface IRootProps {
@@ -20,12 +20,12 @@ const screensMap: {
   [key: string]: (props: any) => JSX.Element
 } = {
   [SCREENS.HELLO]: Hello,
-  [SCREENS.TUTORIAL]: Tutorial
+  [SCREENS.GETTING_STARTED]: GettingStarted
 };
 
 const screenOrder = [
   SCREENS.HELLO,
-  SCREENS.TUTORIAL
+  SCREENS.GETTING_STARTED
 ];
 
 class Root extends React.Component<IRootProps, IRootState>{
@@ -33,7 +33,7 @@ class Root extends React.Component<IRootProps, IRootState>{
     super(props);
     this.state = {
       currentScreenIndex: 0
-    }
+    };
   }
 
   render() {

@@ -35,7 +35,11 @@ class SetCurrency extends React.Component<ISetCurrencyProps, ISetCurrencyState> 
   }
 
   openPicker = () => {
+    this.setState({ isPickerOpen: true });
+  }
 
+  closePicker = () => {
+    this.setState({ isPickerOpen: false });
   }
 
   goNext = () => {

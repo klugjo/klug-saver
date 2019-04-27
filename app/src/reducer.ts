@@ -1,4 +1,4 @@
-import { ADD_EXPENSE, CHANGE_THEME, CLOSE_DELETE_MODAL, DELETE_EXPENSE, GET_DROPBOX_ARCHIVE, GET_EXPENSE_LIST, OPEN_DELETE_MODAL, SAVE_BACKUP_STRATEGY, SAVE_CATEGORY, SAVE_DROPBOX_ARCHIVE, SAVE_DROPBOX_TOKEN, SET_LOADING } from './actions';
+import { ADD_EXPENSE, CHANGE_THEME, CLOSE_DELETE_MODAL, COMPLETE_TUTORIAL, DELETE_EXPENSE, GET_DROPBOX_ARCHIVE, GET_EXPENSE_LIST, OPEN_DELETE_MODAL, SAVE_BACKUP_STRATEGY, SAVE_CATEGORY, SAVE_DROPBOX_ARCHIVE, SAVE_DROPBOX_TOKEN, SET_BASE_CURRENCY, SET_LOADING } from './actions';
 import { categoryList, DEFAULT_CATEGORY_COLOR } from './constants/categories';
 import { MODALS, ThemeType } from './constants/common';
 import { CURRENCIES } from './constants/currencies';
@@ -9,11 +9,12 @@ const DEFAULT_STATE: IMainState = {
   expenses: [],
   openModal: '',
   expenseToDelete: undefined,
-  baseCurrency: CURRENCIES.SGD,
+  baseCurrency: CURRENCIES.EUR,
   categories: categoryList,
   cloudBackup: CloudBackup.Phone,
   theme: ThemeType.Light,
-  loading: false
+  loading: false,
+  tutorialDone: false
 };
 
 const getExpenseList = (action: IAction, state: IMainState) => {
@@ -72,6 +73,10 @@ export default function reducer(state: IMainState = DEFAULT_STATE, action: IActi
       return { ...state, theme: action.payload };
     case SAVE_DROPBOX_ARCHIVE:
       return { ...state, loading: false };
+    case SET_BASE_CURRENCY:
+      return { ...state, baseCurrency: action.payload };
+    case COMPLETE_TUTORIAL:
+      return { ...state, tutorialDone: true };
     default:
       return state;
   }

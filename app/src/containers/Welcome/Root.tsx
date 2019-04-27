@@ -1,51 +1,55 @@
 import React from 'react';
+import { ICurrency } from '../../typings';
 import { withTheme } from '../ThemeProvider/withTheme';
 import GettingStarted from './screens/GettingStarted';
 import Hello from './screens/Hello';
+import SetCurrency from './screens/SetCurrency';
 
 const SCREENS = {
   HELLO: 'HELLO',
-  GETTING_STARTED: 'GETTING_STARTED'
+  GETTING_STARTED: 'GETTING_STARTED',
+  SET_CURRENCY: 'SET_CURRENCY'
 }
 
 interface IRootProps {
-
+  baseCurrency: ICurrency;
+  setBaseCurrency: (currency: ICurrency) => void;
+  completeTutorial: () => void;
 }
 
 interface IRootState {
-  currentScreenIndex: number;
+  currentScreen: string;
 }
-
-const screensMap: {
-  [key: string]: (props: any) => JSX.Element
-} = {
-  [SCREENS.HELLO]: Hello,
-  [SCREENS.GETTING_STARTED]: GettingStarted
-};
-
-const screenOrder = [
-  SCREENS.HELLO,
-  SCREENS.GETTING_STARTED
-];
 
 class Root extends React.Component<IRootProps, IRootState>{
   constructor(props: IRootProps) {
     super(props);
     this.state = {
-      currentScreenIndex: 0
+      currentScreen: SCREENS.HELLO
     };
   }
 
   render() {
-    const { currentScreenIndex } = this.state;
-    const Comp = screensMap[screenOrder[currentScreenIndex]];
+    const { baseCurrency, setBaseCurrency, completeTutorial } = this.props;
+    const { currentScreen } = this.state;
 
-    return <Comp goNext={this.goNext} />;
+    if (currentScreen === SCREENS.HELLO) {
+      return <Hello goNext={this.goNext(SCREENS.GETTING_STARTED)} />;
+    } else if (currentScreen === SCREENS.GETTING_STARTED) {
+      return <GettingStarted goNext={this.goNext(SCREENS.SET_CURRENCY)} />;
+    } else if (currentScreen === SCREENS.SET_CURRENCY) {
+      return <SetCurrency
+        goNext={completeTutorial}
+        baseCurrency={baseCurrency}
+        setBaseCurrency={setBaseCurrency}
+      />;
+    }
+
+    return null;
   }
 
-  private goNext = () => {
-
-    this.setState({ currentScreenIndex: this.state.currentScreenIndex + 1 });
+  private goNext = (newScreen: string) => () => {
+    this.setState({ currentScreen: newScreen });
   };
 }
 

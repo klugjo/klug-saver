@@ -7,9 +7,17 @@ import Settings from '../Settings';
 import Summary from '../Summary';
 import Welcome from '../Welcome';
 
-export default class Root extends React.Component {
+interface IRootProps {
+  tutorialDone: boolean;
+}
+
+export default class Root extends React.Component<IRootProps, {}> {
   render() {
-    return <Welcome />;
+    const { tutorialDone } = this.props;
+
+    if (!tutorialDone) {
+      return <Welcome />;
+    }
 
     return <Swiper
       showsButtons={false}

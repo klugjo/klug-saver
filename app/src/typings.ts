@@ -50,6 +50,7 @@ export interface IMainState {
   cloudBackup: CloudBackup;
   theme: ThemeType;
   loading: boolean;
+  tutorialDone: boolean;
 }
 
 export interface IAction {

@@ -4,6 +4,7 @@ import Root from './Root';
 
 interface IStateProps {
   loading: boolean;
+  tutorialDone: boolean;
 }
 
 interface IDispatchProps {
@@ -11,7 +12,8 @@ interface IDispatchProps {
 
 const mapStateToProps = (state: IMainState): IStateProps => {
   return {
-    loading: state.loading
+    loading: state.loading,
+    tutorialDone: state.tutorialDone
   };
 };
 

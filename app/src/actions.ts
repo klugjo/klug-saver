@@ -1,11 +1,24 @@
 import { getArchiveContents, getExpenses, putArchiveContents } from './api';
 import { ARCHIVE_FILE_PATH, ThemeType } from './constants/common';
-import { CloudBackup, IAction, ICategory, IExpense, IMainState } from './typings';
+import { CloudBackup, IAction, ICategory, ICurrency, IExpense, IMainState } from './typings';
 import { getArchiveFromState } from './util';
 
 const uuid = require('uuid/v4');
 
 export const SET_LOADING = 'SET_LOADING';
+
+export const SET_BASE_CURRENCY = 'SET_BASE_CURRENCY';
+
+export const setBaseCurrency = (currency: ICurrency) => ({
+  type: SET_BASE_CURRENCY,
+  payload: currency
+});
+
+export const COMPLETE_TUTORIAL = 'COMPLETE_TUTORIAL';
+
+export const completeTutorial = {
+  type: COMPLETE_TUTORIAL
+};
 
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 

@@ -41,7 +41,7 @@ class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}> {
 
   private renderItem = ({ item }: { item: ICurrency }) => {
     const { currency, theme } = this.props;
-    const selectedStyle = currency.code === item.code && styles(theme).selected;
+    const selectedStyle = currency && currency.code === item.code && styles(theme).selected;
 
     return <TouchableHighlight key={item.code} onPress={this.pickCurrency(item)}>
       <View style={[styles(theme).item, selectedStyle]}>

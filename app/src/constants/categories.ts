@@ -9,8 +9,10 @@ export const categories = {
         'Lunch',
         'Dinner',
         'Office Meal',
+        'Coffee',
         'Snack',
-        'Tea'
+        'Tea',
+        'Juice'
       ],
       color: '#F8B195',
       icon: 'food'
@@ -19,7 +21,11 @@ export const categories = {
       title: 'Transport',
       subCategories: [
         'Taxi',
-        'Public Transport'
+        'Train',
+        'Car',
+        'Bicycle',
+        'Bus',
+        'Plane'
       ],
       color: '#F67280',
       icon: 'taxi'
@@ -30,7 +36,11 @@ export const categories = {
         'Groceries',
         'House',
         'Clothes',
-        'Art'
+        'Art',
+        'Shoes',
+        'Garden',
+        'DIY',
+        'Cosmetics'
       ],
       color: '#C06C84',
       icon: 'cart'
@@ -39,9 +49,10 @@ export const categories = {
       title: 'Fun',
       subCategories: [
         'Party',
-        'Activities',
-        'Cigs',
-        'Video Games'
+        'Video Games',
+        'Theater',
+        'Concert',
+        'Activities'
       ],
       color: '#6C5B7B',
       icon: 'beer'
@@ -65,12 +76,15 @@ export const categories = {
     {
       title: 'Bills',
       subCategories: [
+        'Utilities',
+        'Rent',
         'Internet',
-        'Phone',
-        'Cleaning',
-        'Internet Subscriptions',
         'Insurance',
-        'Servers'
+        'Phone',
+        'Internet Subscriptions',
+        'Cleaning',
+        'Servers',
+        'Car'
       ],
       color: '#99B898',
       icon: 'file'
@@ -79,6 +93,7 @@ export const categories = {
       title: 'Health',
       subCategories: [
         'Clinic',
+        'Dentist',
         'Spa',
         'Sport',
         'Supplements',
@@ -92,6 +107,7 @@ export const categories = {
       subCategories: [
         'Gifts',
         'Dog',
+        'Cat',
         'Misc'
       ],
       color: '#A7226E',

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { KSButton } from '../../../components';
 import KSCurrencyPicker from '../../../components/KSCurrencyPicker';
+import { textStyleBase } from '../../../theme/styles';
 import { ICurrency, IThemeConstants } from '../../../typings';
 import { withTheme } from '../../ThemeProvider/withTheme';
 import Base from './Base';
@@ -30,10 +31,10 @@ class SetCurrency extends React.Component<ISetCurrencyProps, ISetCurrencyState> 
     const { baseCurrency, theme, goNext } = this.props;
     const { isPickerOpen } = this.state;
 
-    return <Base goNext={goNext} title="Currency" >
+    return <Base goNext={goNext} title="Currency Picker" >
       <View>
-        <Text>This is the main currency.</Text>
-        <Text>You won't be able change later on.</Text>
+        <Text style={styles(theme).text}>This is the main currency.</Text>
+        <Text style={styles(theme).text}>You won't be able change later on.</Text>
         <KSButton
           onPress={this.openPicker}
           text={`${baseCurrency.code} - ${baseCurrency.name}`}
@@ -44,14 +45,15 @@ class SetCurrency extends React.Component<ISetCurrencyProps, ISetCurrencyState> 
         open={isPickerOpen}
         close={this.closePicker}
       />
-    </Base >;
+    </Base>;
   }
 
   openPicker = () => {
     this.setState({ isPickerOpen: true });
   }
 
-  closePicker = () => {
+  closePicker = (currency: ICurrency) => {
+    this.props.setBaseCurrency(currency);
     this.setState({ isPickerOpen: false });
   }
 }
@@ -69,5 +71,11 @@ const styles = (theme: IThemeConstants) => StyleSheet.create({
     borderColor: theme.underlayColor,
     padding: 10,
     marginTop: 15
+  },
+  text: {
+    ...textStyleBase(theme),
+    marginBottom: 20,
+    fontWeight: 'bold',
+    textAlign: 'center'
   }
 });

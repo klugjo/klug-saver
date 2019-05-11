@@ -13,7 +13,7 @@ export interface IGettingStartedProps {
 const GettingStartedBase = ({ goNext, theme }: IGettingStartedProps) => {
   return <Base goNext={goNext} title="Getting Started">
     <View style={styles(theme).root}>
-      <Text style={styles(theme).title}>Swipe right and left to navigate the 4 screens</Text>
+      <Text style={styles(theme).title}>Swipe left and right to navigate the 4 screens</Text>
       <Text style={styles(theme).text}>1. Add new expense screen</Text>
       <Text style={styles(theme).text}>2. List of latest expenses</Text>
       <Text style={styles(theme).text}>3. Summary and Analytics</Text>

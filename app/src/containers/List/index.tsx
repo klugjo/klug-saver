@@ -1,15 +1,13 @@
 import { connect } from 'react-redux';
-
+import { openDeleteModal } from '../../actions';
+import { IExpense, IMainState } from '../../typings';
 import List from './List';
-import { getExpenseList, openDeleteModal } from '../../actions';
-import { IMainState, IExpense } from '../../typings';
 
 interface IStateProps {
   expenses: IExpense[];
 }
 
 interface IDispatchProps {
-  getExpenses: (from: Date) => void;
   openDeleteModal: (expense: IExpense) => void;
 }
 
@@ -20,7 +18,6 @@ const mapStateToProps = (state: IMainState): IStateProps => {
 };
 
 const mapDispatchToProps = (dispatch: any): IDispatchProps => ({
-  getExpenses: (from: Date) => dispatch(getExpenseList(from)),
   openDeleteModal: (expense: IExpense) => dispatch(openDeleteModal(expense))
 });
 

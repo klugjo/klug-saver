@@ -1,14 +1,13 @@
 import React from 'react';
-import { Button, SectionList, StyleSheet, View } from 'react-native';
+import { SectionList, StyleSheet, View } from 'react-native';
 import { IExpense, IThemeConstants } from '../../typings';
-import { getRefreshDate, toddMMMForHumans } from '../../util';
+import { toddMMMForHumans } from '../../util';
 import { withTheme } from '../ThemeProvider/withTheme';
 import ExpenseRow from './Components/ExpenseRow';
 import SectionHeader from './Components/SectionHeader';
 
 export interface IListProps {
   expenses: IExpense[];
-  getExpenses: (from: Date) => any;
   openDeleteModal: (expense: IExpense) => any;
   theme: IThemeConstants;
 }
@@ -19,10 +18,6 @@ class List extends React.Component<IListProps, {}> {
 
     return (
       <View style={styles(theme).rootView}>
-        <Button
-          title="Refresh"
-          onPress={this.onRefresh}
-        />
         {this.renderList()}
       </View>
     );
@@ -60,10 +55,6 @@ class List extends React.Component<IListProps, {}> {
     ...props,
     openDeleteModal: this.props.openDeleteModal
   }} />
-
-  onRefresh = () => {
-    this.props.getExpenses(getRefreshDate());
-  }
 }
 
 export default withTheme(List);

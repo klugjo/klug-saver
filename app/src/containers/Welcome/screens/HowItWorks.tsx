@@ -17,7 +17,7 @@ const HowItWorksBase = ({ goNext, theme }: IHowItWorksProps) => {
       <Text style={styles(theme).text}>Play around with the Add expense screen to see the different options available.</Text>
       <Text style={styles(theme).text}>The categories and sub categories are editable. Just click on the pencil to get started.</Text>
       <Text style={styles(theme).text}>The Latest Expenses screen allows you to delete individual expenses if needed.</Text>
-      <Text style={styles(theme).text}>Click on Categories in the Summary Screen to see what you have spent you money on within a category.</Text>
+      <Text style={styles(theme).text}>Click on Categories in the Summary Screen to see what you have spent your money on within a category.</Text>
       <Text style={styles(theme).text}>Thank you for trying out Klug Saver ! Use the feedback button to get in touch !</Text>
     </View>
   </Base>;

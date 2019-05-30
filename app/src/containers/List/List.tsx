@@ -1,5 +1,6 @@
 import React from 'react';
-import { SectionList, StyleSheet, View } from 'react-native';
+import { SectionList, StyleSheet, Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { IExpense, IThemeConstants } from '../../typings';
 import { toddMMMForHumans } from '../../util';
 import { withTheme } from '../ThemeProvider/withTheme';
@@ -15,6 +16,17 @@ export interface IListProps {
 class List extends React.Component<IListProps, {}> {
   public render() {
     const theme = this.context;
+    const { expenses } = this.props;
+
+    if (!expenses || !expenses.length) {
+      return <View style={styles(theme).rootViewEmpty}>
+        <Text style={styles(theme).textEmpty}>The expense list is empty.</Text>
+        <Text style={styles(theme).textEmpty}>Swipe left to add your first expense.</Text>
+        <View style={styles(theme).iconEmpty}>
+          <Icon name="not-interested" size={30} color={theme.underlayColor} />
+        </View>
+      </View>
+    }
 
     return (
       <View style={styles(theme).rootView}>
@@ -61,9 +73,20 @@ export default withTheme(List);
 
 const styles = (theme: IThemeConstants) => StyleSheet.create({
   rootView: {
-    paddingBottom: 40
+    paddingTop: 20
   },
-  refreshButton: {
-    backgroundColor: '#003249'
+  rootViewEmpty: {
+    paddingTop: 40,
+    paddingHorizontal: 30,
+    width: '100%'
+  },
+  textEmpty: {
+    textAlign: 'center',
+    marginBottom: 20
+  },
+  iconEmpty: {
+    marginVertical: 40,
+    flexDirection: 'row',
+    justifyContent: 'center'
   }
 });

@@ -85,7 +85,7 @@ class Add extends React.Component<IAddProps, IAddState> {
             addDecimal={this.addDecimal}
             openModal={this.openModal}
             reset={this.reset}
-            isDateSet={!customDate.isSame(new Date(), 'day')}
+            isDateSet={customDate && !customDate.isSame(new Date(), 'day')}
             isSideExpense={side === SideEnum.Expense}
             isCommentSet={!!comment}
           />
@@ -265,7 +265,7 @@ class Add extends React.Component<IAddProps, IAddState> {
       openModal: undefined,
       customCurrency: this.props.baseCurrency,
       comment: undefined,
-      customDate: moment(),
+      customDate: undefined,
       side: SideEnum.Expense
     };
   }

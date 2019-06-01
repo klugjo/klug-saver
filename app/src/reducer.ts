@@ -52,7 +52,7 @@ export default function reducer(state: IMainState = DEFAULT_STATE, action: IActi
     case SET_LOADING:
       return { ...state, loading: true };
     case ADD_EXPENSE:
-      return { ...state, expenses: [action.payload, ...state.expenses] };
+      return { ...state, expenses: [action.payload, ...state.expenses].sort((a, b) => b.createdAt - a.createdAt) };
     case DELETE_EXPENSE:
       return deleteExpense(action, state);
     case GET_EXPENSE_LIST:

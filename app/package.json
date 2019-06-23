@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "react-native run-ios --simulator=\"iPhone 7 Plus\"",
-    "test": "jest"
+    "test": "jest",
+    "devices": "xcrun simctl list devices"
   },
   "dependencies": {
     "@types/enzyme": "^3.9.1",

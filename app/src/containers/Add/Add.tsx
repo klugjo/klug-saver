@@ -206,7 +206,7 @@ class Add extends React.Component<IAddProps, IAddState> {
       return;
     }
 
-    const creationDate = customDate.valueOf() || new Date().getTime();
+    const creationDate = customDate && customDate.valueOf() || new Date().getTime();
     const amountToSave = (side === SideEnum.Income ? -1 : 1) * numeral(amount).value();
     const expense = {
       id: `${new Date().getTime()}`,

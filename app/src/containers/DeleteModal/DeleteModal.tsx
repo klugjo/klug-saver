@@ -14,7 +14,7 @@ export interface IDeleteModalProps {
   baseCurrency: ICurrency;
 }
 
-class DeleteModal extends React.Component<IDeleteModalProps, {}> {
+export class DeleteModal extends React.Component<IDeleteModalProps, {}> {
   public render() {
     const { open, expense, theme, baseCurrency } = this.props;
 

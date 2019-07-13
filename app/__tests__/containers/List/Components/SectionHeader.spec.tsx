@@ -1,11 +1,12 @@
-import 'react-native';
-import React from 'react';
-import _ from 'lodash';
-import { View, Text } from 'react-native';
 import { shallow, ShallowWrapper } from 'enzyme';
-
-import SectionHeader, { ISectionHeaderProps } from '../../../../src/containers/List/Components/SectionHeader';
-import { expense30TransportTaxiJan02, expense20TransportTaxiJan01, expense12FoodLunchJan01 } from '../../../mocks/expenses';
+import React from 'react';
+import 'react-native';
+import { Text } from 'react-native';
+import { KSAmountText } from '../../../../src/components/KSAmountText';
+import { ThemeType } from '../../../../src/constants/common';
+import { ISectionHeaderProps, SectionHeader } from '../../../../src/containers/List/Components/SectionHeader';
+import { getTheme } from '../../../../src/theme/utils';
+import { expense12FoodLunchJan01, expense20TransportTaxiJan01, expense30TransportTaxiJan02 } from '../../../mocks/expenses';
 
 const props: ISectionHeaderProps = {
   section: {
@@ -15,7 +16,8 @@ const props: ISectionHeaderProps = {
       expense20TransportTaxiJan01,
       expense30TransportTaxiJan02
     ]
-  }
+  },
+  theme: getTheme(ThemeType.Dark)
 };
 
 describe('SectionHeader', () => {
@@ -30,6 +32,6 @@ describe('SectionHeader', () => {
   });
 
   it('renders the total', () => {
-    expect(wrapper.find(Text).at(1).prop('children')).toBe('62.00');
+    expect(wrapper.find(KSAmountText).at(0).prop('amount')).toBe(62);
   });
 });

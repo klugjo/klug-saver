@@ -1,15 +1,18 @@
-import 'react-native';
-import React from 'react';
-import _ from 'lodash';
-import { View, Text } from 'react-native';
 import { shallow, ShallowWrapper } from 'enzyme';
-
-import ExpenseRow, { IExpenseRowProps } from '../../../../src/containers/List/Components/ExpenseRow';
+import React from 'react';
+import 'react-native';
+import { Text, View } from 'react-native';
+import { KSAmountText } from '../../../../src/components/KSAmountText';
+import { ThemeType } from '../../../../src/constants/common';
+import { ExpenseRow, IExpenseRowProps } from '../../../../src/containers/List/Components/ExpenseRow';
+import { getTheme } from '../../../../src/theme/utils';
 import { expense20TransportTaxiJan01 } from '../../../mocks/expenses';
+
 
 const props: IExpenseRowProps = {
   item: expense20TransportTaxiJan01,
-  openDeleteModal: jest.fn()
+  openDeleteModal: jest.fn(),
+  theme: getTheme(ThemeType.Dark)
 };
 
 describe('ExpenseRow', () => {
@@ -20,7 +23,7 @@ describe('ExpenseRow', () => {
   });
 
   it('renders the right category color', () => {
-    expect(wrapper.find(View).at(1)).toHaveStyle('backgroundColor', '#F67280');
+    expect(wrapper.find(View).at(1)).toHaveStyle('backgroundColor', 'color');
   });
 
   it('renders the category', () => {
@@ -32,7 +35,7 @@ describe('ExpenseRow', () => {
   });
 
   it('renders the formatted amount', () => {
-    expect(wrapper.find(Text).at(2).prop('children')).toBe('20.00');
+    expect(wrapper.find(KSAmountText).at(0).prop('amount')).toBe(20);
   });
 
   it('should open the modal on press', () => {

@@ -14,7 +14,7 @@ export interface ISectionHeaderProps {
   theme: IThemeConstants;
 }
 
-const SectionHeader = ({ section, theme }: ISectionHeaderProps) => (
+export const SectionHeader = ({ section, theme }: ISectionHeaderProps) => (
   <View style={styles(theme).headerRowView}>
     <Text style={styles(theme).headerRowText}>
       {section.title}

@@ -11,7 +11,7 @@ export interface IExpenseRowProps {
   theme: IThemeConstants;
 }
 
-const ExpenseRow = ({ item, openDeleteModal, theme }: IExpenseRowProps) => (
+export const ExpenseRow = ({ item, openDeleteModal, theme }: IExpenseRowProps) => (
   <TouchableHighlight
     onPress={() => openDeleteModal(item)}
     underlayColor={theme.underlayColor}

@@ -13,7 +13,7 @@ export interface IListProps {
   theme: IThemeConstants;
 }
 
-class List extends React.Component<IListProps, {}> {
+export class List extends React.Component<IListProps, {}> {
   public render() {
     const theme = this.context;
     const { expenses } = this.props;

@@ -1,9 +1,10 @@
-import 'react-native';
-import React from 'react';
-import { View, Button, SectionList } from 'react-native';
 import { shallow, ShallowWrapper } from 'enzyme';
-
-import List, { IListProps } from '../../../src/containers/List/List';
+import React from 'react';
+import 'react-native';
+import { SectionList, View } from 'react-native';
+import { ThemeType } from '../../../src/constants/common';
+import { IListProps, List } from '../../../src/containers/List/List';
+import { getTheme } from '../../../src/theme/utils';
 import * as mockExpenses from '../../mocks/expenses';
 
 const props: IListProps = {
@@ -16,8 +17,8 @@ const props: IListProps = {
     mockExpenses.expense12FoodLunchJan03,
     mockExpenses.expense20TransportTaxiJan03
   ],
-  getExpenses: jest.fn(),
-  openDeleteModal: jest.fn()
+  openDeleteModal: jest.fn(),
+  theme: getTheme(ThemeType.Dark)
 };
 
 describe('List Containers', () => {
@@ -31,16 +32,10 @@ describe('List Containers', () => {
     expect(wrapper.find(View)).toHaveLength(1);
   });
 
-  it('should call getExpenses on Refresh Button Press', () => {
-    wrapper.find(Button).simulate('press');
-
-    expect(props.getExpenses).toHaveBeenCalled();
-  });
-
   it('should group the expenses by days', () => {
     expect(wrapper.find(SectionList).props().sections).toEqual([
       {
-        title: '01 Jan',
+        title: '01 Jan 2018',
         data: [
           mockExpenses.expense12FoodLunchJan01,
           mockExpenses.expense20TransportTaxiJan01,
@@ -48,14 +43,14 @@ describe('List Containers', () => {
         ]
       },
       {
-        title: '02 Jan',
+        title: '02 Jan 2018',
         data: [
           mockExpenses.expense15FoodBreakfastJan02,
           mockExpenses.expense30TransportTaxiJan02
         ]
       },
       {
-        title: '03 Jan',
+        title: '03 Jan 2018',
         data: [
           mockExpenses.expense12FoodLunchJan03,
           mockExpenses.expense20TransportTaxiJan03

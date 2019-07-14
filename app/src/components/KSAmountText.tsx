@@ -10,7 +10,7 @@ export interface IKSAmountTextProps {
   theme: IThemeConstants;
 };
 
-const KSAmountTextBase = ({ amount, textStyle, theme }: IKSAmountTextProps) => {
+export const KSAmountTextBase = ({ amount, textStyle, theme }: IKSAmountTextProps) => {
   let amountToDisplay: string = formatAmount(amount);
   const style = [textStyle];
 

@@ -10,7 +10,7 @@ export interface IKSCardProps {
   theme: IThemeConstants;
 };
 
-const KSCardBase = ({ text, children, theme }: IKSCardProps) => {
+export const KSCardBase = ({ text, children, theme }: IKSCardProps) => {
   return <View style={styles(theme).card}>
     <Text style={styles(theme).title}>{text}</Text>
     {children}

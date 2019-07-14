@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableHighlight } from 'react-native';
 import { withTheme } from '../containers/ThemeProvider/withTheme';
 import { IThemeConstants } from '../typings';
 
-interface IKSButtonProps {
+export interface IKSButtonProps {
   onPress: () => void;
   text: string;
   containerStyle?: any;
@@ -11,7 +11,7 @@ interface IKSButtonProps {
   theme: IThemeConstants;
 }
 
-const KSButtonBase = ({ onPress, text, textStyle, containerStyle, theme }: IKSButtonProps) => {
+export const KSButtonBase = ({ onPress, text, textStyle, containerStyle, theme }: IKSButtonProps) => {
   return <TouchableHighlight
     style={[styles(theme).root, containerStyle]}
     onPress={onPress}

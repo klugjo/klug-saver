@@ -23,7 +23,7 @@ describe('KSAmountText', () => {
     expect(wrapper.find(Text).at(0).prop('children')).toBe('+ 6,666.66');
   });
 
-  it('passes on custpm styles', () => {
+  it('passes on custom styles', () => {
     const wrapper = shallow(<KSAmountTextBase {...props} textStyle={{ width: 123 }} />);
     expect(wrapper.find(Text).at(0).prop('style')).toEqual([{ width: 123 }]);
   });

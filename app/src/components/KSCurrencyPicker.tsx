@@ -13,7 +13,7 @@ export interface IKSCurrencyPickerProps {
   theme: IThemeConstants;
 }
 
-class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}> {
+export class KSCurrencyPicker extends React.Component<IKSCurrencyPickerProps, {}> {
   public render() {
     const { open, currency, theme } = this.props;
 

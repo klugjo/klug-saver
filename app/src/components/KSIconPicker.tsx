@@ -6,7 +6,6 @@ import { withTheme } from '../containers/ThemeProvider/withTheme';
 import { IThemeConstants } from '../typings';
 import { KSModal } from './KSModal';
 
-
 export interface IKSIconPickerProps {
   open: boolean;
   icon: string;
@@ -18,7 +17,7 @@ interface IKSIconPickerState {
   searchText: string;
 }
 
-class KSIconPicker extends React.Component<IKSIconPickerProps, IKSIconPickerState> {
+export class KSIconPicker extends React.Component<IKSIconPickerProps, IKSIconPickerState> {
   constructor(props: IKSIconPickerProps) {
     super(props);
 

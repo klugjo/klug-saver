@@ -29,7 +29,7 @@ describe('KSIconPicker', () => {
     const wrapper = shallow(<KSIconPicker {...props} />);
     wrapper.setState({ searchText: 'burger' });
 
-    expect(wrapper.find(FlatList).at(0).props().data).toBe(['backburger', 'forwardburger', 'hamburger']);
+    expect(wrapper.find(FlatList).at(0).props().data).toEqual(['backburger', 'forwardburger', 'hamburger']);
   });
 
   it('Flatlist items represent currencies', () => {

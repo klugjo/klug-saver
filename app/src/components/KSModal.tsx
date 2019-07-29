@@ -13,7 +13,7 @@ export interface IKSModalProps {
   theme: IThemeConstants;
 }
 
-const KSModalBase = ({ open, close, title, children, containerStyle, theme }: IKSModalProps) => {
+export const KSModalBase = ({ open, close, title, children, containerStyle, theme }: IKSModalProps) => {
   if (!open) {
     return null;
   }

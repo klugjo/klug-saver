@@ -6,7 +6,6 @@ import { IKSButtonProps, KSButtonBase } from '../../src/components/KSButton';
 import { ThemeType } from '../../src/constants/common';
 import { getTheme } from '../../src/theme/utils';
 
-
 const props: IKSButtonProps = {
   theme: getTheme(ThemeType.Dark),
   onPress: jest.fn(),

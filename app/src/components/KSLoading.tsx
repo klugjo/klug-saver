@@ -8,7 +8,7 @@ export interface IKSLoadingProps {
   theme: IThemeConstants;
 };
 
-const KSLoadingBase = ({ theme, isLoading }: IKSLoadingProps) => {
+export const KSLoadingBase = ({ theme, isLoading }: IKSLoadingProps) => {
   if (!isLoading) {
     return null;
   }

@@ -11,7 +11,7 @@ export interface IMainCategoriesPicker {
   theme: IThemeConstants;
 }
 
-class MainCategoriesPicker extends React.Component<IMainCategoriesPicker, {}> {
+export class MainCategoriesPicker extends React.Component<IMainCategoriesPicker, {}> {
 
   renderButton = (cat: ICategory) => {
     const { selectedCategory, theme } = this.props;

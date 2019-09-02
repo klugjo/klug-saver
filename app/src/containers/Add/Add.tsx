@@ -9,7 +9,7 @@ import { ICategory, ICurrency, IExpense, IThemeConstants, SideEnum } from '../..
 import { formatAmount } from '../../util';
 import { withTheme } from '../ThemeProvider/withTheme';
 import AmountDisplay from './Components/AmountDisplay';
-import Categories from './Components/Categories/Categories';
+import Categories from './Components/Categories/MainCategoriesPicker';
 import SubCategoryModal from './Components/Categories/SubCategoryModal';
 import Keypad from './Components/Keypad';
 import { CommentsModal } from './Components/Metadata/CommentsModal';

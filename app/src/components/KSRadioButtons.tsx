@@ -17,7 +17,7 @@ export interface IKSRadioButtonsProps {
   theme: IThemeConstants;
 };
 
-const KSRadioButtonsBase = ({ items, theme }: IKSRadioButtonsProps) => {
+export const KSRadioButtonsBase = ({ items, theme }: IKSRadioButtonsProps) => {
   return <View style={styles(theme).radioButtons}>
     {items.map((item: IKSRadioButtonsItem, index: number) => (
       <TouchableHighlight

@@ -39,6 +39,11 @@ export interface IExpense {
   isCredit?: boolean;
 }
 
+export interface IAccount {
+  baseCurrency: ICurrency;
+  expenses: Array<IExpense>;
+}
+
 export interface IMainState {
   expenses: Array<IExpense>;
   dropboxToken?: string;
@@ -51,6 +56,7 @@ export interface IMainState {
   theme: ThemeType;
   loading: boolean;
   tutorialDone: boolean;
+  accounts: IAccount[];
 }
 
 export interface IAction {

@@ -1,11 +1,12 @@
-import { ADD_EXPENSE, CHANGE_THEME, CLOSE_DELETE_MODAL, COMPLETE_TUTORIAL, DELETE_EXPENSE, GET_DROPBOX_ARCHIVE, GET_EXPENSE_LIST, OPEN_DELETE_MODAL, SAVE_BACKUP_STRATEGY, SAVE_CATEGORY, SAVE_DROPBOX_ARCHIVE, SAVE_DROPBOX_TOKEN, SET_BASE_CURRENCY, SET_LOADING } from './actions';
+import _ from 'lodash';
+import { ADD_EXPENSE, CHANGE_THEME, CLOSE_DELETE_MODAL, COMPLETE_TUTORIAL, CREATE_NEW_ACCOUNT, DELETE_ACCOUNT, DELETE_EXPENSE, GET_DROPBOX_ARCHIVE, GET_EXPENSE_LIST, OPEN_DELETE_MODAL, SAVE_BACKUP_STRATEGY, SAVE_CATEGORY, SAVE_DROPBOX_ARCHIVE, SAVE_DROPBOX_TOKEN, SET_BASE_CURRENCY, SET_LOADING, SWITCH_ACCOUNT } from './actions';
 import { categoryList, DEFAULT_CATEGORY_COLOR } from './constants/categories';
 import { MODALS, ThemeType } from './constants/common';
 import { CURRENCIES } from './constants/currencies';
 import { getCategoryMapFromList } from './selectors';
-import { CloudBackup, IAction, IExpense, IMainState } from './typings';
+import { CloudBackup, IAction, ICurrency, IExpense, IMainState } from './typings';
 
-const DEFAULT_STATE: IMainState = {
+export const DEFAULT_STATE: IMainState = {
   expenses: [],
   openModal: '',
   expenseToDelete: undefined,
@@ -14,7 +15,8 @@ const DEFAULT_STATE: IMainState = {
   cloudBackup: CloudBackup.Phone,
   theme: ThemeType.Light,
   loading: false,
-  tutorialDone: false
+  tutorialDone: false,
+  accounts: []
 };
 
 const getExpenseList = (action: IAction, state: IMainState) => {
@@ -44,6 +46,60 @@ const deleteExpense = (action: IAction, state: IMainState): IMainState => {
   return {
     ...state,
     expenses: state.expenses.filter(e => e.id !== action.payload)
+  };
+};
+
+const createNewAccount = (action: IAction, state: IMainState) => {
+  const currency = action.payload as ICurrency;
+
+  if (state.accounts.find(a => a.baseCurrency.code === currency.code) || state.baseCurrency.code === currency.code) {
+    return state;
+  }
+
+  return {
+    ...state,
+    accounts: [...state.accounts, { baseCurrency: currency, expenses: [] }]
+  };
+}
+
+const deleteAccount = (action: IAction, state: IMainState) => {
+  const currency = action.payload as ICurrency;
+  const index = _.findIndex(state.accounts, a => a.baseCurrency.code === currency.code);
+
+  if (index < 0) {
+    return state;
+  }
+
+  return {
+    ...state,
+    accounts: [
+      ...state.accounts.slice(0, index),
+      ...state.accounts.slice(index + 1)
+    ]
+  };
+};
+
+const switchAccount = (action: IAction, state: IMainState) => {
+  const currency = action.payload as ICurrency;
+  const index = _.findIndex(state.accounts, a => a.baseCurrency.code === currency.code);
+
+  if (index < 0) {
+    return state;
+  }
+
+  const currentAccount = _.cloneDeep(state.accounts[index]);
+
+  const accounts = [
+    { baseCurrency: CURRENCIES[state.baseCurrency.code], expenses: _.cloneDeep(state.expenses) },
+    ...state.accounts.slice(0, index),
+    ...state.accounts.slice(index + 1)
+  ];
+
+  return {
+    ...state,
+    baseCurrency: currentAccount.baseCurrency,
+    expenses: currentAccount.expenses,
+    accounts
   };
 };
 
@@ -77,6 +133,12 @@ export default function reducer(state: IMainState = DEFAULT_STATE, action: IActi
       return { ...state, baseCurrency: action.payload };
     case COMPLETE_TUTORIAL:
       return { ...state, tutorialDone: true };
+    case CREATE_NEW_ACCOUNT:
+      return createNewAccount(action, state);
+    case DELETE_ACCOUNT:
+      return deleteAccount(action, state);
+    case SWITCH_ACCOUNT:
+      return switchAccount(action, state);
     default:
       return state;
   }

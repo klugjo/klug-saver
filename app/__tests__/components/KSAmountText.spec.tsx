@@ -6,7 +6,6 @@ import { IKSAmountTextProps, KSAmountTextBase } from '../../src/components/KSAmo
 import { ThemeType } from '../../src/constants/common';
 import { getTheme } from '../../src/theme/utils';
 
-
 const props: IKSAmountTextProps = {
   theme: getTheme(ThemeType.Dark),
   amount: 1234.56

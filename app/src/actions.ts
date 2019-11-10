@@ -132,3 +132,30 @@ export const restoreDropboxArchive = () => {
     });
   };
 };
+
+export const CREATE_NEW_ACCOUNT = 'CREATE_NEW_ACCOUNT';
+
+export const createNewAccount = (currency: ICurrency) => {
+  return {
+    type: CREATE_NEW_ACCOUNT,
+    payload: currency
+  };
+};
+
+export const DELETE_ACCOUNT = 'DELETE_CURRENT_ACCOUNT';
+
+export const deleteAccount = (currency: ICurrency) => {
+  return {
+    type: DELETE_ACCOUNT,
+    payload: currency
+  };
+};
+
+export const SWITCH_ACCOUNT = 'SWITCH_ACCOUNT';
+
+export const switchAccount = (currency: ICurrency) => {
+  return {
+    type: SWITCH_ACCOUNT,
+    payload: currency
+  };
+};

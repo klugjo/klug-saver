@@ -26,7 +26,7 @@
     "enzyme-adapter-react-16": "^1.12.1",
     "enzyme-to-json": "^3.3.5",
     "jest-fetch-mock": "^2.1.2",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "moment": "^2.24.0",
     "numeral": "^2.0.6",
     "react": "^16.8.6",

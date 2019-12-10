@@ -12,7 +12,7 @@
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/jest": "^24.0.11",
     "@types/lodash": "^4.14.123",
-    "@types/numeral": "^0.0.25",
+    "@types/numeral": "0.0.25",
     "@types/react": "^16.8.14",
     "@types/react-native": "^0.57.50",
     "@types/react-native-vector-icons": "^6.4.0",

@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './src/configureStore';
 import Root from './src/containers/Root';
 import ThemeProvider from './src/containers/ThemeProvider';
 
-export default class App extends Component<{}, {}> {
-  render() {
-    return (
+declare var global: {HermesInternal: null | {}};
+
+const App = () => {
+  return (
       <Provider store={store}>
         <ThemeProvider>
           <PersistGate loading={null} persistor={persistor}>
@@ -15,6 +16,7 @@ export default class App extends Component<{}, {}> {
           </PersistGate>
         </ThemeProvider>
       </Provider>
-    );
-  }
-}
+  );
+};
+
+export default App;

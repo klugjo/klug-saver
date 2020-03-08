@@ -38,7 +38,7 @@ interface IAddState {
   customCurrency?: ICurrency;
   openModal?: openModalEnum;
   comment?: string;
-  customDate: moment.Moment;
+  customDate?: moment.Moment;
   side: SideEnum
 }
 
@@ -55,11 +55,11 @@ class Add extends React.Component<IAddProps, IAddState> {
       selectedCategory,
       selectedSubCategory,
       openModal,
-      customCurrency,
       comment,
       customDate,
       side
     } = this.state;
+    const customCurrency = this.state.customCurrency || this.props.baseCurrency;
     const { categories, saveCategory, theme } = this.props;
 
     return (
@@ -192,17 +192,18 @@ class Add extends React.Component<IAddProps, IAddState> {
       selectedSubCategory,
       comment,
       customDate,
-      side,
-      customCurrency
+      side
     } = this.state;
 
+    const customCurrency = this.state.customCurrency || this.props.baseCurrency;
+
     if (!amount) {
-      alert('Enter an amount');
+      Alert.alert('Enter an amount');
       return;
     }
 
     if (!selectedCategory || !selectedCategory.title || !selectedSubCategory) {
-      alert('Enter a category before saving');
+      Alert.alert('Enter a category before saving');
       return;
     }
 
@@ -240,7 +241,7 @@ class Add extends React.Component<IAddProps, IAddState> {
           { cancelable: false }
         );
       }).catch(() => {
-        alert(`Live currency conversion is unavailable right now. Please input the amount in ${baseCurrency.code}`);
+        Alert.alert(`Live currency conversion is unavailable right now. Please input the amount in ${baseCurrency.code}`);
       });
     } else {
       this.doSave(expense);
@@ -263,7 +264,7 @@ class Add extends React.Component<IAddProps, IAddState> {
       selectedCategory: undefined,
       selectedSubCategory: '',
       openModal: undefined,
-      customCurrency: this.props.baseCurrency,
+      customCurrency: undefined,
       comment: undefined,
       customDate: undefined,
       side: SideEnum.Expense

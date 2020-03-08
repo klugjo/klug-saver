@@ -1,12 +1,13 @@
 import React from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { ThemeType } from '../../constants/common';
-import { CloudBackup, IThemeConstants } from '../../typings';
+import { CloudBackup, IThemeConstants, ICurrency, IAccount } from '../../typings';
 import { withTheme } from '../ThemeProvider/withTheme';
 import { BackupStrategy } from './Components/BackupStrategy';
 import DropboxModal from './Components/DropboxModal';
 import { SyncingButtons } from './Components/SyncingButtons';
 import { ThemePicker } from './Components/ThemePicker';
+import { AccountSwitch } from './Components/AccountSwitch';
 
 interface ISettingsProps {
   dropboxToken?: string;
@@ -18,6 +19,11 @@ interface ISettingsProps {
   changeTheme: (theme: ThemeType) => void; // Redux
   setTheme: (theme: IThemeConstants) => void; // Theme Provider
   theme: IThemeConstants;
+  accounts: IAccount[];
+  createNewAccount: (ccy: ICurrency) => void;
+  switchAccount: (ccy: ICurrency) => void;
+  deleteCurrentAccount: () => void;
+  baseCurrency: ICurrency;
 }
 
 interface ISettingsState {
@@ -35,7 +41,17 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
   }
 
   render() {
-    const { dropboxToken, saveDropboxToken, cloudBackup, theme } = this.props;
+    const {
+      dropboxToken,
+      saveDropboxToken,
+      cloudBackup,
+      theme,
+      baseCurrency,
+      accounts,
+      createNewAccount,
+      deleteCurrentAccount,
+      switchAccount
+    } = this.props;
     const isDropboxLinked = !!dropboxToken;
 
     return <View style={styles(theme).root}>
@@ -58,6 +74,13 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
       <ThemePicker
         theme={theme}
         changeTheme={this.changeTheme}
+      />
+      <AccountSwitch
+        baseCurrency={baseCurrency}
+        accounts={accounts}
+        createNewAccount={createNewAccount}
+        deleteCurrentAccount={deleteCurrentAccount}
+        switchAccount={switchAccount}
       />
     </View>;
   }

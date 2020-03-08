@@ -142,12 +142,11 @@ export const createNewAccount = (currency: ICurrency) => {
   };
 };
 
-export const DELETE_ACCOUNT = 'DELETE_CURRENT_ACCOUNT';
+export const DELETE_CURRENT_ACCOUNT = 'DELETE_CURRENT_ACCOUNT';
 
-export const deleteAccount = (currency: ICurrency) => {
+export const deleteCurrentAccount = () => {
   return {
-    type: DELETE_ACCOUNT,
-    payload: currency
+    type: DELETE_CURRENT_ACCOUNT
   };
 };
 

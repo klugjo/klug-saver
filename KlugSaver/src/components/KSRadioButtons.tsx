@@ -50,7 +50,9 @@ const styles = (theme: IThemeConstants) => StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
-    flex: 1
+    flex: 1,
+    borderLeftWidth: 1,
+    borderLeftColor: theme.underlayColor
   },
   buttonSelected: {
     backgroundColor: theme.accentMainColor

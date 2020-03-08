@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { ADD_EXPENSE, CHANGE_THEME, CLOSE_DELETE_MODAL, COMPLETE_TUTORIAL, CREATE_NEW_ACCOUNT, DELETE_ACCOUNT, DELETE_EXPENSE, GET_DROPBOX_ARCHIVE, GET_EXPENSE_LIST, OPEN_DELETE_MODAL, SAVE_BACKUP_STRATEGY, SAVE_CATEGORY, SAVE_DROPBOX_ARCHIVE, SAVE_DROPBOX_TOKEN, SET_BASE_CURRENCY, SET_LOADING, SWITCH_ACCOUNT } from './actions';
+import { ADD_EXPENSE, CHANGE_THEME, CLOSE_DELETE_MODAL, COMPLETE_TUTORIAL, CREATE_NEW_ACCOUNT, DELETE_CURRENT_ACCOUNT, DELETE_EXPENSE, GET_DROPBOX_ARCHIVE, GET_EXPENSE_LIST, OPEN_DELETE_MODAL, SAVE_BACKUP_STRATEGY, SAVE_CATEGORY, SAVE_DROPBOX_ARCHIVE, SAVE_DROPBOX_TOKEN, SET_BASE_CURRENCY, SET_LOADING, SWITCH_ACCOUNT } from './actions';
 import { categoryList, DEFAULT_CATEGORY_COLOR } from './constants/categories';
 import { MODALS, ThemeType } from './constants/common';
 import { CURRENCIES } from './constants/currencies';
@@ -62,20 +62,20 @@ const createNewAccount = (action: IAction, state: IMainState) => {
   };
 }
 
-const deleteAccount = (action: IAction, state: IMainState) => {
-  const currency = action.payload as ICurrency;
-  const index = _.findIndex(state.accounts, a => a.baseCurrency.code === currency.code);
-
-  if (index < 0) {
+const deleteCurentAccount = (action: IAction, state: IMainState) => {
+  if (state.accounts.length < 1) {
     return state;
   }
 
+  const currentAccount = _.cloneDeep(state.accounts[0]);
+  state.accounts.shift();
+  const accounts = _.cloneDeep(state.accounts);
+
   return {
     ...state,
-    accounts: [
-      ...state.accounts.slice(0, index),
-      ...state.accounts.slice(index + 1)
-    ]
+    baseCurrency: currentAccount.baseCurrency,
+    expenses: currentAccount.expenses,
+    accounts
   };
 };
 
@@ -135,8 +135,8 @@ export default function reducer(state: IMainState = DEFAULT_STATE, action: IActi
       return { ...state, tutorialDone: true };
     case CREATE_NEW_ACCOUNT:
       return createNewAccount(action, state);
-    case DELETE_ACCOUNT:
-      return deleteAccount(action, state);
+    case DELETE_CURRENT_ACCOUNT:
+      return deleteCurentAccount(action, state);
     case SWITCH_ACCOUNT:
       return switchAccount(action, state);
     default:

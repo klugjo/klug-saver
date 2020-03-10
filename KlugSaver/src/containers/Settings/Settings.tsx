@@ -8,6 +8,7 @@ import DropboxModal from './Components/DropboxModal';
 import { SyncingButtons } from './Components/SyncingButtons';
 import { ThemePicker } from './Components/ThemePicker';
 import { AccountSwitch } from './Components/AccountSwitch';
+import { Misc } from './Components/Misc';
 
 interface ISettingsProps {
   dropboxToken?: string;
@@ -82,6 +83,7 @@ class Settings extends React.Component<ISettingsProps, ISettingsState> {
         deleteCurrentAccount={deleteCurrentAccount}
         switchAccount={switchAccount}
       />
+      <Misc />
     </View>;
   }
 

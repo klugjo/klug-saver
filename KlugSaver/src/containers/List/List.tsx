@@ -6,6 +6,7 @@ import { toddMMMForHumans } from '../../util';
 import { withTheme } from '../ThemeProvider/withTheme';
 import ExpenseRow from './Components/ExpenseRow';
 import SectionHeader from './Components/SectionHeader';
+import { textStyleBase } from '../../theme/styles';
 
 export interface IListProps {
   expenses: IExpense[];
@@ -15,7 +16,7 @@ export interface IListProps {
 
 export class List extends React.Component<IListProps, {}> {
   public render() {
-    const theme = this.context;
+    const { theme } = this.props;
     const { expenses } = this.props;
 
     if (!expenses || !expenses.length) {
@@ -23,7 +24,7 @@ export class List extends React.Component<IListProps, {}> {
         <Text style={styles(theme).textEmpty}>The expense list is empty.</Text>
         <Text style={styles(theme).textEmpty}>Swipe left to add your first expense.</Text>
         <View style={styles(theme).iconEmpty}>
-          <Icon name="not-interested" size={30} color={theme.underlayColor} />
+          <Icon name="not-interested" size={30} color={theme.textMainColor} />
         </View>
       </View>
     }
@@ -81,6 +82,7 @@ const styles = (theme: IThemeConstants) => StyleSheet.create({
     width: '100%'
   },
   textEmpty: {
+    ...textStyleBase(theme),
     textAlign: 'center',
     marginBottom: 20
   },

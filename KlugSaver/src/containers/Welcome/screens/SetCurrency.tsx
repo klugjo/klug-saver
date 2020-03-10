@@ -31,10 +31,9 @@ class SetCurrency extends React.Component<ISetCurrencyProps, ISetCurrencyState> 
     const { baseCurrency, theme, goNext } = this.props;
     const { isPickerOpen } = this.state;
 
-    return <Base goNext={goNext} title="Currency Picker" >
+    return <Base goNext={goNext} title="" >
       <View>
-        <Text style={styles(theme).text}>This is the main currency.</Text>
-        <Text style={styles(theme).text}>You won't be able change later on.</Text>
+        <Text style={styles(theme).text}>Please pick your currency</Text>
         <KSButton
           onPress={this.openPicker}
           text={`${baseCurrency.code} - ${baseCurrency.name}`}

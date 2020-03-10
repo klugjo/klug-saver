@@ -44,7 +44,7 @@ class Root extends React.Component<IRootProps, IRootState>{
         setBaseCurrency={setBaseCurrency}
       />;
     } else if (currentScreen === SCREENS.GETTING_STARTED) {
-      return <GettingStarted goNext={this.goNext(SCREENS.HOW_IT_WORKS)} />;
+      return <GettingStarted goNext={completeTutorial} />;
     } else if (currentScreen === SCREENS.HOW_IT_WORKS) {
       return <HowItWorks goNext={completeTutorial} />;
     }

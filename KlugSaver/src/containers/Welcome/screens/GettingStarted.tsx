@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { textStyleBase } from '../../../theme/styles';
+import { textStyleHeader, textStyleThin, textStyleBase } from '../../../theme/styles';
 import { IThemeConstants } from '../../../typings';
 import { withTheme } from '../../ThemeProvider/withTheme';
 import Base from './Base';
@@ -11,13 +11,13 @@ export interface IGettingStartedProps {
 };
 
 const GettingStartedBase = ({ goNext, theme }: IGettingStartedProps) => {
-  return <Base goNext={goNext} title="Getting Started">
+  return <Base goNext={goNext} title="">
     <View style={styles(theme).root}>
-      <Text style={styles(theme).title}>Swipe left and right to navigate the 4 screens</Text>
-      <Text style={styles(theme).text}>1. Add new expense screen</Text>
-      <Text style={styles(theme).text}>2. List of latest expenses</Text>
-      <Text style={styles(theme).text}>3. Summary and Analytics</Text>
-      <Text style={styles(theme).text}>4. Backup and Settings</Text>
+      <Text style={styles(theme).title}>Swipe left and right to navigate in between the 4 screens</Text>
+      <Text style={styles(theme).text}>Add Expense Screen</Text>
+      <Text style={styles(theme).text}>List of Expenses Screen</Text>
+      <Text style={styles(theme).text}>Statistics</Text>
+      <Text style={styles(theme).text}>Backup and Settings</Text>
     </View>
   </Base>;
 };
@@ -30,12 +30,22 @@ const styles = (theme: IThemeConstants) => StyleSheet.create({
     backgroundColor: theme.backgroundMainColor
   },
   title: {
-    ...textStyleBase(theme),
-    marginBottom: 40
+    ...textStyleHeader(theme),
+    textAlign: 'center',
+    marginBottom: 40,
+    marginHorizontal: 40,
+    lineHeight: 40
+  },
+  subtitle: {
+    textAlign: 'center',
+    marginLeft: 10,
+    marginBottom: 10,
+    ...textStyleBase(theme)
   },
   text: {
+    textAlign: 'center',
     marginLeft: 10,
-    marginBottom: 20,
-    ...textStyleBase(theme)
+    marginBottom: 40,
+    ...textStyleThin(theme)
   }
 });

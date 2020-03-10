@@ -1,8 +1,9 @@
 import React from 'react';
-import { Dimensions, Image, StyleSheet } from 'react-native';
+import { Dimensions, Image, StyleSheet, View, Text } from 'react-native';
 import { IThemeConstants } from '../../../typings';
 import { withTheme } from '../../ThemeProvider/withTheme';
 import Base from './Base';
+import { textStyleBase } from '../../../theme/styles';
 
 export interface IHelloProps {
   goNext: () => {};
@@ -10,8 +11,11 @@ export interface IHelloProps {
 };
 
 const HelloBase = ({ goNext, theme }: IHelloProps) => {
-  return <Base goNext={goNext} title="Welcome">
-    <Image style={styles(theme).img} source={require('./img/welcome.png')} />
+  return <Base goNext={goNext} title="Welcome to Klug Saver">
+    <View>
+      <Image style={styles(theme).img} source={require('./img/welcome.png')} />
+      <Text style={styles(theme).text}>Track your expenses freely and anonymously</Text>
+    </View>
   </Base>;
 };
 
@@ -26,6 +30,11 @@ const styles = (theme: IThemeConstants) => {
     img: {
       maxWidth: imgWidth,
       maxHeight: imgHeight
+    },
+    text: {
+      ...textStyleBase(theme),
+      marginTop: 30,
+      textAlign: 'center'
     }
   })
 };

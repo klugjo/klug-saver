@@ -60,9 +60,6 @@ const styles = (theme: IThemeConstants) => {
       justifyContent: 'center'
     },
     button: {
-      borderWidth: 1,
-      borderRadius: 3,
-      borderColor: theme.underlayColor,
       padding: 10,
       marginTop: 15
     }

@@ -16,7 +16,7 @@
     "dropbox": "^4.0.30",
     "jest-fetch-mock": "^2.1.2",
     "lodash": "^4.17.21",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "numeral": "^2.0.6",
     "react": "16.9.0",
     "react-native": "0.62.3",

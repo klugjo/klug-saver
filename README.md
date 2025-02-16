@@ -9,4 +9,4 @@ Expense Tracker app written in React Native
 
 ## Android
 
-Help Wanted !
+Coming soon. (Help welcome)
